@@ -3,7 +3,6 @@ import CustomTag from '@/components/CustomTag';
 import Image from 'next/image';
 import React from 'react';
 import Link from 'next/link';
-import clsx from 'clsx';
 import {
   Select,
   SelectContent,
@@ -27,20 +26,19 @@ import { cn } from '@/lib/utils';
 
 const advertisements = [
   {
-    title: 'Luxury Redefined',
-    subtitle:
-      'Discover timeless elegance with our exclusive diamond collection.',
+    title: '40 % Off',
+    subtitle: ' On The Diamond Earings',
     buttonLabel: 'Shop Diamonds',
-    buttonLink: '/collections/diamonds',
-    backgroundImage: '/images/diamond-banner.jpg',
+    buttonLink: '#',
+    backgroundImage: '/img/ads/add1.png',
     align: 'left'
   },
   {
     title: 'Gold That Shines Forever',
     subtitle: 'Explore our handcrafted gold jewelry, made for every occasion.',
     buttonLabel: 'Explore Gold',
-    buttonLink: '/collections/gold',
-    backgroundImage: '/images/gold-banner.jpg',
+    buttonLink: '#',
+    backgroundImage: '/img/ads/add2.png',
     align: 'right'
   },
   {
@@ -48,8 +46,8 @@ const advertisements = [
     subtitle:
       'Make your special day shine with our stunning bridal jewelry sets.',
     buttonLabel: 'View Collection',
-    buttonLink: '/collections/bridal',
-    backgroundImage: '/images/bridal-banner.jpg',
+    buttonLink: '#',
+    backgroundImage: '/img/ads/add3.png',
     align: 'left'
   }
 ];
@@ -138,48 +136,50 @@ export default function Page() {
       <ProductsFilter />
       {/* listing components */}
       <div className='my-6 grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4'>
-        {Array.from({ length: 30 }).map((_, index) => {
-          // Mobile: Ad appears after 4th, then 6th item, repeating the pattern
+        {Array.from({ length: 50 }).map((_, index) => {
+          // Separate ad indices for different breakpoints
+          const mobileAdIndex = Math.floor(index / 2) % advertisements.length;
+          const mediumAdIndex = Math.floor(index / 6) % advertisements.length;
+          const largeAdIndex = Math.floor(index / 8) % advertisements.length;
+
+          // Get the correct ad based on the breakpoint
+          const mobileAd = advertisements[mobileAdIndex];
+          const mediumAd = advertisements[mediumAdIndex];
+          const largeAd = advertisements[largeAdIndex];
+
+          // Mobile: Ad appears after 4th, then 6th item, repeating
           const adsAfterMobile = [];
-          let adIndex = 5;
+          let adPosition = 5;
           for (let i = 0; i < 10; i++) {
-            adsAfterMobile.push(adIndex);
-            adIndex += i % 2 === 0 ? 6 : 4;
+            adsAfterMobile.push(adPosition);
+            adPosition += i % 2 === 0 ? 6 : 4;
           }
           const showMobileAd = adsAfterMobile.includes(index + 1);
 
-          // Medium Screens Ad Pattern: 6, then 8, then 6, then 8, etc.
-          const adsAfterMd = [];
-          let mdAdIndex = 7; // First ad after 6 items (index 7 in 1-based)
-          for (let i = 0; i < 10; i++) {
-            adsAfterMd.push(mdAdIndex);
-            mdAdIndex += i % 2 === 0 ? 8 : 6;
-          }
-          const showMdAd = adsAfterMd.includes(index + 1);
-
           return (
             <React.Fragment key={index}>
-              {/* Mobile View: Show ad after 4th, then 6th, then 4th, then 6th... */}
+              {/* Mobile View: Show ad after 4th, then 6th, then repeat */}
               {showMobileAd && (
                 <Advertisement
-                  title='Exclusive Deals!'
-                  subtitle='Shop the finest jewelry collections now.'
-                  buttonLabel='Shop Now'
-                  buttonLink='/shop'
-                  backgroundImage='/img/ads/add1.png'
-                  align='left'
+                  title={mobileAd.title}
+                  subtitle={mobileAd.subtitle}
+                  buttonLabel={mobileAd.buttonLabel}
+                  buttonLink={mobileAd.buttonLink}
+                  backgroundImage={mobileAd.backgroundImage}
+                  align={mobileAd.align}
                   className='col-span-2 md:hidden' // Visible only on mobile
                 />
               )}
+
               {/* Medium Screens: Show ad after every 6th, then 8th item */}
               {index > 0 && index % 6 === 0 && (
                 <Advertisement
-                  title='Exclusive Jewelry Deals!'
-                  subtitle='Timeless pieces at unbeatable prices.'
-                  buttonLabel='Shop Now'
-                  buttonLink='/shop'
-                  backgroundImage='/img/ads/add2.png'
-                  align='center'
+                  title={mediumAd.title}
+                  subtitle={mediumAd.subtitle}
+                  buttonLabel={mediumAd.buttonLabel}
+                  buttonLink={mediumAd.buttonLink}
+                  backgroundImage={mediumAd.backgroundImage}
+                  align={mediumAd.align}
                   className='hidden md:col-span-3 md:block lg:hidden' // Ensures full row width
                 />
               )}
@@ -187,12 +187,12 @@ export default function Page() {
               {/* Large Screens: Show ad after every 8th item */}
               {index > 0 && index % 8 === 0 && (
                 <Advertisement
-                  title='Luxury Awaits!'
-                  subtitle='Limited-time offers on exquisite jewelry.'
-                  buttonLabel='Discover More'
-                  buttonLink='/collections'
-                  backgroundImage='/img/ads/add1.png'
-                  align='right'
+                  title={largeAd.title}
+                  subtitle={largeAd.subtitle}
+                  buttonLabel={largeAd.buttonLabel}
+                  buttonLink={largeAd.buttonLink}
+                  backgroundImage={largeAd.backgroundImage}
+                  align={largeAd.align}
                   className='col-span-2 hidden lg:block' // Visible only on large screens
                 />
               )}
@@ -541,7 +541,7 @@ function Advertisement({
   return (
     <div
       className={cn(
-        'relative flex min-h-[300px] w-full items-center justify-center overflow-hidden rounded-lg shadow-md',
+        'relative flex min-h-[400px] w-full items-center justify-center overflow-hidden rounded-lg shadow-md',
         className
       )}
     >
@@ -556,17 +556,19 @@ function Advertisement({
       {/* Content Container */}
       <div
         className={cn(
-          'relative z-10 max-w-2xl rounded-md bg-black/50 p-6 text-white',
-          align === 'right' ? 'ml-auto text-right' : 'mr-auto text-left'
+          'relative z-10 flex h-full w-xs max-w-2xl flex-col items-center justify-center rounded-md p-6 text-left text-white',
+          align === 'right'
+            ? 'ml-auto bg-gradient-to-l from-black/70 via-black/30 to-transparent sm:pr-10'
+            : 'mr-auto bg-gradient-to-r from-black/70 via-black/30 to-transparent sm:pl-16'
         )}
       >
-        <h2 className='text-3xl font-bold'>{title}</h2>
-        <p className='mt-2 text-lg opacity-80'>{subtitle}</p>
-        <a href={buttonLink}>
+        <h2 className='text-2xl font-bold md:text-3xl'>{title}</h2>
+        <p className='mt-2 text-lg opacity-90'>{subtitle}</p>
+        <Link href={buttonLink}>
           <Button className='bg-primary hover:bg-primary/80 mt-4'>
             {buttonLabel}
           </Button>
-        </a>
+        </Link>
       </div>
     </div>
   );
