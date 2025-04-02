@@ -138,7 +138,7 @@ export default function PreviewCard({ className }) {
   return (
     <Card
       className={cn(
-        'relative w-auto max-w-[370px] gap-0 rounded-sm bg-white p-0 shadow-lg',
+        'relative w-auto max-w-[370px] gap-0 rounded-lg bg-white p-0 shadow-lg',
         className
       )}
     >
@@ -162,8 +162,8 @@ export default function PreviewCard({ className }) {
                   className='h-32 max-w-full object-contain sm:h-[250px]'
                 />
                 <Button
-                  variant='ghost'
-                  className='absolute top-0 right-1 flex h-6 w-6 items-center justify-center rounded-full border text-black hover:bg-gray-100 sm:top-4 sm:right-4 sm:h-8 sm:w-8'
+                  variant='favourite button'
+                  className='absolute top-[2%] right-[2%] flex h-6 w-6 items-center justify-center rounded-full border text-black hover:bg-gray-100 sm:top-4 sm:right-4 sm:h-8 sm:w-8'
                 >
                   <Heart className='h-4 w-4 md:h-5 md:w-5' />
                 </Button>
@@ -174,11 +174,11 @@ export default function PreviewCard({ className }) {
         <CarouselPrevious className='absolute bottom-0 left-1/2 h-5 w-5 -translate-x-6 translate-y-[55px] transform bg-[#EAEAEA] leading-2 sm:translate-y-[112px] md:h-6 md:w-6' />
         <CarouselNext className='absolute right-1/2 h-5 w-5 translate-x-8 translate-y-[55px] transform bg-[#EAEAEA] sm:translate-y-[112px] md:h-6 md:w-6' />
       </Carousel>
-      <CardContent className='px-[6px] sm:px-4'>
+      <CardContent className='xs:px-4 px-2'>
         <div className='mb-3 flex justify-center gap-2 sm:order-last'>
           <div className='mt-2 flex w-full flex-col justify-between border-t pt-2 sm:flex-row sm:items-center md:justify-between'>
             {/* Metal themes */}
-            <div className='mb-3 flex justify-center gap-2 sm:order-last'>
+            <div className='mb-3 flex justify-center gap-2 sm:order-last sm:mb-0'>
               {data &&
                 data.metals.map((metalOption) => (
                   <button
