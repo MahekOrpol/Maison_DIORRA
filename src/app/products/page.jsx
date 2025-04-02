@@ -11,16 +11,14 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import PreviewCard from '@/components/preview-card';
-import { Funnel, ListFilter, X } from 'lucide-react';
+import { Funnel, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
   DialogTrigger,
   DialogTitle,
-  DialogHeader,
-  DialogClose,
-  DialogDescription
+  DialogClose
 } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 
@@ -171,7 +169,7 @@ export default function Page() {
                 />
               )}
 
-              {/* Medium Screens: Show ad after every 6th, then 8th item */}
+              {/* Medium Screens: Show ad after every 6th item*/}
               {index > 0 && index % 6 === 0 && (
                 <Advertisement
                   title={mediumAd.title}
@@ -180,7 +178,7 @@ export default function Page() {
                   buttonLink={mediumAd.buttonLink}
                   backgroundImage={mediumAd.backgroundImage}
                   align={mediumAd.align}
-                  className='hidden md:col-span-3 md:block lg:hidden' // Ensures full row width
+                  className='hidden md:col-span-3 md:block lg:hidden'
                 />
               )}
 
@@ -565,7 +563,7 @@ function Advertisement({
         <h2 className='text-2xl font-bold md:text-3xl'>{title}</h2>
         <p className='mt-2 text-lg opacity-90'>{subtitle}</p>
         <Link href={buttonLink}>
-          <Button className='bg-primary hover:bg-primary/80 mt-4'>
+          <Button className='bg-primary hover:bg-primary/80 mt-4 py-2 text-lg'>
             {buttonLabel}
           </Button>
         </Link>

@@ -14,11 +14,8 @@ https://stackblitz.com/edit/react-ts-ggpeng?file=App.tsx,package.json,style.css,
 
 <!-- todo -------------- -->
 
-. home page finish
-. product page finish
+. home page correction
+. product page finished
 . define and use design system by reviewing the figma
 . Structure the application based on figma - pages, components, libraries, data fetching other files based on requirement.
 . login, cart, blogs, products, products details page etc etc etc etc configure the application
-
-<!-- finished ------------- -->
-<!-- footer done -->

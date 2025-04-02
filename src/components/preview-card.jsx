@@ -12,6 +12,7 @@ import {
   CarouselPrevious
 } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
+import Link from 'next/link';
 
 // export default function PreviewCard({ className }) {
 //   const [selectedMetal, setSelectedMetal] = useState(data.metals[0]); // Default to silver
@@ -153,7 +154,10 @@ export default function PreviewCard({ className }) {
           {selectedMetal.images.map((image, index) => (
             <CarouselItem key={index} className=''>
               {/* Image Slider & Favorite Button */}
-              <div className='relative mb-2 p-1 md:p-3'>
+              <Link
+                className='relative mb-2 block p-1 md:p-3'
+                href={`/products/productid`}
+              >
                 <Image
                   src={image}
                   alt={selectedMetal.name}
@@ -167,7 +171,7 @@ export default function PreviewCard({ className }) {
                 >
                   <Heart className='h-4 w-4 md:h-5 md:w-5' />
                 </Button>
-              </div>
+              </Link>
             </CarouselItem>
           ))}
         </CarouselContent>
@@ -205,9 +209,12 @@ export default function PreviewCard({ className }) {
           </div>
         </div>
         {/* Item Name */}
-        <h3 className='my-2 text-left text-base leading-5 text-gray-900 md:text-[20px]'>
+        <Link
+          className='hover:text-muted-foreground my-3 block text-left text-base leading-5 text-gray-900 md:text-lg lg:text-xl'
+          href='/products/productid'
+        >
           {selectedMetal.name}
-        </h3>
+        </Link>
         {/* Add to Cart Button */}
         <Button className='mb-3 flex h-[36px] w-full cursor-pointer items-center gap-2 rounded-[4px] text-base font-medium md:h-[42px] md:text-lg'>
           Add to Bag <ShoppingBagIcon size='20' />
