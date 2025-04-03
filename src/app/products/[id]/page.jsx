@@ -1,18 +1,3 @@
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow
-} from '@/components/ui/table';
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from '@/components/ui/accordion';
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import ProductGallery from '@/features/product/components/product-gallery';
 import ProductDetails from '@/features/product/components/product-details';
 import { Button } from '@/components/ui/button';
@@ -26,7 +11,10 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator
 } from '@/components/ui/breadcrumb';
-
+import { AiOutlineColumnHeight } from 'react-icons/ai';
+import Image from 'next/image';
+import { Star } from 'lucide-react';
+import Link from 'next/link';
 export default function Page() {
   return (
     <div className='container'>
@@ -69,11 +57,12 @@ export default function Page() {
           href='/products'
         />
       </div>
-      <div className='flex w-full flex-col gap-6 lg:flex-row'>
+      <div className='mb-8 flex w-full flex-col gap-6 lg:flex-row'>
         <ProductGallery className='lg:w-[45%]' />
         <ProductDetails className='lg:w-[55%]' />
       </div>
       <RingDetails />
+      {/* <ProductDetailsAfterSelection /> */}
       <CustomerReviews />
     </div>
   );
@@ -94,121 +83,174 @@ export const PriceDisplay = ({ price, originalPrice, className = '' }) => {
   );
 };
 
-export const RingDetails = () => {
+function RingDetails() {
+  const details = [
+    {
+      category: 'Know your Setting',
+      icon: '/icons/ring-fv.svg',
+      items: [
+        {
+          label: 'RING DIAMETER',
+          value: '1.62 cm',
+          desc: 'Measured at the base of the ring.'
+        },
+        {
+          label: 'APPROX CTW',
+          value: '0.2 ct ',
+          desc: 'Measured at the base of the ring.'
+        },
+        {
+          label: 'METAL',
+          value: '925 Silver',
+          desc: 'It comes with the authenticity and guarantee certificate of 925 Silver with lifetime exchange guarantee.',
+          fullWidth: true
+        }
+      ]
+    },
+    {
+      category: 'Ring Details',
+      icon: '/icons/ring-top-fv.svg',
+      items: [
+        { label: 'DIAMOND SHAPE', value: 'Circle' },
+        { label: 'DIAMOND SIZE', value: 'Moissanite Diamond 0.18 ctw' },
+        { label: 'DIAMOND WEIGHT', value: '0.18 Ct Approx' },
+        { label: 'DIAMOND PURITY', value: '4 ctw' }
+      ]
+    }
+  ];
   return (
-    <div className='mt-12 border-t pt-8'>
-      <h2 className='mb-6 text-2xl font-bold'>Ring and Stone Details</h2>
-
-      <Accordion
-        type='multiple'
-        defaultValue={['know-your-setting', 'ring-details']}
-      >
-        {/* Know Your Setting Section */}
-        <AccordionItem value='know-your-setting'>
-          <AccordionTrigger className='text-lg font-medium'>
-            Know your Setting
-          </AccordionTrigger>
-          <AccordionContent>
-            <ul className='list-disc space-y-3 pl-5'>
-              <li>
-                <span className='font-semibold'>RING DIAMETER</span>
-                <p>1.62 cm</p>
-              </li>
-              <li>
-                <span className='font-semibold'>APPROX CTW</span>
-                <p>0.2 ct</p>
-              </li>
-            </ul>
-            <p className='mt-3 text-sm text-gray-600'>
-              Measured at the base of the ring. The settings average total card
-              weight.
-            </p>
-          </AccordionContent>
-        </AccordionItem>
-
-        {/* Ring Details Section */}
-        <AccordionItem value='ring-details'>
-          <AccordionTrigger className='text-lg font-medium'>
-            Ring Details
-          </AccordionTrigger>
-          <AccordionContent>
-            <Table className='mb-4'>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>DIAMOND SHAPE</TableHead>
-                  <TableHead>DIAMOND SIZE</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                <TableRow>
-                  <TableCell>Circle</TableCell>
-                  <TableCell>Moissanite Diamond 0.18 ctw</TableCell>
-                </TableRow>
-              </TableBody>
-            </Table>
-
-            <ul className='list-disc space-y-3 pl-5'>
-              <li>
-                <span className='font-semibold'>METAL</span>
-                <p>925 Silver</p>
-              </li>
-            </ul>
-            <p className='mt-3 text-sm text-gray-600'>
-              It comes with the authenticity and guarantee certificate of 925
-              Silver with lifetime exchange guarantee.
-            </p>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
-    </div>
+    <section>
+      <h2 className='border-b py-4 text-2xl font-medium md:text-3xl md:font-semibold lg:text-4xl'>
+        Ring and Stone Details:
+        <hr className='my-2' />
+      </h2>
+      <div className='bg-secondary grid grid-cols-1 gap-8 px-2 pt-2 pb-8 sm:px-4 sm:pt-4 md:grid-cols-2 md:px-8'>
+        {details.map(({ category, icon, items }) => (
+          <div key={category}>
+            <div className='mb-2 flex items-center gap-4 text-lg font-medium md:mb-4 lg:text-2xl'>
+              <div className='flex h-8 w-8 items-center justify-center rounded-full bg-white'>
+                <Image
+                  src={icon}
+                  alt={category}
+                  width={20}
+                  height={20}
+                  className='h-5 w-5 md:h-6 md:w-6'
+                />
+              </div>
+              {category}
+            </div>
+            <div className='grid grid-cols-2 gap-2 md:gap-4'>
+              {items.map(({ label, value, desc, fullWidth }, index) => (
+                <div
+                  key={index}
+                  className={`flex min-h-[142px] flex-col gap-2 rounded-md bg-white p-2 md:p-4 ${
+                    fullWidth ? 'col-span-2' : ''
+                  }`}
+                >
+                  <div className='inline-flex gap-2 text-xs font-light sm:text-sm'>
+                    <AiOutlineColumnHeight size={20} />
+                    {label}
+                  </div>
+                  <div className='leading-6 font-semibold sm:text-2xl'>
+                    {value}
+                  </div>
+                  {desc && <p className='text-sm'>{desc}</p>}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
   );
-};
+}
 
 export const CustomerReviews = () => {
   const reviews = [
     {
       id: 1,
-      name: 'Rosalina Kelin',
+      author: 'Rosalina Kelin',
       date: '19th June, 2024',
+      authorImg: 'https://randomuser.me/api/portraits/women/1.jpg',
+      rating: 5,
       content:
         'I recently purchased a ring from your store, and I am extremely happy with my purchase'
     },
     {
       id: 2,
-      name: 'Jonathan Kale',
+      author: 'Jonathan Kale',
       date: '19th June, 2024',
+      authorImg: 'https://randomuser.me/api/portraits/women/2.jpg',
+      rating: 4,
+      content:
+        'I recently purchased a ring from your store, and I am extremely happy with my purchase'
+    },
+    {
+      id: 3,
+      author: 'Jonathan Kaleo',
+      date: '19th June, 2024',
+      authorImg: 'https://randomuser.me/api/portraits/men/1.jpg',
+      rating: 2,
       content:
         'I recently purchased a ring from your store, and I am extremely happy with my purchase'
     }
   ];
-
   return (
-    <div className='mt-12 border-t pt-8'>
-      <h2 className='mb-6 text-2xl font-bold'>Customer Reviews</h2>
+    <div className='mt-8'>
+      <h2 className='py-4 text-2xl font-medium md:text-3xl md:font-semibold lg:text-4xl'>
+        Customer Reviews
+        <hr className='my-2' />
+      </h2>
 
       <div className='space-y-6'>
         {reviews.map((review) => (
-          <Card key={review.id}>
-            <CardHeader className='pb-2'>
-              <div className='flex items-center justify-between'>
-                <h3 className='font-semibold'>{review.name}</h3>
-                <span className='text-sm text-gray-500'>{review.date}</span>
-              </div>
-            </CardHeader>
-            <CardContent>
-              <p>{review.content}</p>
-            </CardContent>
-          </Card>
+          <TestimonialCard key={review.id} {...review} />
         ))}
       </div>
 
-      <div className='mt-8 rounded-lg bg-gray-50 p-4'>
-        <h3 className='mb-2 text-lg font-medium'>Add a Review</h3>
-        <p className='mb-4 text-gray-600'>
-          You must be logged in to post a review.
+      <div className=''>
+        <h3 className='py-4 text-xl font-medium md:text-2xl md:font-semibold lg:text-3xl'>
+          Add a Review
+        </h3>
+        <p className='mb-4'>
+          You must be{' '}
+          <Link href='/login' className='pe-2 font-semibold hover:underline'>
+            logged in
+          </Link>
+          to post a review.
         </p>
-        <Button className='w-full sm:w-auto'>Login to Review</Button>
       </div>
     </div>
   );
 };
+
+function TestimonialCard({ author, authorImg, date, content, rating = 5 }) {
+  return (
+    <div className='flex items-center gap-2 md:gap-4'>
+      {/* Responsive Image Wrapper */}
+      <div className='w-[100px]'>
+        <img
+          src={authorImg}
+          alt='img'
+          className='aspect-square h-full w-full rounded-full object-cover md:max-w-[90px]'
+        />
+      </div>
+
+      {/* Author Details */}
+      <div>
+        <div className='mb-[6px] flex'>
+          {[...Array(5)].map((_, i) => (
+            <Star
+              key={i}
+              className={`h-5 w-5 ${i < rating ? 'fill-yellow-400 text-yellow-400' : 'fill-gray-300 text-gray-300'} transition-colors duration-300`}
+            />
+          ))}
+        </div>
+        <div className='mb-1 flex items-center gap-4 text-sm font-semibold md:text-lg'>
+          {author} | {date}
+        </div>
+        <p className='text-sm leading-4 font-light md:text-base'>{content}</p>
+      </div>
+    </div>
+  );
+}
