@@ -1,42 +1,45 @@
 'use client';
 
-import { Input } from '@/components/ui/input';
-import { cn } from '@/lib/utils';
-import { useState } from 'react';
+import { cn } from '@/lib/utils'; // optional, just for merging classNames
+import { useId } from 'react';
 
-export function FloatingInput({
-  placeholder,
+export default function FloatingInput({
+  label,
   type = 'text',
-  value: controlledValue,
-  onChange
+  name,
+  value,
+  onChange,
+  placeholder = ' ',
+  className = '',
+  ...props
 }) {
-  const [uncontrolledValue, setUncontrolledValue] = useState('');
-  const value =
-    controlledValue !== undefined ? controlledValue : uncontrolledValue;
+  const id = useId();
 
   return (
     <div className='relative w-full'>
-      <Input
+      <input
+        id={id}
+        name={name}
         type={type}
         value={value}
-        onChange={(e) => {
-          setUncontrolledValue(e.target.value);
-          onChange?.(e.target.value);
-        }}
-        className={cn(
-          'peer h-12 w-full rounded-md border px-3 pt-4 placeholder:text-transparent focus:ring-1 focus:ring-black md:text-base'
-        )}
+        onChange={onChange}
         placeholder={placeholder}
+        className={cn(
+          'peer bg-muted block w-full appearance-none rounded-lg border px-2.5 pt-5 pb-2.5 text-sm focus:ring-0 focus:outline-none',
+
+          className
+        )}
+        {...props}
       />
       <label
+        htmlFor={id}
         className={cn(
-          'text-muted-foreground pointer-events-none absolute top-4 left-4 scale-105 text-sm transition-all duration-200',
-          value || value === 0
-            ? 'top-2 left-3 -translate-y-2 scale-95'
-            : 'top-4'
+          'absolute start-2.5 top-4 z-10 origin-[0] -translate-y-4 scale-75 transform text-sm text-[#606060] transition-all',
+          'peer-placeholder-shown:translate-y-0 peer-placeholder-shown:scale-100',
+          'peer-focus:-translate-y-4 peer-focus:scale-75'
         )}
       >
-        {placeholder}
+        {label}
       </label>
     </div>
   );
