@@ -1,6 +1,5 @@
 import ProductGallery from '@/features/product/components/product-gallery';
 import ProductDetails from '@/features/product/components/product-details';
-import { Button } from '@/components/ui/button';
 import CustomTag from '@/components/CustomTag';
 
 import {
