@@ -104,7 +104,7 @@ export default function Footer() {
           </form>
         </div>
         {/* main section */}
-        <div className='relative z-10 container mb-8 grid grid-cols-2 gap-8 lg:mb-16 lg:grid-cols-5 lg:gap-4'>
+        <div className='wrapper relative z-10 mb-8 grid grid-cols-2 gap-8 lg:mb-16 lg:grid-cols-5 lg:gap-4'>
           <div className='col-span-2 mb-4 text-center lg:text-left'>
             <Image
               src='/icons/diorra-logo.png'
@@ -222,7 +222,7 @@ export default function Footer() {
             </div>
             <div className='h-[0.8px] flex-1 bg-white'></div>
           </div>
-          <p className='container flex flex-col items-center justify-center gap-1 pb-4 text-sm font-extralight lg:-translate-y-2 lg:flex-row lg:justify-between lg:text-base'>
+          <p className='wrapper flex flex-col items-center justify-center gap-1 pb-4 text-sm font-extralight lg:-translate-y-2 lg:flex-row lg:justify-between lg:text-base'>
             <span>Copyrighted© 2024 All rights reserved by Feronia</span>
             <span>Designed and Developed by Orpol Infotech</span>
           </p>

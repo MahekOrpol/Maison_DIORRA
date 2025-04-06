@@ -10,13 +10,14 @@ import {
 
 export default function CustomersFavourite() {
   return (
-    <section className='container pt-16'>
+    <section className='wrapper pt-16'>
       <Heading
         title='Customer’s Favourite'
         subtitle='New Styles, Endless Elegance'
       />
+      -
       <Carousel className=''>
-        <CarouselContent className=''>
+        <CarouselContent className='px-4 py-6'>
           {Array.from({ length: 6 }).map((_, index) => (
             <CarouselItem
               key={index}
@@ -26,7 +27,7 @@ export default function CustomersFavourite() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className='translate-x-8' />
+        <CarouselPrevious className='translate-x-8 border-0 text-black' />
         <CarouselNext className='-translate-x-8' />
       </Carousel>
     </section>

@@ -1,5 +1,5 @@
 'use client';
-import CustomTag from '@/components/CustomTag';
+import CustomTag from '@/components/custom-tag';
 import Image from 'next/image';
 import React from 'react';
 import Link from 'next/link';
@@ -14,13 +14,14 @@ import PreviewCard from '@/components/preview-card';
 import { Funnel, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
-  Dialog,
-  DialogContent,
-  DialogTrigger,
-  DialogTitle,
-  DialogClose
-} from '@/components/ui/dialog';
+  Drawer,
+  DrawerContent,
+  DrawerTrigger,
+  DrawerClose,
+  DrawerTitle
+} from '@/components/ui/drawer';
 import { cn } from '@/lib/utils';
+import CustomTagWrapper from '@/components/custom-tag-wrapper';
 
 const advertisements = [
   {
@@ -52,31 +53,9 @@ const advertisements = [
 
 export default function Page() {
   return (
-    <div className='container'>
+    <div className='wrapper'>
       {/* arrowed label */}
-      <div className='my-[5%] flex w-full items-center justify-between gap-3 md:flex-row md:gap-6 xl:my-15'>
-        <CustomTag
-          no='1.'
-          text='Select Your'
-          bold='METAL'
-          imgUrl='/icons/metal.svg'
-          href='/products'
-        />
-        <CustomTag
-          no='2.'
-          text='Select Your'
-          bold='SHANK'
-          imgUrl='/icons/shank.svg'
-          href='/products'
-        />
-        <CustomTag
-          no='3.'
-          text='Select Your'
-          bold='DIAMOND'
-          imgUrl='/icons/diamond1.svg'
-          href='/products'
-        />
-      </div>
+      <CustomTagWrapper />
       {/* select ring style */}
       <div className='text-center'>
         <h2 className='mb-3 sm:text-xl md:text-2xl lg:text-3xl'>
@@ -133,7 +112,7 @@ export default function Page() {
       {/* filters */}
       <ProductsFilter />
       {/* listing components */}
-      <div className='my-6 grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4'>
+      <div className='my-6 grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-6 lg:grid-cols-4 lg:gap-7'>
         {Array.from({ length: 50 }).map((_, index) => {
           // Separate ad indices for different breakpoints
           const mobileAdIndex = Math.floor(index / 2) % advertisements.length;
@@ -209,188 +188,122 @@ function ProductsFilter() {
   return (
     <div>
       {/* mobile */}
-      <Dialog>
-        <DialogTrigger className='flex items-center rounded-xs border border-black px-2 py-[4px] shadow-none md:hidden'>
-          <Funnel className='mr-1 h-4 w-4' /> Filter
-        </DialogTrigger>
-
-        <DialogContent
-          className='max-w-screen overflow-hidden rounded-lg p-0 sm:max-w-screen'
-          animateSide='bottom'
-          hideClose={true}
+      <Drawer>
+        <DrawerTrigger
+          asChild
+          className='flex items-center rounded-xs border border-black px-2 py-[4px] shadow-none md:hidden'
         >
-          <DialogTitle className='bg-secondary flex items-center justify-between px-4 py-2'>
+          <button>
+            {' '}
+            <Funnel className='mr-1 h-4 w-4' /> Filter
+          </button>
+        </DrawerTrigger>
+        <DrawerContent className='no-drag-handle max-h-[90vh] rounded-t-lg p-0 [data-radix-drawer-handle]:hidden'>
+          <DrawerTitle className='sr-only'>Filter drawer</DrawerTitle>
+          <div className='bg-secondary flex items-center justify-between px-4 py-2'>
             <Button className='w-fit rounded-sm text-sm' variant='outline'>
               Filters Selected (2)
             </Button>
-            <DialogClose className='flex h-8 w-8 items-center justify-center rounded-full bg-[#D9D9D9] text-gray-600 transition hover:bg-gray-300'>
+            <DrawerClose className='flex h-8 w-8 items-center justify-center rounded-full bg-[#D9D9D9] text-gray-600 transition hover:bg-gray-300'>
               <X size={20} />
-            </DialogClose>
-          </DialogTitle>
+            </DrawerClose>
+          </div>
 
-          <div className='space-y-3 py-6'>
+          <div className='space-y-3 overflow-y-auto px-4 py-6'>
+            {/* Metal Section */}
             <div>
               <p>
                 <strong className='font-medium'>Metal : </strong>
                 <span className='text-secondary-foreground'>White Gold </span>
               </p>
-              <div className='xs:gap-4 mt-2 grid grid-cols-4 gap-3 text-xs text-nowrap'>
-                {/* Rose Gold */}
-                <button className='bg-secondary flex flex-col items-center justify-between gap-2 rounded-sm border-1 border-transparent px-4 py-2 text-sm transition focus:border-black'>
-                  <Image
-                    src='/img/gold-theme.png'
-                    width={32}
-                    height={32}
-                    alt='metal'
-                    className='h-8 w-8'
-                  />
-                  Gold
-                </button>
-
-                {/* Gold */}
-                <button className='bg-secondary flex flex-col items-center justify-between gap-2 rounded-sm border-1 border-transparent px-4 py-2 text-sm transition focus:border-black'>
-                  <Image
-                    src='/img/rose-theme.png'
-                    width={32}
-                    height={32}
-                    alt='metal'
-                    className='h-8 w-8'
-                  />
-                  Rose Gold
-                </button>
-
-                {/* Silver */}
-                <button className='bg-secondary flex flex-col items-center justify-between gap-2 rounded-sm border-1 border-transparent px-4 py-2 text-sm transition focus:border-black'>
-                  <Image
-                    src='/img/white-theme.png'
-                    width={32}
-                    height={32}
-                    alt='metal'
-                    className='h-8 w-8'
-                  />
-                  Silver
-                </button>
+              <div className='xs:gap-4 mt-2 grid grid-cols-4 gap-3 text-xs'>
+                {['gold', 'rose', 'white'].map((metal, idx) => (
+                  <button
+                    key={idx}
+                    className='bg-secondary flex flex-col items-center gap-2 rounded-sm border border-transparent px-4 py-2 text-sm transition focus:border-black'
+                  >
+                    <Image
+                      src={`/img/${metal}-theme.png`}
+                      width={32}
+                      height={32}
+                      alt={metal}
+                      className='h-8 w-8'
+                    />
+                    {metal.charAt(0).toUpperCase() + metal.slice(1)}
+                  </button>
+                ))}
               </div>
             </div>
+
+            {/* Purity Section */}
             <div>
               <p>
                 <strong className='font-medium'>Purity : </strong>
                 <span className='text-secondary-foreground'>14 K</span>
               </p>
-              <div className='xs:gap-4 mt-2 grid grid-cols-4 gap-3 text-xs text-nowrap'>
-                <Button
-                  variant='outline'
-                  className='bg-secondary rounded-sm border-none'
-                >
-                  14 K
-                </Button>
-                <Button
-                  variant='outline'
-                  className='bg-secondary rounded-sm border-none'
-                >
-                  18 K
-                </Button>
-                <Button
-                  variant='outline'
-                  className='bg-secondary rounded-sm border-none'
-                >
-                  20 K
-                </Button>
+              <div className='xs:gap-4 mt-2 grid grid-cols-4 gap-3 text-xs'>
+                {['14 K', '18 K', '20 K'].map((karat) => (
+                  <Button
+                    key={karat}
+                    variant='outline'
+                    className='bg-secondary rounded-sm border-none'
+                  >
+                    {karat}
+                  </Button>
+                ))}
               </div>
             </div>
+
+            {/* Ring Style Section */}
             <div>
               <p>
                 <strong className='font-medium'>Ring Style : </strong>
                 <span className='text-secondary-foreground'>Halo</span>
               </p>
-              <div className='xs:gap-4 mt-2 grid grid-cols-4 gap-3 text-[0.8rem] text-nowrap'>
-                <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border-1 border-transparent px-3 py-2 text-sm transition focus:border-black'>
-                  <Image
-                    src='/icons/ring-style-solitare.png'
-                    width={80}
-                    height={80}
-                    alt='metal'
-                  />
-                  Solitare
-                </button>
-                <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border-1 border-transparent px-3 py-2 text-sm transition focus:border-black'>
-                  <Image
-                    src='/icons/ring-style-pave.png'
-                    width={80}
-                    height={80}
-                    alt='metal'
-                  />
-                  Pave
-                </button>
-                <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border-1 border-transparent px-3 py-2 text-sm transition focus:border-black'>
-                  <Image
-                    src='/icons/ring-style-halo.png'
-                    width={80}
-                    height={80}
-                    alt='metal'
-                  />
-                  Halo
-                </button>
-                <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border-1 border-transparent px-3 py-2 transition focus:border-black'>
-                  <Image
-                    src='/icons/ring-style-hidden.png'
-                    width={80}
-                    height={80}
-                    alt='metal'
-                  />
-                  Hidden halo
-                </button>
+              <div className='xs:gap-4 mt-2 grid grid-cols-4 gap-3 text-xs'>
+                {['solitare', 'pave', 'halo', 'hidden'].map((style, idx) => (
+                  <button
+                    key={idx}
+                    className='bg-secondary flex flex-col items-center rounded-sm border border-transparent px-3 py-2 transition focus:border-black'
+                  >
+                    <Image
+                      src={`/icons/ring-style-${style}.png`}
+                      width={80}
+                      height={80}
+                      alt={style}
+                    />
+                    {style.charAt(0).toUpperCase() + style.slice(1)}
+                  </button>
+                ))}
               </div>
             </div>
+
+            {/* Diamond Shape Section */}
             <div>
               <p>
                 <strong className='font-medium'>Diamond Shape : </strong>
                 <span className='text-secondary-foreground'>Round</span>
               </p>
-              <div className='xs:gap-4 mt-2 grid grid-cols-4 gap-3 text-[0.8rem] text-nowrap'>
-                <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border-1 border-transparent px-3 py-2 transition focus:border-black'>
-                  <Image
-                    src='/icons/shape-round.svg'
-                    width={32}
-                    height={32}
-                    alt='metal'
-                    className='w-[80px]'
-                  />
-                  Round
-                </button>
-
-                <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border-1 border-transparent px-3 py-2 transition focus:border-black'>
-                  <Image
-                    src='/icons/shape-pear.svg'
-                    width={80}
-                    height={80}
-                    alt='metal'
-                  />
-                  Pear
-                </button>
-                <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border-1 border-transparent px-3 py-2 transition focus:border-black'>
-                  <Image
-                    src='/icons/shape-emerlad.svg'
-                    width={80}
-                    height={80}
-                    alt='metal'
-                  />
-                  Emerlad
-                </button>
-                <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border-1 border-transparent px-3 py-2 transition focus:border-black'>
-                  <Image
-                    src='/icons/shape-princess.svg'
-                    width={80}
-                    height={80}
-                    alt='metal'
-                  />
-                  Princess
-                </button>
+              <div className='xs:gap-4 mt-2 grid grid-cols-4 gap-3 text-xs'>
+                {['round', 'pear', 'emerlad', 'princess'].map((shape, idx) => (
+                  <button
+                    key={idx}
+                    className='bg-secondary flex flex-col items-center rounded-sm border border-transparent px-3 py-2 transition focus:border-black'
+                  >
+                    <Image
+                      src={`/icons/shape-${shape}.svg`}
+                      width={80}
+                      height={80}
+                      alt={shape}
+                    />
+                    {shape.charAt(0).toUpperCase() + shape.slice(1)}
+                  </button>
+                ))}
               </div>
             </div>
           </div>
-        </DialogContent>
-      </Dialog>
+        </DrawerContent>
+      </Drawer>
       {/* desktop */}
       <div className='mt-8 hidden gap-4 md:flex'>
         <Select>
@@ -551,7 +464,7 @@ function Advertisement({
         objectFit='cover'
         className='absolute inset-0 z-0'
       />
-      {/* Content Container */}
+      {/* Content wrapper */}
       <div
         className={cn(
           'relative z-10 flex h-full w-xs max-w-2xl flex-col items-center justify-center rounded-md p-6 text-left text-white',

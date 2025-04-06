@@ -1,11 +1,11 @@
-import CustomTag from '@/components/CustomTag';
+import CustomTag from '@/components/custom-tag';
 import Heading from '@/components/heading';
 import Image from 'next/image';
 import React from 'react';
 
 export default function YourDesign() {
   return (
-    <section className='container pt-10'>
+    <section className='wrapper pt-10'>
       <Heading
         title='Design Your Ring'
         subtitle='Your Vision, Your Ring, Your Forever.'

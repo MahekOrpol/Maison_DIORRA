@@ -10,7 +10,7 @@ import React from 'react';
 
 export default function TestimonialSection() {
   return (
-    <section className='container py-6'>
+    <section className='wrapper py-6'>
       <Heading
         title='Client Testimonial'
         subtitle='What Clients Say About Us'

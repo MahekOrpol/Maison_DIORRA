@@ -11,7 +11,7 @@ import Image from 'next/image';
 
 export default function GiftingSection() {
   return (
-    <section className='container pt-10'>
+    <section className='wrapper pt-10'>
       <Heading
         title='Gifting Guide'
         subtitle='Statement pieces fit for royalty'
@@ -123,7 +123,7 @@ className='coverflow border border-red-500'
 
 // export default function GiftingGuide() {
 //   return (
-//     <section className='container pt-10'>
+//     <section className='wrapper pt-10'>
 //       <Heading
 //         title='Gifting Guide'
 //         subtitle='Statement pieces fit for royalty'

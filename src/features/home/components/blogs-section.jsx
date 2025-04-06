@@ -18,7 +18,7 @@ export default function BlogsSection() {
         title='Blogs and Articles'
         subtitle='Affordable luxury for everyday wear'
       />
-      <div className='container'>
+      <div className='wrapper'>
         <Carousel
           className='w-full'
           opts={{

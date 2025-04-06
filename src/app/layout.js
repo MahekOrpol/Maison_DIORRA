@@ -21,7 +21,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang='en'>
+    <html lang='en' suppressHydrationWarning>
       <body
         className={`${outfit.variable} ${rozha.variable} font-outfit flex min-h-screen flex-col antialiased`}
       >

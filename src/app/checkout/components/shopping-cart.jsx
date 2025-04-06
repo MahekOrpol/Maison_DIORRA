@@ -34,7 +34,7 @@ const ShoppingCart = ({ onNext }) => {
   };
 
   return (
-    <section className='container flex flex-col gap-4 lg:flex-row'>
+    <section className='wrapper flex flex-col gap-4 lg:flex-row'>
       <div>
         <div className='bg-secondary mb-6 flex items-center gap-2 rounded-lg p-1 sm:gap-6 sm:p-4'>
           <div className='flex-1'>

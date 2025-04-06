@@ -53,7 +53,7 @@ export default function ContactPage() {
       </div>
 
       {/* Contact Info Cards */}
-      <div className='container mx-auto px-4 py-12'>
+      <div className='wrapper mx-auto px-4 py-12'>
         <div className='grid grid-cols-1 gap-6 md:grid-cols-3'>
           {/* Email Card */}
           <div className='flex flex-col items-center rounded-lg border p-6 text-center'>
@@ -89,7 +89,7 @@ export default function ContactPage() {
       </div>
 
       {/* Appointment and Contact Form Section */}
-      <div className='container mx-auto px-4 py-8'>
+      <div className='wrapper mx-auto px-4 py-8'>
         <div className='grid grid-cols-1 gap-8 lg:grid-cols-2'>
           {/* Virtual Appointment Section */}
           <div className='flex flex-col'>

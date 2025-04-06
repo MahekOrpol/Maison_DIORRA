@@ -1,6 +1,6 @@
 import ProductGallery from '@/features/product/components/product-gallery';
 import ProductDetails from '@/features/product/components/product-details';
-import CustomTag from '@/components/CustomTag';
+import CustomTag from '@/components/custom-tag';
 
 import {
   Breadcrumb,
@@ -16,7 +16,7 @@ import { Star } from 'lucide-react';
 import Link from 'next/link';
 export default function Page() {
   return (
-    <div className='container'>
+    <div className='wrapper'>
       <Breadcrumb className='my-2'>
         <BreadcrumbList>
           <BreadcrumbItem>

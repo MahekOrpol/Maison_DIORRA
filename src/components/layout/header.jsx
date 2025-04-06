@@ -4,12 +4,20 @@ import Link from 'next/link';
 import { IoDiamondOutline } from 'react-icons/io5';
 import { BsHandbag } from 'react-icons/bs';
 import { Input } from '../ui/input';
+import MobileNavDrawer from './moblie-nav';
+import { cookies } from 'next/headers';
+import { AccountDropdown } from './account-dropdown';
 
-export default function Header() {
+export default async function Header() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get('token')?.value;
+
+  const isLoggedIn = !!token;
+
   return (
     <header className=''>
       <div className='bg-primary py-2 text-center tracking-wider text-white md:py-1'>
-        <p className='container text-sm leading-4 md:hidden'>
+        <p className='wrapper text-sm leading-4 md:hidden'>
           Shop Gold and Diamond Jewellery
         </p>
         <p className='hidden text-base md:block'>
@@ -20,16 +28,8 @@ export default function Header() {
           Ends in April
         </p>
       </div>
-      <div className='relative container flex items-center justify-between py-2'>
-        <button className='lg:hidden'>
-          <Image
-            src='/icons/menu.svg'
-            alt='logo'
-            width={40}
-            height={40}
-            className='h-[40px] w-[40px]'
-          />
-        </button>
+      <div className='wrapper relative flex items-center justify-between py-2'>
+        <MobileNavDrawer />
         <div className='relative hidden items-center gap-3 lg:flex'>
           <button className='rounded-full p-2 hover:bg-gray-200'>
             <MapPin className='h-5 w-5' />
@@ -58,13 +58,8 @@ export default function Header() {
         </div>
 
         <div className='flex gap-3 md:gap-6'>
-          <button className='hidden cursor-pointer items-center gap-1 lg:flex'>
-            <UserRound />
-            <div className='text-left'>
-              <p className='text-muted-foreground text-xs leading-2'>Sign In</p>
-              <p>Account</p>
-            </div>
-          </button>
+          <AccountDropdown isLoggedIn={isLoggedIn} />
+
           <button className='relative'>
             <Heart strokeWidth={1.2} size={30} />
             <span className='text-background absolute top-0 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-black text-xs'>
@@ -80,7 +75,7 @@ export default function Header() {
         </div>
       </div>
       <hr />
-      <nav className='container hidden justify-center gap-6 py-2 text-lg font-medium lg:flex'>
+      <nav className='wrapper hidden justify-center gap-6 py-2 text-lg font-medium lg:flex'>
         <Link href={'#'} className='flex items-center gap-1'>
           <IoDiamondOutline /> Diamonds
         </Link>

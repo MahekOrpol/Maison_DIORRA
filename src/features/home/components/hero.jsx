@@ -7,8 +7,8 @@ export default function Hero() {
   return (
     <section className="h-[400px] w-full bg-[url('/img/home-m-hero.png')] bg-cover bg-right bg-no-repeat sm:h-[500px] md:h-[83vh] md:bg-[url('/img/home-hero.png')] md:bg-center">
       {/* <div className='bg-opacity-50 absolute inset-0 bg-black/10'></div> */}
-      <div className='relative container h-full'>
-        {/* Inside container */}
+      <div className='wrapper relative h-full'>
+        {/* Inside wrapper */}
         <div className='absolute inset-x-0 bottom-[14%] flex w-full flex-col items-center justify-end text-center text-white md:bottom-[25%] md:left-[15%] md:w-fit md:translate-x-[-15%]'>
           <p className='mb-8 text-base tracking-widest underline underline-offset-6 md:text-[21px]'>
             VALENTINE'S DAY

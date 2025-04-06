@@ -50,7 +50,7 @@ const CheckoutPage = () => {
   ];
 
   return (
-    <div className='container'>
+    <div className='wrapper'>
       {/* Progress Bar */}
       <ProgressBar />
 
