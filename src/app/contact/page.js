@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import {
   MailOpenIcon as Envelope,
   Phone,
@@ -10,6 +10,8 @@ import {
 import Link from 'next/link';
 import Image from 'next/image';
 import { cn } from '@/lib/utils';
+import { Banner } from '../about/page';
+import CallToAction from '@/components/call-to-action';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -36,47 +38,41 @@ export default function ContactPage() {
 
   return (
     <div className='flex min-h-screen flex-col'>
-      {/* Hero Section */}
-      <div
-        className='relative h-64 w-full bg-cover bg-center md:h-80'
-        style={{
-          backgroundImage: "url('/placeholder.svg?height=800&width=1600')",
-          backgroundBlendMode: 'overlay',
-          backgroundColor: 'rgba(0,0,0,0.4)'
-        }}
-      >
-        <div className='absolute inset-0 flex items-center justify-center'>
-          <h1 className='text-4xl font-bold text-white md:text-5xl'>
-            Contact Us
-          </h1>
-        </div>
-      </div>
+      <Banner imgUrl='/img/banner/banner1.png' heading='Contact Us' />
 
       {/* Contact Info Cards */}
-      <div className='wrapper mx-auto px-4 py-12'>
-        <div className='grid grid-cols-1 gap-6 md:grid-cols-3'>
+      <div className='wrapper'>
+        <div className='grid grid-cols-1 gap-18 md:grid-cols-3'>
           {/* Email Card */}
-          <div className='flex flex-col items-center rounded-lg border p-6 text-center'>
-            <div className='mb-4 rounded-lg bg-black p-4'>
-              <Envelope className='h-8 w-8 text-white' />
-            </div>
-            <h2 className='mb-4 text-xl font-semibold'>E-mail</h2>
-            <p className='mb-1 text-sm'>Main Email: info@misiondiorra.com</p>
-            <p className='text-sm'>Inquiries: customercare123@gmail.com</p>
-          </div>
+          {Array.from({ length: 3 }).map((_, i) => (
+            <React.Fragment key={i}>
+              <div className='relative flex flex-col items-center justify-end rounded-lg border-2 border-black px-6 pt-16 pb-6 text-center'>
+                <div className='absolute -top-14 z-10 rounded-lg bg-black p-8'>
+                  <Envelope className='h-10 w-10 text-white' />
+                </div>
+                <h2 className='mb-4 text-3xl font-medium'>E-mail</h2>
+                <p className='text-lg font-light'>
+                  Main Email: info@misiondiorra.com
+                </p>
+                <p className='text-lg font-light'>
+                  Inquiries: customercare123@gmail.com
+                </p>
+              </div>
+            </React.Fragment>
+          ))}
           {/* Contact Card */}
-          <div className='flex flex-col items-center rounded-lg border p-6 text-center'>
-            <div className='mb-4 rounded-lg bg-black p-4'>
+          {/* <div className='relative flex flex-col items-center rounded-lg border p-6 text-center'>
+            <div className='absolute mb-4 rounded-lg bg-black p-4'>
               <Phone className='h-8 w-8 text-white' />
             </div>
             <h2 className='mb-4 text-xl font-semibold'>Contact Us</h2>
             <p className='mb-1 text-sm'>Office Telephone: 0261 697 456</p>
             <p className='text-sm'>Mobile: 87878 87876</p>
-          </div>
+          </div> */}
 
           {/* Working Hours Card */}
-          <div className='flex flex-col items-center rounded-lg border p-6 text-center'>
-            <div className='mb-4 rounded-lg bg-black p-4'>
+          {/* <div className='relative flex flex-col items-center rounded-lg border p-6 text-center'>
+            <div className='absolute mb-4 rounded-lg bg-black p-4'>
               <Briefcase className='h-8 w-8 text-white' />
             </div>
             <h2 className='mb-4 text-xl font-semibold'>Working Hours</h2>
@@ -84,7 +80,7 @@ export default function ContactPage() {
               Monday - Friday: 9:00 A.M to 8:00 P.M
             </p>
             <p className='text-sm'>Saturday - Sunday: 9:00 A.M to 5:00 P.M</p>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -221,37 +217,7 @@ export default function ContactPage() {
           title='Location Map'
         ></iframe>
       </div>
-      <LabelTag
-        number={2}
-        text='Select Your'
-        highlight='SETTING'
-        imageSrc='/path-to-your-icon.png'
-        link='/settings'
-      />
+      <CallToAction />
     </div>
-
-    // hello sir how are you ------------------------------------
   );
 }
-
-const LabelTag = ({ number, text, highlight, imageSrc, link }) => {
-  return (
-    <Link
-      href={link}
-      className={cn(
-        'relative flex items-center justify-between border border-black px-4 py-2 text-black',
-        'w-full max-w-md bg-white',
-        'clip-path-[polygon(0%_0%,100%_0%,97%_50%,100%_100%,0%_100%)]' // Creates the angled corner effect
-      )}
-    >
-      <span className='flex items-center gap-2 text-lg font-medium'>
-        <span className='text-2xl font-bold'>{number}.</span>
-        {text} <strong>{highlight}</strong>
-      </span>
-
-      <div className='flex h-10 w-10 items-center justify-center rounded-full bg-gray-300'>
-        <Image src={imageSrc} alt='icon' width={24} height={24} />
-      </div>
-    </Link>
-  );
-};

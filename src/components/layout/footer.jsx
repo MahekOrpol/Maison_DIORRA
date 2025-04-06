@@ -48,11 +48,11 @@ const footerLinks = [
   {
     heading: 'Useful Links',
     links: [
-      { href: '#', label: 'Home' },
-      { href: '#', label: 'About' },
-      { href: '#', label: 'Shop' },
-      { href: '#', label: 'Blog' },
-      { href: '#', label: 'Contact' }
+      { href: '/', label: 'Home' },
+      { href: '/about', label: 'About' },
+      { href: '/products', label: 'Shop' },
+      { href: '/blogs', label: 'Blog' },
+      { href: '/contact', label: 'Contact' }
     ]
   },
   {
