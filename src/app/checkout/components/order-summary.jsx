@@ -3,6 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { useState } from 'react';
+import Image from 'next/image';
+import { CircleHelp } from 'lucide-react';
 
 export function OrderSummary({
   items,
@@ -17,24 +19,35 @@ export function OrderSummary({
   const [discountCode, setDiscountCode] = useState('');
 
   return (
-    <div className='bg-card rounded-lg border p-6 shadow-sm'>
-      <h2 className='mb-6 text-2xl font-bold'>Your Order</h2>
+    <div className='bg-card rounded-lg border p-2 shadow-sm md:p-6'>
+      <h2 className='mb-6 text-xl font-bold md:text-2xl'>Your Order</h2>
 
       {/* Order Items */}
-      <div className='space-y-6'>
+      <div className='sapce-y-3 mb-6 md:space-y-6'>
         {items.map((item) => (
-          <div key={item.id} className='space-y-2'>
-            <div className='flex justify-between'>
-              <div>
-                <h3 className='font-semibold'>{item.name}</h3>
+          <div key={item.id} className='mb-2 space-y-2'>
+            <div className='flex justify-between gap-2 md:gap-4'>
+              <Image
+                src={item.imgUrl}
+                alt={item.name}
+                width={100}
+                height={100}
+                className='h-20 w-20 rounded-md shadow-[0px_0px_3px_1px_rgba(0,_0,_0,_0.1)]'
+              />
+              <div className='flex-1'>
+                <h3 className='leading-5 font-medium'>{item.name}</h3>
                 <p className='text-muted-foreground text-sm'>{item.variant}</p>
                 {item.size && (
-                  <Badge variant='outline' className='mt-1'>
-                    Size: {item.size}
-                  </Badge>
+                  <p className='text-muted-foreground text-sm'>
+                    {' '}
+                    Ring Size: {item.size}
+                  </p>
                 )}
+                <p className='text-right font-medium sm:hidden'>
+                  ${item.price}
+                </p>
               </div>
-              <p className='font-medium'>${item.price}</p>
+              <p className='hidden font-medium sm:block'>${item.price}</p>
             </div>
             <hr />
           </div>
@@ -42,7 +55,7 @@ export function OrderSummary({
       </div>
 
       {/* Discount Code */}
-      <div className='my-6 flex gap-2'>
+      <div className='flex gap-2'>
         <Input
           placeholder='Discount code'
           value={discountCode}
@@ -58,7 +71,7 @@ export function OrderSummary({
       </div>
 
       {/* Order Totals */}
-      <div className='space-y-3'>
+      <div className='mt-6 mb-2 space-y-1 sm:my-10 sm:space-y-2'>
         <div className='flex justify-between'>
           <span className='text-muted-foreground'>
             Subtotal • {items.length} Items
@@ -66,33 +79,35 @@ export function OrderSummary({
           <span>${subtotal}</span>
         </div>
         <div className='flex justify-between'>
-          <span className='text-muted-foreground'>Shipping</span>
+          <span className='text-muted-foreground'>
+            Shipping{' '}
+            <button onClick={onEnterShipping}>
+              <CircleHelp className='inline h-5 w-5' />
+            </button>
+          </span>
           <span className='text-green-600'>${shipping}</span>
         </div>
         <div className='flex justify-between'>
-          <span className='text-muted-foreground'>GST and Taxes</span>
+          <span className='text-muted-foreground'>GST and Taxes 10 %</span>
           <span>${taxes}</span>
         </div>
-        <hr />
-        <div className='flex justify-between font-bold'>
+        <hr className='my-2 border-b-[0.5px] border-black/50' />
+        <div className='flex justify-between text-xl font-semibold sm:text-2xl'>
           <span>Total</span>
-          <span className='text-lg'>${total}</span>
+          <span>${total}</span>
         </div>
       </div>
 
-      {/* Shipping Address */}
-      <Button
-        variant='outline'
-        className='mt-6 w-full'
-        onClick={onEnterShipping}
-      >
-        Enter shipping address
-      </Button>
-
       {/* Payment Button */}
-      <Button className='mt-4 w-full' onClick={onProceedToPay}>
-        Proceed to Pay
-      </Button>
+      {onProceedToPay && (
+        <Button
+          className='my-2 w-full text-base'
+          size='lg'
+          onClick={onProceedToPay}
+        >
+          Proceed to Pay
+        </Button>
+      )}
     </div>
   );
 }

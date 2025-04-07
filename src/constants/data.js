@@ -32,3 +32,30 @@ export const sampleCart = [
     category: 'Ring'
   }
 ];
+
+const orderItems = [
+  {
+    id: '1',
+    name: 'Two Stone Diamond Ring',
+    variant: '18k Silver / Round diamond',
+    size: '3',
+    price: '30,000',
+    imgUrl: '/img/preview/ring1.png'
+  },
+  {
+    id: '2',
+    name: 'Two Stone Diamond Ring 2',
+    variant: '22k Silver / Round diamond',
+    size: '4',
+    price: '30,000',
+    imgUrl: '/img/preview/rose3.png'
+  },
+  {
+    id: '3',
+    name: 'Two Stone Diamond Ring lorem lorem lorem',
+    variant: '18k Gold / Herald diamond',
+    size: '16',
+    price: '30,850',
+    imgUrl: '/img/preview/gold1.png'
+  }
+];

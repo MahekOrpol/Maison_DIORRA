@@ -1,27 +1,43 @@
+'use client';
 import { cn } from '@/lib/utils';
 import { useId } from 'react';
+// RHF-Aware FloatingSelect.js
+import { useController, useFormContext } from 'react-hook-form';
 
-export function FloatingSelect({
+export default function FloatingSelect({
   placeholder,
   value,
   onChange,
   options,
-  className
+  className,
+  rules = {},
+  name,
+  ...props
 }) {
   const id = useId();
   const isSelected = value !== '' && value !== undefined;
+  const form = useFormContext();
 
+  if (!form) {
+    console.warn('FloatingSelect must be used inside a FormProvider');
+    return null;
+  }
+  const {
+    register,
+    formState: { errors }
+  } = form;
+
+  const hasError = !!errors[name];
   return (
-    <div className='relative w-full'>
+    <div className={cn('relative w-full', className)}>
       <select
         id={id}
-        value={value}
-        onChange={(e) => onChange?.(e.target.value)}
+        {...register(name, rules)} // 💡 Apply rules here
         className={cn(
-          'peer focus:outlin-none bg-muted w-full appearance-none rounded-md border px-3 pt-5 pb-2 text-sm',
-          !isSelected && 'text-gray-400',
-          className
+          'peer bg-muted w-full appearance-none rounded-md border px-3 pt-5 pb-2 text-sm',
+          hasError ? 'border-red-500' : 'border-gray-300'
         )}
+        {...props}
       >
         <option value='' disabled hidden>
           {''}
@@ -32,16 +48,18 @@ export function FloatingSelect({
           </option>
         ))}
       </select>
-
       <label
         htmlFor={id}
         className={cn(
           'pointer-events-none absolute left-3 text-sm text-[#606060] transition-all duration-200',
-          isSelected ? 'top-1 text-xs' : 'top-3.5'
+          'top-1 text-xs'
         )}
       >
         {placeholder}
       </label>
+      {hasError && (
+        <p className='mt-1 text-sm text-red-500'>{errors[name]?.message}</p>
+      )}
     </div>
   );
 }
