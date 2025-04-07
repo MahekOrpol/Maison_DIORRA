@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import Heading from './heading';
 import {
@@ -8,10 +9,11 @@ import {
   CarouselPrevious
 } from './ui/carousel';
 import PreviewCard from './preview-card';
+import { cn } from '@/lib/utils';
 
-export default function RelatedProducts() {
+export default function RelatedProducts({ className }) {
   return (
-    <section className='mb-12'>
+    <section className={cn('mb-12', className)}>
       <Heading title='Related Products' subtitle='You might also like to buy' />
       <Carousel className=''>
         <CarouselContent className=''>

@@ -1,3 +1,4 @@
+'use client';
 import { useCheckoutStore } from '@/lib/checkout-store';
 import { CreditCard, MapPin } from 'lucide-react';
 import React from 'react';

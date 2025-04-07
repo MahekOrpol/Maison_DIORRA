@@ -5,8 +5,6 @@ import ProgressBar from './components/progress-bar';
 import ShoppingCart from './components/shopping-cart';
 import DeliveryForm from './components/delivery-form';
 import PaymentForm from './components/payment-form';
-import CallToAction from '@/components/call-to-action';
-import RelatedProducts from '@/components/related-products';
 
 const CheckoutPage = () => {
   const { step, setStep } = useCheckoutStore();
@@ -25,10 +23,6 @@ const CheckoutPage = () => {
         {step === 2 && <DeliveryForm onNext={nextStep} onPrev={prevStep} />}
         {step === 3 && <PaymentForm onPrev={prevStep} />}
       </section>
-
-      {/* other content */}
-      <RelatedProducts />
-      <CallToAction />
     </div>
   );
 };
