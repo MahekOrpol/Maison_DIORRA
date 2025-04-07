@@ -1,8 +1,9 @@
 import Image from 'next/image';
 import React from 'react';
 import { Input } from './ui/input';
+import { cn } from '@/lib/utils';
 
-export default function CallToAction() {
+export default function CallToAction({ className }) {
   const cardData = [
     {
       iconUrl: '/icons/wallet.svg',
@@ -29,7 +30,9 @@ export default function CallToAction() {
     }
   ];
   return (
-    <section className='mb-18 flex flex-col items-center gap-4'>
+    <section
+      className={cn('mb-18 flex flex-col items-center gap-4', className)}
+    >
       <Image
         src='/icons/logo-diorra2.svg'
         alt='logo'
