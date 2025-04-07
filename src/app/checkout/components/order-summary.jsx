@@ -1,7 +1,8 @@
+'use client';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
+import { useState } from 'react';
 
 export function OrderSummary({
   items,
@@ -35,7 +36,7 @@ export function OrderSummary({
               </div>
               <p className='font-medium'>${item.price}</p>
             </div>
-            <Separator />
+            <hr />
           </div>
         ))}
       </div>
@@ -72,7 +73,7 @@ export function OrderSummary({
           <span className='text-muted-foreground'>GST and Taxes</span>
           <span>${taxes}</span>
         </div>
-        <Separator className='my-2' />
+        <hr />
         <div className='flex justify-between font-bold'>
           <span>Total</span>
           <span className='text-lg'>${total}</span>
