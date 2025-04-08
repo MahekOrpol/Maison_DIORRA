@@ -59,9 +59,9 @@ export default function Page() {
           />
         </div>
       </div>
-      <div className='mb-8 flex w-full flex-col gap-6 lg:flex-row'>
-        <ProductGallery className='lg:w-[45%]' />
-        <ProductDetails className='wrapper lg:w-[55%]' />
+      <div className='mx-auto mb-8 flex w-full max-w-[1600px] flex-col gap-6 lg:flex-row'>
+        <ProductGallery className='lg:sticky lg:top-10 lg:h-fit lg:w-[45%]' />
+        <ProductDetails className='px-3 sm:px-6 lg:w-[55%] lg:pr-8 xl:pr-10' />
       </div>
       <RingDetails className='wrapper' />
       <CustomerReviews className='wrapper' />

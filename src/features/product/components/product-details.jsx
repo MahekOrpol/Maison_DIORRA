@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
+
 import {
   Accordion,
   AccordionContent,
@@ -22,6 +23,7 @@ import { TbVideoPlus } from 'react-icons/tb';
 import { GiBigDiamondRing } from 'react-icons/gi';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { useRouter } from 'next/navigation';
 
 export default function ProductDetails({ className }) {
   const [selectedSize, setSelectedSize] = useState();
@@ -29,6 +31,8 @@ export default function ProductDetails({ className }) {
   const [selectedShape, setSelectedShape] = useState('Round');
   const [selectedPurity, setSelectedPurity] = useState('22K');
   const [selectedShank, setSelectedShank] = useState('Solitare');
+
+  const router = useRouter();
 
   const metalTypes = [
     { name: 'rose', url: '/img/rose-theme.png' },
@@ -54,6 +58,28 @@ export default function ProductDetails({ className }) {
     { src: '/icons/certificate.svg', label: 'Certificate & Appraisal' }
   ];
 
+  const handleAddToCart = async () => {
+    const res = await fetch('/api/check-auth', {
+      method: 'GET',
+      cache: 'no-store'
+    });
+    const data = await res.json();
+    if (!data.authenticated) {
+      return (window.location.href = '/sign-in');
+    }
+    return (window.location.href = '/checkout');
+  };
+  const handleAddToWishlist = async () => {
+    const res = await fetch('/api/check-auth', {
+      method: 'GET',
+      cache: 'no-store'
+    });
+    const data = await res.json();
+    if (!data.authenticated) {
+      return (window.location.href = '/sign-in');
+    }
+    return (window.location.href = '/account/wishlist');
+  };
   return (
     <section className={cn(className)}>
       <div>
@@ -72,7 +98,7 @@ export default function ProductDetails({ className }) {
         </div>
 
         {/* Reviews */}
-        <div className='xs:text-sm my-2 flex items-center justify-between text-xs sm:gap-2 md:my-3'>
+        <div className='xs:text-sm xs:justify-start my-2 flex items-center justify-between gap-4 text-xs md:my-3'>
           <span className='flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2'>
             <span className='flex'>
               {[...Array(5)].map((_, i) => (
@@ -107,33 +133,6 @@ export default function ProductDetails({ className }) {
           center stone. This style has become a favorite for engagement rings
           and statement jewelry due to its captivating charm and versatility.
         </p>
-
-        {/* See It Live Section */}
-        <div className='bg-secondary mb-6 flex items-center gap-2 rounded-lg p-1 sm:gap-6 sm:p-4 md:items-start'>
-          <Image
-            src='/img/live-consultation.png'
-            alt='Live Consultant'
-            width={120}
-            height={80}
-            className='h-[80px] w-[120px] rounded-sm md:h-[130px] md:w-[180px]'
-          />
-          <div className='flex-1'>
-            <h3 className='text-sm font-medium md:text-xl'>
-              See it before you Buy it
-            </h3>
-            <p className='mb-2 text-xs font-light sm:mb-3 md:text-sm'>
-              Join live video call with our consultants to see the designs up
-              close
-            </p>
-            <Button
-              variant='outline'
-              className='h-[30px] w-[130px] rounded-full bg-black text-xs text-white md:h-auto md:text-sm'
-            >
-              See it Live <TbVideoPlus />
-            </Button>
-          </div>
-        </div>
-        <hr />
       </div>
 
       {/* Installment Option */}
@@ -232,83 +231,100 @@ export default function ProductDetails({ className }) {
         </div>
         <hr />
       </div>
+      {/* Diamond Shape */}
+      <div className='border-b pt-2 pb-4'>
+        <p className='text-lg font-medium'> Diamond Shape</p>
+        <div className='mt-2 flex gap-2 text-[0.8rem]'>
+          {shapes.map((shape) => (
+            <button
+              key={shape.name}
+              className={cn(
+                'bg-secondary flex aspect-square w-[80px] flex-col items-center justify-center rounded-md border border-transparent transition',
+                selectedShape === shape.name ? 'border-black' : ''
+              )}
+              onClick={() => setSelectedShape(shape.name)}
+            >
+              <Image
+                src={shape.imgUrl}
+                width={60}
+                height={60}
+                alt={shape.name}
+                className='h-3/4 w-3/4 object-contain'
+              />
+              <span className='mt-1'>{shape.name}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+      {/* Shank */}
+      <div className='pt-2 pb-6'>
+        <p className='text-lg font-medium'>Shank</p>
+        <div className='flex gap-2 text-[0.8rem]'>
+          {shanks.map((shank) => (
+            <button
+              key={shank.name}
+              className={cn(
+                'bg-secondary flex aspect-square w-[80px] flex-col items-center justify-center rounded-md border border-transparent transition',
+                selectedShank === shank.name ? 'border-black' : ''
+              )}
+              onClick={() => setSelectedShank(shank.name)}
+            >
+              <Image
+                src={shank.imgUrl}
+                width={30}
+                height={30}
+                alt={shank.name}
+                className='h-[30px] w-[30px] object-contain'
+              />
+              <span className='mt-1'>{shank.name}</span>
+            </button>
+          ))}
+        </div>
+      </div>
 
-      {/* Product Details Accordion */}
-      <Accordion type='multiple' className='w-full'>
-        <AccordionItem value='item-1'>
-          <AccordionTrigger className="className='inline-block w-[140px] text-lg font-medium">
-            Diamond Shape
-          </AccordionTrigger>
-          <AccordionContent>
-            <div className='mt-2 flex gap-2 text-[0.8rem]'>
-              {shapes.map((shape) => (
-                <button
-                  key={shape.name}
-                  className={cn(
-                    'bg-secondary flex aspect-square w-[80px] flex-col items-center justify-center rounded-md border border-transparent transition',
-                    selectedShape === shape.name ? 'border-black' : ''
-                  )}
-                  onClick={() => setSelectedShape(shape.name)}
-                >
-                  <Image
-                    src={shape.imgUrl}
-                    width={60}
-                    height={60}
-                    alt={shape.name}
-                    className='h-3/4 w-3/4 object-contain'
-                  />
-                  <span className='mt-1'>{shape.name}</span>
-                </button>
-              ))}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-        <AccordionItem value='item-2'>
-          <AccordionTrigger className="className='inline-block w-[140px] text-lg font-medium">
-            Shank
-          </AccordionTrigger>
-          <AccordionContent>
-            <div className='flex gap-2 text-[0.8rem]'>
-              {shanks.map((shank) => (
-                <button
-                  key={shank.name}
-                  className={cn(
-                    'bg-secondary flex aspect-square w-[80px] flex-col items-center justify-center rounded-md border border-transparent transition',
-                    selectedShank === shank.name ? 'border-black' : ''
-                  )}
-                  onClick={() => setSelectedShank(shank.name)}
-                >
-                  <Image
-                    src={shank.imgUrl}
-                    width={30}
-                    height={30}
-                    alt={shank.name}
-                    className='h-[30px] w-[30px] object-contain'
-                  />
-                  <span className='mt-1'>{shank.name}</span>
-                </button>
-              ))}
-            </div>
-          </AccordionContent>
+      <div className=''>
+        {/* See It Live Section */}
+        <div className='bg-secondary mb-6 flex items-center gap-2 rounded-lg p-1 sm:gap-6 sm:p-4 md:items-start'>
+          <Image
+            src='/img/live-consultation.png'
+            alt='Live Consultant'
+            width={120}
+            height={80}
+            className='h-[80px] w-[120px] rounded-sm md:h-[120px] md:w-[180px]'
+          />
+          <div className='flex-1'>
+            <h3 className='text-sm font-medium md:text-xl'>
+              See it before you Buy it
+            </h3>
+            <p className='mb-2 text-xs font-light sm:mb-3 md:text-sm'>
+              Join live video call with our consultants to see the designs up
+              close
+            </p>
+            <Button className='h-[30px] w-[130px] rounded-full text-xs md:h-auto md:text-sm'>
+              See it Live <TbVideoPlus />
+            </Button>
+          </div>
           <hr />
-        </AccordionItem>
-      </Accordion>
+        </div>
+        <div className='mb-6 flex gap-3'>
+          {/* Add to Cart */}
+          <Button className='flex-1 py-6 text-lg' onClick={handleAddToCart}>
+            Add to Cart <ShoppingBag className='ml-2 h-7 w-7' />
+          </Button>
 
-      <div className='mt-8 mb-6 flex gap-3'>
-        {/* Add to Cart */}
-        <Button className='flex-1 py-6 text-lg'>
-          Add to Cart <ShoppingBag className='ml-2 h-7 w-7' />
-        </Button>
+          {/* Add to Wishlist */}
+          <button
+            onClick={handleAddToWishlist}
+            className='hover:bg-muted flex h-[48px] w-[48px] items-center justify-center rounded-full border border-gray-300 bg-white transition'
+          >
+            <Heart className='h-6 w-6' strokeWidth={1.6} />
+          </button>
 
-        {/* Add to Wishlist */}
-        <button className='hover:bg-muted flex h-[48px] w-[48px] items-center justify-center rounded-full border border-gray-300 bg-white transition'>
-          <Heart className='h-6 w-6' strokeWidth={1.6} />
-        </button>
-
-        {/* Share */}
-        <button className='hover:bg-muted flex h-[48px] w-[48px] items-center justify-center rounded-full border border-gray-300 bg-white transition'>
-          <Share2 className='h-6 w-6' strokeWidth={1.6} />
-        </button>
+          {/* Share */}
+          <button className='hover:bg-muted flex h-[48px] w-[48px] items-center justify-center rounded-full border border-gray-300 bg-white transition'>
+            <Share2 className='h-6 w-6' strokeWidth={1.6} />
+          </button>
+        </div>
       </div>
 
       <div className='bg-secondary grid grid-cols-3 rounded-md p-2 text-sm sm:p-4 md:gap-4 md:text-lg'>

@@ -30,7 +30,12 @@ export default function ProductGallery({ className }) {
       </div>
 
       {/* Desktop View */}
-      <div className={cn('hidden md:block', className)}>
+      <div
+        className={cn(
+          'hidden md:block md:px-6 lg:pr-0 lg:pl-8 xl:pl-10',
+          className
+        )}
+      >
         <DesktopGallery />
       </div>
     </>
@@ -115,7 +120,7 @@ function MobileGallery() {
 
 function DesktopGallery() {
   return (
-    <div className='grid grid-cols-2 gap-4'>
+    <div className='grid grid-cols-2 gap-4 overflow-hidden rounded-[70px]'>
       {images.map((image, index) => (
         <div
           className='flex items-center justify-center rounded-lg bg-gray-100'
@@ -128,7 +133,6 @@ function DesktopGallery() {
           />
         </div>
       ))}
-      desktop | Lorem ipsum dolor sit amet.
     </div>
   );
 }
