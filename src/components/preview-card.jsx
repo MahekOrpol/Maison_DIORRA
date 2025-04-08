@@ -1,9 +1,10 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Heart, ShoppingBagIcon } from 'lucide-react';
+import { Heart, ShoppingBagIcon, X } from 'lucide-react';
 import Image from 'next/image';
+import { FaHeart } from 'react-icons/fa';
 import {
   Carousel,
   CarouselContent,
@@ -11,10 +12,11 @@ import {
   CarouselNext,
   CarouselPrevious
 } from '@/components/ui/carousel';
-import { cn, isMobile } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import Link from 'next/link';
 import {
   Drawer,
+  DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerFooter,
@@ -22,6 +24,7 @@ import {
   DrawerTitle
 } from './ui/drawer';
 import ProductGallery from '@/features/product/components/product-gallery';
+import { useRouter } from 'next/navigation';
 
 const data = {
   category: 'ring',
@@ -64,14 +67,47 @@ const data = {
 
 export default function PreviewCard({ className }) {
   const [selectedMetal, setSelectedMetal] = useState(data.metals[0]);
-  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [isProductClicked, setIsProductClicked] = useState(false);
+  const [isClientMobile, setIsClientMobile] = useState(false);
+  const [liked, setLiked] = useState(false);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsClientMobile(window.innerWidth < 768);
+    };
+
+    handleResize(); // Run on mount
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const handleProductClick = () => {
+    if (isClientMobile) {
+      setIsProductClicked(true);
+    } else {
+      router.push(`/products/productid`);
+    }
+  };
+  const handleAddToCart = async () => {
+    const res = await fetch('/api/check-auth', {
+      method: 'GET',
+      cache: 'no-store'
+    });
+    const data = await res.json();
+    if (!data.authenticated) {
+      return (window.location.href = '/sign-in');
+    }
+    return (window.location.href = '/checkout');
+  };
 
   return (
     <>
       <Card
         className={cn(
           'group/card relative w-auto max-w-[370px] gap-0 rounded-lg bg-white p-0 shadow-lg transition-transform duration-300 hover:border hover:border-black/40',
-          !isMobile() && 'hover:scale-[1.03]',
+          !isClientMobile && 'hover:scale-[1.03]',
           className
         )}
       >
@@ -84,12 +120,7 @@ export default function PreviewCard({ className }) {
         <Carousel opts={{ align: 'start', loop: false }}>
           <CarouselContent className='pt-1'>
             {selectedMetal.images.map((image, index) => (
-              <CarouselItem
-                key={index}
-                onClick={() => {
-                  if (isMobile()) setDrawerOpen(true);
-                }}
-              >
+              <CarouselItem key={index} onClick={handleProductClick}>
                 <Image
                   src={image}
                   alt={selectedMetal.name}
@@ -103,7 +134,7 @@ export default function PreviewCard({ className }) {
           <CarouselPrevious className='absolute bottom-0 left-1/2 h-5 w-5 -translate-x-6 translate-y-[55px] transform bg-[#EAEAEA] sm:translate-y-[112px] md:h-6 md:w-6' />
           <CarouselNext className='absolute right-1/2 h-5 w-5 translate-x-8 translate-y-[55px] transform bg-[#EAEAEA] sm:translate-y-[112px] md:h-6 md:w-6' />
         </Carousel>
-        <CardContent className='xs:px-4 px-2'>
+        <CardContent className='xs:px-4 px-2 pb-2'>
           <div className='mb-3 flex justify-center gap-2 sm:order-last'>
             <div className='mt-2 flex w-full flex-col justify-between border-t pt-2 sm:flex-row sm:items-center md:justify-between'>
               <div className='mb-3 flex justify-center gap-2 sm:order-last sm:mb-0'>
@@ -132,62 +163,124 @@ export default function PreviewCard({ className }) {
           </div>
 
           <p className='my-3 block text-left text-base leading-5 text-gray-900 md:text-lg lg:text-xl'>
-            {selectedMetal.name}
+            <button onClick={handleProductClick} className='block text-left'>
+              {selectedMetal.name}
+            </button>
           </p>
-          <div className='flex gap-3'>
-            <div className='group hidden lg:inline-block'>
-              <Link
-                href='/products/products'
-                onClick={() => setDrawerOpen(true)}
-                className='relative inline-block h-[42px] overflow-hidden rounded-md border border-black bg-white px-4 py-2 text-base text-black transition-colors duration-400'
-              >
-                <span className='relative z-10 transition-colors duration-400 group-hover:text-black'>
-                  More info
-                </span>
-                <span className='bg-secondary absolute bottom-[-100%] left-[-100%] z-0 h-[300%] w-[300%] rotate-45 transition-transform duration-400 ease-[cubic-bezier(0.3,1,0.8,1)] group-hover:translate-x-[100%] group-hover:translate-y-[-100%]'></span>
-              </Link>
-            </div>
 
-            <Button className='mb-3 flex h-[36px] flex-1 items-center justify-center gap-2 bg-black text-sm font-medium text-white transition hover:bg-black/80 md:h-[42px] md:text-base'>
-              Add to Bag <ShoppingBagIcon size='20' />
-            </Button>
-          </div>
+          <Button size='lg' className='w-full' onClick={handleAddToCart}>
+            Add to Bag <ShoppingBagIcon size={20} />
+          </Button>
         </CardContent>
       </Card>
 
-      <Drawer open={drawerOpen} onOpenChange={setDrawerOpen}>
-        <DrawerContent>
-          <DrawerHeader>
-            <DrawerTitle className='flex justify-between'>
-              {selectedMetal.name}
-              <Button onClick={() => setDrawerOpen(false)}>Close</Button>
-            </DrawerTitle>
-            <DrawerDescription>
-              <ProductGallery />
-            </DrawerDescription>
-          </DrawerHeader>
-          <DrawerFooter>
-            <div className='flex gap-3'>
-              <div className='group'>
-                <Link
-                  href='/products/productid'
-                  onClick={() => setDrawerOpen(true)}
-                  className='relative inline-block h-[42px] overflow-hidden rounded-md border border-black bg-white px-4 py-2 text-base text-black transition-colors duration-400'
+      {isClientMobile && (
+        <Drawer
+          open={isProductClicked}
+          onOpenChange={setIsProductClicked}
+          className='!h-auto !max-h-[90vh] overflow-y-auto rounded-t-xl px-4 pt-10 pb-6'
+        >
+          <DrawerContent className='!max-h-[90vh]'>
+            <DrawerHeader className='relative p-0'>
+              <DrawerTitle className='wrapper absolute top-3 z-10 flex justify-between border-none'>
+                <button
+                  onClick={() => setLiked(!liked)}
+                  className='group rounded-full transition-all hover:scale-110'
+                  aria-label='Add to wishlist'
                 >
-                  <span className='relative z-10 transition-colors duration-400 group-hover:text-black'>
+                  <FaHeart
+                    className={`h-6 w-7 transition-colors duration-300 ${
+                      liked
+                        ? 'fill-red-600 stroke-[20] text-white'
+                        : 'fill-white stroke-[30] text-black'
+                    }`}
+                  />
+                </button>
+                <DrawerClose className='flex h-7 w-7 items-center justify-center rounded-full bg-[#D9D9D9] transition focus:scale-105'>
+                  <X size={20} />
+                </DrawerClose>
+              </DrawerTitle>
+              <ProductGallery />
+            </DrawerHeader>
+            <DrawerFooter>
+              <div className=''>
+                <div className='mb-1 flex justify-between text-lg font-medium'>
+                  <div>
+                    <p>Solitaire Engagement Ring</p>
+                    <p>
+                      <span>$22.00</span>{' '}
+                      <span className='text-muted-foreground'>$82.00</span>
+                    </p>
+                  </div>
+                  <Image
+                    src='/icons/hand.svg'
+                    alt='hand icon'
+                    height={30}
+                    width={30}
+                  />
+                </div>
+                <div className='grid grid-cols-3 gap-2'>
+                  <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border border-transparent px-3 py-2 transition focus:border-black'>
+                    <div className='flex flex-1 items-center justify-center'>
+                      <Image
+                        src={`/icons/shape-pear.svg`}
+                        width={80}
+                        height={80}
+                        alt='diamond shape'
+                      />
+                    </div>
+                    Pear
+                  </button>
+                  <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border border-transparent px-3 py-2 transition focus:border-black'>
+                    <div className='flex flex-1 items-center justify-center'>
+                      <Image
+                        src={`/img/gold-theme.png`}
+                        width={60}
+                        height={60}
+                        alt={'theme'}
+                      />
+                    </div>
+                    Gold
+                  </button>
+                  <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border border-transparent px-3 py-2 transition focus:border-black'>
+                    <div className='flex flex-1 items-center justify-center'>
+                      <Image
+                        src={`/icons/ring-style-solitare.svg`}
+                        width={80}
+                        height={80}
+                        alt={'Shank style'}
+                      />
+                    </div>
+                    Solitaire
+                  </button>
+                </div>
+                <div className='mt-4 mb-1 flex gap-3'>
+                  <Link
+                    href='/products/productid'
+                    onClick={() => setIsProductClicked(true)}
+                    className='relative inline-block h-[42px] overflow-hidden rounded-md border border-black bg-white px-4 py-2 text-base text-black transition-colors duration-400'
+                  >
                     More info
-                  </span>
-                  <span className='bg-secondary absolute bottom-[-100%] left-[-100%] z-0 h-[300%] w-[300%] rotate-45 transition-transform duration-400 ease-[cubic-bezier(0.3,1,0.8,1)] group-hover:translate-x-[100%] group-hover:translate-y-[-100%]'></span>
-                </Link>
+                  </Link>
+                  <Button
+                    size='lg'
+                    className='flex-1'
+                    onClick={handleAddToCart}
+                  >
+                    Add to Bag <ShoppingBagIcon size={20} />
+                  </Button>
+                </div>
+                <p className='text-center text-xs'>
+                  Installments starting at ₹5,000 per month.{' '}
+                  <Link href='#' className='font-medium underline'>
+                    Prequalify now
+                  </Link>
+                </p>
               </div>
-
-              <Button className='mb-3 flex h-[36px] flex-1 items-center justify-center gap-2 bg-black text-sm font-medium text-white transition hover:bg-black/80 md:h-[42px] md:text-base'>
-                Add to Bag <ShoppingBagIcon size='20' />
-              </Button>
-            </div>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      )}
     </>
   );
 }

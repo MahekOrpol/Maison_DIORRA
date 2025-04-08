@@ -14,56 +14,58 @@ import { AiOutlineColumnHeight } from 'react-icons/ai';
 import Image from 'next/image';
 import { Star } from 'lucide-react';
 import Link from 'next/link';
+import { cn } from '@/lib/utils';
 export default function Page() {
   return (
-    <div className='wrapper'>
-      <Breadcrumb className='my-2'>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href='/'>Home</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink href='/components'>Components</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
-      {/* arrowed label */}
-      <div className='my-[3%] flex w-full items-center justify-between gap-3 md:flex-row md:gap-6 xl:my-15'>
-        <CustomTag
-          no='1.'
-          text='Select Your'
-          bold='METAL'
-          imgUrl='/icons/metal.svg'
-          href='/products'
-        />
-        <CustomTag
-          no='2.'
-          text='Select Your'
-          bold='SHANK'
-          imgUrl='/icons/shank.svg'
-          href='/products'
-        />
-        <CustomTag
-          no='3.'
-          text='Select Your'
-          bold='DIAMOND'
-          imgUrl='/icons/diamond1.svg'
-          href='/products'
-        />
+    <>
+      <div className='wrapper'>
+        <Breadcrumb className='my-2'>
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <BreadcrumbLink href='/'>Home</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbLink href='/components'>Components</BreadcrumbLink>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+        {/* arrowed label */}
+        <div className='my-[3%] flex w-full items-center justify-between gap-3 md:flex-row md:gap-6 xl:my-15'>
+          <CustomTag
+            no='1.'
+            text='Select Your'
+            bold='METAL'
+            imgUrl='/icons/metal.svg'
+            href='/products'
+          />
+          <CustomTag
+            no='2.'
+            text='Select Your'
+            bold='SHANK'
+            imgUrl='/icons/shank.svg'
+            href='/products'
+          />
+          <CustomTag
+            no='3.'
+            text='Select Your'
+            bold='DIAMOND'
+            imgUrl='/icons/diamond1.svg'
+            href='/products'
+          />
+        </div>
       </div>
       <div className='mb-8 flex w-full flex-col gap-6 lg:flex-row'>
         <ProductGallery className='lg:w-[45%]' />
-        <ProductDetails className='lg:w-[55%]' />
+        <ProductDetails className='wrapper lg:w-[55%]' />
       </div>
-      <RingDetails />
-      {/* <ProductDetailsAfterSelection /> */}
-      <CustomerReviews />
-    </div>
+      <RingDetails className='wrapper' />
+      <CustomerReviews className='wrapper' />
+    </>
   );
 }
 
@@ -82,7 +84,7 @@ export const PriceDisplay = ({ price, originalPrice, className = '' }) => {
   );
 };
 
-function RingDetails() {
+function RingDetails({ className }) {
   const details = [
     {
       category: 'Know your Setting',
@@ -118,7 +120,7 @@ function RingDetails() {
     }
   ];
   return (
-    <section>
+    <section className={cn(className)}>
       <h2 className='border-b py-4 text-2xl font-medium md:text-3xl md:font-semibold lg:text-4xl'>
         Ring and Stone Details:
         <hr className='my-2' />
@@ -164,7 +166,7 @@ function RingDetails() {
   );
 }
 
-export const CustomerReviews = () => {
+export const CustomerReviews = ({ className }) => {
   const reviews = [
     {
       id: 1,
@@ -195,7 +197,7 @@ export const CustomerReviews = () => {
     }
   ];
   return (
-    <div className='mt-8'>
+    <div className={cn('mt-8', className)}>
       <h2 className='py-4 text-2xl font-medium md:text-3xl md:font-semibold lg:text-4xl'>
         Customer Reviews
         <hr className='my-2' />

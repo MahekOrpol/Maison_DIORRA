@@ -204,7 +204,7 @@ function ProductsFilter() {
             <Button className='w-fit rounded-sm text-sm' variant='outline'>
               Filters Selected (2)
             </Button>
-            <DrawerClose className='flex h-8 w-8 items-center justify-center rounded-full bg-[#D9D9D9] text-gray-600 transition hover:bg-gray-300'>
+            <DrawerClose className='flex h-7 w-7 items-center justify-center rounded-full bg-[#D9D9D9] transition hover:bg-gray-300'>
               <X size={20} />
             </DrawerClose>
           </div>
