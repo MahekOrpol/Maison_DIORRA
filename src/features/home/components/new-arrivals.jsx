@@ -9,7 +9,7 @@ import 'swiper/css/pagination';
 
 export default function NewArrivals() {
   return (
-    <section className='my-10 py-6 lg:my-20'>
+    <section className='wrapper pt-10 md:pt-15 lg:pt-20'>
       <div className='flex w-full flex-col items-center justify-between lg:flex-row'>
         <div className='relative z-0 h-[85vh] w-full border-y shadow-lg lg:h-[260px]'>
           <Image

@@ -62,9 +62,12 @@
     @apply cursor-pointer;
   }
   .wrapper {
-    @apply mx-auto w-full max-w-[1600px] px-3 sm:px-6 lg:px-8 xl:px-10;
+    @apply mx-auto w-full max-w-[1920px] px-3 sm:px-6 lg:px-8 xl:px-10;
   }
   .coverflow .swiper-pagination {
     @apply translate-y-2;
   }
+}
+.hero-font {
+  font-size: clamp(2rem, 1.525rem + 2.375vw, 4.375rem);
 }

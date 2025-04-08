@@ -5,7 +5,7 @@ import React from 'react';
 
 export default function YourDesign() {
   return (
-    <section className='wrapper pt-10'>
+    <section className='wrapper pt-10 md:pt-15 lg:pt-20'>
       <Heading
         title='Design Your Ring'
         subtitle='Your Vision, Your Ring, Your Forever.'
@@ -16,10 +16,10 @@ export default function YourDesign() {
           alt='logo'
           width={500}
           height={100}
-          className='h-[220px] object-cover object-[20%] md:h-auto md:w-[90%] md:-translate-x-8 lg:-translate-x-20'
+          className='aspect-ratio h-[60vw] w-[90vw] object-cover object-[20%] sm:w-[100vw] md:h-[40vw] md:w-[90%] md:-translate-x-8 lg:h-[37vw] lg:w-full lg:-translate-x-15 lg:object-[50%] xl:h-auto'
         />
       </div>
-      <div className='flex w-full -translate-y-6 items-center justify-between gap-2 md:flex-row md:gap-3 lg:gap-8'>
+      <div className='-mt-6 flex w-full items-center justify-between gap-2 md:flex-row md:gap-3 lg:-mt-10 lg:gap-8'>
         <CustomTag
           no='1.'
           text='Select Your'

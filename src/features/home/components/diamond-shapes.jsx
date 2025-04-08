@@ -21,7 +21,7 @@ const shapes = [
 
 export default function DiamondShapes() {
   return (
-    <section className='wrapper py-6'>
+    <section className='wrapper pt-10 md:pt-15 lg:pt-20'>
       <Heading
         title='Shop by Diamond Shapes'
         subtitle='Find Your Perfect Shape, Shine Your Way'

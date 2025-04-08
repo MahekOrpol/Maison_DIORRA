@@ -12,7 +12,7 @@ const categories = [
 
 export default function ShopByCategory() {
   return (
-    <section className='wrapper pt-10'>
+    <section className='wrapper pt-10 md:pt-15 lg:pt-20'>
       <Heading
         title='Shop by Category'
         subtitle='Your Imagination, Our Craftsmanship'

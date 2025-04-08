@@ -13,7 +13,7 @@ import {
 
 export default function BlogsSection() {
   return (
-    <section>
+    <section className='wrapper pt-10 md:pt-15 lg:pt-20'>
       <Heading
         title='Blogs and Articles'
         subtitle='Affordable luxury for everyday wear'

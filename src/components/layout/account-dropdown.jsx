@@ -13,6 +13,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { logoutUser } from '@/app/actions/authAction';
 import { UserRound } from 'lucide-react';
+import { CiLogin } from 'react-icons/ci';
+import { CiLogout } from 'react-icons/ci';
+import { FaWpforms } from 'react-icons/fa6';
+import { MdOutlineAccountBox } from 'react-icons/md';
+import { AiOutlineUnorderedList } from 'react-icons/ai';
 
 export function AccountDropdown({ isLoggedIn }) {
   const pathname = usePathname(); // Optional: closes dropdown on route change
@@ -30,8 +35,8 @@ export function AccountDropdown({ isLoggedIn }) {
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen}>
-      <DropdownMenuTrigger className='hidden w-[110px] md:inline-block' asChild>
-        <button className='items-center gap-1 outline-none lg:flex'>
+      <DropdownMenuTrigger className='hidden w-[120px] lg:inline-flex' asChild>
+        <button className='flex items-center gap-1 outline-none'>
           <UserRound />
           <div className='text-left'>
             <p className='text-muted-foreground text-xs leading-2'>
@@ -47,24 +52,39 @@ export function AccountDropdown({ isLoggedIn }) {
         {!isLoggedIn ? (
           <>
             <DropdownMenuItem asChild>
-              <Link href='/sign-in'>Sign In</Link>
+              <Link href='/sign-in'>
+                {' '}
+                <CiLogin className='' />
+                Sign In
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href='/sign-up'>Create Account</Link>
+              <Link href='/sign-up'>
+                {' '}
+                <FaWpforms />
+                Create Account
+              </Link>
             </DropdownMenuItem>
           </>
         ) : (
           <>
             <DropdownMenuItem asChild>
-              <Link href='/account'>My Account</Link>
+              <Link href='/account'>
+                <MdOutlineAccountBox className='' />
+                My Profile
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuItem asChild>
-              <Link href='/orders'>My Orders</Link>
+              <Link href='/account/orders'>
+                {' '}
+                <AiOutlineUnorderedList />
+                My Orders
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem asChild>
               <button className='w-full text-left' onClick={handleLogout}>
-                Logout
+                <CiLogout /> Logout
               </button>
             </DropdownMenuItem>
           </>

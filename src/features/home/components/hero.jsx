@@ -13,7 +13,7 @@ export default function Hero() {
           <p className='mb-8 text-base tracking-widest underline underline-offset-6 md:text-[21px]'>
             VALENTINE'S DAY
           </p>
-          <h1 className='font-rozha mb-6 text-[26px] leading-[110%] font-medium tracking-wide md:mb-3 md:text-[40px]'>
+          <h1 className='font-rozha hero-font mb-6 leading-[110%] font-medium tracking-wide md:mb-3'>
             GET 20% OFF ON YOUR <div>FIRST ORDER</div>
           </h1>
           <p className='mb-6 hidden max-w-2xl text-lg md:block'>
