@@ -19,14 +19,14 @@ export default function TrendingCollections() {
         title='Trending Collection'
         subtitle='Affordable luxury for everyday wear'
       />
-      <div className='mx-auto grid grid-cols-1 gap-y-4 lg:w-xl xl:w-auto xl:grid-cols-4 xl:gap-4'>
+      <div className=' '>
         <div className='flex w-full justify-between gap-2 sm:gap-4 xl:flex-col'>
           {Array.from({ length: 2 }).map((_, index) => (
             <PreviewCard key={index} />
           ))}
         </div>
         {/* Model image */}
-        <div className='relative col-span-2 w-full'>
+        <div className='relative'>
           <Image
             src='/img/model-img.svg'
             height={1000}

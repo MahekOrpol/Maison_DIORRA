@@ -1,7 +1,7 @@
 'use client';
 import CustomTag from '@/components/custom-tag';
 import Image from 'next/image';
-import React from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
 import {
   Select,
@@ -22,6 +22,11 @@ import {
 } from '@/components/ui/drawer';
 import { cn } from '@/lib/utils';
 import CustomTagWrapper from '@/components/custom-tag-wrapper';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem
+} from '@/components/ui/carousel';
 
 const advertisements = [
   {
@@ -51,68 +56,71 @@ const advertisements = [
   }
 ];
 
+const ringStyles = [
+  {
+    styleType: 'Solitaire',
+    imgUrl: '/img/ring-style-solitaire.svg'
+  },
+  {
+    styleType: 'Pave',
+    imgUrl: '/img/ring-style-pave.svg'
+  },
+  {
+    styleType: 'Halo',
+    imgUrl: '/img/ring-style-halo.svg'
+  },
+  {
+    styleType: 'Hidden Halo',
+    imgUrl: '/img/ring-style-hidden.svg'
+  },
+  {
+    styleType: 'Stone',
+    imgUrl: '/img/ring-style-stone.svg'
+  }
+];
+
 export default function Page() {
+  const [selectedStyle, setSelectedStyle] = useState(null);
   return (
     <div className='wrapper'>
       {/* arrowed label */}
       <CustomTagWrapper />
       {/* select ring style */}
-      <div className='text-center'>
+      <div className='hidden text-center md:block'>
         <h2 className='mb-3 sm:text-xl md:text-2xl lg:text-3xl'>
           Choose Perfect Ring Style for You
         </h2>
-        <div className='hidden justify-center gap-3 transition-all duration-800 md:flex'>
-          <Link href='#' className=''>
-            <Image
-              src='/img/ring-style-halo.svg'
-              width={150}
-              height={150}
-              className='w-[130px] transition-all duration-200 hover:scale-105 lg:w-[140px]'
-              alt='Image diamond'
-            />
-          </Link>
-          <Link href='#'>
-            <Image
-              src='/img/ring-style-pave.svg'
-              width={150}
-              height={150}
-              className='w-[130px] transition-all duration-200 hover:scale-105 lg:w-[140px]'
-              alt='Image diamond'
-            />
-          </Link>
-          <Link href='#'>
-            <Image
-              src='/img/ring-style-solitaire.svg'
-              width={150}
-              height={150}
-              className='w-[130px] transition-all duration-200 hover:scale-105 lg:w-[140px]'
-              alt='Image diamond'
-            />
-          </Link>
-          <Link href='#'>
-            <Image
-              src='/img/ring-style-stone.svg'
-              width={150}
-              height={150}
-              className='w-[130px] transition-all duration-200 hover:scale-105 lg:w-[140px]'
-              alt='Image diamond'
-            />
-          </Link>
-          <Link href='#'>
-            <Image
-              src='/img/ring-style-hidden.svg'
-              width={150}
-              height={150}
-              className='w-[130px] transition-all duration-200 hover:scale-105 lg:w-[140px]'
-              alt='Image diamond'
-            />
-          </Link>
+        <div className='my-4 flex justify-center gap-4'>
+          {ringStyles.map((style) => {
+            const isSelected = selectedStyle === style.styleType;
+
+            return (
+              <button
+                key={style.styleType}
+                onClick={() => setSelectedStyle(style.styleType)}
+                className={`inline-flex w-[100px] flex-col items-center rounded-lg border p-2 pt-4 text-xs transition-all ${isSelected ? 'bg-muted border-black' : 'border-transparent hover:border-gray-300'} `}
+              >
+                <div className='mb-4 flex h-[30px] w-[70px] items-center justify-center'>
+                  <Image
+                    src={style.imgUrl}
+                    height={30}
+                    width={70}
+                    alt={style.styleType}
+                    className='h-full w-full object-contain'
+                  />
+                </div>
+                <p className='mt-auto text-[15px] text-nowrap'>
+                  {style.styleType}
+                </p>
+              </button>
+            );
+          })}
         </div>
       </div>
       {/* filters */}
       <ProductsFilter />
       {/* listing components */}
-      <div className='my-6 grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-6 lg:grid-cols-4 lg:gap-7'>
+      <div className='my-6 grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-5 xl:gap-6'>
         {Array.from({ length: 50 }).map((_, index) => {
           // Separate ad indices for different breakpoints
           const mobileAdIndex = Math.floor(index / 2) % advertisements.length;
@@ -184,6 +192,7 @@ export default function Page() {
 }
 
 function ProductsFilter() {
+  const [selectedStyle, setSelectedStyle] = useState(null);
   return (
     <div>
       {/* mobile */}
@@ -213,13 +222,13 @@ function ProductsFilter() {
             <div>
               <p>
                 <strong className='font-medium'>Metal : </strong>
-                <span className='text-secondary-foreground'>White Gold </span>
+                <span className='text-secondary-foreground'>White Gold</span>
               </p>
               <div className='xs:gap-4 mt-2 grid grid-cols-4 gap-3 text-xs'>
                 {['gold', 'rose', 'white'].map((metal, idx) => (
                   <button
                     key={idx}
-                    className='bg-secondary flex flex-col items-center gap-2 rounded-sm border border-transparent px-4 py-2 text-sm transition focus:border-black'
+                    className='bg-secondary flex flex-col items-center gap-2 rounded-md border border-transparent px-4 py-2 text-sm transition focus:border-black'
                   >
                     <Image
                       src={`/img/${metal}-theme.png`}
@@ -245,7 +254,7 @@ function ProductsFilter() {
                   <Button
                     key={karat}
                     variant='outline'
-                    className='bg-secondary rounded-sm border-none'
+                    className='bg-secondary rounded-md border-none'
                   >
                     {karat}
                   </Button>
@@ -259,22 +268,43 @@ function ProductsFilter() {
                 <strong className='font-medium'>Ring Style : </strong>
                 <span className='text-secondary-foreground'>Halo</span>
               </p>
-              <div className='xs:gap-4 mt-2 grid grid-cols-4 gap-3 text-xs'>
-                {['solitare', 'pave', 'halo', 'hidden'].map((style, idx) => (
-                  <button
-                    key={idx}
-                    className='bg-secondary flex flex-col items-center rounded-sm border border-transparent px-3 py-2 transition focus:border-black'
-                  >
-                    <Image
-                      src={`/icons/ring-style-${style}.png`}
-                      width={80}
-                      height={80}
-                      alt={style}
-                    />
-                    {style.charAt(0).toUpperCase() + style.slice(1)}
-                  </button>
-                ))}
-              </div>
+              <Carousel
+                opts={{
+                  align: 'start'
+                }}
+                className='w-full'
+              >
+                <CarouselContent className=''>
+                  {ringStyles.map((style, idx) => {
+                    const isSelected = selectedStyle === style.styleType;
+
+                    return (
+                      <CarouselItem
+                        key={idx}
+                        className='xs:pl-4 basis-1/4 pl-3' // 4 items per row
+                      >
+                        <button
+                          onClick={() => setSelectedStyle(style.styleType)}
+                          className={`bg-secondary flex h-full w-full flex-col items-center rounded-md border px-3 py-2 text-xs transition-all ${
+                            isSelected ? 'border-black' : 'hover:border-black'
+                          }`}
+                        >
+                          <Image
+                            src={style.imgUrl}
+                            width={50}
+                            height={25}
+                            alt={style.styleType}
+                            className='my-2 h-[25px] w-[50px] object-contain'
+                          />
+                          <p className='mt-2 text-center text-nowrap'>
+                            {style.styleType}
+                          </p>
+                        </button>
+                      </CarouselItem>
+                    );
+                  })}
+                </CarouselContent>
+              </Carousel>
             </div>
 
             {/* Diamond Shape Section */}
@@ -287,7 +317,7 @@ function ProductsFilter() {
                 {['round', 'pear', 'emerlad', 'princess'].map((shape, idx) => (
                   <button
                     key={idx}
-                    className='bg-secondary flex flex-col items-center rounded-sm border border-transparent px-3 py-2 transition focus:border-black'
+                    className='bg-secondary flex flex-col items-center rounded-md border border-transparent px-3 py-2 transition focus:border-black'
                   >
                     <Image
                       src={`/icons/shape-${shape}.svg`}
@@ -310,7 +340,7 @@ function ProductsFilter() {
             <SelectValue placeholder='Select Metal' />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value='gold'>
+            <SelectItem value='gold' className='py-2'>
               <Image
                 src='/img/gold-theme.png'
                 width={18}
@@ -319,7 +349,7 @@ function ProductsFilter() {
               />
               Gold
             </SelectItem>
-            <SelectItem value='rose'>
+            <SelectItem value='rose' className='py-2'>
               <Image
                 src='/img/rose-theme.png'
                 width={18}
@@ -328,7 +358,7 @@ function ProductsFilter() {
               />
               Rose Gold
             </SelectItem>
-            <SelectItem value='white'>
+            <SelectItem value='white' className='py-2'>
               <Image
                 src='/img/white-theme.png'
                 width={18}
@@ -344,49 +374,56 @@ function ProductsFilter() {
             <SelectValue placeholder='Purity' />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value='14k'>14K Pure</SelectItem>
-            <SelectItem value='18k'>18K Pure</SelectItem>
-            <SelectItem value='20k'>20K Pure</SelectItem>
+            <SelectItem value='14k' className='py-2'>
+              14K Pure
+            </SelectItem>
+            <SelectItem value='18k' className='py-2'>
+              18K Pure
+            </SelectItem>
+            <SelectItem value='20k' className='py-2'>
+              20K Pure
+            </SelectItem>
           </SelectContent>
         </Select>
         <Select>
           <SelectTrigger className='data-[placeholder]:text-foreground w-[170px] border-black'>
             <SelectValue placeholder='Ring Style' />
           </SelectTrigger>
-          <SelectContent>
-            <SelectItem value='solitare'>
+          <SelectContent className=''>
+            <SelectItem value='solitare' className='py-2'>
               <Image
-                src='/icons/ring-style-solitare.png'
-                width={40}
+                src='/img/ring-style-solitaire.svg'
+                width={35}
                 height={30}
                 alt='metal'
               />
               Solitare
             </SelectItem>
-            <SelectItem value='pave'>
+            <SelectItem value='pave' className='py-2'>
               <Image
-                src='/icons/ring-style-pave.png'
-                width={40}
+                src='/img/ring-style-pave.svg'
+                width={35}
                 height={30}
                 alt='metal'
               />
               Pave
             </SelectItem>
-            <SelectItem value='halo'>
+            <SelectItem value='halo' className='py-2'>
               <Image
-                src='/icons/ring-style-halo.png'
-                width={40}
+                src='/img/ring-style-halo.svg'
+                width={35}
                 height={30}
                 alt='metal'
               />
               Halo
             </SelectItem>
-            <SelectItem value='hidden-halo '>
+            <SelectItem value='hidden-halo' className='py-2'>
               <Image
-                src='/icons/ring-style-hidden.png'
-                width={30}
-                height={30}
+                src='/img/ring-style-hidden.svg'
+                width={25}
+                height={18}
                 alt='metal'
+                className='h-[18px] w-[25px] object-contain'
               />
               Hidden Halo
             </SelectItem>

@@ -18,14 +18,13 @@ export default function GiftingSection() {
       />
       <div className=''>
         <Swiper
-          modules={[EffectCoverflow, Pagination, Mousewheel]}
+          modules={[EffectCoverflow, Mousewheel]}
           effect='coverflow'
           loop={true}
           spaceBetween={-80} // Adjust spacing for proper centering
           slidesPerView={3} // Dynamically sizes slides
           centeredSlides={true} // Centers the active slide
           grabCursor={true}
-          pagination={{ clickable: true }}
           coverflowEffect={{
             rotate: 0,
             stretch: 0,

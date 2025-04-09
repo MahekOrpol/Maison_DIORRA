@@ -49,14 +49,11 @@ export default function NewArrivals() {
 export function ArrivalSwiper() {
   return (
     <Swiper
-      modules={[EffectCoverflow, Pagination]}
+      modules={[EffectCoverflow]}
       effect={'coverflow'}
       loop={true}
       spaceBetween={-160}
       slidesPerView={2.9}
-      pagination={{
-        clickable: true
-      }}
       centeredSlides={true}
       grabCursor={true}
       coverflowEffect={{

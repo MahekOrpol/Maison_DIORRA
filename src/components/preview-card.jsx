@@ -131,8 +131,8 @@ export default function PreviewCard({ className }) {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className='absolute bottom-0 left-1/2 h-5 w-5 -translate-x-6 translate-y-[55px] transform bg-[#EAEAEA] sm:translate-y-[112px] md:h-6 md:w-6' />
-          <CarouselNext className='absolute right-1/2 h-5 w-5 translate-x-8 translate-y-[55px] transform bg-[#EAEAEA] sm:translate-y-[112px] md:h-6 md:w-6' />
+          <CarouselPrevious className='absolute bottom-0 left-1/2 h-3 w-3 -translate-x-6 translate-y-[57px] transform bg-[#EAEAEA] sm:translate-y-[112px] md:h-6 md:w-6' />
+          <CarouselNext className='absolute right-1/2 h-3 w-3 translate-x-8 translate-y-[57px] transform bg-[#EAEAEA] sm:translate-y-[112px] md:h-6 md:w-6' />
         </Carousel>
         <CardContent className='xs:px-4 px-2 pb-2'>
           <div className='mb-3 flex justify-center gap-2 sm:order-last'>
@@ -168,7 +168,11 @@ export default function PreviewCard({ className }) {
             </button>
           </p>
 
-          <Button size='lg' className='w-full' onClick={handleAddToCart}>
+          <Button
+            size='lg'
+            className='xs:text-base w-full text-sm'
+            onClick={handleAddToCart}
+          >
             Add to Bag <ShoppingBagIcon size={20} />
           </Button>
         </CardContent>
@@ -219,14 +223,15 @@ export default function PreviewCard({ className }) {
                     width={30}
                   />
                 </div>
-                <div className='grid grid-cols-3 gap-2'>
-                  <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border border-transparent px-3 py-2 transition focus:border-black'>
+                <div className='grid grid-cols-3 gap-3 text-sm'>
+                  <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border border-transparent p-3 transition focus:border-black'>
                     <div className='flex flex-1 items-center justify-center'>
                       <Image
                         src={`/icons/shape-pear.svg`}
-                        width={80}
-                        height={80}
+                        width={40}
+                        height={40}
                         alt='diamond shape'
+                        className=''
                       />
                     </div>
                     Pear
@@ -235,9 +240,10 @@ export default function PreviewCard({ className }) {
                     <div className='flex flex-1 items-center justify-center'>
                       <Image
                         src={`/img/gold-theme.png`}
-                        width={60}
-                        height={60}
+                        width={30}
+                        height={30}
                         alt={'theme'}
+                        className='h-[]'
                       />
                     </div>
                     Gold
@@ -246,9 +252,10 @@ export default function PreviewCard({ className }) {
                     <div className='flex flex-1 items-center justify-center'>
                       <Image
                         src={`/icons/ring-style-solitare.svg`}
-                        width={80}
-                        height={80}
+                        width={50}
+                        height={40}
                         alt={'Shank style'}
+                        className=''
                       />
                     </div>
                     Solitaire
