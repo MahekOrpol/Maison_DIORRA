@@ -138,13 +138,15 @@ export default function MobileNavDrawer() {
 
         {/* BOTTOM BLACK SECTION */}
         <div className='bg-black px-4 py-1'>
-          <Button
-            variant='ghost'
-            className='w-full justify-start gap-2 text-white hover:bg-gray-800'
-          >
-            <LogIn size={18} />
-            Login / Sign Up
-          </Button>
+          <Link href='/sign-in'>
+            <Button
+              variant='ghost'
+              className='w-full justify-start gap-2 text-white hover:bg-gray-800'
+            >
+              <LogIn size={18} />
+              Login / Sign Up
+            </Button>
+          </Link>
           {/* 
           <Button variant='ghost' className='w-full justify-start gap-2 text-white hover:bg-gray-800'>
             <LogOut size={18} />

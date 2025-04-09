@@ -16,7 +16,10 @@ export default function SignInPage() {
 
   return (
     <>
-      <form action={formAction} className='mx-auto mt-16 max-w-sm space-y-4'>
+      <form
+        action={formAction}
+        className='mx-auto mt-16 max-w-sm space-y-4 px-4'
+      >
         <h2 className='text-2xl font-semibold'>Sign In</h2>
         <Input name='username' placeholder='Username' />
         <Input name='password' type='password' placeholder='Password' />

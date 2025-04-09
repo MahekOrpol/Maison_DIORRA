@@ -134,7 +134,7 @@ export function PricingDetails({
   );
 }
 
-function CartContainer({ cart }) {
+function CartContainer({ cart, setCart }) {
   const updateQuantity = (id, quantity) => {
     setCart(
       cart.map((item) => (item.id === id ? { ...item, quantity } : item))
