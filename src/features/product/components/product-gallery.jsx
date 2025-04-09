@@ -13,12 +13,12 @@ import { Md360 } from 'react-icons/md';
 import { IoImageOutline, IoVideocamOutline } from 'react-icons/io5';
 
 const images = [
-  'https://picsum.photos/id/237/800/600', // Dog image
-  'https://picsum.photos/id/1020/800/600', // Nature
-  'https://picsum.photos/id/1000/800/600', // Cityscape
-  'https://picsum.photos/id/1039/800/600', // Forest
-  'https://picsum.photos/id/1041/800/600', // Mountain
-  'https://picsum.photos/id/1043/800/600' // Beach
+  '/img/preview/ring1.png',
+  '/img/preview/ring2.png',
+  '/img/preview/ring3.png',
+  '/img/preview/gold1.png',
+  '/img/preview/gold2.png',
+  '/img/preview/gold3.png'
 ];
 
 export default function ProductGallery({ className }) {

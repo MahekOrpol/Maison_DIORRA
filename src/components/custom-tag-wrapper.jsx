@@ -1,9 +1,15 @@
 import React from 'react';
 import CustomTag from './custom-tag';
+import { cn } from '@/lib/utils';
 
-export default function CustomTagWrapper() {
+export default function CustomTagWrapper({ className }) {
   return (
-    <div className='my-[5%] flex w-full items-center justify-between gap-3 md:flex-row md:gap-6 xl:my-15'>
+    <div
+      className={cn(
+        'my-[5%] flex w-full items-center justify-between gap-3 md:flex-row md:gap-6 xl:my-10',
+        className
+      )}
+    >
       <CustomTag
         no='1.'
         text='Select Your'

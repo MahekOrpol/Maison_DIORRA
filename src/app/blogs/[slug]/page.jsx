@@ -17,7 +17,7 @@ export default async function Page({ params }) {
         subtitle='Home - Blogs and Articles'
         className='h-[200px]'
       />
-      <section className='wrapper flex w-full flex-col gap-4 py-4 lg:gap-8 xl:flex-row xl:justify-between'>
+      <section className='wrapper flex w-full flex-col gap-4 py-4 md:my-8 lg:gap-8 xl:flex-row xl:justify-between'>
         {/* blog details */}
         <article className='flex-1'>
           {/* hero */}
@@ -28,7 +28,7 @@ export default async function Page({ params }) {
                 width={800}
                 height={400}
                 alt='Blog header w-full'
-                className='w-full'
+                className='w-full rounded-md'
               />
             </div>
             <p className='mt-2 text-sm font-light lg:text-base xl:text-lg'>
@@ -82,7 +82,7 @@ export default async function Page({ params }) {
         <BlogsFilter className='max-w-screen sm:w-full xl:max-w-md' />
       </section>
       {/* prev - nextt */}
-      <div className='wrapper grid grid-cols-1 justify-between border-y py-2 sm:grid-cols-2'>
+      <div className='wrapper my-6 grid grid-cols-1 justify-between border-y py-2 sm:grid-cols-2'>
         <Link href='#' className='inline-flex items-center gap-4 border-r p-2'>
           <Image
             src='/img/blogs/blog11.png'

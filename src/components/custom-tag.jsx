@@ -16,7 +16,7 @@ export default function CustomTag({ no, text, bold, imgUrl, className, href }) {
         height={60}
         alt='tag label'
         className={cn(
-          'xxs:h-[28px] xs:h-[32px] z-0 sm:h-[50px] md:h-[60px] lg:h-[70px] xl:h-[80px] 2xl:h-[90px]',
+          'xxs:h-[28px] xs:h-[32px] z-0 sm:h-[50px] md:h-[60px] lg:h-[70px] xl:h-[80px]',
           className
         )}
       />

@@ -11,9 +11,9 @@ export default function Page() {
       <CustomTagWrapper />
       <DiamondFilters />
       {/* Diamond listing section */}
-      <section className='grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-4'>
+      <section className='grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4'>
         {Array.from({ length: 50 }).map((item, i) => (
-          <DiamondPreviewCard key={i} />
+          <DiamondPreviewCard key={i} href='/diamonds/slug' />
         ))}
       </section>
     </div>

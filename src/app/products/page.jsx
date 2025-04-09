@@ -173,7 +173,6 @@ export default function Page() {
                   className='col-span-2 hidden lg:block' // Visible only on large screens
                 />
               )}
-
               {/* Render Listing Item */}
               <PreviewCard />
             </React.Fragment>
