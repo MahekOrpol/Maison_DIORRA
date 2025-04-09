@@ -16,7 +16,7 @@ export default function DiamondFilters() {
         Select your Stone Shape and Quality
       </h2>
       {/* shape */}
-      <div className='my-4 flex justify-center gap-4'>
+      <div className='my-4 flex justify-center gap-2'>
         <button className='w-[80px] rounded-lg border border-transparent hover:border-black'>
           <div className='flex items-center justify-center'>
             <Image
@@ -68,16 +68,16 @@ export default function DiamondFilters() {
       </div>
       {/* quality */}
 
-      <div className='w-full space-y-6 p-4'>
-        <div className='grid grid-cols-1 place-items-center md:grid-cols-3'>
+      <div className='w-full space-y-6 p-0 md:p-4'>
+        <div className='grid grid-cols-1 place-items-center justify-center gap-3 sm:grid-cols-2'>
           {/* Color Filter */}
-          <div>
-            <h3 className='font-medium'>Color</h3>
+          <div className=''>
+            <h3 className='mb-1 font-medium'>Color</h3>
             <div className='inline-flex rounded-md border border-black'>
               {colors.map((color) => (
                 <button
                   key={color}
-                  className='inline-flex h-10 w-12 items-center justify-center border-r border-l border-l-transparent hover:border-l hover:border-black'
+                  className='inline-flex h-10 w-10 items-center justify-center border-r border-l border-l-transparent text-sm hover:border-l hover:border-black'
                 >
                   {color}
                 </button>
@@ -87,12 +87,12 @@ export default function DiamondFilters() {
 
           {/* Clarity Filter */}
           <div>
-            <h3 className='font-medium'>Clarity</h3>
+            <h3 className='mb-1 font-medium'>Clarity</h3>
             <div className='inline-flex rounded-md border border-black'>
               {clarities.map((clarity) => (
                 <button
                   key={clarity}
-                  className='inline-flex h-10 w-12 items-center justify-center border-r border-l border-l-transparent hover:border-l hover:border-black'
+                  className='inline-flex h-10 w-10 items-center justify-center border-r border-l border-l-transparent text-sm hover:border-l hover:border-black'
                 >
                   {clarity}
                 </button>
@@ -102,14 +102,14 @@ export default function DiamondFilters() {
 
           {/* Carat Filter */}
           <div className='w-full'>
-            <h3 className='mb-2 text-sm font-medium'>Carat</h3>
+            <h3 className='font-medium'>Carat</h3>
             <Slider
               defaultValue={[1, 8]}
               min={1}
               max={8}
               step={0.1}
               onValueChange={(value) => setCaratRange(value)}
-              className='my-4'
+              className='my-2'
             />
             <div className='flex justify-between text-sm text-gray-500'>
               <span>{caratRange[0]} ct</span>
@@ -119,14 +119,14 @@ export default function DiamondFilters() {
         </div>
         {/* Price Filter */}
         <div>
-          <h3 className='mb-2 text-sm font-medium'>Price</h3>
+          <h3 className='font-medium'>Price</h3>
           <Slider
             defaultValue={[20, 400]}
             min={20}
             max={400}
             step={10}
             onValueChange={(value) => setPriceRange(value)}
-            className='my-4'
+            className='my-2'
           />
           <div className='flex justify-between text-sm text-gray-500'>
             <span>${priceRange[0]}</span>

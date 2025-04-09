@@ -120,19 +120,26 @@ function MobileGallery() {
 
 function DesktopGallery() {
   return (
-    <div className='grid grid-cols-2 gap-4 overflow-hidden rounded-[70px]'>
-      {images.map((image, index) => (
-        <div
-          className='flex items-center justify-center rounded-lg bg-gray-100'
-          key={index}
-        >
-          <img
-            src={image}
-            alt={`Product ${index}`}
-            className='h-full w-full object-cover'
-          />
-        </div>
-      ))}
+    <div className='grid grid-cols-2 gap-4 overflow-hidden'>
+      {images.map((image, index) => {
+        const isFirst = index === 0;
+        const isLast = index === images.length - 1;
+
+        return (
+          <div
+            key={index}
+            className={`flex items-center justify-center overflow-hidden border border-black/20 bg-gray-100 ${
+              isFirst ? 'rounded-tl-[60px]' : ''
+            } ${isLast ? 'rounded-br-[60px]' : ''}`}
+          >
+            <img
+              src={image}
+              alt={`Product ${index}`}
+              className='h-full w-full object-cover'
+            />
+          </div>
+        );
+      })}
     </div>
   );
 }
