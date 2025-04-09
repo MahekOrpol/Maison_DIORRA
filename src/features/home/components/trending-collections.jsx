@@ -25,6 +25,7 @@ export default function TrendingCollections() {
             <PreviewCard key={index} />
           ))}
         </div>
+        {/* Model image */}
         <div className='relative col-span-2 w-full'>
           <Image
             src='/img/model-img.svg'
