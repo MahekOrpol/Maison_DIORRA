@@ -10,7 +10,7 @@ const blogPosts = [
   {
     image: '/img/blogs/blog1.png',
     title: 'Crafting Beauty from Nature',
-    href: '/blog/1',
+    href: '/blogs/1',
     date: '12.FEB.2025',
     author: 'BY TEAM FERONIA',
     excerpt:
@@ -19,52 +19,52 @@ const blogPosts = [
   {
     image: '/img/blogs/blog2.png',
     title: 'Sustainable Jewelry Practices',
-    href: '/blog/2'
+    href: '/blogs/2'
   },
   {
     image: '/img/blogs/blog3.png',
     title: 'Sustainable Jewelry Practices',
-    href: '/blog/2'
+    href: '/blogs/2'
   },
   {
     image: '/img/blogs/blog4.png',
     title: 'Sustainable Jewelry Practices',
-    href: '/blog/2'
+    href: '/blogs/2'
   },
   {
     image: '/img/blogs/blog5.png',
     title: 'Sustainable Jewelry Practices',
-    href: '/blog/2'
+    href: '/blogs/2'
   },
   {
     image: '/img/blogs/blog6.png',
     title: 'Sustainable Jewelry Practices',
-    href: '/blog/2'
+    href: '/blogs/2'
   },
   {
     image: '/img/blogs/blog7.png',
     title: 'Sustainable Jewelry Practices',
-    href: '/blog/2'
+    href: '/blogs/2'
   },
   {
     image: '/img/blogs/blog8.png',
     title: 'Sustainable Jewelry Practices',
-    href: '/blog/2'
+    href: '/blogs/2'
   },
   {
     image: '/img/blogs/blog9.png',
     title: 'Sustainable Jewelry Practices',
-    href: '/blog/2'
+    href: '/blogs/2'
   },
   {
     image: '/img/blogs/blog1.png',
     title: 'Sustainable Jewelry Practices',
-    href: '/blog/2'
+    href: '/blogs/2'
   },
   {
     image: '/img/blogs/blog2.png',
     title: 'Sustainable Jewelry Practices',
-    href: '/blog/2'
+    href: '/blogs/2'
   }
 ];
 
@@ -76,7 +76,7 @@ export default function Page() {
         title='Blogs and Articles'
         subtitle='Home - Blogs and Articles'
       />
-      <div className='wrapper flex w-full flex-col gap-4 py-18 lg:flex-row lg:justify-between'>
+      <div className='wrapper flex w-full flex-col gap-4 py-18 xl:flex-row xl:justify-between'>
         <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
           {blogPosts.map((post, index) => (
             <BlogCard key={index} {...post} />
@@ -89,15 +89,28 @@ export default function Page() {
 }
 
 export function BlogsFilter({ className }) {
-  return (
-    <div className='flex w-full flex-col flex-wrap gap-4 md:flex-row lg:w-1/2 lg:flex-col'>
-      <div className='rounded-md border p-4 shadow-md md:flex-1 lg:flex-0'>
-        <h2 className='mb-4 text-xl font-medium underline underline-offset-4'>
-          Popular posts
+  function TitleText({ text }) {
+    return (
+      <div className='mb-2 md:mb-4'>
+        <h2 className='border-b-2 border-black/20 pb-2 text-2xl leading-8 font-medium md:pb-3 md:text-3xl'>
+          {text}
         </h2>
-        <div className='flex flex-col gap-2'>
+        <hr className='-mt-[1px] w-[100px] border border-black' />
+      </div>
+    );
+  }
+  return (
+    <div
+      className={`flex w-full max-w-md flex-col flex-wrap gap-4 sm:flex-row xl:w-1/2 xl:flex-col ${className}`}
+    >
+      <div className='rounded-md border p-4 shadow-md sm:flex-1 xl:flex-0'>
+        <TitleText text='Popular Posts' />
+        <div className='flex flex-col'>
           {Array.from({ length: 4 }).map((_, i) => (
-            <div className='flex gap-2 border-black not-last:border-b' key={i}>
+            <div
+              className='flex gap-2 border-black/40 py-3 not-last:border-b'
+              key={i}
+            >
               <Image
                 src='/img/blogs/blog10.png'
                 width={100}
@@ -113,78 +126,76 @@ export function BlogsFilter({ className }) {
           ))}
         </div>
       </div>
-      <div className='rounded-md border p-4 shadow-md md:w-[45%] lg:w-full'>
-        <h2 className='mb-4 border-b-2 border-black/20 pb-[1px] text-xl leading-8 font-medium underline underline-offset-10'>
-          Category{' '}
-        </h2>
-        <ul className='flex flex-col gap-1 font-light'>
-          <li>
-            <Link href='#' className='inline-block hover:font-medium'>
-              News
-            </Link>
-          </li>
-          <li>
-            <Link href='#' className='inline-block hover:font-medium'>
+      <div className='sm:w-[45%] xl:w-full'>
+        <div className='rounded-md border p-4 shadow-md'>
+          <TitleText text='Category' />
+          <ul className='flex flex-col gap-1 font-light'>
+            <li>
+              <Link href='#' className='inline-block hover:font-medium'>
+                News
+              </Link>
+            </li>
+            <li>
+              <Link href='#' className='inline-block hover:font-medium'>
+                Accessories
+              </Link>
+            </li>
+            <li>
+              <Link href='#' className='inline-block hover:font-medium'>
+                Collection
+              </Link>
+            </li>
+            <li>
+              <Link href='#' className='inline-block hover:font-medium'>
+                Fashion
+              </Link>
+            </li>
+            <li>
+              <Link href='#' className='inline-block hover:font-medium'>
+                Jewellery
+              </Link>
+            </li>
+            <li>
+              <Link href='#' className='inline-block hover:font-medium'>
+                Trends
+              </Link>
+            </li>
+          </ul>
+        </div>
+        <div className='mt-4 rounded-md border p-4 shadow-md'>
+          <TitleText text='Tags' />
+          <div className='flex flex-wrap gap-2'>
+            <Link
+              href='#'
+              className='border border-black px-3 py-[2px] font-light transition-all duration-200 hover:bg-black hover:text-white'
+            >
               Accessories
             </Link>
-          </li>
-          <li>
-            <Link href='#' className='inline-block hover:font-medium'>
-              Collection
+            <Link
+              href='#'
+              className='border border-black px-3 py-[2px] font-light transition-all duration-200 hover:bg-black hover:text-white'
+            >
+              Jewellery Collection
             </Link>
-          </li>
-          <li>
-            <Link href='#' className='inline-block hover:font-medium'>
-              Fashion
-            </Link>
-          </li>
-          <li>
-            <Link href='#' className='inline-block hover:font-medium'>
-              Jewellery
-            </Link>
-          </li>
-          <li>
-            <Link href='#' className='inline-block hover:font-medium'>
+            <Link
+              href='#'
+              className='border border-black px-3 py-[2px] font-light transition-all duration-200 hover:bg-black hover:text-white'
+            >
               Trends
             </Link>
-          </li>
-        </ul>
-      </div>
-      <div className='rounded-md border p-4 shadow-md md:w-full'>
-        <h2 className='mb-4 border-b-2 border-black/20 pb-[1px] text-xl leading-8 font-medium underline underline-offset-10'>
-          Tags{' '}
-        </h2>
-        <div className='flex flex-wrap gap-2'>
-          <Link
-            href='#'
-            className='border border-black px-3 py-[2px] font-light transition-all duration-200 hover:bg-black hover:text-white'
-          >
-            Accessories
-          </Link>
-          <Link
-            href='#'
-            className='border border-black px-3 py-[2px] font-light transition-all duration-200 hover:bg-black hover:text-white'
-          >
-            Jewellery Collection
-          </Link>
-          <Link
-            href='#'
-            className='border border-black px-3 py-[2px] font-light transition-all duration-200 hover:bg-black hover:text-white'
-          >
-            Trends
-          </Link>
-          <Link
-            href='#'
-            className='border border-black px-3 py-[2px] font-light transition-all duration-200 hover:bg-black hover:text-white'
-          >
-            Fashion
-          </Link>
-          <Link
-            href='#'
-            className='border border-black px-3 py-[2px] font-light transition-all duration-200 hover:bg-black hover:text-white'
-          >
-            Collection
-          </Link>
+            <Link
+              href='#'
+              className='border border-black px-3 py-[2px] font-light transition-all duration-200 hover:bg-black hover:text-white'
+            >
+              Fashion
+            </Link>
+            <Link
+              href='#'
+              className='border border-black px-3 py-[2px] font-light transition-all duration-200 hover:bg-black hover:text-white'
+            >
+              Collection
+            </Link>
+          </div>
         </div>
       </div>
     </div>

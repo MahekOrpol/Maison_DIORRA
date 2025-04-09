@@ -2,6 +2,7 @@
 import { useForm } from 'react-hook-form';
 import { Input } from '@/components/ui/input'; // shadcn input
 import { Button } from '@/components/ui/button';
+import { Textarea } from '@/components/ui/textarea';
 
 export function ReviewForm() {
   const {
@@ -24,20 +25,21 @@ export function ReviewForm() {
   };
 
   return (
-    <div className='mx-auto max-w-md rounded-lg bg-white p-6 shadow-md'>
-      <h2 className='mb-6 text-center text-2xl font-bold'>Add a Review</h2>
-      <p className='mb-6 text-center text-sm text-gray-500'>
+    <div className='wrapper'>
+      <h2 className='mb-2 text-2xl font-semibold lg:text-3xl'>Add a Review</h2>
+      <p className='mb-2 text-sm'>
         Your E-mail will not be Published. Required fields are marked*
       </p>
 
-      <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
+      <form onSubmit={handleSubmit(onSubmit)} className='max-w-4xl space-y-4'>
         <div className='grid grid-cols-2 gap-4'>
           <div>
-            <label htmlFor='firstName'>
+            <label htmlFor='firstName' className='text-sm'>
               First Name <span className='text-red-500'>*</span>
             </label>
             <Input
               id='firstName'
+              placeholder='Enter first name'
               {...register('firstName', { required: 'First name is required' })}
               className={`rounded-md ${errors.firstName ? 'border-red-500' : ''}`}
             />
@@ -49,9 +51,12 @@ export function ReviewForm() {
           </div>
 
           <div>
-            <label htmlFor='lastName'>Last Name</label>
+            <label htmlFor='lastName' className='text-sm'>
+              Last Name
+            </label>
             <Input
               id='lastName'
+              placeholder='Enter last name'
               {...register('lastName')}
               className='rounded-md'
             />
@@ -59,12 +64,13 @@ export function ReviewForm() {
         </div>
 
         <div>
-          <label htmlFor='email'>
+          <label htmlFor='email' className='text-sm'>
             E-mail <span className='text-red-500'>*</span>
           </label>
           <Input
             id='email'
             type='email'
+            placeholder='Enter email id'
             {...register('email', {
               required: 'Email is required',
               pattern: {
@@ -80,11 +86,12 @@ export function ReviewForm() {
         </div>
 
         <div>
-          <label htmlFor='message'>
+          <label htmlFor='message' className='text-sm'>
             Message <span className='text-red-500'>*</span>
           </label>
-          <textarea
+          <Textarea
             id='message'
+            placeholder='Enter message text'
             {...register('message', {
               required: 'Message is required',
               minLength: {
@@ -94,7 +101,7 @@ export function ReviewForm() {
             })}
             className={`w-full rounded-md border px-3 py-2 ${
               errors.message ? 'border-red-500' : 'border-gray-300'
-            } focus:ring-2 focus:ring-blue-500 focus:outline-none`}
+            } `}
             rows={4}
           />
           {errors.message && (
@@ -105,10 +112,7 @@ export function ReviewForm() {
         </div>
 
         <div className='pt-2'>
-          <Button
-            type='submit'
-            className='w-full rounded-md bg-blue-600 px-4 py-2 text-white transition duration-200 hover:bg-blue-700'
-          >
+          <Button type='submit' size='lg' className='w-full max-w-xs'>
             Post a Review
           </Button>
         </div>

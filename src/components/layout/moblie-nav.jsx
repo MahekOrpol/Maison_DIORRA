@@ -161,7 +161,7 @@ function DrawerLink({ href, icon, children }) {
   return (
     <Link
       href={href}
-      className='flex items-center gap-2 text-lg transition hover:text-black'
+      className='flex items-center gap-2 transition hover:text-black'
     >
       {icon}
       {children}
