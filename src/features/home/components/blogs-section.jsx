@@ -1,3 +1,4 @@
+'use client';
 import Heading from '@/components/heading';
 import { MoveRight } from 'lucide-react';
 import Image from 'next/image';
@@ -10,6 +11,7 @@ import {
   CarouselPrevious,
   CarouselNext
 } from '@/components/ui/carousel';
+import Autoplay from 'embla-carousel-autoplay';
 
 export default function BlogsSection() {
   return (
@@ -18,13 +20,26 @@ export default function BlogsSection() {
         title='Blogs and Articles'
         subtitle='Affordable luxury for everyday wear'
       />
-      <div className='wrapper'>
+      <div className='relative my-10'>
+        {/* Left gradient fade */}
+        <div className='pointer-events-none absolute top-0 -left-3 z-10 h-full w-6 bg-gradient-to-r from-white to-transparent' />
+
+        {/* Right gradient fade */}
+        <div className='pointer-events-none absolute top-0 -right-3 z-10 h-full w-6 bg-gradient-to-l from-white to-transparent' />
         <Carousel
           className='w-full'
           opts={{
             align: 'start',
             loop: true
           }}
+          plugins={[
+            Autoplay({
+              delay: 4000,
+              stopOnInteraction: false, // keeps autoplay running
+              stopOnMouseEnter: true, // pause when hovered (optional)
+              resetProgress: false
+            })
+          ]}
         >
           <CarouselContent className='-ml-2 flex md:ml-0'>
             {Array.from({ length: 5 }).map((_, index) => (
@@ -60,8 +75,8 @@ export default function BlogsSection() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className='absolute top-1/2 left-2 z-10 -translate-y-1/2 bg-white shadow-md' />
-          <CarouselNext className='absolute top-1/2 right-2 z-10 -translate-y-1/2 bg-white shadow-md' />
+          <CarouselPrevious className='z-20 translate-x-8 border-none text-black xl:translate-x-6' />
+          <CarouselNext className='z-20 -translate-x-8 border-none text-black xl:-translate-x-6' />
         </Carousel>
       </div>
     </section>

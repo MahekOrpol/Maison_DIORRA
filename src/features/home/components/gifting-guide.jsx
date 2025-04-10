@@ -25,7 +25,6 @@ export default function GiftingSection() {
           slidesPerView={5} // Dynamically sizes slides
           centeredSlides={true} // Centers the active slide
           grabCursor={true}
-          loopAddBlankSlides={true}
           coverflowEffect={{
             rotate: 0,
             stretch: 20,
@@ -54,8 +53,8 @@ export default function GiftingSection() {
               spaceBetween: -40
             },
             1024: {
-              slidesPerView: 4,
-              spaceBetween: -60
+              slidesPerView: 5,
+              spaceBetween: -50
             }
           }}
           className='coverflow relative w-full'
@@ -64,7 +63,7 @@ export default function GiftingSection() {
             {Array.from({ length: 5 }).map((_, index) => (
               <SwiperSlide key={index} className='-mx-[10px] pb-6 lg:mx-[60px]'>
                 {/* Container maintains a specific aspect ratio */}
-                <div className='w xs:h-[160px] xs:w-[260px] xl2:h-[490px] relative aspect-[4/3] h-[140px] w-[208px] overflow-hidden rounded-sm sm:h-[180px] sm:w-[310] md:h-[300px] md:w-[400px] lg:h-[360px] lg:w-[480px] xl:h-[440px] xl:w-[590px]'>
+                <div className='w xs:h-[160px] xs:w-[260px] xl2:h-[490px] relative aspect-[4/3] h-[140px] w-[208px] overflow-hidden rounded-sm sm:h-[180px] sm:w-[310] md:h-[300px] md:w-[400px] lg:h-[360px] lg:w-[480px] xl:h-[400px] xl:w-[610px]'>
                   <Image
                     src={`/img/gifting/guide${index + 1}.png`}
                     layout='fill'

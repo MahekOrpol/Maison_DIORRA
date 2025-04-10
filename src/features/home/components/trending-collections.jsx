@@ -19,37 +19,43 @@ export default function TrendingCollections() {
         title='Trending Collection'
         subtitle='Affordable luxury for everyday wear'
       />
-      <div className=' '>
-        <div className='flex w-full justify-between gap-2 sm:gap-4 xl:flex-col'>
+      <div className='flex flex-col gap-4 lg:max-h-screen lg:flex-row lg:items-stretch xl:justify-evenly'>
+        {/* Left side cards */}
+        <div className='flex w-full items-center justify-between gap-2 lg:w-[22%] lg:flex-col xl:w-[25%]'>
           {Array.from({ length: 2 }).map((_, index) => (
-            <PreviewCard key={index} />
+            <PreviewCard key={`left-${index}`} className={''} />
           ))}
         </div>
-        {/* Model image */}
-        <div className='relative'>
+
+        {/* Center model image with tooltips */}
+        <div className='relative h-auto w-full overflow-hidden rounded-md border border-red-500 lg:w-[60%]'>
           <Image
             src='/img/model-img.svg'
             height={1000}
             width={600}
-            alt='modal image'
-            className='h-full w-full rounded-md object-cover'
+            alt='model image'
+            className='h-full w-full object-cover'
           />
-          <div className='absolute bottom-[18%] left-[26%] flex h-[15px] w-[15px] items-center justify-center rounded-full border border-white md:h-7 md:w-7'>
+
+          {/* Tooltip markers */}
+          <div className='absolute bottom-[18%] left-[26%] flex h-4 w-4 items-center justify-center rounded-full border border-white md:h-7 md:w-7'>
             <CustomTooltip />
           </div>
-          <div className='absolute top-[32%] left-[22%] flex h-[15px] w-[15px] items-center justify-center rounded-full border border-white md:h-7 md:w-7'>
+          <div className='absolute top-[32%] left-[22%] flex h-4 w-4 items-center justify-center rounded-full border border-white md:h-7 md:w-7 lg:left-[20%]'>
             <CustomTooltip />
           </div>
-          <div className='absolute right-[26%] bottom-[32%] flex h-[15px] w-[15px] items-center justify-center rounded-full border border-white md:h-7 md:w-7'>
+          <div className='2xl absolute right-[26%] bottom-[32%] flex h-4 w-4 items-center justify-center rounded-full border border-white md:h-7 md:w-7 lg:right-[22%]'>
             <CustomTooltip />
           </div>
-          <div className='absolute top-[23%] right-[18%] flex h-[15px] w-[15px] items-center justify-center rounded-full border border-white md:h-7 md:w-7'>
+          <div className='absolute top-[23%] right-[18%] flex h-4 w-4 items-center justify-center rounded-full border border-white md:h-7 md:w-7 lg:top-[22%] lg:right-[14%]'>
             <CustomTooltip />
           </div>
         </div>
-        <div className='flex w-full justify-between gap-2 xl:flex-col'>
+
+        {/* Right side cards */}
+        <div className='flex w-full items-center justify-between gap-2 lg:w-[22%] lg:flex-col xl:w-[25%]'>
           {Array.from({ length: 2 }).map((_, index) => (
-            <PreviewCard key={index} />
+            <PreviewCard key={`left-${index}`} className={''} />
           ))}
         </div>
       </div>

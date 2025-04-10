@@ -62,7 +62,7 @@
     @apply cursor-pointer;
   }
   .wrapper {
-    @apply mx-auto w-full max-w-[1920px] px-3 sm:px-6 lg:px-8 xl:px-10;
+    @apply mx-auto w-full max-w-[1600px] px-3 sm:px-6 lg:px-8 xl:px-10;
   }
 }
 .hero-font {

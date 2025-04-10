@@ -131,6 +131,19 @@ export default async function Header() {
                 className='h-[20px] w-[20px] transition-transform group-hover:scale-110'
               />
             )
+          },
+          {
+            href: '/education',
+            label: 'Education',
+            icon: (
+              <Image
+                src='/icons/necklace.svg'
+                alt='necklace'
+                width={20}
+                height={20}
+                className='h-[20px] w-[20px] transition-transform group-hover:scale-110'
+              />
+            )
           }
         ].map((item, index) => (
           <Link

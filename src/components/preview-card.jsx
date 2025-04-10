@@ -91,14 +91,14 @@ export default function PreviewCard({ className }) {
     }
   };
   const handleAddToCart = async () => {
-    const res = await fetch('/api/check-auth', {
-      method: 'GET',
-      cache: 'no-store'
-    });
-    const data = await res.json();
-    if (!data.authenticated) {
-      return (window.location.href = '/sign-in');
-    }
+    // const res = await fetch('/api/check-auth', {
+    //   method: 'GET',
+    //   cache: 'no-store'
+    // });
+    // const data = await res.json();
+    // if (!data.authenticated) {
+    //   return (window.location.href = '/sign-in');
+    // }
     return (window.location.href = '/checkout');
   };
 
@@ -126,13 +126,13 @@ export default function PreviewCard({ className }) {
                   alt={selectedMetal.name}
                   width={300}
                   height={300}
-                  className='mx-auto h-32 max-w-full object-contain sm:h-[250px]'
+                  className='xs:h-[180px] mx-auto h-32 max-w-full object-contain sm:h-[250px]'
                 />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className='absolute bottom-0 left-1/2 h-3 w-3 -translate-x-6 translate-y-[57px] transform bg-[#EAEAEA] sm:translate-y-[112px] md:h-6 md:w-6' />
-          <CarouselNext className='absolute right-1/2 h-3 w-3 translate-x-8 translate-y-[57px] transform bg-[#EAEAEA] sm:translate-y-[112px] md:h-6 md:w-6' />
+          <CarouselPrevious className='xs:translate-y-[80px] absolute bottom-0 left-1/2 h-3 w-3 -translate-x-6 translate-y-[57px] transform bg-[#EAEAEA] sm:translate-y-[112px] md:h-6 md:w-6' />
+          <CarouselNext className='xs:translate-y-[80px] absolute right-1/2 h-3 w-3 translate-x-8 translate-y-[57px] transform bg-[#EAEAEA] sm:translate-y-[112px] md:h-6 md:w-6' />
         </Carousel>
         <CardContent className='xs:px-4 px-2 pb-2'>
           <div className='mb-3 flex justify-center gap-2 sm:order-last'>

@@ -33,7 +33,7 @@ export default function CustomersFavourite() {
           }}
           plugins={[
             Autoplay({
-              delay: 4000,
+              delay: 3000,
               stopOnInteraction: true
             })
           ]}
