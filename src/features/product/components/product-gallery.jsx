@@ -128,9 +128,10 @@ function DesktopGallery() {
         return (
           <div
             key={index}
-            className={`flex items-center justify-center overflow-hidden border border-black/20 bg-gray-100 ${
-              isFirst ? 'rounded-tl-[60px]' : ''
-            } ${isLast ? 'rounded-br-[60px]' : ''}`}
+            className={`flex items-center justify-center overflow-hidden border border-black/20 bg-gray-100`}
+            // ${
+            //   isFirst ? 'rounded-tl-[60px]' : ''
+            // } ${isLast ? 'rounded-br-[60px]' : ''}
           >
             <img
               src={image}

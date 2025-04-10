@@ -14,7 +14,7 @@ import { ShoppingBag } from 'lucide-react';
 
 export default function TrendingCollections() {
   return (
-    <section className='wrapper pt-10 md:pt-15 lg:pt-20'>
+    <section className='wrapper pt-9 md:pt-12 lg:pt-16 xl:pt-20'>
       <Heading
         title='Trending Collection'
         subtitle='Affordable luxury for everyday wear'

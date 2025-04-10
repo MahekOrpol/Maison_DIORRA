@@ -11,7 +11,7 @@ export default function Page() {
           image='/img/about1.png'
           title='About Us'
           paragraphs={[
-            'At Feronia, we create elegant, high-quality jewelry that celebrates your special moments.',
+            'At Feronia, we create elegant, high-quality jewelry that celebrates your special moments. Our designs blend artistry and innovation, making every piece timeless and unique.',
             'Each piece tells a story, blending beauty and meaning. Whether for a celebration or everyday elegance, our jewelry is designed to shine with you.'
           ]}
         />
@@ -80,7 +80,7 @@ export function AboutSection({ image, title, paragraphs, reverse = false }) {
         {paragraphs.map((text, i) => (
           <p
             key={i}
-            className='mb-4 text-justify text-sm leading-4 font-light sm:text-base sm:leading-5 md:text-left lg:text-lg lg:leading-6 2xl:text-xl'
+            className='mb-4 text-justify text-sm leading-4 font-light sm:text-base sm:leading-6 md:text-left lg:text-lg xl:leading-7 2xl:text-[22px] 2xl:leading-8'
           >
             {text}
           </p>

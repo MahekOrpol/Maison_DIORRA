@@ -137,8 +137,8 @@ export default async function Header() {
             label: 'Education',
             icon: (
               <Image
-                src='/icons/necklace.svg'
-                alt='necklace'
+                src='/icons/education.svg'
+                alt='education'
                 width={20}
                 height={20}
                 className='h-[20px] w-[20px] transition-transform group-hover:scale-110'

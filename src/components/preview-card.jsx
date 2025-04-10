@@ -31,7 +31,7 @@ const data = {
   metals: [
     {
       metal: 'silver',
-      name: 'Silver Ring Lorem Ipsum',
+      name: 'Sterling Silver Band Ring',
       images: [
         '/img/preview/ring1.png',
         '/img/preview/nacklace.png',
@@ -42,7 +42,7 @@ const data = {
     },
     {
       metal: 'gold',
-      name: 'Gold Item Lorem Ipsum',
+      name: 'Gold Item Band Ring',
       images: [
         '/img/preview/gold1.png',
         '/img/preview/gold2.png',
@@ -53,7 +53,7 @@ const data = {
     },
     {
       metal: 'rose',
-      name: 'Rose Gold Ipsum',
+      name: 'Rose Gold Band Ring',
       images: [
         '/img/preview/rose1.png',
         '/img/preview/rose2.png',
@@ -131,12 +131,12 @@ export default function PreviewCard({ className }) {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className='xs:translate-y-[80px] absolute bottom-0 left-1/2 h-3 w-3 -translate-x-6 translate-y-[57px] transform bg-[#EAEAEA] sm:translate-y-[112px] md:h-6 md:w-6' />
-          <CarouselNext className='xs:translate-y-[80px] absolute right-1/2 h-3 w-3 translate-x-8 translate-y-[57px] transform bg-[#EAEAEA] sm:translate-y-[112px] md:h-6 md:w-6' />
+          <CarouselPrevious className='xs:translate-y-[80px] absolute bottom-0 left-1/2 h-1 w-1 -translate-x-6 translate-y-[60px] transform border-none sm:translate-y-[112px] md:h-6 md:w-6' />
+          <CarouselNext className='xs:translate-y-[80px] absolute right-1/2 h-1 w-1 translate-x-8 translate-y-[57px] transform border-none sm:translate-y-[112px] md:h-6 md:w-6' />
         </Carousel>
         <CardContent className='xs:px-4 px-2 pb-2'>
           <div className='mb-3 flex justify-center gap-2 sm:order-last'>
-            <div className='mt-2 flex w-full flex-col justify-between border-t pt-2 sm:flex-row sm:items-center md:justify-between'>
+            <div className='mt-2 flex w-full flex-col justify-between border-t pt-1 sm:flex-row sm:items-center md:justify-between'>
               <div className='mb-3 flex justify-center gap-2 sm:order-last sm:mb-0'>
                 {data.metals.map((metalOption) => (
                   <button
@@ -162,15 +162,15 @@ export default function PreviewCard({ className }) {
             </div>
           </div>
 
-          <p className='my-3 block text-left text-base leading-5 text-gray-900 md:text-lg lg:text-xl'>
+          <p className='my-1 block text-left text-base leading-5 text-gray-900 md:text-lg lg:text-xl'>
             <button onClick={handleProductClick} className='block text-left'>
               {selectedMetal.name}
             </button>
           </p>
 
           <Button
-            size='lg'
-            className='xs:text-base w-full text-sm'
+            size='md'
+            className='xs:text-base w-full py-2 text-sm'
             onClick={handleAddToCart}
           >
             Add to Bag <ShoppingBagIcon size={20} />

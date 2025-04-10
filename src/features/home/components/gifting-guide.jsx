@@ -11,7 +11,7 @@ import Image from 'next/image';
 
 export default function GiftingSection() {
   return (
-    <section className='wrapper pt-10 md:pt-15 lg:pt-20'>
+    <section className='wrapper pt-9 md:pt-12 lg:pt-16 xl:pt-20'>
       <Heading
         title='Gifting Guide'
         subtitle='Statement pieces fit for royalty'

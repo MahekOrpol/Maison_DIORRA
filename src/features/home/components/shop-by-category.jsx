@@ -12,7 +12,7 @@ const categories = [
 
 export default function ShopByCategory() {
   return (
-    <section className='wrapper pt-10 md:pt-15 lg:pt-20'>
+    <section className='wrapper pt-9 md:pt-12 lg:pt-16 xl:pt-20'>
       <Heading
         title='Shop by Category'
         subtitle='Your Imagination, Our Craftsmanship'
@@ -34,7 +34,9 @@ export default function ShopByCategory() {
                 className='w-full rounded-md object-cover transition-transform duration-300 hover:scale-110'
               />
             </div>
-            <p className='mt-2 text-xl'>{name}</p>
+            <p className='text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl'>
+              {name}
+            </p>
           </Link>
         ))}
       </div>
