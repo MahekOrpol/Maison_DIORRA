@@ -34,7 +34,7 @@ export default function ShopByCategory() {
                 className='w-full rounded-md object-cover transition-transform duration-300 hover:scale-110'
               />
             </div>
-            <p className='text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl'>
+            <p className='text-lg font-medium md:text-xl lg:mb-2 lg:text-2xl'>
               {name}
             </p>
           </Link>

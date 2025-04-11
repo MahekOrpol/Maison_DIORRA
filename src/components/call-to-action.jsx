@@ -41,7 +41,7 @@ export default function CallToAction({ className }) {
         height={150}
         className=''
       />
-      <p className='max-w-4xl text-center text-sm font-light'>
+      <p className='max-w-4xl text-center text-sm font-light md:text-base xl:leading-6'>
         Discover exquisite craftsmanship and timeless elegance with our stunning
         collection of jewelry. From everyday wear to special occasion pieces, we
         have something for everyone. Choose your metals, stones, and styles to
@@ -61,11 +61,11 @@ export default function CallToAction({ className }) {
           Subscribe
         </button>
       </form>
-      <div className='mt-4 flex flex-col flex-wrap items-center justify-center gap-4 text-center sm:flex-row md:justify-around'>
+      <div className='mt-4 flex flex-col flex-wrap items-center justify-center gap-4 sm:flex-row md:justify-around md:text-left'>
         {cardData.map((card, index) => (
           <div
             key={index}
-            className='flex max-w-[250px] flex-col items-center gap-2 md:w-[23%]'
+            className='flex max-w-[250px] flex-col items-center gap-2 md:w-[23%] md:items-start lg:max-w-[300px]'
           >
             <Image
               src={card.iconUrl}
@@ -76,7 +76,7 @@ export default function CallToAction({ className }) {
             />
             <div>
               <h3 className='mb-1 text-lg md:mb-2 lg:text-2xl'>{card.title}</h3>
-              <p className='text-xs leading-4 font-light lg:text-sm'>
+              <p className='text-xs leading-4 font-light lg:text-sm lg:leading-5 xl:text-base'>
                 {card.subtitle}
               </p>
             </div>

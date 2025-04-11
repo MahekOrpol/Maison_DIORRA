@@ -31,7 +31,7 @@ const data = {
   metals: [
     {
       metal: 'silver',
-      name: 'Sterling Silver Band Ring',
+      name: 'Silver Ring Lorem Ipsum',
       images: [
         '/img/preview/ring1.png',
         '/img/preview/nacklace.png',
@@ -42,7 +42,7 @@ const data = {
     },
     {
       metal: 'gold',
-      name: 'Gold Item Band Ring',
+      name: 'Gold Item Lorem Ipsum',
       images: [
         '/img/preview/gold1.png',
         '/img/preview/gold2.png',
@@ -53,7 +53,7 @@ const data = {
     },
     {
       metal: 'rose',
-      name: 'Rose Gold Band Ring',
+      name: 'Rose Gold Ipsum',
       images: [
         '/img/preview/rose1.png',
         '/img/preview/rose2.png',
@@ -91,14 +91,14 @@ export default function PreviewCard({ className }) {
     }
   };
   const handleAddToCart = async () => {
-    // const res = await fetch('/api/check-auth', {
-    //   method: 'GET',
-    //   cache: 'no-store'
-    // });
-    // const data = await res.json();
-    // if (!data.authenticated) {
-    //   return (window.location.href = '/sign-in');
-    // }
+    const res = await fetch('/api/check-auth', {
+      method: 'GET',
+      cache: 'no-store'
+    });
+    const data = await res.json();
+    if (!data.authenticated) {
+      return (window.location.href = '/sign-in');
+    }
     return (window.location.href = '/checkout');
   };
 
@@ -106,37 +106,47 @@ export default function PreviewCard({ className }) {
     <>
       <Card
         className={cn(
-          'group/card relative w-auto max-w-[370px] gap-0 rounded-lg bg-white p-0 shadow-lg transition-transform duration-300 hover:border hover:border-black/40',
-          !isClientMobile && 'hover:scale-[1.03]',
+          'group relative gap-0 overflow-hidden rounded-xl pt-0 pb-2 shadow transition-transform duration-300 hover:border-black/40 hover:shadow-lg',
           className
         )}
       >
+        {/* Wish Button */}
         <Button
-          variant='favourite button'
-          className='absolute top-[2%] right-[2%] z-20 flex h-6 w-6 items-center justify-center rounded-full border text-black hover:bg-gray-100 sm:top-4 sm:right-4 sm:h-8 sm:w-8'
+          variant='ghost'
+          onClick={() => setLiked(!liked)}
+          className='absolute top-2 right-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white hover:bg-red-100'
         >
-          <Heart className='h-4 w-4 md:h-5 md:w-5' />
+          <Heart
+            className={cn(
+              'h-6 w-6 transition-colors',
+              liked ? 'fill-red-500 text-red-500' : 'text-gray-500'
+            )}
+          />
         </Button>
-        <Carousel opts={{ align: 'start', loop: false }}>
-          <CarouselContent className='pt-1'>
+        <Carousel opts={{ align: 'start', loop: false }} className='relative'>
+          <CarouselContent className='ml-0 h-60 w-full sm:h-72 md:h-80'>
             {selectedMetal.images.map((image, index) => (
-              <CarouselItem key={index} onClick={handleProductClick}>
+              <CarouselItem
+                key={index}
+                onClick={handleProductClick}
+                className='h-full pl-0'
+              >
                 <Image
                   src={image}
                   alt={selectedMetal.name}
                   width={300}
                   height={300}
-                  className='xs:h-[180px] mx-auto h-32 max-w-full object-contain sm:h-[250px]'
+                  className='h-full w-full object-contain'
                 />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className='xs:translate-y-[80px] absolute bottom-0 left-1/2 h-1 w-1 -translate-x-6 translate-y-[60px] transform border-none sm:translate-y-[112px] md:h-6 md:w-6' />
-          <CarouselNext className='xs:translate-y-[80px] absolute right-1/2 h-1 w-1 translate-x-8 translate-y-[57px] transform border-none sm:translate-y-[112px] md:h-6 md:w-6' />
+          <CarouselPrevious className='absolute bottom-0 left-1/2 h-5 w-5 -translate-x-6 translate-y-[100px] transform bg-none sm:translate-y-[130px] md:h-6 md:w-6 md:translate-y-[140px]' />
+          <CarouselNext className='absolute right-1/2 h-5 w-5 translate-x-8 translate-y-[100px] transform bg-none sm:translate-y-[130px] md:h-6 md:w-6 md:translate-y-[140px]' />
         </Carousel>
-        <CardContent className='xs:px-4 px-2 pb-2'>
-          <div className='mb-3 flex justify-center gap-2 sm:order-last'>
-            <div className='mt-2 flex w-full flex-col justify-between border-t pt-1 sm:flex-row sm:items-center md:justify-between'>
+        <CardContent className='xs:px-4 flex flex-1 flex-col justify-between px-2 pb-2'>
+          <div className='mb-3 flex justify-center gap-2'>
+            <div className='mt-2 flex w-full flex-col justify-between border-t pt-2 sm:flex-row sm:items-center md:justify-between'>
               <div className='mb-3 flex justify-center gap-2 sm:order-last sm:mb-0'>
                 {data.metals.map((metalOption) => (
                   <button
@@ -162,15 +172,15 @@ export default function PreviewCard({ className }) {
             </div>
           </div>
 
-          <p className='my-1 block text-left text-base leading-5 text-gray-900 md:text-lg lg:text-xl'>
+          <p className='my-3 block text-left text-base leading-5 text-gray-900 md:text-lg lg:text-xl'>
             <button onClick={handleProductClick} className='block text-left'>
               {selectedMetal.name}
             </button>
           </p>
 
           <Button
-            size='md'
-            className='xs:text-base w-full py-2 text-sm'
+            size='lg'
+            className='xs:text-base mt-auto w-full text-sm'
             onClick={handleAddToCart}
           >
             Add to Bag <ShoppingBagIcon size={20} />

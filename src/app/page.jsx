@@ -19,6 +19,7 @@ export default function Page() {
       <DiamondShapes />
       <NewArrivals />
       <TrendingCollections />
+
       <BlogsSection />
       <TestimonialSection />
     </div>

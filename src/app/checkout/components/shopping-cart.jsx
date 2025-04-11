@@ -49,7 +49,7 @@ const ShoppingCart = ({ onNext }) => {
           {/* Cart section */}
           <CartContainer cart={cart} setCart={setCart} />
         </div>
-        <div className='flex w-full flex-col gap-4 py-6 lg:max-w-xs lg:py-0'>
+        <div className='flex w-full flex-col gap-4 py-6 lg:max-w-sm lg:py-0'>
           <div className='bg-secondary flex items-center gap-4 rounded-lg px-4 py-2'>
             <BadgePercent />
             <p>Apply Coupon</p>

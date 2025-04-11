@@ -27,6 +27,7 @@ import {
   CarouselContent,
   CarouselItem
 } from '@/components/ui/carousel';
+import ProductCard2 from '@/components/preview-card2';
 
 const advertisements = [
   {
@@ -82,7 +83,7 @@ const ringStyles = [
 export default function Page() {
   const [selectedStyle, setSelectedStyle] = useState(null);
   return (
-    <div className='wrapper'>
+    <div className='wrapper2'>
       {/* arrowed label */}
       <CustomTagWrapper />
       {/* select ring style */}
@@ -120,7 +121,7 @@ export default function Page() {
       {/* filters */}
       <ProductsFilter />
       {/* listing components */}
-      <div className='my-6 grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-5 xl:gap-6'>
+      <div className='mt-6 mb-10 grid grid-cols-2 gap-2 md:mb-20 md:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-5 xl:gap-6'>
         {Array.from({ length: 50 }).map((_, index) => {
           // Separate ad indices for different breakpoints
           const mobileAdIndex = Math.floor(index / 2) % advertisements.length;
@@ -183,6 +184,7 @@ export default function Page() {
               )}
               {/* Render Listing Item */}
               <PreviewCard />
+              {/* <ProductCard2 /> */}
             </React.Fragment>
           );
         })}

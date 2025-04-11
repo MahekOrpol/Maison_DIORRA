@@ -59,17 +59,19 @@ export default function DiamondShapes() {
             {shapes.map((item, i) => (
               <CarouselItem
                 key={i}
-                className='basis-1/2 pl-2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 lg:pl-4 xl:basis-1/6'
+                className='basis-1/2 pl-2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 lg:pl-4 xl:basis-1/7'
               >
                 <Link href='#'>
                   <div className='flex flex-col items-center text-center'>
-                    <Image
-                      src={item.url}
-                      alt={item.name}
-                      width={100}
-                      height={100}
-                      className='h-[90px] w-auto object-contain'
-                    />
+                    <div className='h-[150px]'>
+                      <Image
+                        src={item.url}
+                        alt={item.name}
+                        width={100}
+                        height={100}
+                        className='h-full w-auto object-contain'
+                      />
+                    </div>
                     <p className='mt-2 text-sm font-semibold md:text-base'>
                       {item.name}
                     </p>

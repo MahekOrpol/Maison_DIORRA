@@ -25,16 +25,16 @@ export default function CustomTag({ no, text, bold, imgUrl, className, href }) {
       <div className='absolute inset-0 z-10 flex items-center justify-center p-1 md:p-2'>
         <div className='relative flex w-full items-center gap-1 md:gap-2'>
           {/* Number */}
-          <div className='2xl:text-[] shrink-0 text-lg leading-none sm:pl-1 sm:text-2xl md:pl-1 md:text-3xl xl:pl-4 xl:text-[46px]'>
+          <div className='shrink-0 text-lg leading-none max-[350px]:text-base sm:pl-1 sm:text-2xl md:pl-1 md:text-3xl xl:pl-4 xl:text-[46px]'>
             {no}
           </div>
 
           {/* Text & Bold */}
           <div className='flex flex-col gap-[2px] md:gap-1 lg:flex-row'>
-            <div className='xs:text-sm overflow-hidden text-xs leading-none sm:text-[15px] md:text-lg lg:text-lg xl:text-2xl'>
+            <div className='xs:text-sm overflow-hidden text-xs leading-none max-[350px]:text-[10px] sm:text-[15px] md:text-lg lg:text-lg xl:text-2xl'>
               {text}
             </div>
-            <div className='xs:text-[12px] text-left text-xs leading-none font-semibold text-black uppercase sm:text-[15px] md:text-lg lg:text-lg xl:text-2xl'>
+            <div className='xs:text-[12px] text-left text-xs leading-none font-semibold text-black uppercase max-[350px]:text-[10px] sm:text-[15px] md:text-lg lg:text-lg xl:text-2xl'>
               {bold}
             </div>
           </div>

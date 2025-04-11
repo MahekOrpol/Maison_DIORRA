@@ -11,6 +11,7 @@ import {
   TooltipTrigger
 } from '@/components/ui/tooltip';
 import { ShoppingBag } from 'lucide-react';
+import ProductCard2 from '@/components/preview-card2';
 
 export default function TrendingCollections() {
   return (
@@ -19,16 +20,17 @@ export default function TrendingCollections() {
         title='Trending Collection'
         subtitle='Affordable luxury for everyday wear'
       />
-      <div className='flex flex-col gap-4 lg:max-h-screen lg:flex-row lg:items-stretch xl:justify-evenly'>
+      <div className='flex flex-col gap-2 md:gap-4 lg:flex-row lg:items-stretch'>
         {/* Left side cards */}
-        <div className='flex w-full items-center justify-between gap-2 lg:w-[22%] lg:flex-col xl:w-[25%]'>
+        <div className='xl:grid-row-2 grid grid-cols-2 gap-4 lg:w-[22%] lg:grid-cols-1 xl:w-[25%]'>
           {Array.from({ length: 2 }).map((_, index) => (
             <PreviewCard key={`left-${index}`} className={''} />
+            // <ProductCard2 key={`left-${index}`} />
           ))}
         </div>
 
         {/* Center model image with tooltips */}
-        <div className='relative h-auto w-full overflow-hidden rounded-md border border-red-500 lg:w-[60%]'>
+        <div className='relative aspect-[766/980] w-full overflow-hidden rounded-md border lg:w-[60%]'>
           <Image
             src='/img/model-img.svg'
             height={1000}
@@ -41,21 +43,22 @@ export default function TrendingCollections() {
           <div className='absolute bottom-[18%] left-[26%] flex h-4 w-4 items-center justify-center rounded-full border border-white md:h-7 md:w-7'>
             <CustomTooltip />
           </div>
-          <div className='absolute top-[32%] left-[22%] flex h-4 w-4 items-center justify-center rounded-full border border-white md:h-7 md:w-7 lg:left-[20%]'>
+          <div className='absolute top-[32%] left-[22%] flex h-4 w-4 items-center justify-center rounded-full border border-white md:h-7 md:w-7 lg:left-[20%] xl:left-[18%]'>
             <CustomTooltip />
           </div>
-          <div className='2xl absolute right-[26%] bottom-[32%] flex h-4 w-4 items-center justify-center rounded-full border border-white md:h-7 md:w-7 lg:right-[22%]'>
+          <div className='absolute right-[26%] bottom-[32%] flex h-4 w-4 items-center justify-center rounded-full border border-white md:h-7 md:w-7 lg:right-[22%] 2xl:right-[24%]'>
             <CustomTooltip />
           </div>
-          <div className='absolute top-[23%] right-[18%] flex h-4 w-4 items-center justify-center rounded-full border border-white md:h-7 md:w-7 lg:top-[22%] lg:right-[14%]'>
+          <div className='absolute top-[24%] right-[18%] flex h-4 w-4 items-center justify-center rounded-full border border-white md:h-7 md:w-7 lg:top-[21%] lg:right-[17%] xl:top-[24%] xl:right-[11%] 2xl:right-[18%]'>
             <CustomTooltip />
           </div>
         </div>
 
         {/* Right side cards */}
-        <div className='flex w-full items-center justify-between gap-2 lg:w-[22%] lg:flex-col xl:w-[25%]'>
+        <div className='xl:grid-row-2 grid grid-cols-2 gap-4 lg:w-[22%] lg:grid-cols-1 xl:w-[25%]'>
           {Array.from({ length: 2 }).map((_, index) => (
             <PreviewCard key={`left-${index}`} className={''} />
+            // <ProductCard2 key={`left-${index}`} />
           ))}
         </div>
       </div>
