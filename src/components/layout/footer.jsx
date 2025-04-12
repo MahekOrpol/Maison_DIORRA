@@ -113,7 +113,7 @@ export default function Footer() {
               alt='Company logo'
               className='mx-auto invert-100 lg:mx-0'
             />
-            <p className='mx-auto text-sm font-extralight md:w-4/5 lg:mx-0 lg:text-base'>
+            <p className='mx-auto text-xs font-extralight md:w-4/5 lg:mx-0 lg:text-base'>
               At Feronia, we believe that jewelry is more than just an
               accessory—it’s a reflection of your style, your story, and your
               most treasured moments.
