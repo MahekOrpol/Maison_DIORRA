@@ -67,6 +67,9 @@
   .wrapper2 {
     @apply mx-auto w-full max-w-[1600px] px-3 sm:px-4 lg:px-8 xl:px-12;
   }
+  .swiper_container {
+    @apply h-[500px] bg-red-100;
+  }
 }
 .hero-font {
   font-size: clamp(2rem, 1.525rem + 2.375vw, 4.375rem);
@@ -74,20 +77,42 @@
 /* .swiper .swiper-slide {
   border: 2px solid white;
 } */
-.swiper {
-  width: 100%;
-  padding-top: 50px;
-  padding-bottom: 50px;
-}
+/* .swiper {
+  width: 50%;
+  display: flex;
+  align-items: center;
+} */
 
-.swiper-slide {
+/* .swiper-slide {
   background-position: center;
   background-size: cover;
   width: 300px;
   height: 300px;
-}
+} */
 
-.swiper-slide img {
+/* .swiper-slide img {
   display: block;
   width: 100%;
+} */
+
+/* .swiper_container {
+  height: 52rem;
+  padding: 2rem 0;
+  position: relative;
+  z-index: 0;
 }
+.swiper-slide {
+  width: 37rem;
+  height: 42rem;
+  position: relative;
+  z-index: 10;
+}
+@media (max-width: 500px) {
+  .swiper_container {
+    height: 47rem;
+  }
+  .swiper-slide {
+    width: 28rem !important;
+    height: 36rem !important;
+  }
+} */

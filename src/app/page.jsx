@@ -1,3 +1,4 @@
+import SwiperCoverflow from '@/components/dummy/SwiperCoverflow';
 import BlogsSection from '@/features/home/components/blogs-section';
 import CustomersFavourite from '@/features/home/components/customers-favourite';
 import DiamondShapes from '@/features/home/components/diamond-shapes';
@@ -19,9 +20,9 @@ export default function Page() {
       <DiamondShapes />
       <NewArrivals />
       <TrendingCollections />
-
       <BlogsSection />
       <TestimonialSection />
+      <SwiperCoverflow />
     </div>
   );
 }

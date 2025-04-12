@@ -67,7 +67,7 @@ export default function TestimonialSection() {
             ))}
           </CarouselContent>
           <CarouselPrevious className='z-20 translate-x-6 border-none xl:translate-x-4' />
-          <CarouselNext className='z-20 -translate-x-6 border-none xl:-translate-x-4' />
+          <CarouselNext className='z-20 -translate-x-7 border-none xl:-translate-x-4' />
         </Carousel>
       </div>
     </section>
