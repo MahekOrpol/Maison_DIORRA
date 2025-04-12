@@ -100,9 +100,7 @@ export function BlogsFilter({ className }) {
     );
   }
   return (
-    <div
-      className={`flex w-full max-w-md flex-col flex-wrap gap-4 sm:flex-row xl:w-1/2 xl:flex-col ${className}`}
-    >
+    <div className={`${className}`}>
       <div className='rounded-md border p-4 shadow-md sm:flex-1 xl:flex-0'>
         <TitleText text='Popular Posts' />
         <div className='flex flex-col'>

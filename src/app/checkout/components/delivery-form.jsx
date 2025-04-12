@@ -82,7 +82,7 @@ export default function DeliveryForm({ onNext }) {
 
   return (
     <>
-      <div className='flex flex-col justify-between gap-4 md:flex-row'>
+      <div className='flex flex-col justify-between gap-[3%] md:flex-row 2xl:gap-[7%]'>
         <div className='flex-1 pr-4'>
           <h2 className='mb-4 text-2xl font-semibold'>
             Select Delivery Address
@@ -90,7 +90,7 @@ export default function DeliveryForm({ onNext }) {
           <FormProvider {...methods}>
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className='flex max-w-3xl flex-wrap items-center justify-start gap-2'
+              className='flex max-w-4xl flex-wrap items-center justify-start gap-2'
             >
               {/* Country */}
               <FloatingSelect
@@ -245,7 +245,7 @@ export default function DeliveryForm({ onNext }) {
             </form>
           </FormProvider>
         </div>
-        <div className='w-full md:max-w-sm lg:max-w-md'>
+        <div className='w-full md:max-w-sm lg:max-w-xl'>
           <OrderSummary
             items={orderItems}
             subtotal='90,850'

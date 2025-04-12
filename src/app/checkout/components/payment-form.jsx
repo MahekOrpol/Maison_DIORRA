@@ -48,12 +48,12 @@ export default function PaymentForm({ onPrev }) {
     router.push('/account');
   };
   return (
-    <div className='flex flex-col justify-between gap-4 md:flex-row'>
+    <div className='flex flex-col justify-between gap-[3%] md:flex-row 2xl:gap-[7%]'>
       <div className='flex-1 pr-4'>
         <h2 className='mb-4 text-xl font-semibold md:text-2xl'>
           Choose Payment Method
         </h2>
-        <div className='max-w-2xl'>
+        <div className='w-full max-w-4xl'>
           {/* payment gateway form  */}
           <form action=''>
             <div className='max-w-3xl'>
@@ -122,7 +122,7 @@ export default function PaymentForm({ onPrev }) {
           </form>
         </div>
       </div>
-      <div className='w-full md:max-w-sm lg:max-w-md'>
+      <div className='w-full md:max-w-sm lg:max-w-xl'>
         <OrderSummary
           items={orderItems}
           subtotal='90,850'

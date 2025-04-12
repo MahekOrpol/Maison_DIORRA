@@ -19,7 +19,7 @@ export default function BlogCard({
   return (
     <Link
       href={href}
-      className='flex h-full flex-col overflow-hidden rounded-lg border bg-white shadow-md transition duration-300 ease-in-out hover:border-black/50'
+      className='flex h-full flex-col overflow-hidden rounded-2xl border bg-white shadow-md transition duration-300 ease-in-out hover:border-black/50'
     >
       {/* Image with fixed aspect ratio */}
       <div className='aspect-[16/9] w-full overflow-hidden rounded-lg'>
@@ -33,14 +33,14 @@ export default function BlogCard({
       </div>
 
       {/* Content */}
-      <div className='flex flex-1 flex-col px-4 pb-4'>
+      <div className='flex flex-1 flex-col px-4 pb-4 lg:pb-6'>
         <p className='text-sm lg:text-base'>
           22.DEC.2025 <span className='text-xl'>•</span> BY FERONIA
         </p>
         <h3 className='text-xl font-medium lg:text-2xl'>
           {title || 'Blog Post Title'}
         </h3>
-        <hr className='my-1 border-black/50' />
+        <hr className='my-1 border-black/50 lg:my-2' />
         <p className='flex-1 text-sm font-light lg:text-base'>
           A short description of the blog post goes here. It provides a quick
           overview to the reader...

@@ -15,6 +15,7 @@ import Image from 'next/image';
 import { Star } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
+import RelatedProducts from '@/components/related-products';
 export default function Page() {
   return (
     <>
@@ -65,6 +66,7 @@ export default function Page() {
       </div>
       <RingDetails className='wrapper' />
       <CustomerReviews className='wrapper' />
+      <RelatedProducts className='wrapper' />
     </>
   );
 }

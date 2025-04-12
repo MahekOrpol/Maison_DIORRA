@@ -41,7 +41,7 @@ export default function CallToAction({ className }) {
         height={150}
         className=''
       />
-      <p className='max-w-4xl text-center text-sm font-light md:text-base xl:leading-6'>
+      <p className='max-w-5xl text-center text-xs leading-4 lg:text-sm lg:leading-5 xl:text-base xl:leading-6'>
         Discover exquisite craftsmanship and timeless elegance with our stunning
         collection of jewelry. From everyday wear to special occasion pieces, we
         have something for everyone. Choose your metals, stones, and styles to
@@ -76,7 +76,7 @@ export default function CallToAction({ className }) {
             />
             <div>
               <h3 className='mb-1 text-lg md:mb-2 lg:text-2xl'>{card.title}</h3>
-              <p className='text-xs leading-4 font-light lg:text-sm lg:leading-5 xl:text-base'>
+              <p className='text-xs leading-4 lg:text-sm lg:leading-5 xl:text-base'>
                 {card.subtitle}
               </p>
             </div>

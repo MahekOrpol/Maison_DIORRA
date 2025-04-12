@@ -30,6 +30,7 @@ const ShoppingCart = ({ onNext }) => {
   return (
     <>
       <section className='flex w-full flex-col justify-between gap-4 lg:flex-row'>
+        {/* form */}
         <div className='w-full flex-1 lg:max-w-[70%]'>
           <div className='bg-secondary xs:flex-row xs:gap-2 mb-6 flex flex-col items-center justify-center rounded-lg px-2 py-4 text-center sm:gap-6 sm:p-6 sm:text-left'>
             <div className='flex-1'>
@@ -49,6 +50,7 @@ const ShoppingCart = ({ onNext }) => {
           {/* Cart section */}
           <CartContainer cart={cart} setCart={setCart} />
         </div>
+        {/* order amount */}
         <div className='flex w-full flex-col gap-4 py-6 lg:max-w-sm lg:py-0'>
           <div className='bg-secondary flex items-center gap-4 rounded-lg px-4 py-2'>
             <BadgePercent />
