@@ -1,6 +1,6 @@
 'use client';
 
-import { EffectCoverflow, Mousewheel, Autoplay } from 'swiper/modules';
+import { EffectCoverflow } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Heading from '@/components/heading';
 import { useEffect, useState } from 'react';
@@ -41,7 +41,7 @@ export default function GiftingSection() {
         subtitle='Statement pieces fit for royalty'
       />
       <div className=''>
-        <div className='wrapper mx-auto my-10 h-fit overflow-hidden max-[440px]:px-[6px]'>
+        <div className='wrapper mx-auto h-fit overflow-hidden max-[440px]:px-[6px]'>
           <Swiper
             key={JSON.stringify(coverflowConfig)} // <- force re-init on config change
             modules={[EffectCoverflow]}
@@ -58,6 +58,11 @@ export default function GiftingSection() {
               scale: coverflowConfig.scale
             }}
             className='coverflow'
+            // autoplay={{
+            //   delay: 3000, // 2.5 seconds between slides
+            //   disableOnInteraction: false, // keeps autoplay even after user interaction
+            //   pauseOnMouseEnter: true // optional: pause when hovered
+            // }}
           >
             {Array.from({ length: 5 }).map((_, index) => (
               <SwiperSlide key={index} className=''>
