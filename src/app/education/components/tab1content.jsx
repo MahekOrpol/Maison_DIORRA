@@ -159,7 +159,7 @@ export default function Tab1Content() {
             width={300}
             height={200}
             alt='Blog'
-            className='w-full max-w-3xl'
+            className='w-full'
           />{' '}
         </div>
         <div className='bg-secondary p-4'>
@@ -192,22 +192,22 @@ export const DiamondKnowledge = () => {
           <AccordionContent className='space-y-2 px-4'>
             <ul className='list-disc space-y-2 pl-5'>
               <li>
-                <Link href='#clarity' className='text-blue-600 hover:underline'>
+                <Link href='#clarity' className='hover:underline'>
                   Clarity - The absence of inclusions and blemishes
                 </Link>
               </li>
               <li>
-                <Link href='#color' className='text-blue-600 hover:underline'>
+                <Link href='#color' className='hover:underline'>
                   Color - The diamond's lack of color (graded D to Z)
                 </Link>
               </li>
               <li>
-                <Link href='#carat' className='text-blue-600 hover:underline'>
+                <Link href='#carat' className='hover:underline'>
                   Carat Weight - The measurement of diamond's weight
                 </Link>
               </li>
               <li>
-                <Link href='#cut' className='text-blue-600 hover:underline'>
+                <Link href='#cut' className='hover:underline'>
                   Cut - The quality of diamond's proportions and symmetry
                 </Link>
               </li>
@@ -223,17 +223,14 @@ export const DiamondKnowledge = () => {
           <AccordionContent className='space-y-2 pl-4'>
             <ul className='list-disc space-y-2 pl-5'>
               <li>
-                <Link
-                  href='/diamonds/shapes/round'
-                  className='text-blue-600 hover:underline'
-                >
+                <Link href='/diamonds/shapes/round' className='hover:underline'>
                   Round - The most popular and brilliant cut
                 </Link>
               </li>
               <li>
                 <Link
                   href='/diamonds/shapes/emerald'
-                  className='text-blue-600 hover:underline'
+                  className='hover:underline'
                 >
                   Emerald - Rectangular with stepped facets
                 </Link>
@@ -241,16 +238,13 @@ export const DiamondKnowledge = () => {
               <li>
                 <Link
                   href='/diamonds/shapes/princess'
-                  className='text-blue-600 hover:underline'
+                  className='hover:underline'
                 >
                   Princess - Square modified brilliant cut
                 </Link>
               </li>
               <li>
-                <Link
-                  href='/diamonds/shapes/pear'
-                  className='text-blue-600 hover:underline'
-                >
+                <Link href='/diamonds/shapes/pear' className='hover:underline'>
                   Pear - Teardrop-shaped brilliant cut
                 </Link>
               </li>
@@ -268,7 +262,7 @@ export const DiamondKnowledge = () => {
               <li>
                 <Link
                   href='/diamonds/types/lab-grown'
-                  className='text-blue-600 hover:underline'
+                  className='hover:underline'
                 >
                   Lab Grown Diamonds - Created in controlled environments
                 </Link>
@@ -276,7 +270,7 @@ export const DiamondKnowledge = () => {
               <li>
                 <Link
                   href='/diamonds/types/natural'
-                  className='text-blue-600 hover:underline'
+                  className='hover:underline'
                 >
                   Natural Diamonds - Formed over billions of years
                 </Link>
@@ -293,26 +287,17 @@ export const DiamondKnowledge = () => {
           <AccordionContent className='space-y-2 pl-4'>
             <ul className='list-disc space-y-2 pl-5'>
               <li>
-                <Link
-                  href='/diamonds/anatomy'
-                  className='text-blue-600 hover:underline'
-                >
+                <Link href='/diamonds/anatomy' className='hover:underline'>
                   Anatomy - Parts of a diamond (table, crown, girdle, etc.)
                 </Link>
               </li>
               <li>
-                <Link
-                  href='/diamonds/sparkle'
-                  className='text-blue-600 hover:underline'
-                >
+                <Link href='/diamonds/sparkle' className='hover:underline'>
                   Sparkle - How light interacts with the diamond
                 </Link>
               </li>
               <li>
-                <Link
-                  href='/diamonds/symmetry'
-                  className='text-blue-600 hover:underline'
-                >
+                <Link href='/diamonds/symmetry' className='hover:underline'>
                   Symmetry - Precision of facet alignment
                 </Link>
               </li>

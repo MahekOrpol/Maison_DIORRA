@@ -13,7 +13,7 @@ export default function Page() {
     <section className=''>
       <EduBanner imgUrl='/img/banner/banner4.png' className='' />
       <section>
-        <Tabs defaultValue='diamonds' className='wrapper'>
+        <Tabs defaultValue='diamonds' className='wrapper pb-8'>
           <TabsList className='grid h-auto w-full grid-cols-3 gap-1 rounded-none border-b bg-transparent text-xs md:gap-[10vw]'>
             <TabsTrigger
               value='diamonds'

@@ -65,7 +65,7 @@ const data = {
   ]
 };
 
-export default function PreviewCard({ className }) {
+export default function PreviewCard3({ className }) {
   const [selectedMetal, setSelectedMetal] = useState(data.metals[0]);
   const [isProductClicked, setIsProductClicked] = useState(false);
   const [isClientMobile, setIsClientMobile] = useState(false);
@@ -114,12 +114,12 @@ export default function PreviewCard({ className }) {
         <Button
           variant='ghost'
           onClick={() => setLiked(!liked)}
-          className='absolute top-2 right-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white hover:bg-red-100'
+          className='hover:bg-primary/10 absolute top-1 right-1 z-10 flex h-6.5 w-6.5 items-center justify-center rounded-full bg-white'
         >
           <Heart
             className={cn(
               'h-6 w-6 transition-colors',
-              liked ? 'fill-red-500 text-red-500' : 'text-gray-500'
+              liked ? 'fill-primary text-primary' : 'text-muted-foreground'
             )}
           />
         </Button>
@@ -127,62 +127,69 @@ export default function PreviewCard({ className }) {
           opts={{ align: 'start', loop: false }}
           className='relative sm:px-2'
         >
-          <CarouselContent className='ml-0 h-36 w-full sm:h-60 md:h-80'>
+          <CarouselContent className='ml-0 h-40 w-full gap-0 sm:h-60 md:h-80'>
             {selectedMetal.images.map((image, index) => (
               <CarouselItem
                 key={index}
                 onClick={handleProductClick}
-                className='h-full pl-0'
+                className='m-0 h-full w-full basis-full p-0'
               >
                 <Image
                   src={image}
                   alt={selectedMetal.name}
                   width={300}
                   height={300}
-                  className='h-full w-full object-contain'
+                  className='h-full w-full object-cover object-center'
                 />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className='absolute bottom-0 left-1/2 h-6 w-6 -translate-x-6 translate-y-[100px] transform hover:scale-110 sm:translate-y-[130px] md:translate-y-[140px]' />
-          <CarouselNext className='absolute right-1/2 h-6 w-6 translate-x-8 translate-y-[100px] transform hover:scale-110 sm:translate-y-[130px] md:translate-y-[140px]' />
+          <CarouselPrevious className='absolute bottom-0 left-1/2 h-5.5 w-5.5 -translate-x-6 translate-y-[55px] transform hover:scale-110 sm:translate-y-[130px] md:translate-y-[140px]' />
+          <CarouselNext className='absolute right-1/2 h-5.5 w-5.5 translate-x-8 translate-y-[55px] transform hover:scale-110 sm:translate-y-[130px] md:translate-y-[140px]' />
         </Carousel>
-        <CardContent className='xs:px-4 flex flex-1 flex-col justify-between px-2 pb-2'>
-          <div className='mb-3 flex justify-center gap-2'>
-            <div className='mt-2 flex w-full flex-col justify-between border-t pt-2 sm:flex-row sm:items-center md:justify-between'>
-              <div className='mb-3 flex justify-center gap-2 sm:order-last sm:mb-0'>
-                {data.metals.map((metalOption) => (
+        <CardContent className='xs:px-2 w-full space-y-1 px-1'>
+          <div className='flex items-center justify-between border-t pt-2'>
+            <div className='flex gap-1'>
+              <p className='leading-1 font-medium sm:text-[22px]'>
+                ${selectedMetal.amount}
+              </p>
+              <span className='text-sm leading-1 font-normal text-[#958F86] line-through sm:text-lg'>
+                ${selectedMetal.wrongAmount}
+              </span>
+            </div>
+            <div className='flex gap-0.5'>
+              {data.metals.map((metalOption) => {
+                const isSelected = metalOption.metal === selectedMetal.metal;
+                return (
                   <button
                     key={metalOption.metal}
-                    className='h-[22px] w-[22px] rounded-full border-2 border-white hover:outline hover:outline-offset-1 md:h-6 md:w-6'
+                    onClick={() => setSelectedMetal(metalOption)}
+                    className={cn(
+                      'h-4.5 w-4.5 rounded-full border-2 border-white hover:outline hover:outline-offset-1 md:h-6 md:w-6',
+                      isSelected ? 'ring-primary/40 ring-offset-0.5 ring' : ''
+                    )}
                     style={{
                       backgroundImage: `url('/img/preview/${metalOption.metal}.png')`,
                       backgroundSize: 'cover',
                       backgroundPosition: 'center'
                     }}
-                    onClick={() => setSelectedMetal(metalOption)}
                   />
-                ))}
-              </div>
-              <div className='flex items-baseline gap-2'>
-                <p className='text-lg leading-1 font-semibold sm:text-[22px]'>
-                  ${selectedMetal.amount}
-                </p>
-                <span className='text-base leading-1 font-normal text-[#958F86] line-through sm:text-lg'>
-                  ${selectedMetal.wrongAmount}
-                </span>
-              </div>
+                );
+              })}
             </div>
           </div>
 
-          <p className='my-3 block text-left text-base leading-5 text-gray-900 md:text-lg lg:text-xl'>
-            <button onClick={handleProductClick} className='block text-left'>
+          <p className='line-clamp-2 block min-h-[2.6em] text-left text-sm leading-4 font-light text-gray-900 md:text-lg lg:text-xl'>
+            <button
+              onClick={handleProductClick}
+              className='block w-full text-left'
+            >
               {selectedMetal.name}
             </button>
           </p>
 
           <Button
-            size='lg'
+            size='sm'
             className='xs:text-base mt-auto w-full text-sm'
             onClick={handleAddToCart}
           >
