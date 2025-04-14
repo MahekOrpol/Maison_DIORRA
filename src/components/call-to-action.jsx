@@ -72,7 +72,7 @@ export default function CallToAction({ className }) {
               alt={card.title}
               width={35}
               height={35}
-              className='h-full'
+              className='block h-[35px]'
             />
             <div>
               <h3 className='mb-1 text-lg md:mb-2 lg:text-2xl'>{card.title}</h3>

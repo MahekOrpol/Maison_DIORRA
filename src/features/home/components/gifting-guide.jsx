@@ -35,13 +35,13 @@ export default function GiftingSection() {
   }, []);
   console.log(coverflowConfig);
   return (
-    <section className='pt-9 md:pt-12 lg:pt-16 xl:pt-20'>
+    <section className='wrapper pt-5 md:pt-7 lg:pt-10 xl:pt-13 2xl:pt-16'>
       <Heading
         title='Gifting Guide'
         subtitle='Statement pieces fit for royalty'
       />
       <div className=''>
-        <div className='wrapper mx-auto h-fit overflow-hidden max-[440px]:px-[6px]'>
+        <div className='mx-auto h-fit overflow-hidden max-[440px]:px-[6px]'>
           <Swiper
             key={JSON.stringify(coverflowConfig)} // <- force re-init on config change
             modules={[EffectCoverflow]}

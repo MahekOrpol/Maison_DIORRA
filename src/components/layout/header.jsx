@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { IoDiamondOutline } from 'react-icons/io5';
 import { BsHandbag } from 'react-icons/bs';
-import MobileNavDrawer from './moblie-nav';
+import MobileNavDrawer from './mobile-nav';
 import { cookies } from 'next/headers';
 import { AccountDropdown } from './account-dropdown';
 import LocateAndSearch from './locate-search';
@@ -17,12 +17,12 @@ export default async function Header() {
   return (
     <header className=''>
       <div className='bg-primary py-2 text-center tracking-wider text-white md:py-1'>
-        <p className='wrapper text-sm leading-4 md:hidden'>
+        {/* <p className='wrapper text-sm leading-4 md:hidden'>
           Shop Gold and Diamond Jewellery
-        </p>
-        <p className='hidden text-base md:block'>
+        </p> */}
+        <p className='text-xs leading-4 md:text-base'>
           THE ESSENSTIALS |{' '}
-          <span className='text-lg font-semibold'>
+          <span className='font-semibold md:text-lg'>
             UPTO 40% OFF<sup>* </sup>
           </span>
           Ends in April
@@ -46,7 +46,7 @@ export default async function Header() {
           </Link>
         </div>
 
-        <div className='flex gap-3 md:gap-6'>
+        <div className='flex gap-3 md:gap-4'>
           <AccountDropdown isLoggedIn={isLoggedIn} />
           {/* Wishlist Link */}
           <Link
@@ -71,7 +71,7 @@ export default async function Header() {
         </div>
       </div>
       <hr />
-      <nav className='wrapper hidden justify-center gap-6 py-2 text-lg lg:flex'>
+      <nav className='wrapper hidden justify-center gap-3 py-2 text-lg lg:flex'>
         {[
           {
             href: '/diamonds',

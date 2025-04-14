@@ -1,6 +1,7 @@
 import ProductGallery from '@/features/product/components/product-gallery';
 import ProductDetails from '@/features/product/components/product-details';
 import CustomTag from '@/components/custom-tag';
+import { MdStarRate } from 'react-icons/md';
 
 import {
   Breadcrumb,
@@ -217,7 +218,7 @@ export const CustomerReviews = ({ className }) => {
         </h3>
         <p className='mb-4'>
           You must be{' '}
-          <Link href='/login' className='pe-2 font-semibold hover:underline'>
+          <Link href='/sign-in' className='pe-2 font-semibold hover:underline'>
             logged in
           </Link>
           to post a review.
@@ -229,21 +230,23 @@ export const CustomerReviews = ({ className }) => {
 
 function TestimonialCard({ author, authorImg, date, content, rating = 5 }) {
   return (
-    <div className='flex items-center gap-2 md:gap-4'>
+    <div className='flex items-center gap-2 border-b py-2 md:gap-4'>
       {/* Responsive Image Wrapper */}
-      <div className='w-[100px]'>
-        <img
-          src={authorImg}
-          alt='img'
-          className='aspect-square h-full w-full rounded-full object-cover md:max-w-[90px]'
-        />
+      <div className='inline-flex items-center justify-center rounded-full bg-black p-[0.6px]'>
+        <div className='rounded-full bg-white p-1'>
+          <img
+            src={authorImg}
+            alt='Testimonial Author'
+            className='h-14 w-14 rounded-full object-cover md:h-18 md:w-18'
+          />
+        </div>
       </div>
 
       {/* Author Details */}
       <div>
         <div className='mb-[6px] flex'>
           {[...Array(5)].map((_, i) => (
-            <Star
+            <MdStarRate
               key={i}
               className={`h-5 w-5 ${i < rating ? 'fill-yellow-400 text-yellow-400' : 'fill-gray-300 text-gray-300'} transition-colors duration-300`}
             />

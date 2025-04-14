@@ -24,6 +24,7 @@ import { GiBigDiamondRing } from 'react-icons/gi';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
+import { FaWhatsapp } from 'react-icons/fa';
 
 export default function ProductDetails({ className }) {
   const [selectedSize, setSelectedSize] = useState();
@@ -308,9 +309,22 @@ export default function ProductDetails({ className }) {
         </div>
         <div className='mb-6 flex gap-3'>
           {/* Add to Cart */}
-          <Button className='flex-1 py-6 text-lg' onClick={handleAddToCart}>
+          <Button
+            variant='outline'
+            className='w-[25%] border border-black py-6 text-lg'
+            onClick={handleAddToCart}
+          >
             Add to Cart <ShoppingBag className='ml-2 h-7 w-7' />
           </Button>
+          <Button className='w-[25%] py-6 text-lg' onClick={handleAddToCart}>
+            Buy Now
+          </Button>
+          <button
+            className='bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-9 flex-1 items-center justify-center rounded-md px-4 py-6 text-lg'
+            onClick={handleAddToCart}
+          >
+            Order on Whatsapp <FaWhatsapp className='ml-2 h-7 w-7' />
+          </button>
 
           {/* Add to Wishlist */}
           <button

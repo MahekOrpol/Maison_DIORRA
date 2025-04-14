@@ -12,17 +12,16 @@ import Autoplay from 'embla-carousel-autoplay';
 
 export default function TestimonialSection() {
   return (
-    <section className='wrapper mb-10 pt-9 md:mb-16 md:pt-12 lg:pt-16 xl:mb-20 xl:pt-20'>
+    <section className='wrapper mb-10 pt-6 md:mb-16 md:pt-7 lg:pt-10 xl:mb-20 xl:pt-13 2xl:mb-24 2xl:pt-16'>
       <Heading
         title='Client Testimonial'
         subtitle='What Clients Say About Us'
       />
       <div className='relative'>
         {/* Left gradient fade */}
-        <div className='pointer-events-none absolute top-0 -left-4 z-10 h-full w-6 bg-gradient-to-r from-white to-transparent' />
-
+        {/* <div className='pointer-events-none absolute top-0 -left-4 z-10 h-full w-6 bg-gradient-to-r from-white to-transparent' /> */}
         {/* Right gradient fade */}
-        <div className='pointer-events-none absolute top-0 -right-4 z-10 h-full w-6 bg-gradient-to-l from-white to-transparent' />
+        {/* <div className='pointer-events-none absolute top-0 -right-4 z-10 h-full w-6 bg-gradient-to-l from-white to-transparent' /> */}
         <Carousel
           className=''
           opts={{
@@ -31,9 +30,9 @@ export default function TestimonialSection() {
           }}
           plugins={[
             Autoplay({
-              delay: 4000,
+              delay: 3000,
               stopOnInteraction: false, // keeps autoplay running
-              stopOnMouseEnter: true, // pause when hovered (optional)
+              stopOnMouseEnter: false, // dont pause when hovered
               resetProgress: false
             })
           ]}
@@ -66,8 +65,6 @@ export default function TestimonialSection() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className='z-20 translate-x-6 border-none xl:translate-x-4' />
-          <CarouselNext className='z-20 -translate-x-7 border-none xl:-translate-x-4' />
         </Carousel>
       </div>
     </section>

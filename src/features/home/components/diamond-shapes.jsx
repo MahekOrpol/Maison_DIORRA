@@ -27,21 +27,21 @@ const shapes = [
 
 export default function DiamondShapes() {
   return (
-    <section className='wrapper pt-9 md:pt-12 lg:pt-16 xl:pt-20'>
+    <section className='wrapper pt-6 md:pt-7 lg:pt-10 xl:pt-13 2xl:pt-16'>
       <Heading
         title='Shop by Diamond Shapes'
         subtitle='Find Your Perfect Shape, Shine Your Way'
       />
 
-      <div className='relative my-10'>
+      <div className='relative'>
         {/* Left gradient fade */}
-        <div className='pointer-events-none absolute top-0 -left-3 z-10 h-full w-6 bg-gradient-to-r from-white to-transparent' />
+        {/* <div className='pointer-events-none absolute top-0 -left-3 z-10 h-full w-6 bg-gradient-to-r from-white to-transparent' /> */}
 
         {/* Right gradient fade */}
-        <div className='pointer-events-none absolute top-0 -right-3 z-10 h-full w-6 bg-gradient-to-l from-white to-transparent' />
+        {/* <div className='pointer-events-none absolute top-0 -right-3 z-10 h-full w-6 bg-gradient-to-l from-white to-transparent' /> */}
 
         <Carousel
-          className='mt-6'
+          className='mb-4 lg:mt-6'
           opts={{
             align: 'start',
             loop: true
@@ -59,20 +59,20 @@ export default function DiamondShapes() {
             {shapes.map((item, i) => (
               <CarouselItem
                 key={i}
-                className='basis-1/4 pl-2 sm:basis-1/3 md:basis-1/4 lg:basis-1/5 lg:pl-4 xl:basis-1/7'
+                className='basis-1/4 pl-2 sm:basis-1/6 md:basis-1/6 lg:basis-1/7'
               >
-                <Link href='#'>
+                <Link href='/diamonds'>
                   <div className='flex flex-col items-center text-center'>
-                    <div className='h-[150px]'>
+                    <div className='mt-auto h-[110px] lg:h-[140px]'>
                       <Image
                         src={item.url}
                         alt={item.name}
                         width={100}
-                        height={100}
+                        height={120}
                         className='h-full w-auto object-contain'
                       />
                     </div>
-                    <p className='mt-2 text-sm font-semibold md:text-base'>
+                    <p className='xs:text-base -mt-3 text-sm font-medium md:font-normal lg:text-xl'>
                       {item.name}
                     </p>
                   </div>
@@ -80,8 +80,6 @@ export default function DiamondShapes() {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className='z-20 translate-x-8 border-none text-black xl:translate-x-6' />
-          <CarouselNext className='z-20 -translate-x-8 border-none text-black xl:-translate-x-6' />
         </Carousel>
       </div>
     </section>

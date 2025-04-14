@@ -1,9 +1,21 @@
+'use client';
 import { MoveRight } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 import { IoCopy } from 'react-icons/io5';
+import { toast } from 'sonner';
 
 export default function Hero() {
+  const handleCopy = () => {
+    navigator.clipboard
+      .writeText('FIRST20')
+      .then(() => {
+        toast.success('Promo code copied to clipboard!');
+      })
+      .catch(() => {
+        toast.error('Failed to copy promo code.');
+      });
+  };
   return (
     <section className="h-[400px] w-full bg-[url('/img/home-m-hero.png')] bg-cover bg-right bg-no-repeat sm:h-[550px] md:bg-[url('/img/home-hero.png')] md:bg-left lg:h-[700px]">
       <div className='wrapper relative h-full'>
@@ -17,14 +29,17 @@ export default function Hero() {
           </h1>
           <p className='mb-6 hidden max-w-2xl text-lg md:block'>
             Use code{' '}
-            <button className='underline underline-offset-4'>
-              FIRST20 <IoCopy className='mx-1 inline' />
+            <button
+              onClick={handleCopy}
+              className='inline-flex items-center gap-1 underline underline-offset-4'
+            >
+              FIRST20 <IoCopy className='inline h-4 w-4' />
             </button>{' '}
             at Checkout
           </p>
           <Link
-            href='#'
-            className='relative rounded-full bg-black px-8 py-2.5 text-sm font-semibold text-white transition-all duration-300 before:absolute before:top-1 before:left-1 before:-z-10 before:h-full before:w-full before:rounded-full before:bg-white hover:before:opacity-0 md:py-3 md:text-base'
+            href='/products'
+            className='relative flex items-center rounded-full bg-black px-8 py-2.5 text-sm font-semibold text-white transition-all duration-300 before:absolute before:top-1 before:left-1 before:-z-10 before:h-full before:w-full before:rounded-full before:bg-white hover:before:opacity-0 md:py-3 md:text-base'
           >
             SHOP NOW <MoveRight className='ml-2 inline' />
           </Link>

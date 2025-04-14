@@ -41,7 +41,7 @@ export default function LocateAndSearch() {
         <MapPin className='h-5 w-5' />
       </button>
 
-      <div className='relative w-full'>
+      <div className='relative w-full rounded-lg border-2 border-black/20'>
         <Search className='absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 transform' />
         <Input
           type='text'

@@ -76,9 +76,9 @@ const footerLinks = [
 export default function Footer() {
   return (
     <footer>
-      <div className='relative z-10 bg-black pt-12 text-white'>
+      <div className='relative z-10 bg-black pt-4 text-white lg:pt-12'>
         {/* subscribe newsletter*/}
-        <div className='mx-auto mb-12 hidden w-4/5 max-w-6xl justify-between gap-2 rounded-sm bg-[#FFFFFF42] p-6 text-center md:flex md:flex-col lg:flex-row lg:items-center lg:text-left'>
+        <div className='mx-auto mb-4 hidden w-4/5 max-w-6xl justify-between gap-2 rounded-sm bg-[#FFFFFF42] p-6 text-center md:flex md:flex-col lg:mb-12 lg:flex-row lg:items-center lg:text-left'>
           <div className='flex-1'>
             <p className='text-2xl font-medium lg:text-[28px]'>
               Subscribe to get Updated
@@ -104,16 +104,23 @@ export default function Footer() {
           </form>
         </div>
         {/* main section */}
-        <div className='wrapper relative z-10 mb-8 grid grid-cols-2 gap-8 lg:mb-16 lg:grid-cols-5 lg:gap-4'>
+        <div className='wrapper relative z-10 mb-8 grid gap-x-2 gap-y-2 lg:mb-16 lg:grid-cols-5 lg:gap-4'>
           <div className='col-span-2 mb-4 text-center lg:text-left'>
             <Image
-              src='/icons/diorra-logo.png'
-              height={300}
-              width={200}
+              src='/img/footer-diorra-logo.svg'
+              height={80}
+              width={270}
               alt='Company logo'
-              className='mx-auto invert-100 lg:mx-0'
+              className='mx-auto mb-2 hidden md:block lg:-ml-3'
             />
-            <p className='mx-auto text-xs font-extralight md:w-4/5 lg:mx-0 lg:text-base'>
+            <Image
+              src='/icons/diorra-logo.png'
+              height={70}
+              width={180}
+              alt='Company logo'
+              className='mx-auto invert-100 md:hidden lg:-ml-3'
+            />
+            <p className='xs:text-sm mx-auto text-xs font-extralight md:w-4/5 md:text-base lg:mx-0'>
               At Feronia, we believe that jewelry is more than just an
               accessory—it’s a reflection of your style, your story, and your
               most treasured moments.
@@ -159,8 +166,8 @@ export default function Footer() {
 
           {footerLinks &&
             footerLinks.map((link) => (
-              <div key={link.heading}>
-                <h4 className='mb-3 text-2xl font-light tracking-wider md:text-3xl md:font-normal'>
+              <div key={link.heading} className='max-[768px]:pl-6'>
+                <h4 className='mb-3 text-2xl font-light tracking-wider text-nowrap md:text-3xl md:font-normal'>
                   {link.heading}
                 </h4>
                 <ul>
@@ -222,7 +229,7 @@ export default function Footer() {
             </div>
             <div className='h-[0.8px] flex-1 bg-white'></div>
           </div>
-          <p className='wrapper flex flex-col items-center justify-center gap-1 pb-4 text-sm font-extralight lg:-translate-y-2 lg:flex-row lg:justify-between lg:text-base'>
+          <p className='wrapper flex flex-col items-center justify-center gap-1 pb-4 text-xs leading-3 font-extralight lg:-translate-y-2 lg:flex-row lg:justify-between lg:text-base'>
             <span>Copyrighted© 2024 All rights reserved by Feronia</span>
             <span>Designed and Developed by Orpol Infotech</span>
           </p>
@@ -233,7 +240,7 @@ export default function Footer() {
             width={600}
             height={200}
             alt='Diorra image'
-            className='h-[160px] w-full sm:h-auto'
+            className='h-auto w-full'
           />
         </div>
       </div>

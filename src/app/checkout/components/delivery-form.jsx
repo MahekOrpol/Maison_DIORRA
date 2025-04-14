@@ -92,17 +92,6 @@ export default function DeliveryForm({ onNext }) {
               onSubmit={handleSubmit(onSubmit)}
               className='flex max-w-4xl flex-wrap items-center justify-start gap-2'
             >
-              {/* Country */}
-              <FloatingSelect
-                name='country'
-                placeholder='Select Country'
-                rules={{ required: 'Please select a country' }}
-                options={Country.getAllCountries().map((c) => ({
-                  label: c.name,
-                  value: c.isoCode
-                }))}
-                className=''
-              />
               <div className='flex w-full gap-2'>
                 {/* First + Last Name */}
                 <FloatingInput
@@ -154,7 +143,17 @@ export default function DeliveryForm({ onNext }) {
                 name='address2'
                 className='h-11'
               />
-
+              {/* Country */}
+              <FloatingSelect
+                name='country'
+                placeholder='Select Country'
+                rules={{ required: 'Please select a country' }}
+                options={Country.getAllCountries().map((c) => ({
+                  label: c.name,
+                  value: c.isoCode
+                }))}
+                className=''
+              />
               <div className='grid w-full grid-cols-2 gap-2 sm:grid-cols-3'>
                 {/* State + City + Zip */}
                 <FloatingSelect
@@ -260,7 +259,7 @@ export default function DeliveryForm({ onNext }) {
       </div>
 
       {/* Need help CTA */}
-      <div className='flex flex-col items-center justify-center text-center'>
+      <div className='mt-10 flex flex-col items-center justify-center text-center md:mt-16'>
         <div>
           <p className='mb-4 text-3xl font-medium md:text-5xl'>Need Help?</p>
           <p>
@@ -275,7 +274,7 @@ export default function DeliveryForm({ onNext }) {
           </p>
           <p> every day, 9 A.M to 1 A.M IST (Mon - Sun)</p>
         </div>
-        <div className='mt-4 inline-flex gap-6'>
+        <div className='mt-4 inline-flex gap-4'>
           <Link
             href='tel:+911234567890'
             aria-label='PHONE'

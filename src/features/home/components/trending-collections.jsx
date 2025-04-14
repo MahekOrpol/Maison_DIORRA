@@ -15,7 +15,7 @@ import ProductCard2 from '@/components/preview-card2';
 
 export default function TrendingCollections() {
   return (
-    <section className='wrapper pt-9 md:pt-12 lg:pt-16 xl:pt-20'>
+    <section className='wrapper pt-4 md:pt-7 lg:pt-10 xl:pt-13 2xl:pt-16'>
       <Heading
         title='Trending Collection'
         subtitle='Affordable luxury for everyday wear'

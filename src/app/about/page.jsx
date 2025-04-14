@@ -16,13 +16,13 @@ export default function Page() {
           ]}
         />
         {/*  quote */}
-        <div className='xs:w-[90%] mx-auto mb-10 w-full text-center text-lg font-medium sm:w-2/3 sm:text-[22px] md:my-10 lg:my-20 lg:w-1/2 lg:text-2xl xl:text-3xl'>
-          <hr className='mx-auto w-1/2 border-[1px] border-black/70' />
-          <blockquote className='my-4 leading-6 tracking-wide sm:leading-7 md:my-6 lg:tracking-normal xl:leading-8'>
+        <div className='xs:w-[90%] mx-auto -mt-4 mb-6 w-full text-center text-lg font-medium sm:w-2/3 sm:text-[22px] md:my-8 lg:my-14 lg:w-1/2 lg:text-2xl xl:text-3xl'>
+          <hr className='mx-auto w-3/4 border-[1px] border-black/70' />
+          <blockquote className='my-4 leading-6 tracking-wide sm:leading-7 lg:my-5 lg:tracking-normal xl:leading-8'>
             “Jewelry is more than an accessory; it's a reflection of artistry,
             emotion, and timeless elegance.”
           </blockquote>
-          <hr className='mx-auto mb-6 w-1/2 border-[1px] border-black/70' />
+          <hr className='mx-auto mb-6 w-3/4 border-[1px] border-black/70' />
         </div>
         <AboutSection
           image='/img/about2.png'

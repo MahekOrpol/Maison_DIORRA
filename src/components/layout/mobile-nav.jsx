@@ -26,10 +26,16 @@ import {
   Book
 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
+import { useState } from 'react';
 
 export default function MobileNavDrawer() {
+  const [open, setOpen] = useState(false);
+
+  const handleNavClick = () => {
+    setOpen(false);
+  };
   return (
-    <Drawer direction='left'>
+    <Drawer open={open} onOpenChange={setOpen} direction='left'>
       <DrawerTrigger asChild>
         <Button variant='ghost' size='icon' className='lg:hidden'>
           <Image
@@ -75,49 +81,90 @@ export default function MobileNavDrawer() {
           {/* Navigation Sections */}
           <nav className='space-y-4'>
             <DrawerSection title='Main'>
-              <DrawerLink href='/' icon={<Home size={18} />}>
+              <DrawerLink
+                href='/'
+                icon={<Home size={18} />}
+                onClick={handleNavClick}
+              >
                 Home
               </DrawerLink>
-              <DrawerLink href='/diamonds' icon={<Diamond size={18} />}>
+              <DrawerLink
+                href='/diamonds'
+                icon={<Diamond size={18} />}
+                onClick={handleNavClick}
+              >
                 Diamonds
               </DrawerLink>
-              <DrawerLink href='/products' icon={<Gem size={18} />}>
+              <DrawerLink
+                href='/products'
+                icon={<Gem size={18} />}
+                onClick={handleNavClick}
+              >
                 Fine Jewelry
               </DrawerLink>
-              <DrawerLink href='/products' icon={<Gem size={18} />}>
+              <DrawerLink
+                href='/products'
+                icon={<Gem size={18} />}
+                onClick={handleNavClick}
+              >
                 Engagement Rings
               </DrawerLink>
-              <DrawerLink href='/gifting' icon={<Gift size={18} />}>
+              <DrawerLink
+                href='/gifting'
+                icon={<Gift size={18} />}
+                onClick={handleNavClick}
+              >
                 Gifting Guide
               </DrawerLink>
-              <DrawerLink href='/custom-jewelry' icon={<Gem size={18} />}>
+              <DrawerLink
+                href='/custom-jewelry'
+                icon={<Gem size={18} />}
+                onClick={handleNavClick}
+              >
                 Custom Jewelry
               </DrawerLink>
             </DrawerSection>
             <hr />
             <DrawerSection title='Explore'>
-              <DrawerLink href='/blogs' icon={<BookOpen size={18} />}>
+              <DrawerLink
+                href='/blogs'
+                icon={<BookOpen size={18} />}
+                onClick={handleNavClick}
+              >
                 Blogs
               </DrawerLink>
-              <DrawerLink href='/education' icon={<Book size={18} />}>
+              <DrawerLink
+                href='/education'
+                icon={<Book size={18} />}
+                onClick={handleNavClick}
+              >
                 Education
               </DrawerLink>
             </DrawerSection>
             <hr />
             <DrawerSection title='Account'>
-              <DrawerLink href='/account' icon={<User size={18} />}>
+              <DrawerLink
+                href='/account'
+                icon={<User size={18} />}
+                onClick={handleNavClick}
+              >
                 My Profile
               </DrawerLink>
               <DrawerLink
                 href='/account/orders'
                 icon={<ShoppingBag size={18} />}
+                onClick={handleNavClick}
               >
                 My Orders
               </DrawerLink>
             </DrawerSection>
             <hr />
             <DrawerSection title='Support'>
-              <DrawerLink href='/contact' icon={<Phone size={18} />}>
+              <DrawerLink
+                href='/contact'
+                icon={<Phone size={18} />}
+                onClick={handleNavClick}
+              >
                 Contact Us
               </DrawerLink>
             </DrawerSection>
@@ -159,10 +206,11 @@ export default function MobileNavDrawer() {
   );
 }
 
-function DrawerLink({ href, icon, children }) {
+function DrawerLink({ href, icon, children, onClick }) {
   return (
     <Link
       href={href}
+      onClick={onClick}
       className='flex items-center gap-2 transition hover:text-black'
     >
       {icon}
@@ -174,7 +222,7 @@ function DrawerLink({ href, icon, children }) {
 function DrawerSection({ title, children }) {
   return (
     <div className='space-y-2'>
-      <h4 className='text-xs font-semibold text-gray-500 uppercase'>{title}</h4>
+      <h4 className='text-xs font-medium text-gray-500 uppercase'>{title}</h4>
       <div className='flex flex-col gap-1'>{children}</div>
     </div>
   );

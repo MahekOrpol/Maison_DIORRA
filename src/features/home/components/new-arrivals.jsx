@@ -10,9 +10,9 @@ import { cn } from '@/lib/utils';
 
 export default function NewArrivals() {
   return (
-    <section className='pt-9 pb-8 md:pt-12 lg:mt-20 lg:mb-14 lg:pt-16 xl:pt-20'>
+    <section className='py-6 md:pt-10 lg:mt-16 lg:mb-12 lg:pt-16 xl:pt-20'>
       <div className='relative flex w-full flex-col items-center justify-between lg:flex-row'>
-        <div className='z-0 h-[115vw] w-full border-y shadow-lg min-[475px]:h-[95vw] md:h-[85vw] lg:h-[250px] xl:h-[400px]'>
+        <div className='xs:h-[85vw] z-0 h-[100vw] w-full border-y shadow-lg lg:h-[250px] xl:h-[360px]'>
           <Image
             src={'/img/tree.png'}
             height={200}
@@ -21,23 +21,26 @@ export default function NewArrivals() {
             className='lg:w-[180px absolute top-0 left-0 z-10 object-cover md:w-[160px]'
           />
           <div className='wrapper relative h-full'>
-            <p className='absolute top-10 left-0 z-20 mb-2 w-full text-center text-3xl text-black underline decoration-[1.5px] underline-offset-4 lg:top-1/5 lg:left-30 lg:w-fit lg:text-4xl xl:left-40 2xl:left-[7%]'>
+            <p className='absolute top-5 left-0 z-20 mb-2 w-full text-center text-2xl text-black underline decoration-[1.5px] underline-offset-4 md:text-3xl lg:top-1/5 lg:left-20 lg:w-fit xl:left-30 xl:text-4xl 2xl:left-[7%]'>
               New Arrivals
             </p>
             <div
               className={cn(
-                'sm:pr-6 lg:pr-8 xl:pr-12',
-                'absolute top-1/2 left-0 z-20 w-full -translate-y-1/2 !px-1 lg:top-1/2 lg:right-0 lg:left-auto lg:w-[55%] xl:w-[60%]'
+                'px-3 sm:px-6 lg:pr-8 xl:pr-12',
+                'absolute top-[45%] left-0 z-20 w-full -translate-y-1/2 lg:top-1/2 lg:right-0 lg:left-auto lg:w-[60%] xl:w-[60%]'
               )}
             >
-              <ArrivalSwiper className='xs:!px-2 h-full w-full' />
+              <ArrivalSwiper className='h-full w-full' />
             </div>
 
-            <div className='absolute bottom-4 left-0 z-20 w-full text-center lg:top-2/5 lg:left-30 lg:w-fit lg:text-left xl:left-40 2xl:left-[7%]'>
-              <p className='font-rozha text-3xl !font-thin xl:text-4xl 2xl:text-5xl'>
-                Timeless <span className='text-5xl xl:text-6xl'>Beauty</span>
+            <div className='absolute bottom-4 left-0 z-20 w-full text-center lg:top-2/5 lg:left-20 lg:w-fit lg:text-left xl:left-40 2xl:left-[7%]'>
+              <p className='font-rozha text-2xl md:text-3xl xl:text-4xl 2xl:text-5xl'>
+                Timeless{' '}
+                <span className=':text-6xl text-5xl xl:text-7xl'>Beauty</span>
               </p>
-              <p className='mt-2 text-xl'>Crafted for Your Unique Style</p>
+              <p className='text-lg md:mt-2 md:text-xl'>
+                Crafted for Your Unique Style
+              </p>
             </div>
           </div>
           <Image
@@ -81,7 +84,7 @@ export function ArrivalSwiper({ className }) {
           spaceBetween: 40
         }
       }}
-      className={cn(className, 'xs:!px-[5px] -translate-x-2 px-0')}
+      className={cn(className, 'xs:!px-[5px] px-0')}
     >
       <div className=''>
         {Array.from({ length: 4 }).map((_, index) => (

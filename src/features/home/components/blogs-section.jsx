@@ -15,17 +15,16 @@ import Autoplay from 'embla-carousel-autoplay';
 
 export default function BlogsSection() {
   return (
-    <section className='wrapper pt-9 md:pt-12 lg:pt-16 xl:pt-20'>
+    <section className='wrapper pt-6 md:pt-7 lg:pt-10 xl:pt-13 2xl:pt-16'>
       <Heading
         title='Blogs and Articles'
         subtitle='Affordable luxury for everyday wear'
       />
       <div className='= relative'>
         {/* Left gradient fade */}
-        <div className='pointer-events-none absolute top-0 -left-4 z-10 h-full w-6 bg-gradient-to-r from-white to-transparent' />
-
+        {/* <div className='pointer-events-none absolute top-0 -left-4 z-10 h-full w-6 bg-gradient-to-r from-white to-transparent' /> */}
         {/* Right gradient fade */}
-        <div className='pointer-events-none absolute top-0 -right-4 z-10 h-full w-6 bg-gradient-to-l from-white to-transparent' />
+        {/* <div className='pointer-events-none absolute top-0 -right-4 z-10 h-full w-6 bg-gradient-to-l from-white to-transparent' /> */}
         <Carousel
           className='w-full'
           opts={{
@@ -36,7 +35,7 @@ export default function BlogsSection() {
             Autoplay({
               delay: 4000,
               stopOnInteraction: false, // keeps autoplay running
-              stopOnMouseEnter: true, // pause when hovered (optional)
+              stopOnMouseEnter: false, // dont pause when hovered (optional)
               resetProgress: false
             })
           ]}
@@ -84,8 +83,8 @@ export default function BlogsSection() {
             ))}
           </CarouselContent>
 
-          <CarouselPrevious className='z-20 translate-x-6 border-none xl:translate-x-4' />
-          <CarouselNext className='z-20 -translate-x-6 border-none xl:-translate-x-4' />
+          {/* <CarouselPrevious className='z-20 translate-x-6 border-none xl:translate-x-4' />
+          <CarouselNext className='z-20 -translate-x-6 border-none xl:-translate-x-4' /> */}
         </Carousel>
       </div>
     </section>

@@ -106,7 +106,7 @@ export default function PreviewCard({ className }) {
     <>
       <Card
         className={cn(
-          'group relative gap-0 overflow-hidden rounded-xl pt-0 pb-2 shadow transition-transform duration-300 hover:border-black/40 hover:shadow-lg',
+          'group relative gap-0 overflow-hidden rounded-xl border-black/50 pt-0 pb-2 shadow transition-transform duration-300 hover:border-black hover:shadow-xl',
           className
         )}
       >
@@ -123,7 +123,10 @@ export default function PreviewCard({ className }) {
             )}
           />
         </Button>
-        <Carousel opts={{ align: 'start', loop: false }} className='relative'>
+        <Carousel
+          opts={{ align: 'start', loop: false }}
+          className='relative px-2'
+        >
           <CarouselContent className='ml-0 h-60 w-full sm:h-72 md:h-80'>
             {selectedMetal.images.map((image, index) => (
               <CarouselItem
@@ -141,8 +144,8 @@ export default function PreviewCard({ className }) {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className='absolute bottom-0 left-1/2 h-5 w-5 -translate-x-6 translate-y-[100px] transform bg-none sm:translate-y-[130px] md:h-6 md:w-6 md:translate-y-[140px]' />
-          <CarouselNext className='absolute right-1/2 h-5 w-5 translate-x-8 translate-y-[100px] transform bg-none sm:translate-y-[130px] md:h-6 md:w-6 md:translate-y-[140px]' />
+          <CarouselPrevious className='absolute bottom-0 left-1/2 h-6 w-6 -translate-x-6 translate-y-[100px] transform hover:scale-110 sm:translate-y-[130px] md:translate-y-[140px]' />
+          <CarouselNext className='absolute right-1/2 h-6 w-6 translate-x-8 translate-y-[100px] transform hover:scale-110 sm:translate-y-[130px] md:translate-y-[140px]' />
         </Carousel>
         <CardContent className='xs:px-4 flex flex-1 flex-col justify-between px-2 pb-2'>
           <div className='mb-3 flex justify-center gap-2'>
@@ -183,7 +186,7 @@ export default function PreviewCard({ className }) {
             className='xs:text-base mt-auto w-full text-sm'
             onClick={handleAddToCart}
           >
-            Add to Bag <ShoppingBagIcon size={20} />
+            Add to Cart <ShoppingBagIcon size={20} />
           </Button>
         </CardContent>
       </Card>
@@ -284,7 +287,7 @@ export default function PreviewCard({ className }) {
                     className='flex-1'
                     onClick={handleAddToCart}
                   >
-                    Add to Bag <ShoppingBagIcon size={20} />
+                    Add to Cart <ShoppingBagIcon size={20} />
                   </Button>
                 </div>
                 <p className='text-center text-xs'>

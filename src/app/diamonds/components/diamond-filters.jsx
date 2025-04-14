@@ -69,7 +69,7 @@ export default function DiamondFilters() {
       {/* quality */}
 
       <div className='w-full space-y-6 p-0 md:p-4'>
-        <div className='grid grid-cols-1 place-items-center justify-center gap-3 sm:grid-cols-2'>
+        <div className='grid grid-cols-1 place-items-center justify-center gap-3 sm:grid-cols-2 lg:grid-cols-3'>
           {/* Color Filter */}
           <div className=''>
             <h3 className='mb-1 font-medium'>Color</h3>
@@ -101,7 +101,7 @@ export default function DiamondFilters() {
           </div>
 
           {/* Carat Filter */}
-          <div className='w-full'>
+          <div className='w-full max-w-sm sm:col-span-2 lg:col-span-1'>
             <h3 className='font-medium'>Carat</h3>
             <Slider
               defaultValue={[1, 8]}

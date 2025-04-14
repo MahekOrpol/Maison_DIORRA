@@ -1,10 +1,10 @@
 'use client';
 import * as React from 'react';
 import useEmblaCarousel from 'embla-carousel-react';
-import { SlArrowRight, SlArrowLeft } from 'react-icons/sl';
 
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 const CarouselContext = React.createContext(null);
 
@@ -162,7 +162,8 @@ function CarouselPrevious({
       size={size}
       className={cn(
         'absolute size-8 rounded-full',
-        'bg-transparent text-xl shadow-none hover:scale-120 dark:border-none dark:bg-transparent dark:hover:bg-transparent',
+        // 'bg-transparent text-xl shadow-none hover:scale-120 dark:border-none dark:bg-transparent dark:hover:bg-transparent',
+        'border bg-transparent text-xl shadow-none dark:bg-transparent',
         orientation === 'horizontal'
           ? 'top-1/2 -left-12 -translate-y-1/2'
           : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
@@ -172,7 +173,8 @@ function CarouselPrevious({
       onClick={scrollPrev}
       {...props}
     >
-      <SlArrowLeft />
+      {/* <SlArrowLeft /> */}
+      <ChevronLeft />
       <span className='sr-only'>Previous slide</span>
     </Button>
   );
@@ -193,7 +195,7 @@ function CarouselNext({
       size={size}
       className={cn(
         'absolute size-8 rounded-full',
-        'bg-transparent text-xl shadow-none hover:scale-120 dark:border-none dark:bg-transparent dark:hover:bg-transparent',
+        'border bg-transparent text-xl shadow-none hover:scale-120 dark:bg-transparent',
         orientation === 'horizontal'
           ? 'top-1/2 -right-12 -translate-y-1/2'
           : '-bottom-12 left-1/2 -translate-x-1/2 rotate-90',
@@ -203,7 +205,8 @@ function CarouselNext({
       onClick={scrollNext}
       {...props}
     >
-      <SlArrowRight />
+      {/* <SlArrowRight /> */}
+      <ChevronRight />
       <span className='sr-only'>Next slide</span>
     </Button>
   );
