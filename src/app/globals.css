@@ -52,10 +52,10 @@
     @apply border-border outline-ring/50;
   }
   html {
-    @apply h-full;
+    @apply scroll-smooth;
   }
   body {
-    @apply bg-background text-foreground h-full;
+    @apply bg-background text-foreground;
   }
   button,
   a {

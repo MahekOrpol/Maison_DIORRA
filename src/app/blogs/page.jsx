@@ -72,17 +72,17 @@ export default function Page() {
   return (
     <>
       <BlogsBanner
-        imgUrl='/img/banner/banner3.jpg'
+        imgUrl='/img/banner/banner2.png'
         title='Blogs and Articles'
         subtitle='Home - Blogs and Articles'
       />
-      <div className='wrapper flex w-full flex-col gap-4 py-18 xl:flex-row xl:justify-between'>
-        <div className='grid grid-cols-1 gap-6 md:grid-cols-2'>
+      <div className='wrapper flex w-full flex-col gap-4 pt-6 pb-10 sm:gap-6 md:pt-8 xl:flex-row xl:justify-between xl:gap-[4%]'>
+        <div className='order-2 grid grid-cols-1 gap-6 md:grid-cols-2'>
           {blogPosts.map((post, index) => (
             <BlogCard key={index} {...post} />
           ))}
         </div>
-        <BlogsFilter className='' />
+        <BlogsFilter className='order-1 xl:order-last' />
       </div>
     </>
   );
@@ -100,7 +100,7 @@ export function BlogsFilter({ className }) {
     );
   }
   return (
-    <div className={`${className}`}>
+    <div className={`${className} flex flex-col gap-4 sm:flex-row xl:flex-col`}>
       <div className='rounded-md border p-4 shadow-md sm:flex-1 xl:flex-0'>
         <TitleText text='Popular Posts' />
         <div className='flex flex-col'>
@@ -117,7 +117,9 @@ export function BlogsFilter({ className }) {
                 className=''
               />
               <div>
-                <p className='text-lg font-medium'>The North Earings Bronze</p>
+                <p className='mb-1 text-lg leading-5 font-medium'>
+                  The North Earings Bronze
+                </p>
                 <p className='text-sm font-medium'>Mar 09 2024</p>
               </div>
             </div>
@@ -127,7 +129,7 @@ export function BlogsFilter({ className }) {
       <div className='sm:w-[45%] xl:w-full'>
         <div className='rounded-md border p-4 shadow-md'>
           <TitleText text='Category' />
-          <ul className='flex flex-col gap-1 font-light'>
+          <ul className='flex flex-col gap-[10px] font-light'>
             <li>
               <Link href='#' className='inline-block hover:font-medium'>
                 News

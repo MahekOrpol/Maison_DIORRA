@@ -51,7 +51,7 @@ const ShoppingCart = ({ onNext }) => {
           <CartContainer cart={cart} setCart={setCart} />
         </div>
         {/* order amount */}
-        <div className='flex w-full flex-col gap-4 py-6 lg:max-w-sm lg:py-0'>
+        <div className='flex w-full flex-col gap-4 py-4 lg:max-w-sm lg:py-0'>
           <div className='bg-secondary flex items-center gap-4 rounded-lg px-4 py-2'>
             <BadgePercent />
             <p>Apply Coupon</p>
@@ -80,7 +80,7 @@ const ShoppingCart = ({ onNext }) => {
         </div>
       </section>
       {/* other content */}
-      <RelatedProducts className='mt-8' />
+      <RelatedProducts className='mt-2 md:mt-6 xl:mt-8' />
       <CallToAction />
     </>
   );

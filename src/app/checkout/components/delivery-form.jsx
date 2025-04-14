@@ -82,8 +82,8 @@ export default function DeliveryForm({ onNext }) {
 
   return (
     <>
-      <div className='flex flex-col justify-between gap-[3%] md:flex-row 2xl:gap-[7%]'>
-        <div className='flex-1 pr-4'>
+      <div className='flex flex-col justify-between gap-[3%] min-[1000px]:flex-row 2xl:gap-[7%]'>
+        <div className='flex-1'>
           <h2 className='mb-4 text-2xl font-semibold'>
             Select Delivery Address
           </h2>
@@ -244,7 +244,7 @@ export default function DeliveryForm({ onNext }) {
             </form>
           </FormProvider>
         </div>
-        <div className='w-full md:max-w-sm lg:max-w-xl'>
+        <div className='w-full md:max-w-sm xl:max-w-xl'>
           <OrderSummary
             items={orderItems}
             subtotal='90,850'

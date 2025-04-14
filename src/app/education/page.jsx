@@ -12,7 +12,6 @@ export default function Page() {
   return (
     <section className=''>
       <EduBanner imgUrl='/img/banner/banner4.png' className='' />
-
       <section>
         <Tabs defaultValue='diamonds' className='wrapper'>
           <TabsList className='grid h-auto w-full grid-cols-3 gap-1 rounded-none border-b bg-transparent text-xs md:gap-[10vw]'>
@@ -52,7 +51,7 @@ export default function Page() {
 }
 export function EduBanner({ imgUrl, heading, className = '' }) {
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <div className={`relative ${className}`}>
       <div
         className='relative mx-auto flex h-[250px] w-full items-center justify-center bg-cover bg-center sm:h-[300px] lg:h-[400px]'
         style={{ backgroundImage: `url(${imgUrl})` }}

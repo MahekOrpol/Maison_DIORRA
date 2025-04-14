@@ -18,7 +18,7 @@ const CheckoutPage = () => {
       <ProgressBar />
 
       {/* Step Content */}
-      <section className='my-6 md:my-8'>
+      <section className='my-2 md:my-8'>
         {step === 1 && <ShoppingCart onNext={nextStep} />}
         {step === 2 && <DeliveryForm onNext={nextStep} onPrev={prevStep} />}
         {step === 3 && <PaymentForm onPrev={prevStep} />}

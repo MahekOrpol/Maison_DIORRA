@@ -31,7 +31,7 @@ export function ReviewForm() {
         Your E-mail will not be Published. Required fields are marked*
       </p>
 
-      <form onSubmit={handleSubmit(onSubmit)} className='max-w-4xl space-y-4'>
+      <form onSubmit={handleSubmit(onSubmit)} className='space-y-4'>
         <div className='grid grid-cols-2 gap-4'>
           <div>
             <label htmlFor='firstName' className='text-sm'>
