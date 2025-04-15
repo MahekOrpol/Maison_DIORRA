@@ -1,6 +1,6 @@
 'use client';
 
-import { EffectCoverflow } from 'swiper/modules';
+import { EffectCoverflow, Autoplay } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Heading from '@/components/heading';
 import { useEffect, useState } from 'react';
@@ -14,7 +14,7 @@ export default function GiftingSection() {
   const [coverflowConfig, setCoverflowConfig] = useState({
     depth: 450,
     scale: 0.9,
-    spaceBetween: -160
+    spaceBetween: -240
   });
 
   useEffect(() => {
@@ -35,16 +35,16 @@ export default function GiftingSection() {
   }, []);
   console.log(coverflowConfig);
   return (
-    <section className='wrapper pt-5 md:pt-7 lg:pt-10 xl:pt-13 2xl:pt-16'>
+    <section className='wrapper pt-6 md:pt-7 lg:pt-8 xl:pt-10'>
       <Heading
         title='Gifting Guide'
         subtitle='Statement pieces fit for royalty'
       />
       <div className=''>
-        <div className='mx-auto h-fit overflow-hidden max-[440px]:px-[6px]'>
+        <div className='mx-auto h-fit overflow-hidden'>
           <Swiper
             key={JSON.stringify(coverflowConfig)} // <- force re-init on config change
-            modules={[EffectCoverflow]}
+            modules={[EffectCoverflow, Autoplay]}
             effect={'coverflow'}
             loop={true}
             spaceBetween={coverflowConfig.spaceBetween}
@@ -58,11 +58,11 @@ export default function GiftingSection() {
               scale: coverflowConfig.scale
             }}
             className='coverflow'
-            // autoplay={{
-            //   delay: 3000, // 2.5 seconds between slides
-            //   disableOnInteraction: false, // keeps autoplay even after user interaction
-            //   pauseOnMouseEnter: true // optional: pause when hovered
-            // }}
+            autoplay={{
+              delay: 3000, // 2.5 seconds between slides
+              disableOnInteraction: false, // keeps autoplay even after user interaction
+              pauseOnMouseEnter: true // optional: pause when hovered
+            }}
           >
             {Array.from({ length: 5 }).map((_, index) => (
               <SwiperSlide key={index} className=''>

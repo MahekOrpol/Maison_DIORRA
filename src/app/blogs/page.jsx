@@ -3,7 +3,6 @@ import React from 'react';
 import BlogCard from './components/blog-card';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Banner } from '../about/page';
 import { BlogsBanner } from './components/blogs-banner';
 
 const blogPosts = [

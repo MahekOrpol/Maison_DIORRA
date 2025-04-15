@@ -12,7 +12,7 @@ import Autoplay from 'embla-carousel-autoplay';
 
 export default function TestimonialSection() {
   return (
-    <section className='wrapper mb-10 pt-6 md:mb-16 md:pt-7 lg:pt-10 xl:mb-20 xl:pt-13 2xl:mb-24 2xl:pt-16'>
+    <section className='wrapper mb-10 pt-6 md:mb-16 md:pt-7 lg:pt-8 xl:mb-20 xl:pt-10 2xl:mb-24'>
       <Heading
         title='Client Testimonial'
         subtitle='What Clients Say About Us'

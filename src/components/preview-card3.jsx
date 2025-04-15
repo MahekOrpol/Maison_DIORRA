@@ -125,9 +125,9 @@ export default function PreviewCard3({ className }) {
         </Button>
         <Carousel
           opts={{ align: 'start', loop: false }}
-          className='relative sm:px-2'
+          className='relative w-full'
         >
-          <CarouselContent className='ml-0 h-40 w-full gap-0 sm:h-60 md:h-80'>
+          <CarouselContent className='ml-0 aspect-[1/1] w-full gap-0'>
             {selectedMetal.images.map((image, index) => (
               <CarouselItem
                 key={index}
@@ -139,18 +139,23 @@ export default function PreviewCard3({ className }) {
                   alt={selectedMetal.name}
                   width={300}
                   height={300}
-                  className='h-full w-full object-cover object-center'
+                  className='h-full w-full object-contain object-center'
                 />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className='absolute bottom-0 left-1/2 h-5.5 w-5.5 -translate-x-6 translate-y-[55px] transform hover:scale-110 sm:translate-y-[130px] md:translate-y-[140px]' />
-          <CarouselNext className='absolute right-1/2 h-5.5 w-5.5 translate-x-8 translate-y-[55px] transform hover:scale-110 sm:translate-y-[130px] md:translate-y-[140px]' />
+
+          {/* Bottom-center navigation arrows, close together */}
+          <div className='absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1'>
+            <CarouselPrevious className='h-6 w-6 translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white' />
+            <CarouselNext className='h-6 w-6 -translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white' />
+          </div>
         </Carousel>
-        <CardContent className='xs:px-2 w-full space-y-1 px-1'>
+
+        <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2'>
           <div className='flex items-center justify-between border-t pt-2'>
             <div className='flex gap-1'>
-              <p className='leading-1 font-medium sm:text-[22px]'>
+              <p className='leading-1 font-medium sm:text-[22px] lg:text-xl'>
                 ${selectedMetal.amount}
               </p>
               <span className='text-sm leading-1 font-normal text-[#958F86] line-through sm:text-lg'>
@@ -165,7 +170,7 @@ export default function PreviewCard3({ className }) {
                     key={metalOption.metal}
                     onClick={() => setSelectedMetal(metalOption)}
                     className={cn(
-                      'h-4.5 w-4.5 rounded-full border-2 border-white hover:outline hover:outline-offset-1 md:h-6 md:w-6',
+                      'h-4.5 w-4.5 rounded-full border-2 border-white hover:outline hover:outline-offset-1 sm:h-5.25 sm:w-5.25 md:h-6 md:w-6',
                       isSelected ? 'ring-primary/40 ring-offset-0.5 ring' : ''
                     )}
                     style={{
@@ -178,8 +183,7 @@ export default function PreviewCard3({ className }) {
               })}
             </div>
           </div>
-
-          <p className='line-clamp-2 block min-h-[2.6em] text-left text-sm leading-4 font-light text-gray-900 md:text-lg lg:text-xl'>
+          <p className='xs:text-base line-clamp-2 block min-h-[2.2em] text-left text-sm leading-4 font-light text-gray-900 sm:text-lg'>
             <button
               onClick={handleProductClick}
               className='block w-full text-left'
@@ -189,8 +193,7 @@ export default function PreviewCard3({ className }) {
           </p>
 
           <Button
-            size='sm'
-            className='xs:text-base mt-auto w-full text-sm'
+            className='xs:text-base xs:h-9 mt-auto h-8 w-full text-sm lg:h-10'
             onClick={handleAddToCart}
           >
             Add to Cart <ShoppingBagIcon size={20} />

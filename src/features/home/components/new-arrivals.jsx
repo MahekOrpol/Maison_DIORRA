@@ -10,7 +10,7 @@ import { cn } from '@/lib/utils';
 
 export default function NewArrivals() {
   return (
-    <section className='py-6 md:pt-10 lg:mt-16 lg:mb-12 lg:pt-16 xl:pt-20'>
+    <section className='py-6 md:pt-10 lg:mt-8 lg:mb-6 lg:pt-16 xl:pt-20'>
       <div className='relative flex w-full flex-col items-center justify-between lg:flex-row'>
         <div className='xs:h-[85vw] z-0 h-[100vw] w-full border-y shadow-lg lg:h-[250px] xl:h-[360px]'>
           <Image

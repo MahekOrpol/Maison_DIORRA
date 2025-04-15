@@ -41,7 +41,7 @@ export default function LocateAndSearch() {
         <MapPin className='h-5 w-5' />
       </button>
 
-      <div className='relative w-full rounded-lg border-2 border-black/20'>
+      <div className='relative w-full rounded-none border-b-2 border-gray-200'>
         <Search className='absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 transform' />
         <Input
           type='text'
@@ -49,7 +49,7 @@ export default function LocateAndSearch() {
           value={searchValue}
           onChange={(e) => setSearchValue(e.target.value)}
           onKeyDown={handleSearch}
-          className='w-full rounded-md border-transparent py-2 pr-4 pl-10 shadow-none focus:ring-1'
+          className='w-full rounded-md border-transparent py-2 pr-4 pl-10 shadow-none focus:ring-0 focus-visible:ring-0'
         />
       </div>
     </div>

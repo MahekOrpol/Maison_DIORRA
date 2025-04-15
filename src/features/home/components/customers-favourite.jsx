@@ -13,7 +13,7 @@ import Autoplay from 'embla-carousel-autoplay';
 
 export default function CustomersFavourite() {
   return (
-    <section className='wrapper pt-5 md:pt-7 lg:pt-10 xl:pt-13 2xl:pt-16'>
+    <section className='wrapper pt-6 md:pt-7 lg:pt-8 xl:pt-10'>
       <Heading
         title='Customer’s Favourite'
         subtitle='New Styles, Endless Elegance'
@@ -45,7 +45,7 @@ export default function CustomersFavourite() {
               {Array.from({ length: 6 }).map((_, index) => (
                 <CarouselItem
                   key={index}
-                  className='basis-[49%] pl-2 min-[400px]:pl-3 sm:basis-[49.5%] sm:pl-6 lg:basis-[33.30%] lg:pl-8 xl:basis-[24.9%]'
+                  className='basis-[49%] pl-2 min-[400px]:pl-3 sm:basis-[49.5%] sm:pl-6 md:basis-[33.30%] lg:basis-[24.9%] lg:pl-8'
                 >
                   {/* <PreviewCard /> */}
                   <PreviewCard3 />

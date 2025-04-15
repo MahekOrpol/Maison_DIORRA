@@ -28,6 +28,7 @@ import {
   CarouselItem
 } from '@/components/ui/carousel';
 import ProductCard2 from '@/components/preview-card2';
+import PreviewCard3 from '@/components/preview-card3';
 
 const advertisements = [
   {
@@ -183,7 +184,8 @@ export default function Page() {
                 />
               )}
               {/* Render Listing Item */}
-              <PreviewCard />
+              {/* <PreviewCard /> */}
+              <PreviewCard3 />
               {/* <ProductCard2 /> */}
             </React.Fragment>
           );

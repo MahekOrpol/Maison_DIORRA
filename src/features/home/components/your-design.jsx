@@ -6,7 +6,7 @@ import React from 'react';
 
 export default function YourDesign() {
   return (
-    <section className='wrapper pt-4 md:pt-7 lg:pt-10 xl:pt-13 2xl:pt-16'>
+    <section className='wrapper pt-4 md:pt-7 lg:pt-8'>
       <Heading
         title='Design Your Ring'
         subtitle='Your Vision, Your Ring, Your Forever.'
