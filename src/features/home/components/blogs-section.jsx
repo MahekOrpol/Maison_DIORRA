@@ -44,7 +44,7 @@ export default function BlogsSection() {
             {Array.from({ length: 5 }).map((_, index) => (
               <CarouselItem
                 key={index}
-                className='pl-4 sm:basis-1/2 md:pl-4 xl:basis-1/3'
+                className='py-2 pl-4 sm:basis-1/2 md:pl-4 xl:basis-1/3'
               >
                 <Link
                   href='/blogs/slug'

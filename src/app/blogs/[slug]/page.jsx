@@ -18,8 +18,8 @@ export default async function Page({ params }) {
         className='h-[200px]'
       />
       <section className='wrapper flex w-full flex-col gap-4 py-4 md:my-8 lg:gap-[4%] xl:flex-row xl:justify-between'>
-        {/* blog details */}
-        <article className='flex-1'>
+        {/* blog details - takes about 70% width on desktop */}
+        <article className='flex-1 xl:w-[66%]'>
           {/* hero */}
           <div className='mb-4 border-b-2 pb-2'>
             <div>
@@ -32,174 +32,63 @@ export default async function Page({ params }) {
               />
             </div>
             <p className='mt-1 text-sm font-light lg:text-base xl:text-lg'>
-              Posted by Feronia - Mar 09 2024
+              Posted by Feronia - Mar 09 2024
             </p>
             <h2 className='text-2xl leading-6 font-semibold md:text-3xl lg:text-4xl'>
               The North Earings Bronze
             </h2>
           </div>
-          {/* details */}
+
+          {/* blog content */}
           <div className='space-y-4 text-sm md:text-base'>
-            <p className='text-justify'>
-              Explore the history behind vintage pieces, how to style them, and
-              tips for caring for them. Share stories of famous vintage pieces
-              and their significance. Offer a guide on selecting an engagement
-              ring that reflects personal style. Discuss different styles,
-              settings, and stones, and include tips for budget considerations.
-              Provide tips on how to successfully layer necklaces for a trendy
-              look.{' '}
-            </p>
-            <div>
-              <div>
-                <ImQuotesLeft className='h-10 w-10' />
-                <blockquote className='mx-auto w-4/5'>
-                  “Learn how to keep your jewelry shining bright! From cleaning
-                  techniques to storage solutions, our blog offers expert
-                  advice. Each item is handcrafted with love and precision,
-                  using ethically sourced materials to ensure beauty that you
-                  feel good about. Learn how to keep your jewelry shining
-                  bright! From cleaning techniques to storage solutions, our
-                  blog offers expert advice.”
-                </blockquote>
-                <ImQuotesRight className='ml-auto h-10 w-10' />
+            {/* Your existing blog content sections */}
+            {[...Array(4)].map((_, sectionIndex) => (
+              <div key={sectionIndex} className='space-y-4'>
+                <p className='text-justify'>
+                  Explore the history behind vintage pieces, how to style them,
+                  and tips for caring for them. Share stories of famous vintage
+                  pieces and their significance. Offer a guide on selecting an
+                  engagement ring that reflects personal style. Discuss
+                  different styles, settings, and stones, and include tips for
+                  budget considerations. Provide tips on how to successfully
+                  layer necklaces for a trendy look.
+                </p>
+                <div>
+                  <div>
+                    <ImQuotesLeft className='h-10 w-10' />
+                    <blockquote className='mx-auto w-4/5'>
+                      "Learn how to keep your jewelry shining bright! From
+                      cleaning techniques to storage solutions, our blog offers
+                      expert advice. Each item is handcrafted with love and
+                      precision, using ethically sourced materials to ensure
+                      beauty that you feel good about. Learn how to keep your
+                      jewelry shining bright! From cleaning techniques to
+                      storage solutions, our blog offers expert advice."
+                    </blockquote>
+                    <ImQuotesRight className='ml-auto h-10 w-10' />
+                  </div>
+                  <p className='font-medium'>- Jasmin Rosie</p>
+                </div>
+                <div>
+                  <h3 className='text-2xl font-medium'>
+                    Trends to Watch in the Jewelry World
+                  </h3>
+                  <ul className='ml-10'>
+                    {Array.from({ length: 8 }).map((item, i) => (
+                      <li className='list-disc' key={i}>
+                        Jewellery Care 101: Keeping Your Pieces Sparkling
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-              <p className='font-medium'>- Jasmin Rosie</p>
-            </div>
-            <div className=''>
-              <h3 className='text-2xl font-medium'>
-                Trends to Watch in the Jewelry World
-              </h3>
-              <ul className='ml-10'>
-                {Array.from({ length: 8 }).map((item, i) => (
-                  <li className='list-disc' key={i}>
-                    Jewellery Care 101: Keeping Your Pieces Sparkling
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <div className='space-y-4 text-sm md:text-base'>
-            <p className='text-justify'>
-              Explore the history behind vintage pieces, how to style them, and
-              tips for caring for them. Share stories of famous vintage pieces
-              and their significance. Offer a guide on selecting an engagement
-              ring that reflects personal style. Discuss different styles,
-              settings, and stones, and include tips for budget considerations.
-              Provide tips on how to successfully layer necklaces for a trendy
-              look.{' '}
-            </p>
-            <div>
-              <div>
-                <ImQuotesLeft className='h-10 w-10' />
-                <blockquote className='mx-auto w-4/5'>
-                  “Learn how to keep your jewelry shining bright! From cleaning
-                  techniques to storage solutions, our blog offers expert
-                  advice. Each item is handcrafted with love and precision,
-                  using ethically sourced materials to ensure beauty that you
-                  feel good about. Learn how to keep your jewelry shining
-                  bright! From cleaning techniques to storage solutions, our
-                  blog offers expert advice.”
-                </blockquote>
-                <ImQuotesRight className='ml-auto h-10 w-10' />
-              </div>
-              <p className='font-medium'>- Jasmin Rosie</p>
-            </div>
-            <div className=''>
-              <h3 className='text-2xl font-medium'>
-                Trends to Watch in the Jewelry World
-              </h3>
-              <ul className='ml-10'>
-                {Array.from({ length: 8 }).map((item, i) => (
-                  <li className='list-disc' key={i}>
-                    Jewellery Care 101: Keeping Your Pieces Sparkling
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <div className='space-y-4 text-sm md:text-base'>
-            <p className='text-justify'>
-              Explore the history behind vintage pieces, how to style them, and
-              tips for caring for them. Share stories of famous vintage pieces
-              and their significance. Offer a guide on selecting an engagement
-              ring that reflects personal style. Discuss different styles,
-              settings, and stones, and include tips for budget considerations.
-              Provide tips on how to successfully layer necklaces for a trendy
-              look.{' '}
-            </p>
-            <div>
-              <div>
-                <ImQuotesLeft className='h-10 w-10' />
-                <blockquote className='mx-auto w-4/5'>
-                  “Learn how to keep your jewelry shining bright! From cleaning
-                  techniques to storage solutions, our blog offers expert
-                  advice. Each item is handcrafted with love and precision,
-                  using ethically sourced materials to ensure beauty that you
-                  feel good about. Learn how to keep your jewelry shining
-                  bright! From cleaning techniques to storage solutions, our
-                  blog offers expert advice.”
-                </blockquote>
-                <ImQuotesRight className='ml-auto h-10 w-10' />
-              </div>
-              <p className='font-medium'>- Jasmin Rosie</p>
-            </div>
-            <div className=''>
-              <h3 className='text-2xl font-medium'>
-                Trends to Watch in the Jewelry World
-              </h3>
-              <ul className='ml-10'>
-                {Array.from({ length: 8 }).map((item, i) => (
-                  <li className='list-disc' key={i}>
-                    Jewellery Care 101: Keeping Your Pieces Sparkling
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-          <div className='space-y-4 text-sm md:text-base'>
-            <p className='text-justify'>
-              Explore the history behind vintage pieces, how to style them, and
-              tips for caring for them. Share stories of famous vintage pieces
-              and their significance. Offer a guide on selecting an engagement
-              ring that reflects personal style. Discuss different styles,
-              settings, and stones, and include tips for budget considerations.
-              Provide tips on how to successfully layer necklaces for a trendy
-              look.{' '}
-            </p>
-            <div>
-              <div>
-                <ImQuotesLeft className='h-10 w-10' />
-                <blockquote className='mx-auto w-4/5'>
-                  “Learn how to keep your jewelry shining bright! From cleaning
-                  techniques to storage solutions, our blog offers expert
-                  advice. Each item is handcrafted with love and precision,
-                  using ethically sourced materials to ensure beauty that you
-                  feel good about. Learn how to keep your jewelry shining
-                  bright! From cleaning techniques to storage solutions, our
-                  blog offers expert advice.”
-                </blockquote>
-                <ImQuotesRight className='ml-auto h-10 w-10' />
-              </div>
-              <p className='font-medium'>- Jasmin Rosie</p>
-            </div>
-            <div className=''>
-              <h3 className='text-2xl font-medium'>
-                Trends to Watch in the Jewelry World
-              </h3>
-              <ul className='ml-10'>
-                {Array.from({ length: 8 }).map((item, i) => (
-                  <li className='list-disc' key={i}>
-                    Jewellery Care 101: Keeping Your Pieces Sparkling
-                  </li>
-                ))}
-              </ul>
-            </div>
+            ))}
           </div>
         </article>
 
-        {/* Sticky bottom sidebar is not working*/}
-        <div className='relative h-fit xl:flex xl:min-h-screen xl:flex-col xl:justify-end'>
-          <div className='sticky bottom-0'>
+        {/* Sticky sidebar - takes about 30% width on desktop */}
+        <div className='xl:w-[30%]'>
+          <div className='xl:sticky xl:-top-1/4 xl:h-fit xl:self-start'>
             <BlogsFilter className='w-full xl:max-w-md' />
           </div>
         </div>

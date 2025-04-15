@@ -69,7 +69,7 @@ export function ArrivalSwiper({ className }) {
       autoplay={{
         delay: 3000, // 2.5 seconds between slides
         disableOnInteraction: false, // keeps autoplay even after user interaction
-        pauseOnMouseEnter: true // optional: pause when hovered
+        pauseOnMouseEnter: false // optional: pause when hovered
       }}
       coverflowEffect={{
         rotate: 0,

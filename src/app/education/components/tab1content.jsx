@@ -11,7 +11,8 @@ import Image from 'next/image';
 export default function Tab1Content() {
   return (
     <div className='xs:py-8 flex flex-col justify-between gap-4 py-2 lg:flex-row lg:py-8'>
-      <div className='lg:w-[30%]'>
+      {/* Left side index - sticky on desktop */}
+      <div className='lg:sticky lg:top-8 lg:h-[calc(100vh-4rem)] lg:w-[30%] lg:self-start lg:overflow-y-auto'>
         <DiamondKnowledge />
       </div>
       <div className='space-y-2 text-justify text-sm leading-5 font-light md:space-y-3 md:text-base md:leading-6 lg:w-[65%] xl:text-lg'>
@@ -189,8 +190,8 @@ export const DiamondKnowledge = () => {
           <AccordionTrigger className='px-2 text-base font-medium hover:no-underline'>
             4C's of Diamonds
           </AccordionTrigger>
-          <AccordionContent className='space-y-2 px-4'>
-            <ul className='list-disc space-y-2 pl-5'>
+          <AccordionContent className='space-y-2 px-6 pr-2'>
+            <ul className='list-disc space-y-2'>
               <li>
                 <Link href='#clarity' className='hover:underline'>
                   Clarity - The absence of inclusions and blemishes

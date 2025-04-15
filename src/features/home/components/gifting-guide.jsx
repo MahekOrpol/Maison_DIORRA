@@ -58,11 +58,11 @@ export default function GiftingSection() {
               scale: coverflowConfig.scale
             }}
             className='coverflow'
-            autoplay={{
-              delay: 3000, // 2.5 seconds between slides
-              disableOnInteraction: false, // keeps autoplay even after user interaction
-              pauseOnMouseEnter: true // optional: pause when hovered
-            }}
+            // autoplay={{
+            //   delay: 3000, // 2.5 seconds between slides
+            //   disableOnInteraction: false, // keeps autoplay even after user interaction
+            //   pauseOnMouseEnter: true // optional: pause when hovered
+            // }}
           >
             {Array.from({ length: 5 }).map((_, index) => (
               <SwiperSlide key={index} className=''>
