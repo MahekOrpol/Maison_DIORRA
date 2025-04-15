@@ -206,12 +206,11 @@ export const CustomerReviews = ({ className }) => {
         <hr className='my-2' />
       </h2>
 
-      <div className='space-y-6'>
+      <div className='space-y-2'>
         {reviews.map((review) => (
           <TestimonialCard key={review.id} {...review} />
         ))}
       </div>
-
       <div className=''>
         <h3 className='py-4 text-xl font-medium md:text-2xl md:font-semibold lg:text-3xl'>
           Add a Review
@@ -230,7 +229,7 @@ export const CustomerReviews = ({ className }) => {
 
 function TestimonialCard({ author, authorImg, date, content, rating = 5 }) {
   return (
-    <div className='flex items-center gap-2 border-b py-2 md:gap-4'>
+    <div className='flex items-center gap-2 border-b pb-1 md:gap-4'>
       {/* Responsive Image Wrapper */}
       <div className='inline-flex items-center justify-center rounded-full bg-black p-[0.6px]'>
         <div className='rounded-full bg-white p-1'>

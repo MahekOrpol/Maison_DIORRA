@@ -11,6 +11,7 @@ import {
 import PreviewCard from './preview-card';
 import { cn } from '@/lib/utils';
 import Autoplay from 'embla-carousel-autoplay';
+import PreviewCard3 from './preview-card3';
 
 export default function RelatedProducts({ className }) {
   return (
@@ -48,7 +49,8 @@ export default function RelatedProducts({ className }) {
                 key={index}
                 className='basis-[49%] pl-2 min-[400px]:pl-3 sm:basis-[49.5%] sm:pl-6 lg:basis-[33.30%] lg:pl-8 xl:basis-[24.9%]'
               >
-                <PreviewCard />
+                {/* <PreviewCard /> */}
+                <PreviewCard3 />
               </CarouselItem>
             ))}
           </CarouselContent>

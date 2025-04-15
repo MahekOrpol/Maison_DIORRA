@@ -77,8 +77,8 @@ function MobileGallery() {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious className='translate-x-10' />
-              <CarouselNext className='-translate-x-10' />
+              <CarouselPrevious className='translate-x-12 border-none' />
+              <CarouselNext className='-translate-x-12 border-none' />
             </Carousel>
           </TabsContent>
 

@@ -184,7 +184,11 @@ export const DiamondKnowledge = () => {
         Know about Diamonds
       </h1>
 
-      <Accordion type='single' collapsible className='w-full border'>
+      <Accordion
+        type='multiple'
+        defaultValue={['item-1']}
+        className='w-full border'
+      >
         {/* 4C's Section */}
         <AccordionItem value='item-1'>
           <AccordionTrigger className='px-2 text-base font-medium hover:no-underline'>

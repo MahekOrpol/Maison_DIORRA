@@ -32,20 +32,20 @@ export default function CustomersFavourite() {
               slidesToScroll: 1,
               loop: true
             }}
-            // plugins={[
-            //   Autoplay({
-            //     delay: 3000,
-            //     stopOnInteraction: false, // don't stop on drag/touch
-            //     stopOnMouseEnter: false // don't stop on hover
-            //   })
-            // ]}
+            plugins={[
+              Autoplay({
+                delay: 3000,
+                stopOnInteraction: false, // don't stop on drag/touch
+                stopOnMouseEnter: false // don't stop on hover
+              })
+            ]}
             className=''
           >
             <CarouselContent className='-ml-2 min-[400px]:-ml-3 sm:-ml-6 lg:-ml-8'>
               {Array.from({ length: 6 }).map((_, index) => (
                 <CarouselItem
                   key={index}
-                  className='basis-[49%] pl-2 min-[400px]:pl-3 sm:basis-[49.5%] sm:pl-6 md:basis-[33.30%] lg:basis-[24.9%] lg:pl-8'
+                  className='basis-[49%] pl-2 min-[400px]:pl-3 sm:basis-[49.5%] sm:pl-6 md:basis-[33%] md:pl-7 lg:basis-[24.8%] lg:pl-8'
                 >
                   {/* <PreviewCard /> */}
                   <PreviewCard3 />

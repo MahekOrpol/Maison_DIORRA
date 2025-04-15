@@ -144,7 +144,7 @@ export default function PreviewCard({ className }) {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className='absolute bottom-0 left-1/2 h-6 w-6 -translate-x-6 translate-y-[100px] transform hover:scale-110 sm:translate-y-[130px] md:translate-y-[140px]' />
+          <CarouselPrevious className='absolute bottom-0 left-1/2 h-6 w-6 -translate-x-6 translate-y-[100px] transform border hover:scale-110 sm:translate-y-[130px] md:translate-y-[140px]' />
           <CarouselNext className='absolute right-1/2 h-6 w-6 translate-x-8 translate-y-[100px] transform hover:scale-110 sm:translate-y-[130px] md:translate-y-[140px]' />
         </Carousel>
         <CardContent className='xs:px-4 flex flex-1 flex-col justify-between px-2 pb-2'>

@@ -106,23 +106,22 @@ export default function PreviewCard3({ className }) {
     <>
       <Card
         className={cn(
-          'group relative gap-0 overflow-hidden rounded-xl border-black/50 pt-0 pb-2 shadow transition-transform duration-300 hover:border-black hover:shadow-xl',
+          'group relative justify-between gap-0 overflow-hidden rounded-xl border-black/50 pt-0 pb-2 shadow transition-transform duration-300 hover:border-black hover:shadow-xl',
           className
         )}
       >
         {/* Wish Button */}
-        <Button
-          variant='ghost'
+        <button
           onClick={() => setLiked(!liked)}
-          className='hover:bg-primary/10 absolute top-1 right-1 z-10 flex h-6.5 w-6.5 items-center justify-center rounded-full bg-white'
+          className='hover:bg-primary/10 xs:w-7 xs:h-7 absolute top-1 right-1 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-white'
         >
           <Heart
             className={cn(
-              'h-6 w-6 transition-colors',
+              'xs:h-5 xs:w-5 h-4 w-4 transition-colors',
               liked ? 'fill-primary text-primary' : 'text-muted-foreground'
             )}
           />
-        </Button>
+        </button>
         <Carousel
           opts={{ align: 'start', loop: false }}
           className='relative w-full'
@@ -147,8 +146,8 @@ export default function PreviewCard3({ className }) {
 
           {/* Bottom-center navigation arrows, close together */}
           <div className='absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1'>
-            <CarouselPrevious className='h-6 w-6 translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white' />
-            <CarouselNext className='h-6 w-6 -translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white' />
+            <CarouselPrevious className='h-7 w-7 translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white' />
+            <CarouselNext className='h-7 w-7 -translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white' />
           </div>
         </Carousel>
 
@@ -284,17 +283,17 @@ export default function PreviewCard3({ className }) {
                     Solitaire
                   </button>
                 </div>
-                <div className='mt-4 mb-1 flex gap-3'>
+                <div className='mt-4 mb-1 flex items-stretch gap-3'>
                   <Link
                     href='/products/productid'
                     onClick={() => setIsProductClicked(true)}
-                    className='relative inline-block h-[42px] overflow-hidden rounded-md border border-black bg-white px-4 py-2 text-base text-black transition-colors duration-400'
+                    className='relative inline-block h-[40px] overflow-hidden rounded-md border border-black bg-white px-4 py-2 text-base text-black transition-colors duration-400'
                   >
                     More info
                   </Link>
                   <Button
                     size='lg'
-                    className='flex-1'
+                    className='flex-1 border border-black'
                     onClick={handleAddToCart}
                   >
                     Add to Cart <ShoppingBagIcon size={20} />

@@ -77,14 +77,14 @@ export default function Page() {
       />
       <div className='wrapper flex w-full flex-col gap-4 pt-6 pb-10 sm:gap-6 md:pt-8 xl:flex-row xl:justify-between xl:gap-[4%]'>
         {/* Blog posts container - takes full width on mobile, 2/3 on desktop */}
-        <div className='order-2 grid grid-cols-1 gap-6 md:grid-cols-2 xl:w-[66%]'>
+        <div className='grid grid-cols-1 gap-6 md:grid-cols-2 xl:w-[66%]'>
           {blogPosts.map((post, index) => (
             <BlogCard key={index} {...post} />
           ))}
         </div>
 
         {/* Sticky filter sidebar - full width on mobile, 1/3 on desktop */}
-        <div className='order-1 xl:sticky xl:-top-1/4 xl:order-last xl:h-fit xl:w-[30%] xl:self-start'>
+        <div className='xl:sticky xl:-top-1/4 xl:h-fit xl:w-[30%] xl:self-start'>
           <BlogsFilter />
         </div>
       </div>

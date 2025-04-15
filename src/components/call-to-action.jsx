@@ -32,7 +32,10 @@ export default function CallToAction({ className }) {
   ];
   return (
     <section
-      className={cn('mb-18 flex flex-col items-center gap-4', className)}
+      className={cn(
+        'wrapper mb-18 flex flex-col items-center gap-4',
+        className
+      )}
     >
       <Image
         src='/icons/logo-diorra2.svg'

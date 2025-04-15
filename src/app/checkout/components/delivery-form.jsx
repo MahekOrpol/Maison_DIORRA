@@ -129,7 +129,17 @@ export default function DeliveryForm({ onNext }) {
                   }
                 }}
               />
-
+              {/* Country */}
+              <FloatingSelect
+                name='country'
+                placeholder='Select Country'
+                rules={{ required: 'Please select a country' }}
+                options={Country.getAllCountries().map((c) => ({
+                  label: c.name,
+                  value: c.isoCode
+                }))}
+                className=''
+              />
               {/* Address */}
               <FloatingInput
                 label='Street Address'
@@ -143,17 +153,7 @@ export default function DeliveryForm({ onNext }) {
                 name='address2'
                 className='h-11'
               />
-              {/* Country */}
-              <FloatingSelect
-                name='country'
-                placeholder='Select Country'
-                rules={{ required: 'Please select a country' }}
-                options={Country.getAllCountries().map((c) => ({
-                  label: c.name,
-                  value: c.isoCode
-                }))}
-                className=''
-              />
+
               <div className='grid w-full grid-cols-2 gap-2 sm:grid-cols-3'>
                 {/* State + City + Zip */}
                 <FloatingSelect

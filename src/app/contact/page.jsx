@@ -33,7 +33,7 @@ export default function ContactPage() {
       <Banner imgUrl='/img/banner/banner1.png' heading='Contact Us' />
 
       {/* Contact Info Cards */}
-      <div className='wrapper my-14 w-full lg:my-16 xl:my-22'>
+      <div className='wrapper mt-14 mb-8 w-full md:mt-16 md:mb-12 xl:mt-20 xl:mb-16'>
         <div className='flex flex-col flex-wrap items-center justify-center gap-12 text-nowrap sm:flex-row lg:flex-nowrap lg:items-stretch lg:justify-between lg:gap-8 xl:gap-14'>
           {/* Email Card */}
           <div className='relative flex w-full max-w-xs flex-col items-center justify-end rounded-lg border-2 border-black px-4 pt-11 pb-4 text-center lg:max-w-md xl:px-6 xl:pb-6'>
@@ -111,7 +111,7 @@ export default function ContactPage() {
       <div className='wrapper'>
         <div className='grid grid-cols-1 gap-8 lg:grid-cols-2'>
           {/* Virtual Appointment Section */}
-          <div className='mx-auto flex flex-col gap-3 text-center sm:w-3/4 lg:mx-0 lg:w-5/6 lg:gap-5 lg:text-left'>
+          <div className='mx-auto flex flex-col gap-3 lg:mx-0 lg:w-5/6 lg:gap-5'>
             <p className='text-lg font-medium md:text-xl lg:text-2xl xl:text-3xl'>
               Virtual Appointment
             </p>
