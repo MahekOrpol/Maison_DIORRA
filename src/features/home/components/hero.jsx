@@ -1,4 +1,5 @@
 'use client';
+import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { MoveRight } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
@@ -6,20 +7,16 @@ import { IoCopy } from 'react-icons/io5';
 import { toast } from 'sonner';
 
 export default function Hero() {
+  const { copy, isCopied } = useCopyToClipboard();
+
   const handleCopy = () => {
-    navigator.clipboard
-      .writeText('FIRST20')
-      .then(() => {
-        toast.success('Promo code copied to clipboard!');
-      })
-      .catch(() => {
-        toast.error('Failed to copy promo code.');
-      });
+    copy('FIRST20');
+    toast.success('Promo code copied to clipboard!');
   };
+
   return (
     <section className="h-[400px] w-full bg-[url('/img/home-m-hero.png')] bg-cover bg-right bg-no-repeat sm:h-[550px] md:bg-[url('/img/home-hero.png')] md:bg-left lg:h-[700px]">
       <div className='wrapper relative h-full'>
-        {/* Inside wrapper */}
         <div className='absolute inset-x-0 bottom-[14%] flex w-full flex-col items-center justify-end text-center text-white md:bottom-[30%] md:left-[12%] md:w-fit md:translate-x-[-15%]'>
           <p className='mb-8 text-base tracking-widest underline underline-offset-6 md:text-[21px]'>
             VALENTINE'S DAY
