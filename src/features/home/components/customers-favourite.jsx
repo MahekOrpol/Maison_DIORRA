@@ -45,7 +45,7 @@ export default function CustomersFavourite() {
               {Array.from({ length: 6 }).map((_, index) => (
                 <CarouselItem
                   key={index}
-                  className='basis-[49%] pl-2 min-[400px]:pl-3 sm:basis-[49.5%] sm:pl-6 md:basis-[33%] md:pl-7 lg:basis-[24.8%] lg:pl-8'
+                  className='basis-[49%] pl-2 min-[400px]:pl-3 sm:basis-[49.5%] sm:pl-6 md:basis-[33%] md:pl-7 lg:basis-[24.7%] lg:pl-8.5'
                 >
                   {/* <PreviewCard /> */}
                   <PreviewCard3 />

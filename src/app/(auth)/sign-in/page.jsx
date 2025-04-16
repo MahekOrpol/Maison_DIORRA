@@ -31,13 +31,13 @@ export default function AuthTabs() {
             <TabsList className='grid h-full w-full grid-cols-2 border-b border-gray-500'>
               <TabsTrigger
                 value='login'
-                className='h-full border-b border-b-transparent bg-white py-2 text-lg font-medium data-[state=active]:border-b-black sm:border-b-2'
+                className='h-full border-b border-b-transparent bg-white py-2 text-lg font-medium data-[state=active]:border-b-black sm:border-b-2 lg:text-2xl'
               >
                 Login
               </TabsTrigger>
               <TabsTrigger
                 value='register'
-                className='h-full border-b border-b-transparent bg-white py-2 text-lg font-medium data-[state=active]:border-b-black md:border-b-2'
+                className='h-full border-b border-b-transparent bg-white py-2 text-lg font-medium data-[state=active]:border-b-black md:border-b-2 lg:text-2xl'
               >
                 Register
               </TabsTrigger>

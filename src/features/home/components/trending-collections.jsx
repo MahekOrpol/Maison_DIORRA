@@ -50,7 +50,7 @@ export default function TrendingCollections() {
           <div className='absolute right-[26%] bottom-[32%] flex h-5.5 w-5.5 items-center justify-center rounded-full border border-white sm:h-7 sm:w-7 md:border-2 lg:right-[22%] xl:h-8 xl:w-8 2xl:right-[24%]'>
             <CustomTooltip />
           </div>
-          <div className='absolute top-[23%] right-[17%] flex h-5.5 w-5.5 items-center justify-center rounded-full border border-white sm:h-7 sm:w-7 md:top-[24%] md:right-[18%] md:border-2 lg:top-[24%] lg:right-[17%] xl:top-[24%] xl:right-[11%] xl:h-8 xl:w-8 2xl:right-[18%]'>
+          <div className='xs:top-[24%] absolute top-[23%] right-[17%] flex h-5.5 w-5.5 items-center justify-center rounded-full border border-white sm:h-7 sm:w-7 md:top-[25%] md:right-[18%] md:border-2 lg:top-[24%] lg:right-[17%] xl:top-[24%] xl:h-8 xl:w-8 2xl:right-[18%]'>
             <CustomTooltip />
           </div>
         </div>
