@@ -124,9 +124,9 @@ function RingDetails({ className }) {
   ];
   return (
     <section className={cn(className)}>
-      <h2 className='border-b py-4 text-2xl font-medium md:text-3xl md:font-semibold lg:text-4xl'>
+      <h2 className='border-b pb-4 text-2xl font-medium md:font-medium lg:text-3xl xl:pt-4 2xl:text-4xl'>
         Ring and Stone Details:
-        <hr className='my-2' />
+        <hr className='mb-2' />
       </h2>
       <div className='bg-secondary grid grid-cols-1 gap-8 px-2 pt-2 pb-8 sm:px-4 sm:pt-4 md:grid-cols-2 md:px-8'>
         {details.map(({ category, icon, items }) => (
@@ -201,9 +201,9 @@ export const CustomerReviews = ({ className }) => {
   ];
   return (
     <div className={cn('mt-8', className)}>
-      <h2 className='py-4 text-2xl font-medium md:text-3xl md:font-semibold lg:text-4xl'>
+      <h2 className='text-2xl font-medium md:text-3xl md:font-medium lg:text-4xl'>
         Customer Reviews
-        <hr className='my-2' />
+        <hr className='mb-4' />
       </h2>
 
       <div className='space-y-2'>
@@ -212,7 +212,7 @@ export const CustomerReviews = ({ className }) => {
         ))}
       </div>
       <div className=''>
-        <h3 className='py-4 text-xl font-medium md:text-2xl md:font-semibold lg:text-3xl'>
+        <h3 className='py-4 text-xl font-medium md:text-2xl md:font-medium lg:text-3xl'>
           Add a Review
         </h3>
         <p className='mb-4'>
@@ -231,19 +231,19 @@ function TestimonialCard({ author, authorImg, date, content, rating = 5 }) {
   return (
     <div className='flex items-center gap-2 border-b pb-1 md:gap-4'>
       {/* Responsive Image Wrapper */}
-      <div className='inline-flex items-center justify-center rounded-full bg-black p-[0.6px]'>
+      <div className='flex w-fit items-center justify-center self-start rounded-full bg-black p-[0.6px]'>
         <div className='rounded-full bg-white p-1'>
           <img
             src={authorImg}
             alt='Testimonial Author'
-            className='h-14 w-14 rounded-full object-cover md:h-18 md:w-18'
+            className='h-14 w-14 rounded-full object-cover lg:h-15 lg:w-15'
           />
         </div>
       </div>
 
       {/* Author Details */}
-      <div>
-        <div className='mb-[6px] flex'>
+      <div className='flex-1'>
+        <div className='mb-[1px] flex'>
           {[...Array(5)].map((_, i) => (
             <MdStarRate
               key={i}
@@ -251,10 +251,12 @@ function TestimonialCard({ author, authorImg, date, content, rating = 5 }) {
             />
           ))}
         </div>
-        <div className='mb-1 flex items-center gap-4 text-sm font-semibold md:text-lg'>
+        <div className='flex items-center gap-4 text-sm font-semibold sm:text-base'>
           {author} | {date}
         </div>
-        <p className='text-sm leading-4 font-light md:text-base'>{content}</p>
+        <p className='text-xs leading-4 font-light sm:text-sm xl:text-[15px]'>
+          {content}
+        </p>
       </div>
     </div>
   );

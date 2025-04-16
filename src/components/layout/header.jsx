@@ -84,7 +84,7 @@ export default function Header() {
           </div>
         </div>
         <hr />
-        <nav className='wrapper hidden justify-center gap-3 py-2 text-lg lg:flex'>
+        <nav className='wrapper hidden justify-center gap-5 py-2 text-lg lg:flex'>
           {[
             {
               href: '/diamonds',

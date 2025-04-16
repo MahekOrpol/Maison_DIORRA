@@ -307,37 +307,47 @@ export default function ProductDetails({ className }) {
           </div>
           <hr />
         </div>
-        <div className='mb-6 flex gap-3'>
+        <div className='mb-6 flex flex-col gap-3 sm:items-center md:flex-row lg:flex-col'>
           {/* Add to Cart */}
-          <Button
-            variant='outline'
-            className='w-[25%] border border-black py-6 text-lg'
-            onClick={handleAddToCart}
-          >
-            Add to Cart <ShoppingBag className='ml-2 h-7 w-7' />
-          </Button>
-          <Button className='w-[25%] py-6 text-lg' onClick={handleAddToCart}>
-            Buy Now
-          </Button>
-          <button
-            className='bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-9 flex-1 items-center justify-center rounded-md px-4 py-6 text-lg'
-            onClick={handleAddToCart}
-          >
-            Order on Whatsapp <FaWhatsapp className='ml-2 h-7 w-7' />
-          </button>
+          <div className='grid w-full grid-cols-2 gap-2 md:w-1/2 lg:w-full'>
+            <Button
+              variant='outline'
+              className='h-10 border border-black text-base lg:h-11 lg:text-lg'
+              onClick={handleAddToCart}
+            >
+              Add to Cart <ShoppingBag className='ml-2 h-7 w-7' />
+            </Button>
+            <Button
+              className='h-10 text-base lg:h-11 lg:text-lg'
+              onClick={handleAddToCart}
+            >
+              Buy Now
+            </Button>
+          </div>
+          <div className='xs:gap-2 flex w-full items-center gap-1 md:w-1/2 lg:w-full'>
+            <button
+              className='bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-10 flex-1 items-center justify-center rounded-md px-3 text-base text-nowrap lg:h-11 lg:text-lg'
+              onClick={handleAddToCart}
+            >
+              Order on Whatsapp <FaWhatsapp className='ml-1 h-6 w-6' />
+            </button>
 
-          {/* Add to Wishlist */}
-          <button
-            onClick={handleAddToWishlist}
-            className='hover:bg-muted flex h-[48px] w-[48px] items-center justify-center rounded-full border border-gray-300 bg-white transition'
-          >
-            <Heart className='h-6 w-6' strokeWidth={1.6} />
-          </button>
+            {/* Add to Wishlist */}
+            <button
+              onClick={handleAddToWishlist}
+              className='hover:bg-muted flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 bg-white transition md:h-10 md:w-10'
+            >
+              <Heart className='h-4 w-4 md:h-5 md:w-5' strokeWidth={1.6} />
+            </button>
 
-          {/* Share */}
-          <button className='hover:bg-muted flex h-[48px] w-[48px] items-center justify-center rounded-full border border-gray-300 bg-white transition'>
-            <Share2 className='h-6 w-6' strokeWidth={1.6} />
-          </button>
+            {/* Share */}
+            <button
+              onClick={handleAddToWishlist}
+              className='hover:bg-muted flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 bg-white transition md:h-10 md:w-10'
+            >
+              <Share2 className='h-4 w-4 md:h-5 md:w-5' strokeWidth={1.6} />
+            </button>
+          </div>
         </div>
       </div>
 

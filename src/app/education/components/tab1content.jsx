@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import {
   Accordion,
@@ -7,13 +8,35 @@ import {
 } from '@/components/ui/accordion';
 import Link from 'next/link';
 import Image from 'next/image';
+// const data = {
+//   title: '40 % Off',
+//   subtitle: ' On The Diamond Earings',
+//   buttonLabel: 'Shop Diamonds',
+//   buttonLink: '#',
+//   backgroundImage: '/img/ads/add1.png',
+//   align: 'left'
+// };
 
 export default function Tab1Content() {
   return (
-    <div className='xs:py-8 flex flex-col justify-between gap-4 py-2 lg:flex-row lg:py-8'>
+    <div className='xs:py-4 flex flex-col justify-between gap-4 lg:flex-row lg:py-8'>
       {/* Left side index - sticky on desktop */}
       <div className='lg:sticky lg:top-8 lg:h-[calc(100vh-4rem)] lg:w-[30%] lg:self-start lg:overflow-y-auto'>
         <DiamondKnowledge />
+
+        <div className='mx-auto mt-4 w-full rounded-lg border border-gray-200 bg-white px-6 py-4 shadow-sm dark:bg-black dark:text-white'>
+          <div className='flex flex-col items-center justify-between gap-3 sm:flex-row'>
+            <p className='text-base font-medium'>
+              New arrivals just dropped 💍
+            </p>
+            <button
+              onClick={() => router.push('/collection/new')}
+              className='rounded-full bg-black px-4 py-1.5 text-xs font-semibold text-white transition hover:bg-gray-800 dark:bg-white dark:text-black dark:hover:bg-gray-300'
+            >
+              Explore Now
+            </button>
+          </div>
+        </div>
       </div>
       <div className='space-y-2 text-justify text-sm leading-5 font-light md:space-y-3 md:text-base md:leading-6 lg:w-[65%] xl:text-lg'>
         <h2 className='text-left text-2xl font-semibold md:text-3xl xl:text-4xl'>
@@ -179,137 +202,145 @@ export default function Tab1Content() {
 
 export const DiamondKnowledge = () => {
   return (
-    <div className='mx-auto max-w-2xl'>
-      <h1 className='mb-3 text-2xl font-medium text-gray-800 md:text-2xl'>
-        Know about Diamonds
-      </h1>
+    <>
+      <div className='mx-auto max-w-2xl'>
+        <h1 className='mb-3 text-2xl font-medium text-gray-800 md:text-2xl'>
+          Know about Diamonds
+        </h1>
 
-      <Accordion
-        type='multiple'
-        defaultValue={['item-1']}
-        className='w-full border'
-      >
-        {/* 4C's Section */}
-        <AccordionItem value='item-1'>
-          <AccordionTrigger className='px-2 text-base font-medium hover:no-underline'>
-            4C's of Diamonds
-          </AccordionTrigger>
-          <AccordionContent className='space-y-2 px-6 pr-2'>
-            <ul className='list-disc space-y-2'>
-              <li>
-                <Link href='#clarity' className='hover:underline'>
-                  Clarity - The absence of inclusions and blemishes
-                </Link>
-              </li>
-              <li>
-                <Link href='#color' className='hover:underline'>
-                  Color - The diamond's lack of color (graded D to Z)
-                </Link>
-              </li>
-              <li>
-                <Link href='#carat' className='hover:underline'>
-                  Carat Weight - The measurement of diamond's weight
-                </Link>
-              </li>
-              <li>
-                <Link href='#cut' className='hover:underline'>
-                  Cut - The quality of diamond's proportions and symmetry
-                </Link>
-              </li>
-            </ul>
-          </AccordionContent>
-        </AccordionItem>
+        <Accordion
+          type='multiple'
+          defaultValue={['item-1']}
+          className='w-full rounded-md border'
+        >
+          {/* 4C's Section */}
+          <AccordionItem value='item-1'>
+            <AccordionTrigger className='px-2 py-3 text-base font-medium hover:no-underline'>
+              4C's of Diamonds
+            </AccordionTrigger>
+            <AccordionContent className='space-y-2 pl-4'>
+              <ul className='xs:space-y-2 list-disc space-y-1 pl-5'>
+                <li>
+                  <Link href='#clarity' className='hover:underline'>
+                    Clarity - The absence of inclusions and blemishes
+                  </Link>
+                </li>
+                <li>
+                  <Link href='#color' className='hover:underline'>
+                    Color - The diamond's lack of color (graded D to Z)
+                  </Link>
+                </li>
+                <li>
+                  <Link href='#carat' className='hover:underline'>
+                    Carat Weight - The measurement of diamond's weight
+                  </Link>
+                </li>
+                <li>
+                  <Link href='#cut' className='hover:underline'>
+                    Cut - The quality of diamond's proportions and symmetry
+                  </Link>
+                </li>
+              </ul>
+            </AccordionContent>
+          </AccordionItem>
 
-        {/* Shapes Section */}
-        <AccordionItem value='item-2'>
-          <AccordionTrigger className='px-2 text-base font-medium hover:no-underline'>
-            Diamond Shapes
-          </AccordionTrigger>
-          <AccordionContent className='space-y-2 pl-4'>
-            <ul className='list-disc space-y-2 pl-5'>
-              <li>
-                <Link href='/diamonds/shapes/round' className='hover:underline'>
-                  Round - The most popular and brilliant cut
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href='/diamonds/shapes/emerald'
-                  className='hover:underline'
-                >
-                  Emerald - Rectangular with stepped facets
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href='/diamonds/shapes/princess'
-                  className='hover:underline'
-                >
-                  Princess - Square modified brilliant cut
-                </Link>
-              </li>
-              <li>
-                <Link href='/diamonds/shapes/pear' className='hover:underline'>
-                  Pear - Teardrop-shaped brilliant cut
-                </Link>
-              </li>
-            </ul>
-          </AccordionContent>
-        </AccordionItem>
+          {/* Shapes Section */}
+          <AccordionItem value='item-2'>
+            <AccordionTrigger className='px-2 py-3 text-base font-medium hover:no-underline'>
+              Diamond Shapes
+            </AccordionTrigger>
+            <AccordionContent className='space-y-2 pl-4'>
+              <ul className='xs:space-y-2 list-disc space-y-1 pl-5'>
+                <li>
+                  <Link
+                    href='/diamonds/shapes/round'
+                    className='hover:underline'
+                  >
+                    Round - The most popular and brilliant cut
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href='/diamonds/shapes/emerald'
+                    className='hover:underline'
+                  >
+                    Emerald - Rectangular with stepped facets
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href='/diamonds/shapes/princess'
+                    className='hover:underline'
+                  >
+                    Princess - Square modified brilliant cut
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href='/diamonds/shapes/pear'
+                    className='hover:underline'
+                  >
+                    Pear - Teardrop-shaped brilliant cut
+                  </Link>
+                </li>
+              </ul>
+            </AccordionContent>
+          </AccordionItem>
 
-        {/* Types Section */}
-        <AccordionItem value='item-3'>
-          <AccordionTrigger className='px-2 text-base font-medium hover:no-underline'>
-            Diamond Types
-          </AccordionTrigger>
-          <AccordionContent className='space-y-2 pl-4'>
-            <ul className='list-disc space-y-2 pl-5'>
-              <li>
-                <Link
-                  href='/diamonds/types/lab-grown'
-                  className='hover:underline'
-                >
-                  Lab Grown Diamonds - Created in controlled environments
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href='/diamonds/types/natural'
-                  className='hover:underline'
-                >
-                  Natural Diamonds - Formed over billions of years
-                </Link>
-              </li>
-            </ul>
-          </AccordionContent>
-        </AccordionItem>
+          {/* Types Section */}
+          <AccordionItem value='item-3'>
+            <AccordionTrigger className='px-2 py-3 text-base font-medium hover:no-underline'>
+              Diamond Types
+            </AccordionTrigger>
+            <AccordionContent className='space-y-2 pl-4'>
+              <ul className='xs:space-y-2 list-disc space-y-1 pl-5'>
+                <li>
+                  <Link
+                    href='/diamonds/types/lab-grown'
+                    className='hover:underline'
+                  >
+                    Lab Grown Diamonds - Created in controlled environments
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href='/diamonds/types/natural'
+                    className='hover:underline'
+                  >
+                    Natural Diamonds - Formed over billions of years
+                  </Link>
+                </li>
+              </ul>
+            </AccordionContent>
+          </AccordionItem>
 
-        {/* Other Sections */}
-        <AccordionItem value='item-4'>
-          <AccordionTrigger className='px-2 text-base font-medium hover:no-underline'>
-            Diamond Characteristics
-          </AccordionTrigger>
-          <AccordionContent className='space-y-2 pl-4'>
-            <ul className='list-disc space-y-2 pl-5'>
-              <li>
-                <Link href='/diamonds/anatomy' className='hover:underline'>
-                  Anatomy - Parts of a diamond (table, crown, girdle, etc.)
-                </Link>
-              </li>
-              <li>
-                <Link href='/diamonds/sparkle' className='hover:underline'>
-                  Sparkle - How light interacts with the diamond
-                </Link>
-              </li>
-              <li>
-                <Link href='/diamonds/symmetry' className='hover:underline'>
-                  Symmetry - Precision of facet alignment
-                </Link>
-              </li>
-            </ul>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
-    </div>
+          {/* Other Sections */}
+          <AccordionItem value='item-4'>
+            <AccordionTrigger className='px-2 py-3 text-base font-medium hover:no-underline'>
+              Diamond Characteristics
+            </AccordionTrigger>
+            <AccordionContent className='space-y-2 pl-4'>
+              <ul className='xs:space-y-2 list-disc space-y-1 pl-5'>
+                <li>
+                  <Link href='/diamonds/anatomy' className='hover:underline'>
+                    Anatomy - Parts of a diamond (table, crown, girdle, etc.)
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/diamonds/sparkle' className='hover:underline'>
+                    Sparkle - How light interacts with the diamond
+                  </Link>
+                </li>
+                <li>
+                  <Link href='/diamonds/symmetry' className='hover:underline'>
+                    Symmetry - Precision of facet alignment
+                  </Link>
+                </li>
+              </ul>
+            </AccordionContent>
+          </AccordionItem>
+        </Accordion>
+      </div>
+    </>
   );
 };

@@ -480,7 +480,7 @@ function ProductsFilter() {
     </div>
   );
 }
-function Advertisement({
+export function Advertisement({
   title,
   subtitle,
   buttonLabel,
