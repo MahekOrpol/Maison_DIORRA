@@ -26,13 +26,13 @@ export function OrderSummary({
       <div className='sapce-y-3 mb-6 md:space-y-6'>
         {items.map((item) => (
           <div key={item.id} className='mb-2 space-y-2'>
-            <div className='flex justify-between gap-2 md:gap-4'>
+            <div className='flex justify-between gap-2 xl:gap-4'>
               <Image
                 src={item.imgUrl}
                 alt={item.name}
-                width={100}
-                height={100}
-                className='h-20 w-20 rounded-md shadow-[0px_0px_3px_1px_rgba(0,_0,_0,_0.1)]'
+                width={140}
+                height={140}
+                className='h-26 w-26 rounded-md shadow-[0px_0px_3px_1px_rgba(0,_0,_0,_0.1)]'
               />
               <div className='flex-1'>
                 <h3 className='leading-5 font-medium'>{item.name}</h3>
