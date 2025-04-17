@@ -10,6 +10,7 @@ export default function FloatingSelect({
   onChange,
   options,
   className,
+  bgColor = 'bg-white',
   rules = {},
   name,
   ...props
@@ -34,8 +35,9 @@ export default function FloatingSelect({
         id={id}
         {...register(name, rules)} // 💡 Apply rules here
         className={cn(
-          'peer bg-muted w-full appearance-none rounded-md border px-3 pt-5 pb-2 text-sm',
-          hasError ? 'border-red-500' : 'border-gray-300'
+          'peer w-full appearance-none rounded-md border px-3 pt-5 pb-2 text-sm',
+          hasError ? 'border-red-500' : 'border-gray-300',
+          bgColor ? bgColor : 'bg-white'
         )}
         {...props}
       >

@@ -12,6 +12,7 @@ import Link from 'next/link';
 import { FaInstagram } from 'react-icons/fa6';
 import { IoCall, IoMail } from 'react-icons/io5';
 import { IoLogoWhatsapp } from 'react-icons/io';
+import AddressFields from './address-fileds';
 
 const orderItems = [
   {
@@ -92,99 +93,8 @@ export default function DeliveryForm({ onNext }) {
               onSubmit={handleSubmit(onSubmit)}
               className='flex max-w-4xl flex-wrap items-center justify-start gap-2'
             >
-              <div className='flex w-full gap-2'>
-                {/* First + Last Name */}
-                <FloatingInput
-                  label='First Name'
-                  name='firstName'
-                  rules={{ required: 'First name is required' }}
-                  className='h-11'
-                />
-                <FloatingInput
-                  label='Last Name'
-                  name='lastName'
-                  rules={{ required: 'Last name is required' }}
-                  className='h-11'
-                />
-              </div>
-
-              {/* Phone + Email */}
-              <FloatingInput
-                label='Phone Number'
-                name='phone'
-                type='tel'
-                rules={{ required: 'Phone number is required' }}
-                className='h-11'
-              />
-              <FloatingInput
-                name='email'
-                label='Email Address'
-                type='email'
-                className='h-11'
-                rules={{
-                  required: 'Email is required',
-                  pattern: {
-                    value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-                    message: 'Enter a valid email'
-                  }
-                }}
-              />
-              {/* Country */}
-              <FloatingSelect
-                name='country'
-                placeholder='Select Country'
-                rules={{ required: 'Please select a country' }}
-                options={Country.getAllCountries().map((c) => ({
-                  label: c.name,
-                  value: c.isoCode
-                }))}
-                className=''
-              />
-              {/* Address */}
-              <FloatingInput
-                label='Street Address'
-                name='address'
-                rules={{ required: 'Address is required' }}
-                className='h-11'
-              />
-
-              <FloatingInput
-                label='Apartment, Suite, etc. (optional)'
-                name='address2'
-                className='h-11'
-              />
-
-              <div className='grid w-full grid-cols-2 gap-2 sm:grid-cols-3'>
-                {/* State + City + Zip */}
-                <FloatingSelect
-                  name='state'
-                  placeholder='Select State'
-                  rules={{ required: 'Please select a state' }}
-                  options={states.map((s) => ({
-                    label: s.name,
-                    value: s.isoCode
-                  }))}
-                  className='col-span-1'
-                />
-
-                <FloatingSelect
-                  name='city'
-                  placeholder='Select City'
-                  rules={{ required: 'Please select a city' }}
-                  options={cities.map((c) => ({
-                    label: c.name,
-                    value: c.name
-                  }))}
-                  className='col-span-1'
-                />
-
-                <FloatingInput
-                  label='ZIP Code'
-                  name='zip'
-                  rules={{ required: 'ZIP Code is required' }}
-                  className='col-span-1'
-                />
-              </div>
+              {/* shipping addrress ------------------------------ */}
+              <AddressFields namePrefix='shipping' />{' '}
               <div className='w-full space-y-4'>
                 {/* Save Address Buttons */}
                 <div className='my-3'>

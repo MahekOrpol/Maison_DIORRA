@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import Link from 'next/link';
+import PaymentMethodSection from './payment';
+import { Phone } from 'lucide-react';
 
 export default function PaymentForm({ onPrev }) {
   const router = useRouter();
@@ -55,15 +57,9 @@ export default function PaymentForm({ onPrev }) {
         </h2>
         <div className='w-full max-w-4xl'>
           {/* payment gateway form  */}
-          <form action=''>
+          <div>
             <div className='max-w-3xl'>
-              <Image
-                src='/img/payment-form.png'
-                height={500}
-                width={500}
-                alt='Pay'
-                className='w-full'
-              />
+              <PaymentMethodSection />
             </div>
             <div>
               <div className='my-8 text-sm'>
@@ -84,11 +80,20 @@ export default function PaymentForm({ onPrev }) {
                   Save my information for a faster checkout with shop account
                 </div>
                 <div className='bg-secondary mb-1 rounded-b-lg p-2 md:p-4'>
-                  <FloatingInput
-                    type='tel'
-                    label='Mobile Phone Number'
-                    className='bg-background h-[40px] w-full'
-                  />
+                  <div className='w-full'>
+                    <label className='mb-1 block text-sm font-medium text-gray-700'>
+                      Mobile phone number
+                    </label>
+                    <div className='flex items-center gap-2 rounded-md border border-gray-300 bg-white px-3 py-2'>
+                      <Phone className='h-4 w-4 text-gray-500' />
+                      <span className='text-sm text-gray-700'>+1</span>
+                      <input
+                        type='tel'
+                        placeholder='Enter mobile number'
+                        className='flex-1 border-none bg-transparent py-1 text-sm text-gray-900 placeholder-gray-400 focus:outline-none'
+                      />
+                    </div>
+                  </div>
                 </div>
                 <p className='text-muted-foreground flex items-center'>
                   <Lock className='mr-2 inline h-4 w-4' />
@@ -119,7 +124,7 @@ export default function PaymentForm({ onPrev }) {
                 .
               </p>
             </div>
-          </form>
+          </div>
         </div>
       </div>
       <div className='w-full md:max-w-sm lg:max-w-xl'>

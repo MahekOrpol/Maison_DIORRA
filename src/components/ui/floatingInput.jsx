@@ -35,7 +35,7 @@ export default function FloatingInput({
         placeholder={placeholder}
         {...register(name, rules)}
         className={cn(
-          'peer bg-muted block w-full appearance-none rounded-lg border px-2.5 pt-5 pb-2.5 text-sm focus:ring-0 focus:outline-none',
+          'peer bg-muted block w-full appearance-none rounded-lg border px-2.5 pt-5 pb-2 text-sm focus:ring-0 focus:outline-none',
           hasError ? 'border-red-500' : 'border-gray-300',
           className
         )}
