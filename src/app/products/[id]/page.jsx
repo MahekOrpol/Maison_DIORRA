@@ -61,7 +61,7 @@ export default function Page() {
           />
         </div>
       </div>
-      <div className='mx-auto mb-8 flex w-full max-w-[1600px] flex-col gap-6 lg:flex-row'>
+      <div className='mx-auto mb-8 flex w-full max-w-[1600px] flex-col gap-3 md:gap-4 lg:flex-row xl:gap-6'>
         <ProductGallery className='lg:sticky lg:top-10 lg:h-fit lg:w-[45%]' />
         <ProductDetails className='px-3 sm:px-6 lg:w-[55%] lg:pr-8 xl:pr-10' />
       </div>

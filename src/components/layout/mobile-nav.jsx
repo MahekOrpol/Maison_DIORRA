@@ -48,11 +48,11 @@ export default function MobileNavDrawer() {
         </Button>
       </DrawerTrigger>
 
-      <DrawerContent className='flex w-3/4 max-w-xs flex-col p-0 data-[vaul-drawer-direction=left]:border-r-0'>
+      <DrawerContent className='flex w-[90%] max-w-xs flex-col p-0 data-[vaul-drawer-direction=left]:border-r-0'>
         <DrawerTitle className='sr-only'>Mobile side nav bar</DrawerTitle>
         {/* TOP BLACK SECTION */}
         <div className='flex items-center justify-between bg-black px-4 py-1'>
-          <Link href='/' className='mx-auto'>
+          <Link href='/' className='mx-auto' onClick={handleNavClick}>
             <Image
               src='/icons/diorra-logo.png'
               height={80}
@@ -67,7 +67,7 @@ export default function MobileNavDrawer() {
         </div>
 
         {/* MIDDLE WHITE SECTION */}
-        <div className='flex-1 overflow-y-auto bg-white px-6 py-4 text-black'>
+        <div className='flex-1 overflow-y-auto bg-white py-2 pl-4 text-black'>
           {/* Search */}
           <div className='relative mb-4 w-full'>
             <Search className='absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 transform text-gray-500' />
@@ -79,7 +79,7 @@ export default function MobileNavDrawer() {
           </div>
 
           {/* Navigation Sections */}
-          <nav className='space-y-4'>
+          <nav className='space-y-3'>
             <DrawerSection title='Main'>
               <DrawerLink
                 href='/'
@@ -124,7 +124,7 @@ export default function MobileNavDrawer() {
                 Custom Jewelry
               </DrawerLink>
             </DrawerSection>
-            <hr />
+            <hr className='my-1' />
             <DrawerSection title='Explore'>
               <DrawerLink
                 href='/blogs'
@@ -171,7 +171,7 @@ export default function MobileNavDrawer() {
           </nav>
 
           {/* Newsletter */}
-          <div className='bg-secondary mt-6 border-t p-2'>
+          <div className='bg-secondary mt-2 border-t p-2'>
             <h4 className='mb-2 text-sm font-semibold'>Join Our Newsletter</h4>
             <p className='mb-2 text-xs text-gray-500'>
               Get exclusive offers, new arrivals & tips
@@ -189,6 +189,7 @@ export default function MobileNavDrawer() {
             <Button
               variant='ghost'
               className='w-full justify-start gap-2 text-white hover:bg-gray-800'
+              onClick={handleNavClick}
             >
               <LogIn size={18} />
               Login / Sign Up
@@ -221,7 +222,7 @@ function DrawerLink({ href, icon, children, onClick }) {
 
 function DrawerSection({ title, children }) {
   return (
-    <div className='space-y-2'>
+    <div className='space-y-1'>
       <h4 className='text-xs font-medium text-gray-500 uppercase'>{title}</h4>
       <div className='flex flex-col gap-1'>{children}</div>
     </div>

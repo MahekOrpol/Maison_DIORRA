@@ -20,7 +20,7 @@ export function OrderSummary({
 
   return (
     <div className='bg-card rounded-lg border p-2 shadow-sm md:p-6'>
-      <h2 className='mb-6 text-xl font-bold md:text-2xl'>Your Order</h2>
+      <h2 className='xs:mb-4 mb-2 text-xl font-bold md:text-2xl'>Your Order</h2>
 
       {/* Order Items */}
       <div className='sapce-y-3 mb-6 md:space-y-6'>

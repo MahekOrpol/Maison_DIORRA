@@ -31,21 +31,24 @@ export default function AuthTabs() {
             <TabsList className='grid h-full w-full grid-cols-2 border-b border-gray-500'>
               <TabsTrigger
                 value='login'
-                className='h-full border-b border-b-transparent bg-white py-2 text-lg font-medium data-[state=active]:border-b-black sm:border-b-2 lg:text-2xl'
+                className='h-full border-b border-b-transparent bg-white pt-2 pb-1 text-2xl font-medium data-[state=active]:border-b-black sm:border-b-2 lg:text-2xl'
               >
                 Login
               </TabsTrigger>
               <TabsTrigger
                 value='register'
-                className='h-full border-b border-b-transparent bg-white py-2 text-lg font-medium data-[state=active]:border-b-black md:border-b-2 lg:text-2xl'
+                className='h-full border-b border-b-transparent bg-white pt-2 pb-1 text-2xl font-medium data-[state=active]:border-b-black md:border-b-2 lg:text-2xl'
               >
                 Register
               </TabsTrigger>
             </TabsList>
 
             {/* Login Tab Content */}
-            <TabsContent value='login' className='pb-4 sm:pt-2 lg:pt-3'>
-              <h2 className='mb-1 text-lg leading-5 font-medium lg:text-xl'>
+            <TabsContent
+              value='login'
+              className='pb-4 text-center sm:pt-2 lg:pt-3'
+            >
+              <h2 className='mb-1 text-xl leading-6 font-medium'>
                 Login using your Email and Password
               </h2>
               <p className='text-sm leading-4 font-light'>
@@ -144,8 +147,11 @@ export default function AuthTabs() {
             </TabsContent>
 
             {/* Register Tab Content */}
-            <TabsContent value='register' className='pb-4 sm:pt-2 lg:pt-3'>
-              <h2 className='mb-1 text-lg leading-5 font-medium lg:text-xl'>
+            <TabsContent
+              value='register'
+              className='pb-4 text-center sm:pt-2 lg:pt-3'
+            >
+              <h2 className='mb-1 text-xl leading-6 font-medium'>
                 Don’t have an Account?
               </h2>
               <p className='text-sm leading-4 font-light'>
@@ -230,8 +236,8 @@ export default function AuthTabs() {
                   </div>
                 </div>
 
-                <div className='mx-auto mt-2 w-full items-center text-center lg:mt-10 xl:w-3/4'>
-                  <p className='mb-4 text-sm'>
+                <div className='mx-auto mt-4 w-full items-center text-center lg:mt-10 xl:w-3/4'>
+                  <p className='mb-2 text-xs sm:text-sm md:mb-4'>
                     By Continuing, I agree to{' '}
                     <Link
                       href='#'
@@ -247,7 +253,6 @@ export default function AuthTabs() {
                       Privacy Policy
                     </Link>
                   </p>
-
                   <Button size={'lg'} className='xs:w-2/3 mb-2 w-full text-lg'>
                     Register
                   </Button>

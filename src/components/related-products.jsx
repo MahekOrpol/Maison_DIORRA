@@ -54,8 +54,6 @@ export default function RelatedProducts({ className }) {
               </CarouselItem>
             ))}
           </CarouselContent>
-          {/* <CarouselPrevious className='z-20 translate-x-8 border-0 text-black xl:translate-x-6' /> */}
-          {/* <CarouselNext className='z-20 -translate-x-8 border-0 text-black xl:-translate-x-6' /> */}
         </Carousel>
       </div>
     </section>

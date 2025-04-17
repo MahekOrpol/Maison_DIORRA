@@ -17,11 +17,11 @@ export default async function Page({ params }) {
         subtitle='Home - Blogs and Articles'
         className='h-[200px]'
       />
-      <section className='wrapper flex w-full flex-col gap-4 py-4 md:my-8 lg:gap-[4%] xl:flex-row xl:justify-between'>
+      <section className='wrapper flex w-full flex-col gap-4 py-3 md:my-8 lg:gap-[4%] xl:flex-row xl:justify-between'>
         {/* blog details - takes about 70% width on desktop */}
         <article className='flex-1 xl:w-[66%]'>
           {/* hero */}
-          <div className='mb-4 border-b-2 pb-2'>
+          <div className='mb-3 border-b-2 pb-2'>
             <div>
               <Image
                 src='/img/blogs/blog-details.png'
@@ -31,7 +31,7 @@ export default async function Page({ params }) {
                 className='w-full rounded-md'
               />
             </div>
-            <p className='mt-1 text-sm font-light lg:text-base xl:text-lg'>
+            <p className='my-1 text-sm font-light md:my-2 lg:text-base'>
               Posted by Feronia - Mar 09 2024
             </p>
             <h2 className='text-2xl leading-6 font-semibold md:text-3xl lg:text-4xl'>
@@ -42,7 +42,7 @@ export default async function Page({ params }) {
           {/* blog content */}
           <div className='space-y-4 text-sm md:text-base'>
             {/* Your existing blog content sections */}
-            {[...Array(4)].map((_, sectionIndex) => (
+            {[...Array(2)].map((_, sectionIndex) => (
               <div key={sectionIndex} className='space-y-4'>
                 <p className='text-justify'>
                   Explore the history behind vintage pieces, how to style them,
@@ -105,14 +105,14 @@ export default async function Page({ params }) {
             className='w-[90px] rounded-lg lg:w-[100px]'
           />
           <div className='space-y-1'>
-            <p className='text-xs font-medium tracking-widest'>
-              <ChevronLeft size={18} className='inline' />
+            <p className='xs:text-xs inline-flex items-center text-[10px] font-medium tracking-widest'>
+              <ChevronLeft size={18} className='-ml-1 inline' />
               PREVIOUS BLOG
             </p>
-            <p className='text-lg leading-5 font-medium'>
+            <p className='xs:text-base text-sm leading-4 font-medium lg:text-lg'>
               Redefining Elegance through Unique Charms
             </p>
-            <p className='text-sm font-medium'>
+            <p className='text-sm'>
               Read More <MoveRight className='inline' size={16} />
             </p>
           </div>
@@ -122,11 +122,11 @@ export default async function Page({ params }) {
           className='inline-flex items-center gap-4 justify-self-end p-2'
         >
           <div className='space-y-1 text-right'>
-            <p className='text-xs font-medium tracking-widest'>
+            <p className='xs:text-xs inline-flex items-center text-[10px] font-medium tracking-widest'>
               NEXT BLOG
               <ChevronRight size={18} className='inline' />
             </p>
-            <p className='text-lg leading-5 font-medium'>
+            <p className='xs:text-base text-sm leading-4 font-medium lg:text-lg'>
               Redefining Elegance through Unique Charms
             </p>
             <p className='text-sm font-medium'>

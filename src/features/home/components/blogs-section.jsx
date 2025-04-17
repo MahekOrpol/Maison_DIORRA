@@ -12,6 +12,54 @@ import {
   CarouselNext
 } from '@/components/ui/carousel';
 import Autoplay from 'embla-carousel-autoplay';
+import BlogCard from '@/app/blogs/components/blog-card';
+
+const blogPosts = [
+  {
+    image: '/img/blogs/blog1.png',
+    title: 'Crafting Beauty from Nature',
+    href: '/blogs/1',
+    date: '12.FEB.2025',
+    author: 'BY TEAM FERONIA',
+    excerpt:
+      'Discover how our artisans blend nature and art to create timeless pieces...'
+  },
+  {
+    image: '/img/blogs/blog2.png',
+    title: 'Sustainable Jewelry Practices',
+    href: '/blogs/2'
+  },
+  {
+    image: '/img/blogs/blog3.png',
+    title: 'Sustainable Jewelry Practices',
+    href: '/blogs/2'
+  },
+  {
+    image: '/img/blogs/blog4.png',
+    title: 'Sustainable Jewelry Practices',
+    href: '/blogs/2'
+  },
+  {
+    image: '/img/blogs/blog5.png',
+    title: 'Sustainable Jewelry Practices',
+    href: '/blogs/2'
+  },
+  {
+    image: '/img/blogs/blog6.png',
+    title: 'Sustainable Jewelry Practices',
+    href: '/blogs/2'
+  },
+  {
+    image: '/img/blogs/blog7.png',
+    title: 'Sustainable Jewelry Practices',
+    href: '/blogs/2'
+  },
+  {
+    image: '/img/blogs/blog8.png',
+    title: 'Sustainable Jewelry Practices',
+    href: '/blogs/2'
+  }
+];
 
 export default function BlogsSection() {
   return (
@@ -41,48 +89,15 @@ export default function BlogsSection() {
           ]}
         >
           <CarouselContent className='-ml-4 md:-ml-4'>
-            {Array.from({ length: 5 }).map((_, index) => (
+            {blogPosts.map((post, index) => (
               <CarouselItem
                 key={index}
                 className='py-2 pl-4 sm:basis-1/2 md:pl-4 xl:basis-1/3'
               >
-                <Link
-                  href='/blogs/slug'
-                  className='flex h-full flex-col overflow-hidden rounded-lg border bg-white shadow-md transition duration-300 ease-in-out hover:border-black/50'
-                >
-                  {/* Image with fixed aspect ratio */}
-                  <div className='aspect-[16/9] w-full overflow-hidden rounded-lg'>
-                    <Image
-                      src={`/img/blogs/blog${index + 1}.png`}
-                      alt='Blog Image'
-                      className='h-full w-full object-cover transition duration-300 ease-in-out hover:scale-108 hover:rotate-2'
-                      width={380}
-                      height={210}
-                    />
-                  </div>
-
-                  {/* Content */}
-                  <div className='flex flex-1 flex-col px-4 pb-4'>
-                    <p className='text-sm lg:text-base'>
-                      22.DEC.2025 <span className='text-xl'>•</span> BY FERONIA
-                    </p>
-                    <h3 className='text-xl font-medium lg:text-2xl'>
-                      Blog Post Title {index + 1}
-                    </h3>
-                    <hr className='my-1 border-black/50' />
-                    <p className='flex-1 text-sm font-light lg:text-base'>
-                      A short description of the blog post goes here. It
-                      provides a quick overview to the reader...
-                    </p>
-                    <button className='mt-2 inline-flex w-fit items-center rounded-full bg-black px-4 py-1 text-sm font-semibold text-white transition hover:bg-black/80'>
-                      Read More <MoveRight className='ml-2' />
-                    </button>
-                  </div>
-                </Link>
+                <BlogCard {...post} />
               </CarouselItem>
             ))}
           </CarouselContent>
-
           {/* <CarouselPrevious className='z-20 translate-x-6 border-none xl:translate-x-4' />
           <CarouselNext className='z-20 -translate-x-6 border-none xl:-translate-x-4' /> */}
         </Carousel>

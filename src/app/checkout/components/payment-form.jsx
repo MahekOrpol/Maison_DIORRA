@@ -51,11 +51,21 @@ export default function PaymentForm({ onPrev }) {
   };
   return (
     <div className='flex flex-col justify-between gap-[3%] lg:flex-row 2xl:gap-[5%]'>
-      <div className='flex-1'>
+      <div className='order-1 mb-4 w-full min-[1000px]:order-2 lg:max-w-md xl:max-w-xl'>
+        <OrderSummary
+          items={orderItems}
+          subtotal='90,850'
+          shipping='Free'
+          taxes='9,085'
+          total='99,935'
+          onApplyDiscount={handleApplyDiscount}
+        />
+      </div>
+      <div className='order-2 flex-1 lg:order-1'>
         <h2 className='mb-4 text-xl font-semibold md:text-2xl'>
           Choose Payment Method
         </h2>
-        <div className='w-full max-w-4xl'>
+        <div className='w-full lg:max-w-4xl'>
           {/* payment gateway form  */}
           <div>
             <div className=''>
@@ -126,16 +136,6 @@ export default function PaymentForm({ onPrev }) {
             </div>
           </div>
         </div>
-      </div>
-      <div className='mt-4 w-full lg:mt-0 lg:w-[40%] xl:max-w-xl'>
-        <OrderSummary
-          items={orderItems}
-          subtotal='90,850'
-          shipping='Free'
-          taxes='9,085'
-          total='99,935'
-          onApplyDiscount={handleApplyDiscount}
-        />
       </div>
     </div>
   );

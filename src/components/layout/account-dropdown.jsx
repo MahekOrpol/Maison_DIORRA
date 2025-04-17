@@ -68,6 +68,14 @@ export function AccountDropdown({ isLoggedIn }) {
           </>
         ) : (
           <>
+            {/* for testing purpose */}
+            <DropdownMenuItem asChild>
+              <Link href='/sign-in'>
+                {' '}
+                <CiLogin className='' />
+                Sign In
+              </Link>
+            </DropdownMenuItem>
             <DropdownMenuItem asChild>
               <Link href='/account'>
                 <MdOutlineAccountBox className='' />

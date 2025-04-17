@@ -83,18 +83,33 @@ export default function DeliveryForm({ onNext }) {
 
   return (
     <>
-      <div className='flex flex-col justify-between gap-[3%] min-[1000px]:flex-row 2xl:gap-[7%]'>
-        <div className='flex-1'>
+      <div className='flex flex-col justify-between gap-[3%] min-[1000px]:flex-row 2xl:gap-[4%]'>
+        {/* Order Summary - FIRST on mobile, LAST on desktop */}
+        <div className='order-1 mb-4 w-full min-[1000px]:order-2 min-[1000px]:max-w-md xl:max-w-xl'>
+          <OrderSummary
+            items={orderItems}
+            subtotal='90,850'
+            shipping='Free'
+            taxes='9,085'
+            total='99,935'
+            onApplyDiscount={handleApplyDiscount}
+            onProceedToPay={onNext}
+            onEnterShipping={() => console.log('Entering shipping address')}
+          />
+        </div>
+
+        {/* Address Form - SECOND on mobile, FIRST on desktop */}
+        <div className='order-2 flex-1 min-[1000px]:order-1'>
           <h2 className='mb-4 text-2xl font-semibold'>
             Select Delivery Address
           </h2>
           <FormProvider {...methods}>
             <form
               onSubmit={handleSubmit(onSubmit)}
-              className='flex max-w-4xl flex-wrap items-center justify-start gap-2'
+              className='flex flex-wrap items-center justify-start gap-2 lg:max-w-4xl'
             >
               {/* shipping addrress ------------------------------ */}
-              <AddressFields namePrefix='shipping' />{' '}
+              <AddressFields namePrefix='shipping' />
               <div className='w-full space-y-4'>
                 {/* Save Address Buttons */}
                 <div className='my-3'>
@@ -145,7 +160,7 @@ export default function DeliveryForm({ onNext }) {
 
                 {/* Submit */}
                 <Button
-                  className='w-full max-w-xs bg-black py-2 text-lg font-light text-white'
+                  className='h-10 w-full max-w-md bg-black py-2 text-lg font-light text-white'
                   type='submit'
                 >
                   Save Address
@@ -153,18 +168,6 @@ export default function DeliveryForm({ onNext }) {
               </div>
             </form>
           </FormProvider>
-        </div>
-        <div className='w-full md:max-w-sm xl:max-w-xl'>
-          <OrderSummary
-            items={orderItems}
-            subtotal='90,850'
-            shipping='Free'
-            taxes='9,085'
-            total='99,935'
-            onApplyDiscount={handleApplyDiscount}
-            onProceedToPay={onNext}
-            onEnterShipping={() => console.log('Entering shipping address')}
-          />
         </div>
       </div>
 

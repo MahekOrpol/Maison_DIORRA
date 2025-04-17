@@ -33,7 +33,7 @@ export default function GiftingSection() {
     window.addEventListener('resize', handleResize); // on resize
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  console.log(coverflowConfig);
+  // console.log(coverflowConfig);
   return (
     <section className='wrapper pt-6 md:pt-7 lg:pt-8 xl:pt-10'>
       <Heading

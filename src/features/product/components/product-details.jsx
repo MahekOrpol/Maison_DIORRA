@@ -14,6 +14,7 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '@/components/ui/accordion';
+import { IoStarSharp } from 'react-icons/io5';
 import { Badge } from '@/components/ui/badge';
 import { Heart, Share2, ShoppingBag, Star } from 'lucide-react';
 import { useState } from 'react';
@@ -90,45 +91,48 @@ export default function ProductDetails({ className }) {
         </span>
 
         {/* Product Title */}
-        <div className='flex items-center gap-4'>
+        <div className='flex items-center gap-4 md:mb-1'>
           <h1 className='mb-2 flex-1 text-xl leading-6 font-medium sm:text-2xl sm:leading-8 md:text-3xl md:leading-10'>
             Solitaire Engagement Ring Embellished With a Falling Edge Pave Halo
             Head
           </h1>
-          <GiBigDiamondRing className='h-12 w-12' />
+          <GiBigDiamondRing className='h-5 w-5 sm:h-7 sm:w-7' />
         </div>
 
         {/* Reviews */}
-        <div className='xs:text-sm xs:justify-start my-2 flex items-center justify-between gap-4 text-xs md:my-3'>
-          <span className='flex flex-col gap-1 sm:flex-row sm:items-center sm:gap-2'>
-            <span className='flex'>
+        <div className='xs:text-sm mb-1 flex items-center gap-2 text-xs text-nowrap sm:mb-2 md:gap-4'>
+          <span className='flex'>
+            <span className='flex items-center'>
               {[...Array(5)].map((_, i) => (
-                <Star
+                <IoStarSharp
                   key={i}
-                  className='h-3 w-3 fill-yellow-400 text-yellow-400'
+                  className='h-3.5 w-3.5 fill-yellow-400 sm:h-4 sm:w-4'
                 />
               ))}
             </span>
             <span className='ml-1 md:text-base'>24 Reviews</span>
           </span>
-          <span className='text-sm md:text-base'>SKU : KD-566498</span>
-          <Badge variant='outline' className='ml-2 rounded-full border-black'>
+          <span className='xs:text-sm md:text-base'>SKU : KD-566498</span>
+          <Badge
+            variant='outline'
+            className='xs:text-xs ml-auto rounded-full border-black text-[10px]'
+          >
             IN STOCK
           </Badge>
         </div>
 
         {/* Pricing */}
-        <div className='mb-3 md:mb-4'>
-          <span className='text-xl font-semibold text-gray-900 lg:text-3xl'>
+        <div className='mb-1 md:mb-2'>
+          <span className='text-2xl font-semibold text-gray-900 lg:text-3xl'>
             $ 40,000
           </span>
-          <span className='text-muted-foreground ml-2 line-through'>
+          <span className='text-muted-foreground ml-2 text-xl line-through'>
             $ 48,000
           </span>
         </div>
 
         {/* Product Description */}
-        <p className='mb-3 text-justify text-xs text-gray-700 md:mb-6 md:text-sm'>
+        <p className='mb-3 text-justify text-xs text-gray-700 md:mb-6 md:text-sm lg:text-base'>
           A halo diamond ring is a classic and sophisticated choice, renowned
           for its dazzling design and ability to elevate the brilliance of the
           center stone. This style has become a favorite for engagement rings
@@ -138,7 +142,7 @@ export default function ProductDetails({ className }) {
 
       {/* Installment Option */}
       <div className='xs:text-sm mb-6 border-b py-4 text-xs md:text-sm'>
-        <h3 className='mb-2 text-lg font-medium underline underline-offset-3 md:mb-4 md:text-2xl md:underline-offset-10'>
+        <h3 className='mb-2 text-xl font-medium underline underline-offset-3 md:mb-4 md:text-2xl md:underline-offset-10'>
           Buy Jewelry on Interest Free Installment
         </h3>
         <p className='mt-1'>

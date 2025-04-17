@@ -72,7 +72,7 @@ export default function DiamondShapes() {
                         className='h-full w-auto object-contain'
                       />
                     </div>
-                    <p className='xs:text-base -mt-5 text-sm font-medium md:font-normal lg:text-xl'>
+                    <p className='xs:text-base -mt-4 text-sm font-medium md:font-normal lg:text-xl'>
                       {item.name}
                     </p>
                   </div>
