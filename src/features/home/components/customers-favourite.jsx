@@ -1,59 +1,77 @@
 'use client';
+import 'keen-slider/keen-slider.min.css';
+import { useKeenSlider } from 'keen-slider/react';
+import { useRef, useEffect } from 'react';
 import Heading from '@/components/heading';
-import PreviewCard from '@/components/preview-card';
 import PreviewCard3 from '@/components/preview-card3';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious
-} from '@/components/ui/carousel';
-import Autoplay from 'embla-carousel-autoplay';
 
 export default function CustomersFavourite() {
+  const timer = useRef();
+  const [sliderRef, slider] = useKeenSlider({
+    loop: true,
+    slides: {
+      perView: 2,
+      spacing: 8
+    },
+    breakpoints: {
+      '(min-width: 425px)': {
+        slides: {
+          perView: 2,
+          spacing: 12
+        }
+      },
+      '(min-width: 768px)': {
+        slides: {
+          perView: 3,
+          spacing: 20
+        }
+      },
+      '(min-width: 1024px)': {
+        slides: {
+          perView: 4,
+          spacing: 26
+        }
+      }
+    }
+  });
+
+  useEffect(() => {
+    if (!slider.current) return;
+    let clear = false;
+
+    function autoplay() {
+      clearTimeout(timer.current);
+      timer.current = setTimeout(() => {
+        if (!clear && slider.current) {
+          slider.current.next();
+          autoplay();
+        }
+      }, 3000);
+    }
+
+    autoplay();
+
+    return () => {
+      clear = true;
+      clearTimeout(timer.current);
+    };
+  }, [slider]);
+
   return (
     <section className='wrapper pt-6 md:pt-7 lg:pt-8 xl:pt-10'>
       <Heading
         title='Customer’s Favourite'
         subtitle='New Styles, Endless Elegance'
       />
-      <div className='relative'>
-        {/* Left gradient fade */}
-        {/* <div className='pointer-events-none absolute top-0 -left-3 z-10 h-full w-6 bg-gradient-to-r from-white to-transparent' /> */}
-
-        {/* Right gradient fade */}
-        {/* <div className='pointer-events-none absolute top-0 -right-3 z-10 h-full w-6 bg-gradient-to-l from-white to-transparent' /> */}
-        <div className=''>
-          <Carousel
-            opts={{
-              align: 'start',
-              skipSnaps: false,
-              slidesToScroll: 1,
-              loop: true
-            }}
-            plugins={[
-              Autoplay({
-                delay: 3000,
-                stopOnInteraction: false, // don't stop on drag/touch
-                stopOnMouseEnter: false // don't stop on hover
-              })
-            ]}
-            className=''
+      <div ref={sliderRef} className='keen-slider'>
+        {Array.from({ length: 6 }).map((_, index) => (
+          <div
+            key={index}
+            className='keen-slider__slide overflow-hidden rounded-xl'
           >
-            <CarouselContent className='-ml-2 min-[400px]:-ml-3 sm:-ml-6 lg:-ml-8'>
-              {Array.from({ length: 6 }).map((_, index) => (
-                <CarouselItem
-                  key={index}
-                  className='basis-[49%] pl-2 min-[400px]:pl-3 sm:basis-[49.5%] sm:pl-6 md:basis-[33%] md:pl-7 lg:basis-[24.7%] lg:pl-8.5'
-                >
-                  {/* <PreviewCard /> */}
-                  <PreviewCard3 />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
-        </div>
+            <PreviewCard3 />
+          </div>
+        ))}
       </div>
     </section>
   );

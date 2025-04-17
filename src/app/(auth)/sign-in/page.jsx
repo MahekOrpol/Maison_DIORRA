@@ -13,7 +13,7 @@ export default function AuthTabs() {
 
   return (
     <div className='bg-muted flex items-center justify-center border p-2 sm:p-4'>
-      <div className='flex w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-md md:h-auto md:max-w-5xl'>
+      <div className='flex w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-md md:h-auto md:max-w-4xl'>
         {/* Left Side Image */}
         <div className='hidden w-1/3 md:block'>
           <Image
@@ -46,7 +46,7 @@ export default function AuthTabs() {
             {/* Login Tab Content */}
             <TabsContent
               value='login'
-              className='pb-4 text-center sm:pt-2 lg:pt-3'
+              className='pb-4 text-center sm:pt-2 md:text-left lg:pt-3'
             >
               <h2 className='mb-1 text-xl leading-6 font-medium'>
                 Login using your Email and Password
@@ -149,7 +149,7 @@ export default function AuthTabs() {
             {/* Register Tab Content */}
             <TabsContent
               value='register'
-              className='pb-4 text-center sm:pt-2 lg:pt-3'
+              className='pb-4 text-center sm:pt-2 md:text-left lg:pt-3'
             >
               <h2 className='mb-1 text-xl leading-6 font-medium'>
                 Don’t have an Account?

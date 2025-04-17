@@ -221,9 +221,9 @@ export default function PreviewCard({ className }) {
             </DrawerHeader>
             <DrawerFooter>
               <div className=''>
-                <div className='mb-1 flex justify-between text-lg font-medium'>
+                <div className='flex justify-between text-lg font-medium'>
                   <div>
-                    <p>Solitaire Engagement Ring</p>
+                    <p className='text-red-500'>Solitaire Engagement Ring</p>
                     <p>
                       <span>$22.00</span>{' '}
                       <span className='text-muted-foreground'>$82.00</span>

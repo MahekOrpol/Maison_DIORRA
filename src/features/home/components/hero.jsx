@@ -24,7 +24,7 @@ export default function Hero() {
           <h1 className='font-rozha hero-font mb-6 leading-[110%] font-medium tracking-wide md:mb-3'>
             GET 20% OFF ON YOUR <div>FIRST ORDER</div>
           </h1>
-          <p className='mb-6 hidden max-w-2xl text-lg md:block'>
+          <p className='mb-6 max-w-2xl text-lg'>
             Use code{' '}
             <button
               onClick={handleCopy}

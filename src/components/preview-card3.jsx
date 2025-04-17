@@ -97,7 +97,7 @@ export default function PreviewCard3({ className }) {
     });
     const data = await res.json();
     if (!data.authenticated) {
-      return (window.location.href = '/sign-in');
+      return (window.location.href = '/checkout');
     }
     return (window.location.href = '/checkout');
   };
@@ -106,7 +106,7 @@ export default function PreviewCard3({ className }) {
     <>
       <Card
         className={cn(
-          'group relative justify-between gap-0 overflow-hidden rounded-xl border-black/50 pt-0 pb-2 shadow transition-transform duration-300 hover:border-black hover:shadow-xl',
+          'group relative justify-between gap-0 overflow-hidden rounded-xl border border-black/40 pt-0 pb-2 shadow transition-transform duration-300 hover:border-black hover:shadow-xl',
           className
         )}
       >
@@ -131,7 +131,7 @@ export default function PreviewCard3({ className }) {
               <CarouselItem
                 key={index}
                 onClick={handleProductClick}
-                className='m-0 h-full w-full basis-full p-0'
+                className='m-0 h-full w-full basis-full p-[0.5px]'
               >
                 <Image
                   src={image}
