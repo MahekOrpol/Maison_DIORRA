@@ -59,26 +59,58 @@ export default function NewArrivals() {
 
 export function ArrivalSwiper({ className }) {
   const [coverflowConfig, setCoverflowConfig] = useState({
-    depth: 100,
-    scale: 1,
     spaceBetween: 22,
-    slidesPerView: 2.5
+    slidesPerView: 2.52
   });
-
   useEffect(() => {
-    // Swiper Coverflow configuration for different screen sizes
     const handleResize = () => {
-      if (window.innerWidth >= 430 && window.innerWidth < 600) {
-        setCoverflowConfig({ ...coverflowConfig, spaceBetween: 30 });
-      } else if (window.innerWidth >= 600 && window.innerWidth < 767) {
-        setCoverflowConfig({ ...coverflowConfig, spaceBetween: 40 });
-      } else if (window.innerWidth >= 767 && window.innerWidth < 1024) {
-        setCoverflowConfig({ ...coverflowConfig, spaceBetween: 50 });
-      }
+      const width = window.innerWidth;
+      setCoverflowConfig((prev) => {
+        if (width >= 400 && width < 500) {
+          return {
+            spaceBetween: 25,
+            slidesPerView: 2.47
+          };
+        } else if (width >= 500 && width < 600) {
+          return {
+            spaceBetween: 30,
+            slidesPerView: 2.48
+          };
+        } else if (width >= 600 && width < 767) {
+          return {
+            spaceBetween: 30,
+            slidesPerView: 2.498
+          };
+        } else if (width >= 767 && width < 1024) {
+          return {
+            spaceBetween: 40,
+            slidesPerView: 2.5
+          };
+        } else if (width >= 1024 && width < 1120) {
+          return {
+            spaceBetween: 30,
+            slidesPerView: 2.49
+          };
+        } else if (width >= 1130 && width < 1350) {
+          return {
+            spaceBetween: 35,
+            slidesPerView: 2.49
+          };
+        } else if (width >= 1350) {
+          return {
+            spaceBetween: 45,
+            slidesPerView: 2.495
+          };
+        } else {
+          return {
+            spaceBetween: 22,
+            slidesPerView: 2.52
+          };
+        }
+      });
     };
-
     handleResize(); // on mount
-    window.addEventListener('resize', handleResize); // on resize
+    window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
   console.log(coverflowConfig);
@@ -101,16 +133,9 @@ export function ArrivalSwiper({ className }) {
       coverflowEffect={{
         rotate: 0,
         slideShadows: false,
-        deep: coverflowConfig.depth,
+        deep: 100,
         modifier: 2,
-        scale: coverflowConfig.scale
-      }}
-      breakpoints={{
-        1024: {
-          // when window width is >= 320px
-          slidesPerView: 2.5,
-          spaceBetween: 40
-        }
+        scale: 1
       }}
       className={cn(className, 'xs:!px-[5px] px-0')}
     >

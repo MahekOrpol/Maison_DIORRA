@@ -1,5 +1,4 @@
 'use client';
-import CustomTag from '@/components/custom-tag';
 import Image from 'next/image';
 import React, { useState } from 'react';
 import Link from 'next/link';
@@ -10,7 +9,6 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
-import PreviewCard from '@/components/preview-card';
 import { Funnel, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
@@ -27,7 +25,6 @@ import {
   CarouselContent,
   CarouselItem
 } from '@/components/ui/carousel';
-import ProductCard2 from '@/components/preview-card2';
 import PreviewCard3 from '@/components/preview-card3';
 
 const advertisements = [
@@ -84,7 +81,7 @@ const ringStyles = [
 export default function Page() {
   const [selectedStyle, setSelectedStyle] = useState(null);
   return (
-    <div className='wrapper2'>
+    <div className='wrapper'>
       {/* arrowed label */}
       <CustomTagWrapper />
       {/* select ring style */}
@@ -95,7 +92,6 @@ export default function Page() {
         <div className='my-4 flex justify-center gap-4'>
           {ringStyles.map((style) => {
             const isSelected = selectedStyle === style.styleType;
-
             return (
               <button
                 key={style.styleType}

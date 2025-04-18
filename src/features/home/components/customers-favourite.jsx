@@ -46,7 +46,7 @@ export default function CustomersFavourite() {
           slider.current.next();
           autoplay();
         }
-      }, 3000);
+      }, 3000); // Autoplay interval
     }
 
     autoplay();

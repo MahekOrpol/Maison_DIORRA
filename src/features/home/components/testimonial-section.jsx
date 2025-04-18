@@ -7,12 +7,18 @@ import Heading from '@/components/heading';
 export default function TestimonialSection() {
   const timer = useRef();
   const [sliderRef, slider] = useKeenSlider({
-    loop: true,
+    loop: true, // Ensures the slider will loop
     slides: {
       perView: 1,
       spacing: 12
     },
     breakpoints: {
+      '(min-width: 550px)': {
+        slides: {
+          perView: 2,
+          spacing: 12
+        }
+      },
       '(min-width: 768px)': {
         slides: {
           perView: 2,
@@ -22,7 +28,7 @@ export default function TestimonialSection() {
       '(min-width: 1024px)': {
         slides: {
           perView: 3,
-          spacing: 26
+          spacing: 30
         }
       }
     }
@@ -39,7 +45,7 @@ export default function TestimonialSection() {
           slider.current.next();
           autoplay();
         }
-      }, 3000);
+      }, 3000); // Autoplay interval
     }
 
     autoplay();
@@ -59,7 +65,7 @@ export default function TestimonialSection() {
       <div ref={sliderRef} className='keen-slider'>
         {Array.from({ length: 5 }).map((_, index) => (
           <div key={index} className='keen-slider__slide'>
-            <div className='rounded-lg border border-gray-200 bg-white p-3 md:p-6'>
+            <div className='rounded-xl border border-gray-200 bg-white p-4'>
               {/* Author Section */}
               <div className='flex items-center gap-4'>
                 <img

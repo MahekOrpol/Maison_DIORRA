@@ -61,13 +61,19 @@ export default function BlogsSection() {
       spacing: 8
     },
     breakpoints: {
-      '(min-width: 425px)': {
+      '(min-width: 550px)': {
         slides: {
           perView: 2,
           spacing: 12
         }
       },
       '(min-width: 768px)': {
+        slides: {
+          perView: 2,
+          spacing: 20
+        }
+      },
+      '(min-width: 1024px)': {
         slides: {
           perView: 3,
           spacing: 30
@@ -87,7 +93,7 @@ export default function BlogsSection() {
           slider.current.next();
           autoplay();
         }
-      }, 4000);
+      }, 3000); // Autoplay interval
     }
 
     autoplay();

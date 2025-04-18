@@ -62,17 +62,17 @@
     @apply cursor-pointer;
   }
   .wrapper {
-    @apply mx-auto w-full max-w-[1600px] px-3 sm:px-6 lg:px-8 xl:px-12;
+    @apply mx-auto w-full max-w-[2560px] px-3 sm:px-6 lg:px-8 xl:px-12 2xl:px-20;
   }
-  .wrapper2 {
+  /* .wrapper2 {
     @apply mx-auto w-full max-w-[1600px] px-3 sm:px-4 lg:px-8 xl:px-12;
-  }
+  } */
   .swiper_container {
     @apply h-[500px] bg-red-100;
   }
 }
 .hero-font {
-  font-size: clamp(2rem, 1.525rem + 2.375vw, 4.375rem);
+  font-size: clamp(1rem, 1.35rem + 2.375vw, 4.375rem);
 }
 /* .swiper .swiper-slide {
   border: 2px solid white;

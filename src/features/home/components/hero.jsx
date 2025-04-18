@@ -15,16 +15,16 @@ export default function Hero() {
   };
 
   return (
-    <section className="h-[400px] w-full bg-[url('/img/home-m-hero.png')] bg-cover bg-right bg-no-repeat sm:h-[550px] md:bg-[url('/img/home-hero.png')] md:bg-left lg:h-[700px]">
+    <section className="h-[400px] w-full bg-[url('/img/home-m-hero.png')] bg-cover bg-right bg-no-repeat sm:h-[450px] md:h-[500px] md:bg-[url('/img/home-hero.png')] md:bg-left xl:h-[84vh]">
       <div className='wrapper relative h-full'>
-        <div className='absolute inset-x-0 bottom-[14%] flex w-full flex-col items-center justify-end text-center text-white md:bottom-[30%] md:left-[12%] md:w-fit md:translate-x-[-15%]'>
-          <p className='mb-8 text-base tracking-widest underline underline-offset-6 md:text-[21px]'>
+        <div className='absolute inset-x-0 bottom-[14%] flex w-full flex-col items-center justify-end text-center text-white md:bottom-[25%] md:left-[12%] md:w-fit md:translate-x-[-15%] lg:bottom-[30%]'>
+          <p className='mb-4 text-base tracking-widest underline underline-offset-6 sm:mb-6 md:text-[21px]'>
             VALENTINE'S DAY
           </p>
-          <h1 className='font-rozha hero-font mb-6 leading-[110%] font-medium tracking-wide md:mb-3'>
+          <h1 className='font-rozha hero-font mb-5 leading-[110%] font-medium tracking-wide'>
             GET 20% OFF ON YOUR <div>FIRST ORDER</div>
           </h1>
-          <p className='mb-6 max-w-2xl text-lg'>
+          <p className='mb-3 max-w-2xl sm:text-lg lg:mb-6'>
             Use code{' '}
             <button
               onClick={handleCopy}
