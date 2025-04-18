@@ -23,7 +23,7 @@ export function useCopyToClipboard() {
         document.body.removeChild(textarea);
       }
       setIsCopied(true);
-      setTimeout(() => setIsCopied(false), 2000); // reset after 2s
+      setTimeout(() => setIsCopied(false), 3500); // reset after 2s
     } catch (err) {
       setError(err);
       setIsCopied(false);

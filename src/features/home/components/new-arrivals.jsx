@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 
 export default function NewArrivals() {
   return (
-    <section className='pt-4 md:pt-10 lg:mt-8 lg:mb-6 lg:pt-16 xl:pt-20'>
+    <section className='3xl:pt-30 3xl:pb-20 4xl:pt-36 4xl:pb-26 pt-4 md:pt-10 lg:mt-8 lg:mb-6 lg:pt-16 xl:pt-20 2xl:pt-22 2xl:pb-8'>
       <div className='relative flex w-full flex-col items-center justify-between lg:flex-row'>
         <div className='xs:aspect-[8/7] aspect-[1/1] w-full border-y shadow-lg min-[550px]:aspect-[9/7] sm:aspect-[4/3] lg:aspect-auto lg:h-[250px] xl:h-[360px]'>
           <Image

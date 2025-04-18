@@ -59,3 +59,120 @@ const orderItems = [
     imgUrl: '/img/preview/gold1.png'
   }
 ];
+
+const earringData = {
+  category: 'earring',
+  metals: [
+    {
+      metal: 'silver',
+      name: 'White Gold Earring Shine',
+      images: [
+        '/img/preview/earring-silver1.png',
+        '/img/preview/earring-silver2.png',
+        '/img/preview/earring-silver3.png'
+      ],
+      amount: 145,
+      wrongAmount: 190
+    },
+    {
+      metal: 'gold',
+      name: 'Classic Gold Earring Glam',
+      images: [
+        '/img/preview/earring-gold1.png',
+        '/img/preview/earring-gold2.png',
+        '/img/preview/earring-gold3.png'
+      ],
+      amount: 310,
+      wrongAmount: 350
+    },
+    {
+      metal: 'rose',
+      name: 'Rose Gold Earring Blush',
+      images: [
+        '/img/preview/earring-rose1.png',
+        '/img/preview/earring-rose2.png',
+        '/img/preview/earring-rose3.png'
+      ],
+      amount: 275,
+      wrongAmount: 320
+    }
+  ]
+};
+
+const braceletData = {
+  category: 'bracelet',
+  metals: [
+    {
+      metal: 'silver',
+      name: 'Sleek Silver Bracelet',
+      images: [
+        '/img/preview/bracelet-silver1.png',
+        '/img/preview/bracelet-silver2.png',
+        '/img/preview/bracelet-silver3.png'
+      ],
+      amount: 220,
+      wrongAmount: 280
+    },
+    {
+      metal: 'gold',
+      name: 'Elegant Gold Bracelet',
+      images: [
+        '/img/preview/bracelet-gold1.png',
+        '/img/preview/bracelet-gold2.png',
+        '/img/preview/bracelet-gold3.png'
+      ],
+      amount: 420,
+      wrongAmount: 500
+    },
+    {
+      metal: 'rose',
+      name: 'Romantic Rose Gold Bracelet',
+      images: [
+        '/img/preview/bracelet-rose1.png',
+        '/img/preview/bracelet-rose2.png',
+        '/img/preview/bracelet-rose3.png'
+      ],
+      amount: 390,
+      wrongAmount: 450
+    }
+  ]
+};
+
+const necklaceData = {
+  category: 'necklace',
+  metals: [
+    {
+      metal: 'silver',
+      name: 'Silver Grace Necklace',
+      images: [
+        '/img/preview/necklace-silver1.png',
+        '/img/preview/necklace-silver2.png',
+        '/img/preview/necklace-silver3.png'
+      ],
+      amount: 180,
+      wrongAmount: 250
+    },
+    {
+      metal: 'gold',
+      name: 'Golden Luxe Necklace',
+      images: [
+        '/img/preview/necklace-gold1.png',
+        '/img/preview/necklace-gold2.png',
+        '/img/preview/necklace-gold3.png'
+      ],
+      amount: 510,
+      wrongAmount: 580
+    },
+    {
+      metal: 'rose',
+      name: 'Rose Petal Necklace',
+      images: [
+        '/img/preview/necklace-rose1.png',
+        '/img/preview/necklace-rose2.png',
+        '/img/preview/necklace-rose3.png'
+      ],
+      amount: 465,
+      wrongAmount: 520
+    }
+  ]
+};

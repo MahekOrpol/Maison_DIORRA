@@ -42,7 +42,7 @@ export default function Header() {
             Ends in April
           </p>
         </div>
-        <div className='wrapper relative flex items-center justify-between py-2'>
+        <div className='header-wrapper relative flex items-center justify-between py-2'>
           <MobileNavDrawer />
           <div className='relative hidden items-center gap-3 lg:flex'>
             <LocateAndSearch />

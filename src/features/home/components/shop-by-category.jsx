@@ -25,7 +25,7 @@ export default function ShopByCategory() {
             href='#'
             className='flex flex-col items-center text-center text-lg font-medium transition-all duration-200'
           >
-            <div className='w-full overflow-hidden rounded-md'>
+            <div className='w-full overflow-hidden rounded-3xl'>
               <Image
                 src={image}
                 alt={`${name} category`}
@@ -34,7 +34,7 @@ export default function ShopByCategory() {
                 className='w-full rounded-md object-cover transition-transform duration-300 hover:scale-110'
               />
             </div>
-            <p className='text-lg font-medium md:text-xl lg:mb-2 lg:text-2xl'>
+            <p className='3xl:text-3xl text-lg md:text-xl lg:my-2 lg:text-2xl'>
               {name}
             </p>
           </Link>
