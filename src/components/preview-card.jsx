@@ -113,7 +113,7 @@ export default function PreviewCard({ product, className }) {
             ))}
           </CarouselContent>
 
-          <div className='absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1'>
+          <div className='absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 2xl:bottom-0'>
             <CarouselPrevious className='h-7 w-7 translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white' />
             <CarouselNext className='h-7 w-7 -translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white' />
           </div>
