@@ -33,7 +33,7 @@ export const sampleCart = [
   }
 ];
 
-const orderItems = [
+export const orderItems = [
   {
     id: '1',
     name: 'Two Stone Diamond Ring',
@@ -60,15 +60,16 @@ const orderItems = [
   }
 ];
 
-const earringData = {
+export const earringData = {
   category: 'earring',
   metals: [
     {
       metal: 'silver',
       name: 'White Gold Earring Shine',
       images: [
-        '/img/preview/earring-silver1.png',
-        '/img/preview/earring-silver2.png',
+        '/img/jewelry/earrings/earring-silver1.jpeg',
+        '/img/jewelry/earrings/earring-silver2.jpeg',
+        '/img/jewelry/earrings/earring-silver3.jpeg',
         '/img/preview/earring-silver3.png'
       ],
       amount: 145,
@@ -99,15 +100,17 @@ const earringData = {
   ]
 };
 
-const braceletData = {
+export const braceletData = {
   category: 'bracelet',
   metals: [
     {
       metal: 'silver',
       name: 'Sleek Silver Bracelet',
       images: [
+        '/img/jewelry/bracelets/bracelet-silver2.jpeg',
+        '/img/jewelry/bracelets/bracelet-silver1.jpeg',
+        '/img/jewelry/bracelets/bracelet-silver3.jpeg',
         '/img/preview/bracelet-silver1.png',
-        '/img/preview/bracelet-silver2.png',
         '/img/preview/bracelet-silver3.png'
       ],
       amount: 220,
@@ -117,9 +120,10 @@ const braceletData = {
       metal: 'gold',
       name: 'Elegant Gold Bracelet',
       images: [
-        '/img/preview/bracelet-gold1.png',
-        '/img/preview/bracelet-gold2.png',
-        '/img/preview/bracelet-gold3.png'
+        '/img/jewelry/bracelets/bracelet-gold2.jpeg',
+        '/img/jewelry/bracelets/bracelet-gold1.jpeg',
+        '/img/jewelry/bracelets/bracelet-gold3.jpeg',
+        '/img/preview/bracelet-gold2.png'
       ],
       amount: 420,
       wrongAmount: 500
@@ -128,9 +132,9 @@ const braceletData = {
       metal: 'rose',
       name: 'Romantic Rose Gold Bracelet',
       images: [
+        '/img/jewelry/bracelets/bracelet-rose1.jpeg',
         '/img/preview/bracelet-rose1.png',
-        '/img/preview/bracelet-rose2.png',
-        '/img/preview/bracelet-rose3.png'
+        '/img/preview/bracelet-rose2.png'
       ],
       amount: 390,
       wrongAmount: 450
@@ -138,16 +142,16 @@ const braceletData = {
   ]
 };
 
-const necklaceData = {
+export const necklaceData = {
   category: 'necklace',
   metals: [
     {
       metal: 'silver',
       name: 'Silver Grace Necklace',
       images: [
-        '/img/preview/necklace-silver1.png',
-        '/img/preview/necklace-silver2.png',
-        '/img/preview/necklace-silver3.png'
+        '/img/jewelry/pendants/necklace-silver1.jpeg',
+        '/img/jewelry/pendants/necklace-silver2.jpeg',
+        '/img/preview/necklace-silver2.png'
       ],
       amount: 180,
       wrongAmount: 250
@@ -173,6 +177,46 @@ const necklaceData = {
       ],
       amount: 465,
       wrongAmount: 520
+    }
+  ]
+};
+export const ringData = {
+  category: 'ring',
+  metals: [
+    {
+      metal: 'silver',
+      name: 'Silver Ring Lorem Ipsum',
+      images: [
+        '/img/jewelry/rings/ring-silver2.jpeg',
+        '/img/preview/ring1.png',
+        '/img/jewelry/rings/ring-silver2.jpeg'
+      ],
+      amount: 125,
+      wrongAmount: 200
+    },
+    {
+      metal: 'gold',
+      name: 'Gold Item Lorem Ipsum',
+      images: [
+        '/img/jewelry/rings/ring-gold1.jpeg',
+        '/img/preview/gold1.png',
+        '/img/preview/gold2.png',
+        '/img/preview/gold3.png'
+      ],
+      amount: 728,
+      wrongAmount: 800
+    },
+    {
+      metal: 'rose',
+      name: 'Rose Gold Ipsum',
+      images: [
+        '/img/jewelry/rings/ring-rose1.jpeg',
+        '/img/preview/rose1.png',
+        '/img/preview/rose2.png',
+        '/img/preview/rose3.png'
+      ],
+      amount: 600,
+      wrongAmount: 650
     }
   ]
 };

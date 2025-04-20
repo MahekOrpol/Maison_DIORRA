@@ -1,4 +1,5 @@
 'use client';
+
 import { useEffect, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -18,7 +19,6 @@ import {
   Drawer,
   DrawerClose,
   DrawerContent,
-  DrawerDescription,
   DrawerFooter,
   DrawerHeader,
   DrawerTitle
@@ -26,59 +26,24 @@ import {
 import ProductGallery from '@/features/product/components/product-gallery';
 import { useRouter } from 'next/navigation';
 
-const data = {
-  category: 'ring',
-  metals: [
-    {
-      metal: 'silver',
-      name: 'Silver Ring Lorem Ipsum',
-      images: [
-        '/img/preview/ring1.png',
-        '/img/preview/nacklace.png',
-        '/img/preview/pendant.png'
-      ],
-      amount: 125,
-      wrongAmount: 200
-    },
-    {
-      metal: 'gold',
-      name: 'Gold Item Lorem Ipsum',
-      images: [
-        '/img/preview/gold1.png',
-        '/img/preview/gold2.png',
-        '/img/preview/gold3.png'
-      ],
-      amount: 728,
-      wrongAmount: 800
-    },
-    {
-      metal: 'rose',
-      name: 'Rose Gold Ipsum',
-      images: [
-        '/img/preview/rose1.png',
-        '/img/preview/rose2.png',
-        '/img/preview/rose3.png'
-      ],
-      amount: 600,
-      wrongAmount: 650
-    }
-  ]
-};
-
-export default function PreviewCard({ className }) {
-  const [selectedMetal, setSelectedMetal] = useState(data.metals[0]);
+export default function PreviewCard({ product, className }) {
+  const [selectedMetal, setSelectedMetal] = useState(product?.metals?.[0]);
   const [isProductClicked, setIsProductClicked] = useState(false);
   const [isClientMobile, setIsClientMobile] = useState(false);
   const [liked, setLiked] = useState(false);
 
   const router = useRouter();
 
+  // Fix: Reset metal when product changes
+  useEffect(() => {
+    setSelectedMetal(product?.metals?.[0]);
+  }, [product]);
+
   useEffect(() => {
     const handleResize = () => {
       setIsClientMobile(window.innerWidth < 768);
     };
-
-    handleResize(); // Run on mount
+    handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -90,6 +55,7 @@ export default function PreviewCard({ className }) {
       router.push(`/products/productid`);
     }
   };
+
   const handleAddToCart = async () => {
     const res = await fetch('/api/check-auth', {
       method: 'GET',
@@ -97,93 +63,105 @@ export default function PreviewCard({ className }) {
     });
     const data = await res.json();
     if (!data.authenticated) {
-      return (window.location.href = '/sign-in');
+      return (window.location.href = '/checkout');
     }
     return (window.location.href = '/checkout');
   };
+
+  if (!product || !selectedMetal) return null;
 
   return (
     <>
       <Card
         className={cn(
-          'group relative gap-0 overflow-hidden rounded-xl border-black/50 pt-0 pb-2 shadow transition-transform duration-300 hover:border-black hover:shadow-xl',
+          'group relative justify-between gap-0 overflow-hidden rounded-xl border border-black/40 pt-0 pb-2 shadow transition-transform duration-300 hover:border-black hover:shadow-xl',
           className
         )}
       >
-        {/* Wish Button */}
-        <Button
-          variant='ghost'
+        {/* Wishlist Button */}
+        <button
           onClick={() => setLiked(!liked)}
-          className='absolute top-2 right-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white hover:bg-red-100'
+          className='hover:bg-primary/10 xs:w-7 xs:h-7 absolute top-1 right-1 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-white'
         >
           <Heart
             className={cn(
-              'h-6 w-6 transition-colors',
-              liked ? 'fill-red-500 text-red-500' : 'text-gray-500'
+              'xs:h-5 xs:w-5 h-4 w-4 transition-colors',
+              liked ? 'fill-primary text-primary' : 'text-muted-foreground'
             )}
           />
-        </Button>
+        </button>
+
         <Carousel
           opts={{ align: 'start', loop: false }}
-          className='relative sm:px-2'
+          className='relative w-full'
         >
-          <CarouselContent className='ml-0 h-36 w-full sm:h-60 md:h-80'>
+          <CarouselContent className='ml-0 aspect-[1/1] w-full gap-0'>
             {selectedMetal.images.map((image, index) => (
               <CarouselItem
                 key={index}
                 onClick={handleProductClick}
-                className='h-full pl-0'
+                className='m-0 h-full w-full basis-full p-[0.5px]'
               >
                 <Image
                   src={image}
                   alt={selectedMetal.name}
                   width={300}
                   height={300}
-                  className='h-full w-full object-contain'
+                  className='h-full w-full object-cover object-center'
                 />
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious className='absolute bottom-0 left-1/2 h-6 w-6 -translate-x-6 translate-y-[100px] transform border hover:scale-110 sm:translate-y-[130px] md:translate-y-[140px]' />
-          <CarouselNext className='absolute right-1/2 h-6 w-6 translate-x-8 translate-y-[100px] transform hover:scale-110 sm:translate-y-[130px] md:translate-y-[140px]' />
+
+          <div className='absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1'>
+            <CarouselPrevious className='h-7 w-7 translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white' />
+            <CarouselNext className='h-7 w-7 -translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white' />
+          </div>
         </Carousel>
-        <CardContent className='xs:px-4 flex flex-1 flex-col justify-between px-2 pb-2'>
-          <div className='mb-3 flex justify-center gap-2'>
-            <div className='mt-2 flex w-full flex-col justify-between border-t pt-2 sm:flex-row sm:items-center md:justify-between'>
-              <div className='mb-3 flex justify-center gap-2 sm:order-last sm:mb-0'>
-                {data.metals.map((metalOption) => (
+
+        <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2'>
+          <div className='flex items-center justify-between border-t pt-2'>
+            <div className='flex gap-1'>
+              <p className='leading-1 font-medium sm:text-[22px] lg:text-xl'>
+                ${selectedMetal.amount}
+              </p>
+              <span className='text-sm leading-1 font-normal text-[#958F86] line-through sm:text-lg'>
+                ${selectedMetal.wrongAmount}
+              </span>
+            </div>
+            <div className='flex gap-0.5'>
+              {product.metals.map((metalOption) => {
+                const isSelected = metalOption.metal === selectedMetal.metal;
+                return (
                   <button
                     key={metalOption.metal}
-                    className='h-[22px] w-[22px] rounded-full border-2 border-white hover:outline hover:outline-offset-1 md:h-6 md:w-6'
+                    onClick={() => setSelectedMetal(metalOption)}
+                    className={cn(
+                      'h-4.5 w-4.5 rounded-full border-2 border-white hover:outline hover:outline-offset-1 sm:h-5.25 sm:w-5.25 md:h-6 md:w-6',
+                      isSelected ? 'ring-primary/40 ring-offset-0.5 ring' : ''
+                    )}
                     style={{
                       backgroundImage: `url('/img/preview/${metalOption.metal}.png')`,
                       backgroundSize: 'cover',
                       backgroundPosition: 'center'
                     }}
-                    onClick={() => setSelectedMetal(metalOption)}
                   />
-                ))}
-              </div>
-              <div className='flex items-baseline gap-2'>
-                <p className='text-lg leading-1 font-semibold sm:text-[22px]'>
-                  ${selectedMetal.amount}
-                </p>
-                <span className='text-base leading-1 font-normal text-[#958F86] line-through sm:text-lg'>
-                  ${selectedMetal.wrongAmount}
-                </span>
-              </div>
+                );
+              })}
             </div>
           </div>
 
-          <p className='my-3 block text-left text-base leading-5 text-gray-900 md:text-lg lg:text-xl'>
-            <button onClick={handleProductClick} className='block text-left'>
+          <p className='xs:text-base line-clamp-2 block min-h-[2.2em] text-left text-sm leading-4 font-light text-gray-900 sm:text-lg'>
+            <button
+              onClick={handleProductClick}
+              className='block w-full text-left'
+            >
               {selectedMetal.name}
             </button>
           </p>
 
           <Button
-            size='lg'
-            className='xs:text-base mt-auto w-full text-sm'
+            className='xs:text-base xs:h-9 mt-auto h-8 w-full text-sm lg:h-10'
             onClick={handleAddToCart}
           >
             Add to Cart <ShoppingBagIcon size={20} />
@@ -191,6 +169,7 @@ export default function PreviewCard({ className }) {
         </CardContent>
       </Card>
 
+      {/* Mobile Drawer */}
       {isClientMobile && (
         <Drawer
           open={isProductClicked}
@@ -219,14 +198,18 @@ export default function PreviewCard({ className }) {
               </DrawerTitle>
               <ProductGallery />
             </DrawerHeader>
+
             <DrawerFooter>
+              {/* Static example content below */}
               <div className=''>
-                <div className='flex justify-between text-lg font-medium'>
+                <div className='mb-1 flex justify-between text-lg font-medium'>
                   <div>
-                    <p className='text-red-500'>Solitaire Engagement Ring</p>
+                    <p>{selectedMetal.name}</p>
                     <p>
-                      <span>$22.00</span>{' '}
-                      <span className='text-muted-foreground'>$82.00</span>
+                      <span>${selectedMetal.amount}</span>{' '}
+                      <span className='text-muted-foreground'>
+                        ${selectedMetal.wrongAmount}
+                      </span>
                     </p>
                   </div>
                   <Image
@@ -237,59 +220,53 @@ export default function PreviewCard({ className }) {
                   />
                 </div>
                 <div className='grid grid-cols-3 gap-3 text-sm'>
+                  {/* Replace with dynamic product features if needed */}
                   <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border border-transparent p-3 transition focus:border-black'>
-                    <div className='flex flex-1 items-center justify-center'>
-                      <Image
-                        src={`/icons/shape-pear.svg`}
-                        width={40}
-                        height={40}
-                        alt='diamond shape'
-                        className=''
-                      />
-                    </div>
+                    <Image
+                      src={`/icons/shape-pear.svg`}
+                      width={40}
+                      height={40}
+                      alt='diamond shape'
+                    />
                     Pear
                   </button>
                   <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border border-transparent px-3 py-2 transition focus:border-black'>
-                    <div className='flex flex-1 items-center justify-center'>
-                      <Image
-                        src={`/img/gold-theme.png`}
-                        width={30}
-                        height={30}
-                        alt={'theme'}
-                        className='h-[]'
-                      />
-                    </div>
+                    <Image
+                      src={`/img/gold-theme.png`}
+                      width={30}
+                      height={30}
+                      alt='theme'
+                    />
                     Gold
                   </button>
                   <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border border-transparent px-3 py-2 transition focus:border-black'>
-                    <div className='flex flex-1 items-center justify-center'>
-                      <Image
-                        src={`/icons/ring-style-solitare.svg`}
-                        width={50}
-                        height={40}
-                        alt={'Shank style'}
-                        className=''
-                      />
-                    </div>
+                    <Image
+                      src={`/icons/ring-style-solitare.svg`}
+                      width={50}
+                      height={40}
+                      alt='shank style'
+                    />
                     Solitaire
                   </button>
                 </div>
-                <div className='mt-4 mb-1 flex gap-3'>
+
+                <div className='mt-4 mb-1 flex items-stretch gap-3'>
                   <Link
                     href='/products/productid'
                     onClick={() => setIsProductClicked(true)}
-                    className='relative inline-block h-[42px] overflow-hidden rounded-md border border-black bg-white px-4 py-2 text-base text-black transition-colors duration-400'
+                    className='relative inline-block h-[40px] overflow-hidden rounded-md border border-black bg-white px-4 py-2 text-base text-black transition-colors duration-400'
                   >
                     More info
                   </Link>
                   <Button
                     size='lg'
-                    className='flex-1'
+                    className='flex-1 border border-black'
                     onClick={handleAddToCart}
                   >
                     Add to Cart <ShoppingBagIcon size={20} />
                   </Button>
                 </div>
+
                 <p className='text-center text-xs'>
                   Installments starting at ₹5,000 per month.{' '}
                   <Link href='#' className='font-medium underline'>

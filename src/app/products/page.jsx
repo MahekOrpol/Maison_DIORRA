@@ -25,7 +25,7 @@ import {
   CarouselContent,
   CarouselItem
 } from '@/components/ui/carousel';
-import PreviewCard3 from '@/components/preview-card3';
+import PreviewCard3 from '@/components/preview-card';
 
 const advertisements = [
   {

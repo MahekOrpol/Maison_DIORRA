@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Search, SearchX } from 'lucide-react';
-import PreviewCard3 from '@/components/preview-card3';
+import PreviewCard3 from '@/components/preview-card';
 
 export default function SearchPage() {
   const [searchValue, setSearchValue] = useState('');

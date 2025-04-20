@@ -3,7 +3,7 @@ import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
 import { useRef, useEffect } from 'react';
 import Heading from '@/components/heading';
-import PreviewCard3 from '@/components/preview-card3';
+import PreviewCard3 from '@/components/preview-card';
 
 export default function CustomersFavourite() {
   const timer = useRef();

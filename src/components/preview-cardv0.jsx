@@ -2,7 +2,13 @@
 import { useEffect, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Heart, ShoppingBagIcon, X } from 'lucide-react';
+import {
+  Heart,
+  ShoppingBagIcon,
+  X,
+  ChevronLeft,
+  ChevronRight
+} from 'lucide-react';
 import Image from 'next/image';
 import { FaHeart } from 'react-icons/fa';
 import {
@@ -25,6 +31,8 @@ import {
 } from './ui/drawer';
 import ProductGallery from '@/features/product/components/product-gallery';
 import { useRouter } from 'next/navigation';
+import 'keen-slider/keen-slider.min.css';
+import { useKeenSlider } from 'keen-slider/react';
 
 const data = {
   category: 'ring',
@@ -65,7 +73,19 @@ const data = {
   ]
 };
 
-export default function PreviewCard3({ className }) {
+const product = {
+  id: '6',
+  name: 'Classic Diamond Ring',
+  description: 'Elegant solitaire diamond ring with white gold band.',
+  price: '68999',
+  images: [
+    '/img/preview/rose1.png',
+    '/img/preview/rose2.png',
+    '/img/preview/rose3.png'
+  ]
+};
+
+export default function PreviewCardV0({ className }) {
   const [selectedMetal, setSelectedMetal] = useState(data.metals[0]);
   const [isProductClicked, setIsProductClicked] = useState(false);
   const [isClientMobile, setIsClientMobile] = useState(false);
@@ -97,7 +117,7 @@ export default function PreviewCard3({ className }) {
     });
     const data = await res.json();
     if (!data.authenticated) {
-      return (window.location.href = '/checkout');
+      return (window.location.href = '/sign-in');
     }
     return (window.location.href = '/checkout');
   };
@@ -106,93 +126,84 @@ export default function PreviewCard3({ className }) {
     <>
       <Card
         className={cn(
-          'group relative justify-between gap-0 overflow-hidden rounded-xl border border-black/40 pt-0 pb-2 shadow transition-transform duration-300 hover:border-black hover:shadow-xl',
+          'group relative gap-0 overflow-hidden rounded-xl border-black/50 pt-0 pb-2 shadow transition-transform duration-300 hover:border-black hover:shadow-xl',
           className
         )}
       >
         {/* Wish Button */}
-        <button
+        <Button
+          variant='ghost'
           onClick={() => setLiked(!liked)}
-          className='hover:bg-primary/10 xs:w-7 xs:h-7 absolute top-1 right-1 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-white'
+          className='absolute top-2 right-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white hover:bg-red-100'
         >
           <Heart
             className={cn(
-              'xs:h-5 xs:w-5 h-4 w-4 transition-colors',
-              liked ? 'fill-primary text-primary' : 'text-muted-foreground'
+              'h-6 w-6 transition-colors',
+              liked ? 'fill-red-500 text-red-500' : 'text-gray-500'
             )}
           />
-        </button>
+        </Button>
         <Carousel
           opts={{ align: 'start', loop: false }}
-          className='relative w-full'
+          className='relative sm:px-2'
         >
-          <CarouselContent className='ml-0 aspect-[1/1] w-full gap-0'>
+          <CarouselContent className='ml-0 h-36 w-full sm:h-60 md:h-80'>
             {selectedMetal.images.map((image, index) => (
               <CarouselItem
                 key={index}
                 onClick={handleProductClick}
-                className='m-0 h-full w-full basis-full p-[0.5px]'
+                className='h-full pl-0'
               >
                 <Image
                   src={image}
                   alt={selectedMetal.name}
                   width={300}
                   height={300}
-                  className='h-full w-full object-contain object-center'
+                  className='h-full w-full object-contain'
                 />
               </CarouselItem>
             ))}
           </CarouselContent>
-
-          {/* Bottom-center navigation arrows, close together */}
-          <div className='absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1'>
-            <CarouselPrevious className='h-7 w-7 translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white' />
-            <CarouselNext className='h-7 w-7 -translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white' />
-          </div>
+          <CarouselPrevious className='absolute bottom-0 left-1/2 h-6 w-6 -translate-x-6 translate-y-[100px] transform border hover:scale-110 sm:translate-y-[130px] md:translate-y-[140px]' />
+          <CarouselNext className='absolute right-1/2 h-6 w-6 translate-x-8 translate-y-[100px] transform hover:scale-110 sm:translate-y-[130px] md:translate-y-[140px]' />
         </Carousel>
-
-        <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2'>
-          <div className='flex items-center justify-between border-t pt-2'>
-            <div className='flex gap-1'>
-              <p className='leading-1 font-medium sm:text-[22px] lg:text-xl'>
-                ${selectedMetal.amount}
-              </p>
-              <span className='text-sm leading-1 font-normal text-[#958F86] line-through sm:text-lg'>
-                ${selectedMetal.wrongAmount}
-              </span>
-            </div>
-            <div className='flex gap-0.5'>
-              {data.metals.map((metalOption) => {
-                const isSelected = metalOption.metal === selectedMetal.metal;
-                return (
+        <CardContent className='xs:px-4 flex flex-1 flex-col justify-between px-2 pb-2'>
+          <div className='mb-3 flex justify-center gap-2'>
+            <div className='mt-2 flex w-full flex-col justify-between border-t pt-2 sm:flex-row sm:items-center md:justify-between'>
+              <div className='mb-3 flex justify-center gap-2 sm:order-last sm:mb-0'>
+                {data.metals.map((metalOption) => (
                   <button
                     key={metalOption.metal}
-                    onClick={() => setSelectedMetal(metalOption)}
-                    className={cn(
-                      'h-4.5 w-4.5 rounded-full border-2 border-white hover:outline hover:outline-offset-1 sm:h-5.25 sm:w-5.25 md:h-6 md:w-6',
-                      isSelected ? 'ring-primary/40 ring-offset-0.5 ring' : ''
-                    )}
+                    className='h-[22px] w-[22px] rounded-full border-2 border-white hover:outline hover:outline-offset-1 md:h-6 md:w-6'
                     style={{
                       backgroundImage: `url('/img/preview/${metalOption.metal}.png')`,
                       backgroundSize: 'cover',
                       backgroundPosition: 'center'
                     }}
+                    onClick={() => setSelectedMetal(metalOption)}
                   />
-                );
-              })}
+                ))}
+              </div>
+              <div className='flex items-baseline gap-2'>
+                <p className='text-lg leading-1 font-semibold sm:text-[22px]'>
+                  ${selectedMetal.amount}
+                </p>
+                <span className='text-base leading-1 font-normal text-[#958F86] line-through sm:text-lg'>
+                  ${selectedMetal.wrongAmount}
+                </span>
+              </div>
             </div>
           </div>
-          <p className='xs:text-base line-clamp-2 block min-h-[2.2em] text-left text-sm leading-4 font-light text-gray-900 sm:text-lg'>
-            <button
-              onClick={handleProductClick}
-              className='block w-full text-left'
-            >
+
+          <p className='my-3 block text-left text-base leading-5 text-gray-900 md:text-lg lg:text-xl'>
+            <button onClick={handleProductClick} className='block text-left'>
               {selectedMetal.name}
             </button>
           </p>
 
           <Button
-            className='xs:text-base xs:h-9 mt-auto h-8 w-full text-sm lg:h-10'
+            size='lg'
+            className='xs:text-base mt-auto w-full text-sm'
             onClick={handleAddToCart}
           >
             Add to Cart <ShoppingBagIcon size={20} />
@@ -230,9 +241,9 @@ export default function PreviewCard3({ className }) {
             </DrawerHeader>
             <DrawerFooter>
               <div className=''>
-                <div className='mb-1 flex justify-between text-lg font-medium'>
+                <div className='flex justify-between text-lg font-medium'>
                   <div>
-                    <p>Solitaire Engagement Ring</p>
+                    <p className='text-red-500'>Solitaire Engagement Ring</p>
                     <p>
                       <span>$22.00</span>{' '}
                       <span className='text-muted-foreground'>$82.00</span>
@@ -283,17 +294,17 @@ export default function PreviewCard3({ className }) {
                     Solitaire
                   </button>
                 </div>
-                <div className='mt-4 mb-1 flex items-stretch gap-3'>
+                <div className='mt-4 mb-1 flex gap-3'>
                   <Link
                     href='/products/productid'
                     onClick={() => setIsProductClicked(true)}
-                    className='relative inline-block h-[40px] overflow-hidden rounded-md border border-black bg-white px-4 py-2 text-base text-black transition-colors duration-400'
+                    className='relative inline-block h-[42px] overflow-hidden rounded-md border border-black bg-white px-4 py-2 text-base text-black transition-colors duration-400'
                   >
                     More info
                   </Link>
                   <Button
                     size='lg'
-                    className='flex-1 border border-black'
+                    className='flex-1'
                     onClick={handleAddToCart}
                   >
                     Add to Cart <ShoppingBagIcon size={20} />
@@ -311,5 +322,78 @@ export default function PreviewCard3({ className }) {
         </Drawer>
       )}
     </>
+  );
+}
+
+export function ProductCard2() {
+  const [liked, setLiked] = useState(false);
+  const [sliderRef, instanceRef] = useKeenSlider({
+    loop: false
+  });
+
+  return (
+    <Card className='group relative gap-0 overflow-hidden rounded-xl py-0 shadow transition-shadow duration-300 hover:shadow-lg'>
+      {/* Wish Button */}
+      <Button
+        variant='ghost'
+        className='absolute top-2 right-2 z-10 rounded-full bg-white p-2 hover:bg-red-100'
+        onClick={() => setLiked(!liked)}
+      >
+        <Heart
+          className={`h-5 w-5 transition-colors ${liked ? 'fill-red-500 text-red-500' : 'text-gray-500'}`}
+        />
+      </Button>
+
+      {/* Carousel */}
+      <div className='relative h-60 w-full sm:h-72 md:h-80'>
+        <div ref={sliderRef} className='keen-slider h-full'>
+          {product.images.map((img, idx) => (
+            <div
+              className='keen-slider__slide relative h-full w-full'
+              key={idx}
+            >
+              <Image
+                src={img}
+                alt={`${product.name} ${idx + 1}`}
+                fill
+                className='object-cover'
+                sizes='(max-width: 768px) 100vw, 33vw'
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Carousel Controls */}
+        <div className='absolute inset-0 z-10 flex items-center justify-between px-2'>
+          <Button
+            size='icon'
+            variant='ghost'
+            onClick={() => instanceRef.current?.prev()}
+            className='rounded-full bg-white/70 hover:bg-white'
+          >
+            <ChevronLeft />
+          </Button>
+          <Button
+            size='icon'
+            variant='ghost'
+            onClick={() => instanceRef.current?.next()}
+            className='rounded-full bg-white/70 hover:bg-white'
+          >
+            <ChevronRight />
+          </Button>
+        </div>
+      </div>
+
+      {/* Product Details */}
+      <CardContent className='p-4'>
+        <h3 className='line-clamp-1 text-lg font-semibold'>{product.name}</h3>
+        <p className='line-clamp-2 text-sm text-gray-500'>
+          {product.description}
+        </p>
+        <div className='text-primary mt-2 text-base font-bold'>
+          ₹{product.price}
+        </div>
+      </CardContent>
+    </Card>
   );
 }

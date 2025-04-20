@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { Heart, ShoppingCart } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
-import PreviewCard3 from '@/components/preview-card3';
+import PreviewCard3 from '@/components/preview-card';
 
 const wishlist = [
   {

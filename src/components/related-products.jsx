@@ -3,7 +3,7 @@ import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
 import { useRef, useEffect } from 'react';
 import Heading from './heading';
-import PreviewCard3 from './preview-card3';
+import PreviewCard3 from './preview-card';
 import { cn } from '@/lib/utils';
 
 export default function RelatedProducts({ className }) {
