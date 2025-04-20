@@ -3,6 +3,7 @@ import './globals.css';
 import Header from '@/components/layout/header';
 import Footer from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/sonner';
+import localFont from 'next/font/local';
 
 const outfit = Outfit({
   variable: '--font-outfit',
@@ -12,6 +13,31 @@ const rozha = Rozha_One({
   variable: '--font-rozha-one',
   subsets: ['latin'],
   weight: ['400']
+});
+const sandeMore = localFont({
+  src: [
+    {
+      path: '../../public/fonts/SandeMoreDemo-Regular.otf',
+      weight: '400',
+      style: 'normal'
+    },
+    {
+      path: '../../public/fonts/SandeMoreDemo-Medium.otf',
+      weight: '500',
+      style: 'normal'
+    },
+    {
+      path: '../../public/fonts/SandeMoreDemo-SemiBold.otf',
+      weight: '600',
+      style: 'normal'
+    },
+    {
+      path: '../../public/fonts/SandeMoreDemo-Bold.otf',
+      weight: '700',
+      style: 'normal'
+    }
+  ],
+  variable: '--font-sande-more'
 });
 
 export const metadata = {
@@ -23,7 +49,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang='en' suppressHydrationWarning>
       <body
-        className={`${outfit.variable} ${rozha.variable} font-outfit flex min-h-screen flex-col antialiased`}
+        className={`${outfit.variable} ${rozha.variable} ${sandeMore.variable} font-outfit flex min-h-screen flex-col antialiased`}
       >
         <Header />
         <main className='flex-1'>{children}</main>

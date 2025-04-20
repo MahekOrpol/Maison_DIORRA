@@ -1,9 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // output: 'export',
-  trailingSlash: true,
+  reactStrictMode: true, // Catch potential bugs early
   images: {
-    unoptimized: true // Ensures images work in static export
+    domains: [
+      'picsum.photos', // example: for demo images
+      'res.cloudinary.com', // add your image CDN or asset host
+      'your-cdn.com'
+    ]
   }
 };
 

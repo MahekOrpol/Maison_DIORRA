@@ -6,6 +6,7 @@
   --color-foreground: var(--foreground);
   --font-rozha: var(--font-rozha-one), serif;
   --font-outfit: var(--font-outfit), sans-serif;
+  --font-sande: var(--font-sande-more), sans-serif;
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -64,7 +65,7 @@
     @apply cursor-pointer;
   }
   .wrapper {
-    @apply 3xl:px-14 4xl:px-16 mx-auto w-full max-w-[2100px] px-3 sm:px-6 lg:px-8;
+    @apply 3xl:px-14 4xl:px-16 mx-auto w-full max-w-[2100px] px-3 sm:px-6 lg:px-8 2xl:px-12;
   }
   .header-wrapper {
     @apply 3xl:px-14 4xl:px-16 mx-auto w-full px-3 sm:px-6 lg:px-8;
