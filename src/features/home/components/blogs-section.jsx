@@ -155,7 +155,13 @@ export default function BlogsSection() {
         title='Blogs and Articles'
         subtitle='Affordable luxury for everyday wear'
       />
-      <div ref={sliderRef} className='keen-slider py-4'>
+      <div ref={sliderRef} className='keen-slider relative py-4'>
+        {/* Left Gradient */}
+        {/* <div className='absolute inset-y-0 left-0 z-10 w-1.5 bg-gradient-to-r from-white to-transparent'></div> */}
+
+        {/* Right Gradient */}
+        {/* <div className='absolute inset-y-0 right-0 z-10 w-1.5 bg-gradient-to-l from-white to-transparent'></div> */}
+
         {blogPosts.map((post, index) => (
           <div key={index} className='keen-slider__slide'>
             <BlogCard {...post} />

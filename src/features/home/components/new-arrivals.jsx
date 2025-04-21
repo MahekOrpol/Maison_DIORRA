@@ -27,7 +27,7 @@ export default function NewArrivals() {
             </p>
             <div
               className={cn(
-                '3xl:pr-14 4xl:pr-16 px-3 sm:px-6 lg:pr-8 2xl:pr-12',
+                '3xl:pr-14 4xl:pr-20 px-3 sm:px-6 lg:pr-8 2xl:pr-12',
                 'absolute top-[45%] left-0 z-20 w-full -translate-y-1/2 lg:top-1/2 lg:right-0 lg:left-auto lg:w-[60%] xl:w-[60%]'
               )}
             >
@@ -140,7 +140,7 @@ export function ArrivalSwiper({ className }) {
       coverflowEffect={{
         rotate: 0,
         slideShadows: false,
-        deep: 100,
+        depth: 100,
         modifier: 2,
         scale: 1
       }}

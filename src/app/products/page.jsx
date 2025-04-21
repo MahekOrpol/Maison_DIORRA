@@ -18,14 +18,14 @@ import {
   DrawerClose,
   DrawerTitle
 } from '@/components/ui/drawer';
-import { cn } from '@/lib/utils';
+import { cn, repeatProducts } from '@/lib/utils';
 import CustomTagWrapper from '@/components/custom-tag-wrapper';
 import {
   Carousel,
   CarouselContent,
   CarouselItem
 } from '@/components/ui/carousel';
-import PreviewCard3 from '@/components/preview-card';
+import PreviewCard from '@/components/preview-card';
 
 const advertisements = [
   {
@@ -77,9 +77,12 @@ const ringStyles = [
     imgUrl: '/img/ring-style-stone.svg'
   }
 ];
+const data = repeatProducts(50);
 
 export default function Page() {
   const [selectedStyle, setSelectedStyle] = useState(null);
+
+  console.log(data);
   return (
     <div className='wrapper'>
       {/* arrowed label */}
@@ -119,7 +122,7 @@ export default function Page() {
       <ProductsFilter />
       {/* listing components */}
       <div className='mt-6 mb-10 grid grid-cols-2 gap-2 md:mb-20 md:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-5 xl:gap-6'>
-        {Array.from({ length: 50 }).map((_, index) => {
+        {data.map((product, index) => {
           // Separate ad indices for different breakpoints
           const mobileAdIndex = Math.floor(index / 2) % advertisements.length;
           const mediumAdIndex = Math.floor(index / 6) % advertisements.length;
@@ -180,9 +183,7 @@ export default function Page() {
                 />
               )}
               {/* Render Listing Item */}
-              {/* <PreviewCard /> */}
-              <PreviewCard3 />
-              {/* <ProductCard2 /> */}
+              <PreviewCard product={product} />
             </React.Fragment>
           );
         })}

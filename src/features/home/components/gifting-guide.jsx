@@ -14,19 +14,76 @@ export default function GiftingSection() {
   const [coverflowConfig, setCoverflowConfig] = useState({
     depth: 450,
     scale: 0.9,
-    spaceBetween: -240
+    spaceBetween: -240,
+    slidesPerView: 2
   });
 
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 767) {
-        setCoverflowConfig({ depth: 800, scale: 1.25, spaceBetween: 30 });
-        console.log('desktop');
-      }
-      // } else {
-      //   setCoverflowConfig({ depth: 450, scale: 0.9, spaceBetween: -160 });
-      //   console.log('mobile');
-      // }
+      const width = window.innerWidth;
+      setCoverflowConfig((prev) => {
+        if (width > 767 && width < 1024) {
+          return {
+            depth: 150,
+            scale: 0.9,
+            spaceBetween: -20,
+            slidesPerView: 1.8
+          };
+        } else if (width >= 1024 && width < 1280) {
+          return {
+            depth: 150,
+            scale: 0.9,
+            spaceBetween: -20,
+            slidesPerView: 2
+          };
+        } else if (width >= 1280) {
+          return {
+            // this is working for manual sliding. But on autoplay, last right slide is not visible
+            depth: 500,
+            scale: 0.9,
+            spaceBetween: 30,
+            slidesPerView: 2.5
+          };
+        } else {
+          return {
+            depth: 100,
+            scale: 0.9,
+            spaceBetween: -20,
+            slidesPerView: 1.5
+          };
+        }
+      });
+      // setCoverflowConfig((prev) => {
+      //   if (width >= 1280) {
+      //     return {
+      //       depth: 300,
+      //       scale: 0.95,
+      //       spaceBetween: -30,
+      //       slidesPerView: 2.5
+      //     };
+      //   } else if (width >= 1024) {
+      //     return {
+      //       depth: 300,
+      //       scale: 0.95,
+      //       spaceBetween: -30,
+      //       slidesPerView: 2.5
+      //     };
+      //   } else if (width >= 768) {
+      //     return {
+      //       depth: 150,
+      //       scale: 0.9,
+      //       spaceBetween: -20,
+      //       slidesPerView: 1.8
+      //     };
+      //   } else {
+      //     return {
+      //       depth: 100,
+      //       scale: 0.9,
+      //       spaceBetween: -20,
+      //       slidesPerView: 1.3
+      //     };
+      //   }
+      // });
     };
 
     handleResize(); // on mount
@@ -48,7 +105,7 @@ export default function GiftingSection() {
             effect={'coverflow'}
             loop={true}
             spaceBetween={coverflowConfig.spaceBetween}
-            slidesPerView={2.3}
+            slidesPerView={coverflowConfig.slidesPerView}
             centeredSlides={true}
             grabCursor={true}
             coverflowEffect={{
@@ -58,22 +115,22 @@ export default function GiftingSection() {
               scale: coverflowConfig.scale
             }}
             className='coverflow'
-            // autoplay={{
-            //   delay: 3000, // 2.5 seconds between slides
-            //   disableOnInteraction: false, // keeps autoplay even after user interaction
-            //   pauseOnMouseEnter: true // optional: pause when hovered
-            // }}
+            autoplay={{
+              delay: 3000, // 2.5 seconds between slides
+              disableOnInteraction: false, // keeps autoplay even after user interaction
+              pauseOnMouseEnter: false // optional: pause when hovered
+            }}
           >
             {Array.from({ length: 5 }).map((_, index) => (
               <SwiperSlide key={index} className=''>
-                <div className='relative aspect-[240/170] w-auto rounded-sm'>
+                <div className='xs:h relative aspect-[320/220] rounded-sm'>
                   <Image
                     src={`/img/gifting/guide${index + 1}.png`}
                     fill={true}
                     className='rounded-xl object-cover'
                     alt='Guide image'
                   />
-                  <p className='absolute inset-x-0 bottom-0 mx-4 border-t border-white pt-1 pb-2 text-sm text-white sm:text-sm md:text-lg md:font-medium lg:pt-2 lg:pb-4 lg:text-2xl'>
+                  <p className='absolute inset-x-0 bottom-0 mx-4 border-t border-white pt-1 pb-2 text-sm font-medium text-white min-[500px]:text-lg md:text-lg md:font-medium lg:pt-2 lg:pb-4 lg:text-xl'>
                     Eternal Rings (400 Items)
                   </p>
                 </div>

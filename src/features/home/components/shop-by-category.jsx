@@ -25,7 +25,7 @@ export default function ShopByCategory() {
             href='#'
             className='flex flex-col items-center text-center text-lg font-medium transition-all duration-200'
           >
-            <div className='w-full overflow-hidden rounded-3xl'>
+            <div className='w-full overflow-hidden rounded-2xl'>
               <Image
                 src={image}
                 alt={`${name} category`}

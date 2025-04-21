@@ -3,7 +3,16 @@ import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
 import { useRef, useEffect } from 'react';
 import Heading from '@/components/heading';
-import PreviewCard3 from '@/components/preview-card';
+import PreviewCard from '@/components/preview-card';
+import {
+  braceletData,
+  earringData,
+  necklaceData,
+  ringData
+} from '@/constants/data';
+import { repeatProducts } from '@/lib/utils';
+
+const customersFavourite = repeatProducts(20);
 
 export default function CustomersFavourite() {
   const timer = useRef();
@@ -64,12 +73,12 @@ export default function CustomersFavourite() {
         subtitle='New Styles, Endless Elegance'
       />
       <div ref={sliderRef} className='keen-slider'>
-        {Array.from({ length: 6 }).map((_, index) => (
+        {customersFavourite.map((product, i) => (
           <div
-            key={index}
+            key={i}
             className='keen-slider__slide overflow-hidden rounded-xl'
           >
-            <PreviewCard3 />
+            <PreviewCard product={product} />
           </div>
         ))}
       </div>

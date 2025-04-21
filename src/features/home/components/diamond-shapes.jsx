@@ -63,7 +63,7 @@ export default function DiamondShapes() {
               >
                 <Link href='/diamonds'>
                   <div className='flex flex-col items-center text-center'>
-                    <div className='mt-auto h-[110px] lg:h-[140px]'>
+                    <div className='mt-auto h-[110px] lg:h-[140px] 2xl:h-[170px]'>
                       <Image
                         src={item.url}
                         alt={item.name}

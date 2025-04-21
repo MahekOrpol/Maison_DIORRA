@@ -74,7 +74,7 @@ export default function PreviewCard({ product, className }) {
     <>
       <Card
         className={cn(
-          'group relative justify-between gap-0 overflow-hidden rounded-xl border border-black/40 pt-0 pb-2 shadow transition-transform duration-300 hover:border-black hover:shadow-xl',
+          'group relative justify-between gap-0 overflow-hidden rounded-xl border-2 border-gray-400 pt-0 pb-2 shadow transition-transform duration-300 hover:border-black hover:shadow-xl',
           className
         )}
       >
@@ -114,8 +114,8 @@ export default function PreviewCard({ product, className }) {
           </CarouselContent>
 
           <div className='3xl:-bottom-3 absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 2xl:bottom-2'>
-            <CarouselPrevious className='h-7 w-7 translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white 2xl:h-9 2xl:w-9 2xl:translate-x-1' />
-            <CarouselNext className='h-7 w-7 -translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white 2xl:h-9 2xl:w-9' />
+            <CarouselPrevious className='h-7 w-7 translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white 2xl:h-8 2xl:w-8 2xl:translate-x-1' />
+            <CarouselNext className='h-7 w-7 -translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white 2xl:h-8 2xl:w-8' />
           </div>
         </Carousel>
 

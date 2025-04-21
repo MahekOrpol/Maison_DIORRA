@@ -13,17 +13,17 @@ import YourDesign from '@/features/home/components/your-design';
 export default function Page() {
   return (
     <div>
-      <Hero />
+      {/* <Hero />
       <YourDesign />
       <ShopByCategory />
-      <CustomersFavourite />
+      <CustomersFavourite /> */}
       <GiftingSection />
       {/* <CoverflowSlider /> */}
-      <DiamondShapes />
-      <NewArrivals />
-      <TrendingCollections />
-      <BlogsSection />
-      <TestimonialSection />
+      {/* <DiamondShapes /> */}
+      {/* <NewArrivals /> */}
+      {/* <TrendingCollections /> */}
+      {/* <BlogsSection /> */}
+      {/* <TestimonialSection /> */}
     </div>
   );
 }
