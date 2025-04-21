@@ -18,7 +18,7 @@ export default function Page() {
       <ShopByCategory />
       <CustomersFavourite />
       <GiftingSection />
-      <CoverflowSlider />
+      {/* <CoverflowSlider /> */}
       <DiamondShapes />
       <NewArrivals />
       <TrendingCollections />

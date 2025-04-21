@@ -63,9 +63,9 @@ export default function TestimonialSection() {
         subtitle='What Clients Say About Us'
       />
       <div ref={sliderRef} className='keen-slider'>
-        {Array.from({ length: 5 }).map((_, index) => (
+        {Array.from({ length: 20 }).map((_, index) => (
           <div key={index} className='keen-slider__slide'>
-            <div className='rounded-xl border border-gray-200 bg-white p-4'>
+            <div className='rounded-xl border-2 border-gray-300 bg-white p-4'>
               {/* Author Section */}
               <div className='flex items-center gap-4'>
                 <img

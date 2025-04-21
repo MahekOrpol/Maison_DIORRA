@@ -49,6 +49,51 @@ const blogPosts = [
     image: '/img/blogs/blog8.png',
     title: 'Sustainable Jewelry Practices',
     href: '/blogs/2'
+  },
+  {
+    image: '/img/blogs/blog5.png',
+    title: 'Sustainable Jewelry Practices',
+    href: '/blogs/2'
+  },
+  {
+    image: '/img/blogs/blog6.png',
+    title: 'Sustainable Jewelry Practices',
+    href: '/blogs/2'
+  },
+  {
+    image: '/img/blogs/blog7.png',
+    title: 'Sustainable Jewelry Practices',
+    href: '/blogs/2'
+  },
+  {
+    image: '/img/blogs/blog8.png',
+    title: 'Sustainable Jewelry Practices',
+    href: '/blogs/2'
+  },
+  {
+    image: '/img/blogs/blog8.png',
+    title: 'Sustainable Jewelry Practices',
+    href: '/blogs/2'
+  },
+  {
+    image: '/img/blogs/blog5.png',
+    title: 'Sustainable Jewelry Practices',
+    href: '/blogs/2'
+  },
+  {
+    image: '/img/blogs/blog6.png',
+    title: 'Sustainable Jewelry Practices',
+    href: '/blogs/2'
+  },
+  {
+    image: '/img/blogs/blog7.png',
+    title: 'Sustainable Jewelry Practices',
+    href: '/blogs/2'
+  },
+  {
+    image: '/img/blogs/blog8.png',
+    title: 'Sustainable Jewelry Practices',
+    href: '/blogs/2'
   }
 ];
 

@@ -78,7 +78,7 @@ export default function TrendingCollections() {
           <MarkerButton
             onClick={() => setSelected('earring')}
             tooltipContent={earringData.metals[0]}
-            className='xs:top-[24.5%] xs:right-[17.5%] absolute top-[23%] right-[17%] md:top-[25%] md:right-[18%] lg:top-[24%] lg:right-[16%] xl:top-[24%] xl:right-[18%]'
+            className='xs:top-[24.5%] xs:right-[17.5%] absolute top-[23%] right-[17%] md:top-[25%] md:right-[18%] lg:top-[24%] lg:right-[16%] xl:top-[24%] xl:right-[17%]'
           />
         </div>
 

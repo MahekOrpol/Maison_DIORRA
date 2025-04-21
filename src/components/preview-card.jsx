@@ -113,7 +113,7 @@ export default function PreviewCard({ product, className }) {
             ))}
           </CarouselContent>
 
-          <div className='3xl:-bottom-3 absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 2xl:bottom-0'>
+          <div className='3xl:-bottom-3 absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 2xl:bottom-2'>
             <CarouselPrevious className='h-7 w-7 translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white 2xl:h-9 2xl:w-9 2xl:translate-x-1' />
             <CarouselNext className='h-7 w-7 -translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white 2xl:h-9 2xl:w-9' />
           </div>
@@ -159,9 +159,8 @@ export default function PreviewCard({ product, className }) {
               {selectedMetal.name}
             </button>
           </p>
-
           <Button
-            className='xs:text-base xs:h-9 mt-auto h-8 w-full text-sm lg:h-10 2xl:h-14 2xl:text-xl'
+            className='xs:text-base xs:h-9 3xl:h-14 mt-auto h-8 w-full text-sm lg:h-11 2xl:text-xl'
             onClick={handleAddToCart}
           >
             Add to Cart <ShoppingBagIcon size={20} className='ml-2 xl:size-7' />
