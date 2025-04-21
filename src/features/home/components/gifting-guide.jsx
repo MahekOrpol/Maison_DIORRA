@@ -38,11 +38,10 @@ export default function GiftingSection() {
           };
         } else if (width >= 1280) {
           return {
-            // this is working for manual sliding. But on autoplay, last right slide is not visible
             depth: 500,
-            scale: 0.9,
+            scale: 0.95,
             spaceBetween: 30,
-            slidesPerView: 2.5
+            slidesPerView: 2.4
           };
         } else {
           return {
@@ -53,37 +52,6 @@ export default function GiftingSection() {
           };
         }
       });
-      // setCoverflowConfig((prev) => {
-      //   if (width >= 1280) {
-      //     return {
-      //       depth: 300,
-      //       scale: 0.95,
-      //       spaceBetween: -30,
-      //       slidesPerView: 2.5
-      //     };
-      //   } else if (width >= 1024) {
-      //     return {
-      //       depth: 300,
-      //       scale: 0.95,
-      //       spaceBetween: -30,
-      //       slidesPerView: 2.5
-      //     };
-      //   } else if (width >= 768) {
-      //     return {
-      //       depth: 150,
-      //       scale: 0.9,
-      //       spaceBetween: -20,
-      //       slidesPerView: 1.8
-      //     };
-      //   } else {
-      //     return {
-      //       depth: 100,
-      //       scale: 0.9,
-      //       spaceBetween: -20,
-      //       slidesPerView: 1.3
-      //     };
-      //   }
-      // });
     };
 
     handleResize(); // on mount
@@ -99,6 +67,7 @@ export default function GiftingSection() {
       />
       <div className=''>
         <div className='mx-auto h-fit overflow-hidden'>
+          {/* my old buggy  one ---- */}
           <Swiper
             key={JSON.stringify(coverflowConfig)} // <- force re-init on config change
             modules={[EffectCoverflow, Autoplay]}
@@ -107,6 +76,7 @@ export default function GiftingSection() {
             spaceBetween={coverflowConfig.spaceBetween}
             slidesPerView={coverflowConfig.slidesPerView}
             centeredSlides={true}
+            loopAdditionalSlides={2}
             grabCursor={true}
             coverflowEffect={{
               rotate: 0,
@@ -116,14 +86,14 @@ export default function GiftingSection() {
             }}
             className='coverflow'
             autoplay={{
-              delay: 3000, // 2.5 seconds between slides
+              delay: 1000, // 2.5 seconds between slides
               disableOnInteraction: false, // keeps autoplay even after user interaction
               pauseOnMouseEnter: false // optional: pause when hovered
             }}
           >
-            {Array.from({ length: 5 }).map((_, index) => (
+            {Array.from({ length: 8 }).map((_, index) => (
               <SwiperSlide key={index} className=''>
-                <div className='xs:h relative aspect-[320/220] rounded-sm'>
+                <div className='relative aspect-[320/220] rounded-sm xl:aspect-[240/170]'>
                   <Image
                     src={`/img/gifting/guide${index + 1}.png`}
                     fill={true}
@@ -137,6 +107,7 @@ export default function GiftingSection() {
               </SwiperSlide>
             ))}
           </Swiper>
+          {/* my new one ------------- */}
         </div>
       </div>
       {/* mobile & desktop */}
