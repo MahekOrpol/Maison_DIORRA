@@ -18,7 +18,6 @@ export default function Page() {
       <ShopByCategory />
       <CustomersFavourite />
       <GiftingSection />
-      {/* <CoverflowSlider /> */}
       <DiamondShapes />
       <NewArrivals />
       <TrendingCollections />

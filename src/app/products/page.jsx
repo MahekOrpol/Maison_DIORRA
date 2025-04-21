@@ -489,7 +489,7 @@ export function Advertisement({
   return (
     <div
       className={cn(
-        'xs:min-h-[300px] relative -mx-3 flex min-h-[280px] w-screen items-center justify-center overflow-hidden rounded-none shadow-md sm:-mx-4 lg:w-full lg:rounded-lg',
+        'xs:min-h-[300px] relative -mx-3 flex min-h-[280px] w-screen items-center justify-center overflow-hidden rounded-none shadow-md sm:-mx-6 lg:mx-0 lg:w-full lg:rounded-lg',
         className
       )}
     >

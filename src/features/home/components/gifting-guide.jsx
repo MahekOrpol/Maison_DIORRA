@@ -1,6 +1,6 @@
 'use client';
 
-import { EffectCoverflow, Autoplay } from 'swiper/modules';
+import { EffectCoverflow, Autoplay, Mousewheel } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import Heading from '@/components/heading';
 import { useEffect, useState } from 'react';
@@ -70,7 +70,7 @@ export default function GiftingSection() {
           {/* my old buggy  one ---- */}
           <Swiper
             key={JSON.stringify(coverflowConfig)} // <- force re-init on config change
-            modules={[EffectCoverflow, Autoplay]}
+            modules={[EffectCoverflow, Autoplay, Mousewheel]}
             effect={'coverflow'}
             loop={true}
             spaceBetween={coverflowConfig.spaceBetween}
@@ -86,10 +86,11 @@ export default function GiftingSection() {
             }}
             className='coverflow'
             autoplay={{
-              delay: 1000, // 2.5 seconds between slides
+              delay: 4000, // 2.5 seconds between slides
               disableOnInteraction: false, // keeps autoplay even after user interaction
               pauseOnMouseEnter: false // optional: pause when hovered
             }}
+            mousewheel={true}
           >
             {Array.from({ length: 8 }).map((_, index) => (
               <SwiperSlide key={index} className=''>
