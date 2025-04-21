@@ -109,19 +109,19 @@ function MarkerButton({ onClick, tooltipContent, className }) {
                 height={90}
                 alt={tooltipContent.name}
                 width={90}
-                className='h-[80px] w-[80px]'
+                className='h-[70px] w-[70px] sm:h-[80px] sm:w-[80px]'
               />
               <div className='ml-2'>
                 <div className='flex items-baseline gap-2'>
-                  <p className='text-xl font-semibold'>
+                  <p className='text-lg font-semibold sm:text-xl'>
                     ${tooltipContent.amount}
                   </p>
-                  <span className='text-muted-foreground text-lg font-normal line-through'>
+                  <span className='text-muted-foreground text-base font-normal line-through sm:text-lg'>
                     ${tooltipContent.wrongAmount}
                   </span>
                 </div>
                 <div className='flex items-center'>
-                  <p className='w-25 text-base leading-5'>
+                  <p className='w-25 text-sm leading-5 sm:text-base'>
                     {tooltipContent.name}
                   </p>
                   <ShoppingBag className='ml-2 h-6 w-6' />

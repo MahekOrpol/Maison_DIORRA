@@ -113,19 +113,19 @@ export default function PreviewCard({ product, className }) {
             ))}
           </CarouselContent>
 
-          <div className='absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 2xl:bottom-0'>
-            <CarouselPrevious className='h-7 w-7 translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white' />
-            <CarouselNext className='h-7 w-7 -translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white' />
+          <div className='3xl:-bottom-3 absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 2xl:bottom-0'>
+            <CarouselPrevious className='h-7 w-7 translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white 2xl:h-9 2xl:w-9 2xl:translate-x-1' />
+            <CarouselNext className='h-7 w-7 -translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white 2xl:h-9 2xl:w-9' />
           </div>
         </Carousel>
 
-        <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2'>
-          <div className='flex items-center justify-between border-t pt-2'>
+        <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2 xl:px-4 xl:pb-3'>
+          <div className='flex items-center justify-between border-t pt-2 xl:pt-4'>
             <div className='flex gap-1'>
-              <p className='leading-1 font-medium sm:text-[22px] lg:text-xl'>
+              <p className='mr-2 leading-1 font-medium sm:text-[22px] lg:text-xl xl:text-2xl'>
                 ${selectedMetal.amount}
               </p>
-              <span className='text-sm leading-1 font-normal text-[#958F86] line-through sm:text-lg'>
+              <span className='text-sm leading-1 font-normal text-[#958F86] line-through sm:text-lg xl:text-xl'>
                 ${selectedMetal.wrongAmount}
               </span>
             </div>
@@ -151,7 +151,7 @@ export default function PreviewCard({ product, className }) {
             </div>
           </div>
 
-          <p className='xs:text-base line-clamp-2 block min-h-[2.2em] text-left text-sm leading-4 font-light text-gray-900 sm:text-lg'>
+          <p className='xs:text-base line-clamp-2 block min-h-[2.2em] text-left text-sm leading-4 font-light text-gray-900 sm:text-lg xl:font-normal 2xl:text-xl'>
             <button
               onClick={handleProductClick}
               className='block w-full text-left'
@@ -161,10 +161,10 @@ export default function PreviewCard({ product, className }) {
           </p>
 
           <Button
-            className='xs:text-base xs:h-9 mt-auto h-8 w-full text-sm lg:h-10'
+            className='xs:text-base xs:h-9 mt-auto h-8 w-full text-sm lg:h-10 2xl:h-14 2xl:text-xl'
             onClick={handleAddToCart}
           >
-            Add to Cart <ShoppingBagIcon size={20} />
+            Add to Cart <ShoppingBagIcon size={20} className='ml-2 xl:size-7' />
           </Button>
         </CardContent>
       </Card>
