@@ -64,11 +64,11 @@ export default function CallToAction({ className }) {
           Subscribe
         </button>
       </form>
-      <div className='mt-4 flex flex-col flex-wrap items-center justify-center gap-4 sm:flex-row md:justify-around md:text-left'>
+      <div className='xs:gap-4 mt-4 flex flex-wrap justify-center gap-x-4 gap-y-6 px-2 sm:px-0'>
         {cardData.map((card, index) => (
           <div
             key={index}
-            className='flex max-w-[250px] flex-col items-center gap-2 md:w-[23%] md:items-start lg:max-w-[300px]'
+            className='flex w-[calc(50%-0.5rem)] flex-col items-start gap-2 sm:w-[calc(32%-0.5rem)] sm:first:self-center md:w-[calc(25%-0.75rem)] lg:max-w-[300px] lg:gap-4'
           >
             <Image
               src={card.iconUrl}
@@ -78,7 +78,9 @@ export default function CallToAction({ className }) {
               className='block h-[35px]'
             />
             <div>
-              <h3 className='mb-1 text-lg md:mb-2 lg:text-2xl'>{card.title}</h3>
+              <h3 className='mb-1 pr-2 text-lg leading-5 sm:mb-2 md:mb-2 lg:text-2xl'>
+                {card.title}
+              </h3>
               <p className='text-xs leading-4 lg:text-sm lg:leading-5 xl:text-base'>
                 {card.subtitle}
               </p>
