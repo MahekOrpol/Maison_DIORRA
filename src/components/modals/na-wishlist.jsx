@@ -14,7 +14,10 @@ import Image from 'next/image';
 
 export function NotAllowedModal({ open, onOpenChange }) {
   const router = useRouter();
-
+  const handleLoginClick = () => {
+    router.push('/sign-in');
+    onOpenChange(false);
+  };
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className='overflow-hidden rounded-xl p-0 sm:max-w-4xl'>
@@ -53,10 +56,10 @@ export function NotAllowedModal({ open, onOpenChange }) {
             <div className='my-4 w-16 border-t border-gray-200'></div>
 
             {/* Actions */}
-            <div className='mt-2 flex w-full flex-col gap-3 sm:flex-row sm:justify-center'>
+            <div className='mt-4 flex w-full flex-col gap-3 sm:flex-row sm:justify-center'>
               <Button
-                onClick={() => router.push('/sign-in')}
-                className='h-11 w-full max-w-[240px] rounded-4xl text-lg'
+                onClick={handleLoginClick}
+                className='mx-auto h-11 w-full max-w-[240px] rounded-4xl text-lg'
               >
                 Login
                 <LogIn className='mr-2 size-5' />
@@ -68,7 +71,7 @@ export function NotAllowedModal({ open, onOpenChange }) {
               Don't have an account?{' '}
               <span
                 className='cursor-pointer font-medium text-[#C5A880] hover:underline'
-                onClick={() => router.push('/sign-in')}
+                onClick={handleLoginClick}
               >
                 Join us now
               </span>

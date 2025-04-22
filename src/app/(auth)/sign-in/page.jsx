@@ -7,175 +7,68 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { FcGoogle } from 'react-icons/fc';
+import { useForm } from 'react-hook-form';
+import {
+  Dialog,
+  DialogContent,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog';
+import { cn } from '@/lib/utils';
 
 export default function AuthTabs() {
   const [tab, setTab] = useState('login');
+  const [openForgotPassword, setOpenForgotPassword] = useState(false);
 
   return (
-    <div className='bg-muted flex items-center justify-center border p-2 sm:p-4'>
-      <div className='flex w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-md md:h-auto md:max-w-4xl'>
-        {/* Left Side Image */}
-        <div className='hidden w-1/3 md:block'>
-          <Image
-            src='/img/login-model.png'
-            alt='Jewelry model'
-            width={600}
-            height={600}
-            className='h-full w-full object-cover'
-          />
-        </div>
+    <>
+      <div className='bg-muted flex items-center justify-center border p-2 sm:p-4'>
+        <div className='flex w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-md md:h-auto md:max-w-4xl'>
+          {/* Left Side Image */}
+          <div className='hidden w-1/3 md:block'>
+            <Image
+              src='/img/login-model.png'
+              alt='Jewelry model'
+              width={600}
+              height={600}
+              className='h-full w-full object-cover'
+            />
+          </div>
 
-        {/* Right Side Form */}
-        <div className='flex-1 px-4 pt-0 md:px-6 md:py-2 lg:px-10'>
-          <Tabs value={tab} onValueChange={setTab} className='w-full'>
-            <TabsList className='grid h-full w-full grid-cols-2 border-b border-gray-500'>
-              <TabsTrigger
+          {/* Right Side Form */}
+          <div className='flex-1 px-4 pt-0 md:px-6 md:py-2 lg:px-10'>
+            <Tabs value={tab} onValueChange={setTab} className='w-full'>
+              <TabsList className='grid h-full w-full grid-cols-2 border-b border-gray-500'>
+                <TabsTrigger
+                  value='login'
+                  className='data-[state=active]:bg-primary data-[state=active]:text-primary-foreground bg-background h-full border-b border-b-transparent pt-2 pb-1 text-xl font-medium data-[state=active]:border-b-black data-[state=active]:text-2xl sm:border-b-2'
+                >
+                  Login
+                </TabsTrigger>
+                <TabsTrigger
+                  value='register'
+                  className='data-[state=active]:bg-primary data-[state=active]:text-primary-foreground bg-background h-full border-b border-b-transparent pt-2 pb-1 text-xl font-medium data-[state=active]:border-b-black data-[state=active]:text-2xl sm:border-b-2'
+                >
+                  Register
+                </TabsTrigger>
+              </TabsList>
+
+              {/* Login Tab Content */}
+              <TabsContent
                 value='login'
-                className='h-full border-b border-b-transparent bg-white pt-2 pb-1 text-2xl font-medium data-[state=active]:border-b-black sm:border-b-2 lg:text-2xl'
+                className='pb-4 text-center sm:pt-2 md:text-left lg:pt-3'
               >
-                Login
-              </TabsTrigger>
-              <TabsTrigger
-                value='register'
-                className='h-full border-b border-b-transparent bg-white pt-2 pb-1 text-2xl font-medium data-[state=active]:border-b-black md:border-b-2 lg:text-2xl'
-              >
-                Register
-              </TabsTrigger>
-            </TabsList>
-
-            {/* Login Tab Content */}
-            <TabsContent
-              value='login'
-              className='pb-4 text-center sm:pt-2 md:text-left lg:pt-3'
-            >
-              <h2 className='mb-1 text-xl leading-6 font-medium'>
-                Login using your Email and Password
-              </h2>
-              <p className='text-sm leading-4 font-light'>
-                For the purpose of industry registration, your details are
-                required and will be stored.
-              </p>
-              <form action='#'>
-                <div className='relative my-3 lg:mt-6'>
-                  <input
-                    type='email'
-                    id='default_outlined'
-                    className='peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none'
-                    placeholder=''
-                  />
-                  <label
-                    htmlFor='default_outlined'
-                    className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
-                  >
-                    Email
-                  </label>
-                </div>
-
-                <div className='relative'>
-                  <input
-                    type='password'
-                    id='default_outlined'
-                    className='peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none'
-                    placeholder=''
-                  />
-                  <label
-                    htmlFor='default_outlined'
-                    className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
-                  >
-                    Password
-                  </label>
-                </div>
-                <div className='mb-4 flex items-center justify-between'>
-                  <span className='inline-flex items-center gap-2'>
-                    <Input
-                      type='checkbox'
-                      name='saveAddress'
-                      className='h-4 w-4 rounded-sm accent-black'
-                    />
-                    Remember me
-                  </span>
-                  <Button
-                    variant='link'
-                    className='p-0 text-sm font-medium underline-offset-2 hover:underline'
-                  >
-                    Forgot Password
-                  </Button>
-                </div>
-
-                <div className='mx-auto mt-2 w-full items-center text-center lg:mt-10 xl:w-3/4'>
-                  <p className='mb-2 text-xs sm:text-sm md:mb-4'>
-                    By Continuing, I agree to{' '}
-                    <Link
-                      href='#'
-                      className='font-medium underline-offset-2 hover:underline'
-                    >
-                      Terms of Use
-                    </Link>{' '}
-                    &{' '}
-                    <Link
-                      href='#'
-                      className='font-medium underline-offset-2 hover:underline'
-                    >
-                      Privacy Policy
-                    </Link>
-                  </p>
-                  <Button size={'lg'} className='xs:w-2/3 mb-2 w-full text-lg'>
-                    Login
-                  </Button>
-                  <div className='mx-auto flex w-2/3 items-center justify-center gap-2'>
-                    <hr className='w-[45%]' />
-                    OR
-                    <hr className='w-[45%]' />
-                  </div>
-                  <button className='xs:w-2/3 mx-auto mb-2 flex w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-base'>
-                    <FcGoogle className='h-7 w-7' />
-                    Login with Google
-                  </button>
-
-                  <p className='text-center text-sm'>
-                    Don&apos;t have an account?{' '}
-                    <button
-                      type='button'
-                      className='ml-2 font-medium underline-offset-2 hover:underline'
-                      onClick={() => setTab('register')}
-                    >
-                      Create Account
-                    </button>
-                  </p>
-                </div>
-              </form>
-            </TabsContent>
-
-            {/* Register Tab Content */}
-            <TabsContent
-              value='register'
-              className='pb-4 text-center sm:pt-2 md:text-left lg:pt-3'
-            >
-              <h2 className='mb-1 text-xl leading-6 font-medium'>
-                Don’t have an Account?
-              </h2>
-              <p className='text-sm leading-4 font-light'>
-                For the purpose of industry registration, your details are
-                required and will be stored.
-              </p>
-              <form action='#' className='mt-4'>
-                <div className='xs:grid-cols-2 grid grid-cols-1 gap-3 sm:gap-4'>
-                  <div className='xs:col-span-2 relative'>
-                    <input
-                      type='text'
-                      id='name'
-                      className='peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none'
-                      placeholder=''
-                    />
-                    <label
-                      htmlFor='name'
-                      className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
-                    >
-                      Name
-                    </label>
-                  </div>
-
-                  <div className='relative col-span-1'>
+                <h2 className='mb-1 text-xl leading-6 font-medium'>
+                  Login using your Email and Password
+                </h2>
+                <p className='text-sm leading-4 font-light'>
+                  For the purpose of industry registration, your details are
+                  required and will be stored.
+                </p>
+                <form action='#'>
+                  <div className='relative my-3 lg:mt-6'>
                     <input
                       type='email'
                       id='email'
@@ -190,100 +83,383 @@ export default function AuthTabs() {
                     </label>
                   </div>
 
-                  <div className='relative col-span-1'>
-                    <input
-                      type='tel'
-                      id='mobile'
-                      className='peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none'
-                      placeholder=''
-                    />
-                    <label
-                      htmlFor='mobile'
-                      className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
-                    >
-                      Mobile Number
-                    </label>
-                  </div>
-
-                  <div className='relative col-span-1'>
+                  <div className='relative'>
                     <input
                       type='password'
-                      id='password'
+                      id='default_outlined'
                       className='peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none'
                       placeholder=''
                     />
                     <label
-                      htmlFor='password'
+                      htmlFor='default_outlined'
                       className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
                     >
                       Password
                     </label>
                   </div>
-
-                  <div className='relative col-span-1'>
-                    <input
-                      type='password'
-                      id='confirmPassword'
-                      className='peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none'
-                      placeholder=''
-                    />
-                    <label
-                      htmlFor='confirmPassword'
-                      className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
+                  <div className='mb-4 flex items-center justify-between'>
+                    <span className='inline-flex items-center gap-2'>
+                      <Input
+                        type='checkbox'
+                        name='saveAddress'
+                        className='h-4 w-4 rounded-sm accent-black'
+                      />
+                      Remember me
+                    </span>
+                    <Button
+                      variant='link'
+                      className='p-0 text-sm font-medium underline-offset-2 hover:underline'
+                      onClick={() => setOpenForgotPassword(true)}
                     >
-                      Confirm Password
-                    </label>
-                  </div>
-                </div>
-
-                <div className='mx-auto mt-4 w-full items-center text-center lg:mt-10 xl:w-3/4'>
-                  <p className='mb-2 text-xs sm:text-sm md:mb-4'>
-                    By Continuing, I agree to{' '}
-                    <Link
-                      href='#'
-                      className='font-medium underline-offset-2 hover:underline'
-                    >
-                      Terms of Use
-                    </Link>{' '}
-                    &{' '}
-                    <Link
-                      href='#'
-                      className='font-medium underline-offset-2 hover:underline'
-                    >
-                      Privacy Policy
-                    </Link>
-                  </p>
-                  <Button size={'lg'} className='xs:w-2/3 mb-2 w-full text-lg'>
-                    Register
-                  </Button>
-
-                  <div className='mx-auto flex w-2/3 items-center justify-center gap-2'>
-                    <hr className='w-[45%]' />
-                    OR
-                    <hr className='w-[45%]' />
+                      Forgot Password
+                    </Button>
                   </div>
 
-                  <button className='xs:w-2/3 mx-auto mb-2 flex w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-base'>
-                    <FcGoogle className='h-7 w-7' />
-                    Signup with Google
-                  </button>
-
-                  <p className='text-center text-sm'>
-                    Already have an Account?
-                    <button
-                      type='button'
-                      className='ml-2 font-medium underline-offset-2 hover:underline'
-                      onClick={() => setTab('login')}
+                  <div className='mx-auto mt-2 w-full items-center text-center lg:mt-10 xl:w-3/4'>
+                    <p className='mb-2 text-xs sm:text-sm md:mb-4'>
+                      By Continuing, I agree to{' '}
+                      <Link
+                        href='#'
+                        className='font-medium underline-offset-2 hover:underline'
+                      >
+                        Terms of Use
+                      </Link>{' '}
+                      &{' '}
+                      <Link
+                        href='#'
+                        className='font-medium underline-offset-2 hover:underline'
+                      >
+                        Privacy Policy
+                      </Link>
+                    </p>
+                    <Button
+                      size={'lg'}
+                      className='xs:w-2/3 mb-2 w-full text-lg'
                     >
                       Login
+                    </Button>
+                    <div className='mx-auto flex w-2/3 items-center justify-center gap-2'>
+                      <hr className='w-[45%]' />
+                      OR
+                      <hr className='w-[45%]' />
+                    </div>
+                    <button className='xs:w-2/3 mx-auto mb-2 flex w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-base'>
+                      <FcGoogle className='h-7 w-7' />
+                      Login with Google
                     </button>
-                  </p>
-                </div>
-              </form>
-            </TabsContent>
-          </Tabs>
+
+                    <p className='text-center text-sm'>
+                      Don&apos;t have an account?{' '}
+                      <button
+                        type='button'
+                        className='ml-2 font-medium underline-offset-2 hover:underline'
+                        onClick={() => setTab('register')}
+                      >
+                        Create Account
+                      </button>
+                    </p>
+                  </div>
+                </form>
+              </TabsContent>
+
+              {/* Register Tab Content */}
+              <TabsContent
+                value='register'
+                className='pb-4 text-center sm:pt-2 md:text-left lg:pt-3'
+              >
+                <h2 className='mb-1 text-xl leading-6 font-medium'>
+                  Don’t have an Account?
+                </h2>
+                <p className='text-sm leading-4 font-light'>
+                  For the purpose of industry registration, your details are
+                  required and will be stored.
+                </p>
+                <form action='#' className='mt-4'>
+                  <div className='xs:grid-cols-2 grid grid-cols-1 gap-3 sm:gap-4'>
+                    <div className='xs:col-span-2 relative'>
+                      <input
+                        type='text'
+                        id='name'
+                        className='peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none'
+                        placeholder=''
+                      />
+                      <label
+                        htmlFor='name'
+                        className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
+                      >
+                        Name
+                      </label>
+                    </div>
+
+                    <div className='relative col-span-1'>
+                      <input
+                        type='email'
+                        id='email'
+                        className='peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none'
+                        placeholder=''
+                      />
+                      <label
+                        htmlFor='email'
+                        className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
+                      >
+                        Email
+                      </label>
+                    </div>
+
+                    <div className='relative col-span-1'>
+                      <input
+                        type='tel'
+                        id='mobile'
+                        className='peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none'
+                        placeholder=''
+                      />
+                      <label
+                        htmlFor='mobile'
+                        className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
+                      >
+                        Mobile Number
+                      </label>
+                    </div>
+
+                    <div className='relative col-span-1'>
+                      <input
+                        type='password'
+                        id='password'
+                        className='peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none'
+                        placeholder=''
+                      />
+                      <label
+                        htmlFor='password'
+                        className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
+                      >
+                        Password
+                      </label>
+                    </div>
+
+                    <div className='relative col-span-1'>
+                      <input
+                        type='password'
+                        id='confirmPassword'
+                        className='peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none'
+                        placeholder=''
+                      />
+                      <label
+                        htmlFor='confirmPassword'
+                        className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
+                      >
+                        Confirm Password
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className='mx-auto mt-4 w-full items-center text-center lg:mt-10 xl:w-3/4'>
+                    <p className='mb-2 text-xs sm:text-sm md:mb-4'>
+                      By Continuing, I agree to{' '}
+                      <Link
+                        href='#'
+                        className='font-medium underline-offset-2 hover:underline'
+                      >
+                        Terms of Use
+                      </Link>{' '}
+                      &{' '}
+                      <Link
+                        href='#'
+                        className='font-medium underline-offset-2 hover:underline'
+                      >
+                        Privacy Policy
+                      </Link>
+                    </p>
+                    <Button
+                      size={'lg'}
+                      className='xs:w-2/3 mb-2 w-full text-lg'
+                    >
+                      Register
+                    </Button>
+
+                    <div className='mx-auto flex w-2/3 items-center justify-center gap-2'>
+                      <hr className='w-[45%]' />
+                      OR
+                      <hr className='w-[45%]' />
+                    </div>
+
+                    <button className='xs:w-2/3 mx-auto mb-2 flex w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-base'>
+                      <FcGoogle className='h-7 w-7' />
+                      Signup with Google
+                    </button>
+
+                    <p className='text-center text-sm'>
+                      Already have an Account?
+                      <button
+                        type='button'
+                        className='ml-2 font-medium underline-offset-2 hover:underline'
+                        onClick={() => setTab('login')}
+                      >
+                        Login
+                      </button>
+                    </p>
+                  </div>
+                </form>
+              </TabsContent>
+            </Tabs>
+          </div>
         </div>
       </div>
-    </div>
+      <ForgotPasswordDialog
+        open={openForgotPassword}
+        setOpen={setOpenForgotPassword}
+      />
+    </>
+  );
+}
+
+export function ForgotPasswordDialog({ open = false, setOpen }) {
+  const [openResetPassword, setOpenResetPassword] = useState(false);
+
+  const { register, handleSubmit, formState, reset } = useForm();
+
+  const onSubmit = (data) => {
+    console.log('Forgot password email:', data.email);
+    // Your forgot password API logic here
+    reset();
+    setOpen(false);
+  };
+
+  return (
+    <>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className='rounded-xl px-6 py-8 sm:max-w-sm'>
+          <DialogHeader>
+            <DialogTitle className='text-center text-xl font-semibold'>
+              Forgot Password
+            </DialogTitle>
+          </DialogHeader>
+
+          <form onSubmit={handleSubmit(onSubmit)} className='mt-4 space-y-4'>
+            <div className='grid gap-2'>
+              <div className='relative my-3 lg:mt-6'>
+                <input
+                  type='email'
+                  id='email'
+                  className={cn(
+                    'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
+                    formState.errors.email ? 'border-red-500' : ''
+                  )}
+                  placeholder=''
+                  {...register('email', { required: true })}
+                />
+                <label
+                  htmlFor='email'
+                  className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
+                >
+                  Enter Your Email Address
+                </label>
+                {formState.errors.email && (
+                  <p className='text-xs text-red-500'>Email is required</p>
+                )}
+              </div>
+            </div>
+
+            <DialogFooter className='pt-2'>
+              <Button
+                type='submit'
+                size={'lg'}
+                className='w-full text-base'
+                onClick={() => setOpenResetPassword(true)}
+              >
+                Send Reset Link
+              </Button>
+            </DialogFooter>
+          </form>
+        </DialogContent>
+      </Dialog>
+      <ResetPasswordDialog
+        open={openResetPassword}
+        setOpen={setOpenResetPassword}
+      />
+    </>
+  );
+}
+
+export function ResetPasswordDialog({ open = false, setOpen }) {
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+    reset
+  } = useForm();
+
+  const onSubmit = (data) => {
+    console.log('Resetting password with:', data);
+    // Your reset password API logic here
+    reset();
+    setOpen(false);
+  };
+
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent className='rounded-xl px-6 py-8 sm:max-w-sm'>
+        <DialogHeader>
+          <DialogTitle className='text-center text-xl font-semibold'>
+            Reset Password
+          </DialogTitle>
+        </DialogHeader>
+
+        <form onSubmit={handleSubmit(onSubmit)} className='mt-6 grid gap-5'>
+          {/* Password */}
+          <div className='relative'>
+            <input
+              type='password'
+              id='password'
+              placeholder=''
+              {...register('password', { required: true })}
+              className={`peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none ${errors.password ? 'border-red-500' : ''}`}
+            />
+            <label
+              htmlFor='password'
+              className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2'
+            >
+              Password
+            </label>
+            {errors.password && (
+              <p className='mt-1 text-xs text-red-500'>Password is required</p>
+            )}
+          </div>
+
+          {/* Confirm Password */}
+          <div className='relative'>
+            <input
+              type='password'
+              id='confirmPassword'
+              placeholder=''
+              {...register('confirmPassword', {
+                required: true,
+                validate: (val) =>
+                  val === watch('password') || 'Passwords do not match'
+              })}
+              className={`peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none ${errors.confirmPassword ? 'border-red-500' : ''}`}
+            />
+            <label
+              htmlFor='confirmPassword'
+              className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2'
+            >
+              Confirm Password
+            </label>
+            {errors.confirmPassword && (
+              <p className='mt-1 text-xs text-red-500'>
+                {errors.confirmPassword.message ||
+                  'Confirm Password is required'}
+              </p>
+            )}
+          </div>
+
+          <DialogFooter className='pt-2'>
+            <Button type='submit' size={'lg'} className='w-full text-base'>
+              Update Password
+            </Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
   );
 }

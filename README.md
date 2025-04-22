@@ -15,6 +15,16 @@ https://stackblitz.com/edit/react-ts-ggpeng?file=App.tsx,package.json,style.css,
 best practices for token management in browsers
 https://curity.medium.com/best-practices-for-storing-access-tokens-in-the-browser-6b3d515d9814#:~:text=For%20that%2C%20cookies%20need%20to,this%20is%20not%20the%20case.
 
+<!-- nprogress bar -->
+
+I wanted the progress bar to:
+
+show when switching routes / pages
+show when any fetch call is made
+display only after a delay, I don't want to show a loader at EVERY interaction, only when the requests are "slow"
+
+custom reference https://buildui.com/posts/global-progress-in-nextjs
+
 <!-- Maintain folder structure -->
 
 page.js : make all api calls here + pass data to components for SSR , ISR / SSG
