@@ -3,11 +3,18 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-export default function CustomTag({ no, text, bold, imgUrl, className, href }) {
+export default function CustomTag({
+  no,
+  text,
+  bold,
+  imgUrl,
+  className,
+  onClick
+}) {
   return (
-    <Link
-      href={href}
+    <div
       className='relative inline-block transition-all duration-300 hover:scale-105'
+      onClick={onClick}
     >
       {/* Arrowed label image */}
       <Image
@@ -49,6 +56,6 @@ export default function CustomTag({ no, text, bold, imgUrl, className, href }) {
           </div>
         </div>
       </div>
-    </Link>
+    </div>
   );
 }

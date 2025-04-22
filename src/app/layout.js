@@ -56,6 +56,7 @@ export default function RootLayout({ children }) {
           color='#3b82f6'
           shadow='0 0 16px #60a5fa, 0 0 6px #3b82f6, -4px 0 10px #3b82f6'
           height={3}
+          showSpinner={false}
         />
 
         <Header />

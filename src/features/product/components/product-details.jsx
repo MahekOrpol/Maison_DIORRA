@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 
 import {
   Accordion,
@@ -316,25 +317,33 @@ export default function ProductDetails({ className }) {
           <div className='grid w-full grid-cols-2 gap-2 md:w-1/2 lg:w-full'>
             <Button
               variant='outline'
-              className='h-10 border border-black text-base lg:h-11 lg:text-lg'
+              className='h-10 gap-4 rounded-lg border border-black text-base lg:h-12 lg:text-lg'
               onClick={handleAddToCart}
             >
-              Add to Cart <ShoppingBag className='ml-2 h-7 w-7' />
+              <AiOutlineShoppingCart className='size-6' />
+              Add to Cart
             </Button>
             <Button
-              className='h-10 text-base lg:h-11 lg:text-lg'
+              className='h-10 gap-4 rounded-lg text-base lg:h-12 lg:text-lg'
               onClick={handleAddToCart}
             >
-              Buy Now
+              <ShoppingBag className='size-6' /> Buy Now
             </Button>
           </div>
           <div className='xs:gap-2 flex w-full items-center gap-1 md:w-1/2 lg:w-full'>
-            <button
-              className='bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-10 flex-1 items-center justify-center rounded-md px-3 text-base text-nowrap lg:h-11 lg:text-lg'
+            <Button
+              className='h-10 flex-1 gap-4 rounded-lg text-base lg:h-12 lg:text-lg'
               onClick={handleAddToCart}
             >
-              Order on Whatsapp <FaWhatsapp className='ml-1 h-6 w-6' />
-            </button>
+              <FaWhatsapp className='mr- size-6' /> Chat With Experts
+            </Button>
+
+            {/* <button
+              className='bg-primary text-primary-foreground hover:bg-primary/90 inline-flex h-10 flex-1 items-center justify-center rounded-lg px-3 text-base text-nowrap lg:h-12 lg:text-lg'
+              onClick={handleAddToCart}
+            >
+              <FaWhatsapp className='mr- size-6' /> Chat With Experts
+            </button> */}
 
             {/* Add to Wishlist */}
             <button

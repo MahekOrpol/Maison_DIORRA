@@ -504,7 +504,7 @@ export function Advertisement({
       {/* Content wrapper */}
       <div
         className={cn(
-          'relative z-10 flex h-full w-xs max-w-2xl flex-col items-center justify-center rounded-md p-6 text-left text-white',
+          'relative z-10 flex h-full w-xs max-w-2xl flex-col items-center justify-center rounded-md p-6 text-left text-white lg:items-start',
           align === 'right'
             ? 'ml-auto bg-gradient-to-l from-black/70 via-black/30 to-transparent sm:pr-10'
             : 'mr-auto bg-gradient-to-r from-black/70 via-black/30 to-transparent sm:pl-16'

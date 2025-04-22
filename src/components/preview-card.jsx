@@ -74,7 +74,7 @@ export default function PreviewCard({ product, className }) {
     <>
       <Card
         className={cn(
-          'group relative justify-between gap-0 overflow-hidden rounded-xl border-2 border-gray-400 pt-0 pb-2 shadow transition-transform duration-300 hover:border-black hover:shadow-xl',
+          'group relative justify-between gap-0 overflow-hidden rounded-xl border border-gray-400 pt-0 pb-2 shadow transition-transform duration-300 hover:border-black hover:shadow-xl sm:border-2',
           className
         )}
       >
@@ -100,7 +100,7 @@ export default function PreviewCard({ product, className }) {
               <CarouselItem
                 key={index}
                 onClick={handleProductClick}
-                className='m-0 h-full w-full basis-full p-[0.5px]'
+                className='m-0 h-full w-full basis-full p-0'
               >
                 <Image
                   src={image}
@@ -121,8 +121,8 @@ export default function PreviewCard({ product, className }) {
 
         <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2 xl:px-4 xl:pb-3'>
           <div className='flex items-center justify-between border-t pt-2 xl:pt-4'>
-            <div className='flex gap-1'>
-              <p className='mr-2 leading-1 font-medium sm:text-[22px] lg:text-xl xl:text-2xl'>
+            <div className='flex gap-1 sm:gap-2'>
+              <p className='leading-1 font-medium sm:text-[22px] lg:text-xl xl:text-2xl'>
                 ${selectedMetal.amount}
               </p>
               <span className='text-sm leading-1 font-normal text-[#958F86] line-through sm:text-lg xl:text-xl'>

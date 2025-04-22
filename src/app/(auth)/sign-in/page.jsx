@@ -38,12 +38,12 @@ export default function AuthTabs() {
           </div>
 
           {/* Right Side Form */}
-          <div className='flex-1 px-4 pt-0 md:px-6 md:py-2 lg:px-10'>
+          <div className='flex-1 px-4 pt-0 md:mb-8 md:px-6 md:pt-2 lg:px-10'>
             <Tabs value={tab} onValueChange={setTab} className='w-full'>
               <TabsList className='grid h-full w-full grid-cols-2 border-b border-gray-500'>
                 <TabsTrigger
                   value='login'
-                  className='data-[state=active]:bg-primary data-[state=active]:text-primary-foreground bg-background h-full border-b border-b-transparent pt-2 pb-1 text-xl font-medium data-[state=active]:border-b-black data-[state=active]:text-2xl sm:border-b-2'
+                  className='data-[state=active]:bg-primary r data-[state=active]:text-primary-foreground bg-background h-full border-b border-b-transparent pt-2 pb-1 text-xl font-medium data-[state=active]:border-b-black data-[state=active]:text-2xl sm:border-b-2'
                 >
                   Login
                 </TabsTrigger>
@@ -313,7 +313,7 @@ export default function AuthTabs() {
 }
 
 export function ForgotPasswordDialog({ open = false, setOpen }) {
-  const [openResetPassword, setOpenResetPassword] = useState(false);
+  const [openOtpModal, setOpenOtpModal] = useState(false);
 
   const { register, handleSubmit, formState, reset } = useForm();
 
@@ -327,7 +327,7 @@ export function ForgotPasswordDialog({ open = false, setOpen }) {
   return (
     <>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className='rounded-xl px-6 py-8 sm:max-w-sm'>
+        <DialogContent className='rounded-xl px-6 py-8 sm:max-w-md'>
           <DialogHeader>
             <DialogTitle className='text-center text-xl font-semibold'>
               Forgot Password
@@ -351,7 +351,7 @@ export function ForgotPasswordDialog({ open = false, setOpen }) {
                   htmlFor='email'
                   className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
                 >
-                  Enter Your Email Address
+                  Email
                 </label>
                 {formState.errors.email && (
                   <p className='text-xs text-red-500'>Email is required</p>
@@ -363,8 +363,8 @@ export function ForgotPasswordDialog({ open = false, setOpen }) {
               <Button
                 type='submit'
                 size={'lg'}
-                className='w-full text-base'
-                onClick={() => setOpenResetPassword(true)}
+                className='h-11 w-full text-base'
+                onClick={() => setOpenOtpModal(true)}
               >
                 Send Reset Link
               </Button>
@@ -372,10 +372,7 @@ export function ForgotPasswordDialog({ open = false, setOpen }) {
           </form>
         </DialogContent>
       </Dialog>
-      <ResetPasswordDialog
-        open={openResetPassword}
-        setOpen={setOpenResetPassword}
-      />
+      <OTPDialog open={openOtpModal} onOpenChange={setOpenOtpModal} />
     </>
   );
 }
@@ -454,12 +451,83 @@ export function ResetPasswordDialog({ open = false, setOpen }) {
           </div>
 
           <DialogFooter className='pt-2'>
-            <Button type='submit' size={'lg'} className='w-full text-base'>
+            <Button type='submit' size={'lg'} className='h-11 w-full text-base'>
               Update Password
             </Button>
           </DialogFooter>
         </form>
       </DialogContent>
     </Dialog>
+  );
+}
+
+export function OTPDialog({ open, onOpenChange, onSubmit }) {
+  const [otp, setOtp] = useState(new Array(6).fill(''));
+  const [openResetPassword, setOpenResetPassword] = useState(false);
+
+  const handleChange = (element, index) => {
+    const value = element.value.replace(/[^0-9]/g, '');
+    if (!value) return;
+
+    const newOtp = [...otp];
+    newOtp[index] = value;
+    setOtp(newOtp);
+
+    // Auto focus next input
+    if (element.nextSibling) {
+      element.nextSibling.focus();
+    }
+  };
+
+  const handleSubmit = () => {
+    const enteredOtp = otp.join('');
+    onSubmit?.(enteredOtp);
+    // If OTP is valid, open reset password dialog
+    if (enteredOtp.length === 6) {
+      setOpenResetPassword(true);
+      onOpenChange(false);
+    }
+  };
+
+  return (
+    <>
+      <Dialog open={open} onOpenChange={onOpenChange}>
+        <DialogContent className='rounded-xl p-6 sm:max-w-md'>
+          <DialogHeader>
+            <DialogTitle className='mb-2 text-center text-xl font-semibold'>
+              Enter OTP
+            </DialogTitle>
+          </DialogHeader>
+
+          <div className='text-muted-foreground mb-4 text-center text-sm'>
+            Please enter the 6-digit code sent to your email address.
+          </div>
+
+          <div className='mb-6 flex justify-center gap-2'>
+            {otp.map((data, index) => (
+              <input
+                key={index}
+                type='text'
+                maxLength='1'
+                className='h-12 w-10 rounded-md border border-gray-300 text-center text-lg focus:border-black focus:outline-none'
+                value={data}
+                onChange={(e) => handleChange(e.target, index)}
+              />
+            ))}
+          </div>
+
+          <DialogFooter>
+            <Button className='h-11 w-full text-base' onClick={handleSubmit}>
+              Verify OTP
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <ResetPasswordDialog
+        open={openResetPassword}
+        setOpen={setOpenResetPassword}
+      />
+    </>
   );
 }
