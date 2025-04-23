@@ -17,6 +17,7 @@ import { Star } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import RelatedProducts from '@/components/related-products';
+import CustomTagWrapper from '@/components/custom-tag-wrapper';
 export default function Page() {
   return (
     <>
@@ -37,33 +38,11 @@ export default function Page() {
           </BreadcrumbList>
         </Breadcrumb>
         {/* arrowed label */}
-        <div className='my-[3%] flex w-full items-center justify-between gap-3 md:flex-row md:gap-6 xl:my-15'>
-          <CustomTag
-            no='1.'
-            text='Select Your'
-            bold='METAL'
-            imgUrl='/icons/metal.svg'
-            href='/products'
-          />
-          <CustomTag
-            no='2.'
-            text='Select Your'
-            bold='SHANK'
-            imgUrl='/icons/shank.svg'
-            href='/products'
-          />
-          <CustomTag
-            no='3.'
-            text='Select Your'
-            bold='DIAMOND'
-            imgUrl='/icons/diamond1.svg'
-            href='/products'
-          />
-        </div>
+        <CustomTagWrapper className='xl:mb-14' />
       </div>
-      <div className='mx-auto mb-8 flex w-full max-w-[1600px] flex-col gap-3 md:gap-4 lg:flex-row xl:gap-6'>
+      <div className='mx-auto mb-8 flex w-full max-w-[2100px] flex-col gap-3 bg-red-200 md:gap-4 lg:flex-row xl:gap-6'>
         <ProductGallery className='lg:sticky lg:top-10 lg:h-fit lg:w-[45%]' />
-        <ProductDetails className='px-3 sm:px-6 lg:w-[55%] lg:pr-8 xl:pr-10' />
+        <ProductDetails className='3xl:pr-14 4xl:pr-20 px-3 sm:px-6 lg:w-[55%] lg:pr-8 2xl:pr-12' />
       </div>
       <RingDetails className='wrapper' />
       <CustomerReviews className='wrapper' />

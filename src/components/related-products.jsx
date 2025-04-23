@@ -3,9 +3,10 @@ import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
 import { useRef, useEffect } from 'react';
 import Heading from './heading';
-import PreviewCard3 from './preview-card';
-import { cn } from '@/lib/utils';
+import { cn, repeatProducts } from '@/lib/utils';
+import PreviewCard from './preview-card';
 
+const products = repeatProducts(22);
 export default function RelatedProducts({ className }) {
   const timer = useRef();
   const [sliderRef, slider] = useKeenSlider({
@@ -67,12 +68,12 @@ export default function RelatedProducts({ className }) {
       />
 
       <div ref={sliderRef} className='keen-slider'>
-        {Array.from({ length: 6 }).map((_, index) => (
+        {products.map((product, index) => (
           <div
             key={index}
             className='keen-slider__slide overflow-hidden rounded-xl'
           >
-            <PreviewCard3 />
+            <PreviewCard product={product} />
           </div>
         ))}
       </div>

@@ -5,12 +5,20 @@ import ProgressBar from './components/progress-bar';
 import ShoppingCart from './components/shopping-cart';
 import DeliveryForm from './components/delivery-form';
 import PaymentForm from './components/payment-form';
+import { useEffect } from 'react';
 
 const CheckoutPage = () => {
-  const { step, setStep } = useCheckoutStore();
+  const { step, setStep, cart, setCart } = useCheckoutStore();
 
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
+
+  useEffect(() => {
+    fetch('http://localhost:4000/cart')
+      .then((res) => res.json())
+      .then((data) => setCart(data))
+      .catch((err) => console.log(err));
+  }, []);
 
   return (
     <div className='wrapper'>

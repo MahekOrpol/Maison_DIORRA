@@ -38,7 +38,7 @@ export default function GiftingSection() {
           };
         } else if (width >= 1280) {
           return {
-            depth: 500,
+            depth: 607, // 500 earlier before 607
             scale: 0.95,
             spaceBetween: 30,
             slidesPerView: 2.4

@@ -5,8 +5,6 @@ import { Country, State, City } from 'country-state-city';
 import { useForm, Controller, FormProvider } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { OrderSummary } from './order-summary';
-import FloatingInput from '@/components/ui/floatingInput';
-import FloatingSelect from '@/components/ui/floatingSelect';
 import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import { FaInstagram } from 'react-icons/fa6';
@@ -51,6 +49,8 @@ export default function DeliveryForm({ onNext }) {
   const selectedCountry = watch('country');
   const selectedState = watch('state');
 
+  const isMobile = typeof window !== 'undefined' && window.innerWidth <= 1000;
+
   // Update states when country changes
   useEffect(() => {
     if (selectedCountry) {
@@ -93,7 +93,7 @@ export default function DeliveryForm({ onNext }) {
             taxes='9,085'
             total='99,935'
             onApplyDiscount={handleApplyDiscount}
-            onProceedToPay={onNext}
+            onProceedToPay={isMobile ? false : onNext}
             onEnterShipping={() => console.log('Entering shipping address')}
           />
         </div>
@@ -160,12 +160,20 @@ export default function DeliveryForm({ onNext }) {
 
                 {/* Submit */}
                 <Button
-                  className='h-10 w-full max-w-md bg-black py-2 text-lg font-light text-white'
+                  variant={'secondary'}
+                  className='h-10 w-full border border-gray-400 py-2 text-lg font-light'
                   type='submit'
                 >
                   Save Address
                 </Button>
               </div>
+              <Button
+                className='my-2 w-full text-base min-[1000px]:hidden'
+                size='lg'
+                onClick={onNext}
+              >
+                Proceed to Pay
+              </Button>
             </form>
           </FormProvider>
         </div>

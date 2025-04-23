@@ -31,7 +31,7 @@ export default function ShopByCategory() {
                 alt={`${name} category`}
                 width={250}
                 height={100}
-                className='w-full rounded-md object-cover transition-transform duration-300 hover:scale-110'
+                className='w-full rounded-md border-2 object-cover transition-transform duration-300 hover:scale-110'
               />
             </div>
             <p className='3xl:text-3xl text-lg md:text-xl lg:my-2 lg:text-2xl'>

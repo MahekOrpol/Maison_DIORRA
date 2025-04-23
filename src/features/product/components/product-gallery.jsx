@@ -32,7 +32,7 @@ export default function ProductGallery({ className }) {
       {/* Desktop View */}
       <div
         className={cn(
-          'hidden md:block md:px-6 lg:pr-0 lg:pl-8 xl:pl-10',
+          '3xl:pl-14 4xl:pl-20 hidden md:block md:px-6 lg:pr-0 lg:pl-8 2xl:pl-12',
           className
         )}
       >

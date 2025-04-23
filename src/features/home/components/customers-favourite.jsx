@@ -4,12 +4,6 @@ import { useKeenSlider } from 'keen-slider/react';
 import { useRef, useEffect } from 'react';
 import Heading from '@/components/heading';
 import PreviewCard from '@/components/preview-card';
-import {
-  braceletData,
-  earringData,
-  necklaceData,
-  ringData
-} from '@/constants/data';
 import { repeatProducts } from '@/lib/utils';
 
 const customersFavourite = repeatProducts(20);

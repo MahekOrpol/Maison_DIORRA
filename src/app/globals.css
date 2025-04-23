@@ -77,14 +77,3 @@
 .hero-font {
   font-size: clamp(1.5rem, 0.9474rem + 2.9474vw, 5rem);
 }
-.embla {
-  overflow: hidden;
-}
-.embla__container {
-  display: flex;
-}
-.embla__slide {
-  /* flex: 0 0 100%;
-  min-width: 0; */
-  width: 25%;
-}
