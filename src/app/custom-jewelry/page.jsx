@@ -1,5 +1,3 @@
-import React from 'react';
-
-export default function CustomJewelryPage() {
-  return <div>Custom jewelry page</div>;
+export default function Page() {
+  return <section>Custom jewelry page</section>;
 }

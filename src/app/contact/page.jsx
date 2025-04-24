@@ -1,6 +1,5 @@
 'use client';
 import { useForm } from 'react-hook-form';
-import React from 'react';
 import { MailOpenIcon as Envelope, MoveRight } from 'lucide-react';
 import Link from 'next/link';
 import { Banner } from '../about/page';
