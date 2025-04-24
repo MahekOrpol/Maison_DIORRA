@@ -1,4 +1,3 @@
-import CustomTag from '@/components/custom-tag';
 import { ProductSelectionStepsForDiamonds } from '@/components/custom-tag-wrapper';
 import DiamondFilters from './components/diamond-filters';
 import DiamondPreviewCard from './components/diamond-preview-card';

@@ -53,7 +53,6 @@ export default function GiftingSection() {
         }
       });
     };
-
     handleResize(); // on mount
     window.addEventListener('resize', handleResize); // on resize
     return () => window.removeEventListener('resize', handleResize);

@@ -1,11 +1,9 @@
-import BlogsSection from '@/features/home/components/blogs-section';
-import React from 'react';
 import BlogCard from './components/blog-card';
 import Image from 'next/image';
 import Link from 'next/link';
 import { BlogsBanner } from './components/blogs-banner';
 
-const blogPosts = [
+export const blogPosts = [
   {
     image: '/img/blogs/blog1.png',
     title: 'Crafting Beauty from Nature',
@@ -67,9 +65,9 @@ const blogPosts = [
   }
 ];
 
-export default function Page() {
+export default function BlogsPage() {
   return (
-    <>
+    <div>
       <BlogsBanner
         imgUrl='/img/banner/banner2.png'
         title='Blogs and Articles'
@@ -88,7 +86,7 @@ export default function Page() {
           <BlogsFilter />
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

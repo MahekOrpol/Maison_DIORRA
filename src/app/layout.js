@@ -60,7 +60,9 @@ export default function RootLayout({ children }) {
         />
 
         <Header />
-        <main className='flex-1'>{children}</main>
+        <main className='flex-1 pt-[85px] min-[1023px]:pt-[126px]'>
+          {children}
+        </main>
         <Toaster expand={true} position='top-center' richColors />
         <Footer />
       </body>

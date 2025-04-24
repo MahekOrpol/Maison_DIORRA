@@ -19,8 +19,8 @@ export default function Page() {
         <div className='xs:w-[90%] mx-auto -mt-4 mb-6 w-full text-center text-lg font-medium sm:w-2/3 sm:text-[22px] md:my-8 lg:my-14 lg:w-1/2 lg:text-2xl xl:text-3xl'>
           <hr className='mx-auto w-3/4 border-[1px] border-black/70' />
           <blockquote className='my-4 leading-6 tracking-wide sm:leading-7 lg:my-5 lg:tracking-normal xl:leading-8'>
-            “Jewelry is more than an accessory; it's a reflection of artistry,
-            emotion, and timeless elegance.”
+            &quot;Jewelry is more than an accessory; it&apos;s a reflection of
+            artistry, emotion, and timeless elegance.&quot;
           </blockquote>
           <hr className='mx-auto mb-6 w-3/4 border-[1px] border-black/70' />
         </div>

@@ -57,13 +57,13 @@ export default async function Page({ params }) {
                   <div>
                     <ImQuotesLeft className='h-10 w-10' />
                     <blockquote className='mx-auto w-4/5'>
-                      "Learn how to keep your jewelry shining bright! From
+                      &quot;Learn how to keep your jewelry shining bright! From
                       cleaning techniques to storage solutions, our blog offers
                       expert advice. Each item is handcrafted with love and
                       precision, using ethically sourced materials to ensure
                       beauty that you feel good about. Learn how to keep your
                       jewelry shining bright! From cleaning techniques to
-                      storage solutions, our blog offers expert advice."
+                      storage solutions, our blog offers expert advice.&quot;
                     </blockquote>
                     <ImQuotesRight className='ml-auto h-10 w-10' />
                   </div>

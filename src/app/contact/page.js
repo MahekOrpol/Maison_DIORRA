@@ -1,10 +1,8 @@
 'use client';
 import { useForm } from 'react-hook-form';
-import React, { useState } from 'react';
+import React from 'react';
 import { MailOpenIcon as Envelope, MoveRight } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
-import { cn } from '@/lib/utils';
 import { Banner } from '../about/page';
 import CallToAction from '@/components/call-to-action';
 import { TbMailFilled } from 'react-icons/tb';

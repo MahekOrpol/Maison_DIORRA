@@ -13,12 +13,12 @@ const CheckoutPage = () => {
   const nextStep = () => setStep(step + 1);
   const prevStep = () => setStep(step - 1);
 
-  useEffect(() => {
-    fetch('http://localhost:4000/cart')
-      .then((res) => res.json())
-      .then((data) => setCart(data))
-      .catch((err) => console.log(err));
-  }, []);
+  // useEffect(() => {
+  //   fetch('http://localhost:4000/cart')
+  //     .then((res) => res.json())
+  //     .then((data) => setCart(data))
+  //     .catch((err) => console.log(err));
+  // }, []);
 
   return (
     <div className='wrapper'>

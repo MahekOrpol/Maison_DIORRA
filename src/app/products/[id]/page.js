@@ -40,7 +40,7 @@ export default function Page() {
         {/* arrowed label */}
         <CustomTagWrapper className='xl:mb-14' />
       </div>
-      <div className='mx-auto mb-8 flex w-full max-w-[2100px] flex-col gap-3 bg-red-200 md:gap-4 lg:flex-row xl:gap-6'>
+      <div className='mx-auto mb-8 flex w-full max-w-[2100px] flex-col gap-3 md:gap-4 lg:flex-row xl:gap-6'>
         <ProductGallery className='lg:sticky lg:top-10 lg:h-fit lg:w-[45%]' />
         <ProductDetails className='3xl:pr-14 4xl:pr-20 px-3 sm:px-6 lg:w-[55%] lg:pr-8 2xl:pr-12' />
       </div>
