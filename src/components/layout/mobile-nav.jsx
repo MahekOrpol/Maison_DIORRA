@@ -8,8 +8,13 @@ import {
   DrawerTrigger
 } from '@/components/ui/drawer';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { useRouter } from 'nextjs-toploader/app';
+import { useRef, useState } from 'react';
+
 import {
   X,
   Home,
@@ -18,21 +23,17 @@ import {
   User,
   ShoppingBag,
   LogIn,
-  LogOut,
   Gift,
   Gem,
   Search,
   Phone,
   Book
 } from 'lucide-react';
-import { Input } from '@/components/ui/input';
-import { useEffect, useState, useTransition } from 'react';
-import { useRouter } from 'nextjs-toploader/app';
+import { GiGemPendant } from 'react-icons/gi';
 
 export default function MobileNavDrawer() {
-  const [open, setOpen] = useState(false);
   const [searchValue, setSearchValue] = useState('');
-  const [isPending, startTransition] = useTransition();
+  const drawerCloseRef = useRef(null);
   const router = useRouter();
 
   const handleSearch = (e) => {
@@ -40,27 +41,21 @@ export default function MobileNavDrawer() {
       const query = searchValue.trim();
       if (!query || query.length < 2) return;
 
-      startTransition(() => {
-        // Navigate first
-        router.push('/products?query=' + encodeURIComponent(query));
-      });
-
-      // Close the drawer a bit later — gives router a moment to kick in
-      setTimeout(() => {
-        setOpen(false);
-      }, 100); // 100ms is a safe buffer to avoid flickering
+      router.push('/products?query=' + encodeURIComponent(query));
+      setSearchValue('');
+      if (drawerCloseRef.current) {
+        drawerCloseRef.current.click(); // Trigger drawer close
+      }
     }
   };
-  const handleNavClick = () => {
-    setOpen(false);
-  };
+
   return (
-    <Drawer open={open} onOpenChange={setOpen} direction='left'>
+    <Drawer direction='left' repositionInputs={false}>
       <DrawerTrigger asChild>
-        <Button variant='ghost' size='icon' className='outline-none lg:hidden'>
+        <Button variant='ghost' size='icon' className='lg:hidden'>
           <Image
             src='/icons/menu.svg'
-            alt='logo'
+            alt='Menu'
             width={40}
             height={40}
             className='h-[40px] w-[40px]'
@@ -68,34 +63,38 @@ export default function MobileNavDrawer() {
           />
         </Button>
       </DrawerTrigger>
+      <DrawerClose ref={drawerCloseRef} className='hidden' />
 
-      <DrawerContent className='flex flex-col p-0 data-[vaul-drawer-direction=left]:w-[85%] data-[vaul-drawer-direction=left]:border-r-0'>
+      <DrawerContent className='flex flex-col p-0 data-[vaul-drawer-direction=left]:w-[85%]'>
         <DrawerTitle className='sr-only'>Mobile side nav bar</DrawerTitle>
-        {/* TOP BLACK SECTION */}
+
+        {/* TOP SECTION */}
         <div className='flex items-center justify-between bg-black px-4 py-1'>
-          <Link href='/' className='mx-auto' onClick={handleNavClick}>
-            <Image
-              src='/icons/diorra-logo.png'
-              height={63}
-              width={160}
-              alt='Company logo'
-              priority
-              className='mx-auto invert-100 lg:mx-0'
-            />
-          </Link>
+          <DrawerClose asChild>
+            <Link href='/' className='mx-auto'>
+              <Image
+                src='/icons/diorra-logo.png'
+                height={63}
+                width={160}
+                alt='Company logo'
+                priority
+                className='mx-auto h-[58px] object-cover invert-100'
+              />
+            </Link>
+          </DrawerClose>
           <DrawerClose className='flex h-7 w-7 items-center justify-center rounded-full bg-gray-700 text-white transition hover:bg-gray-600'>
             <X size={18} />
           </DrawerClose>
         </div>
 
-        {/* MIDDLE WHITE SECTION */}
+        {/* CONTENT SECTION */}
         <div className='flex-1 overflow-y-auto bg-white px-4 py-2 text-black'>
           {/* Search */}
           <div className='relative mb-4 w-full'>
-            <Search className='absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 transform text-gray-500' />
+            <Search className='absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 text-gray-500' />
             <Input
               type='text'
-              placeholder='Search...'
+              placeholder='Search products...'
               className='h-10 w-full rounded-full border border-gray-300 pr-4 pl-10 shadow-none focus:ring-1'
               value={searchValue}
               onChange={(e) => setSearchValue(e.target.value)}
@@ -106,150 +105,148 @@ export default function MobileNavDrawer() {
           {/* Navigation Sections */}
           <nav className='space-y-3'>
             <DrawerSection title='Main'>
-              <DrawerLink
+              <DrawerNavLink
                 href='/'
-                icon={<Home size={18} />}
-                onClick={handleNavClick}
+                icon={<Home size={18} strokeWidth={1.5} />}
               >
                 Home
-              </DrawerLink>
-              <DrawerLink
+              </DrawerNavLink>
+              <DrawerNavLink
                 href='/diamonds'
-                icon={<Diamond size={18} />}
-                onClick={handleNavClick}
+                icon={<Gem size={18} strokeWidth={1.5} />}
               >
                 Diamonds
-              </DrawerLink>
-              <DrawerLink
+              </DrawerNavLink>
+              <DrawerNavLink
                 href='/products'
-                icon={<Gem size={18} />}
-                onClick={handleNavClick}
+                icon={<GiGemPendant className='size-4.5' strokeWidth={1} />}
               >
                 Fine Jewelry
-              </DrawerLink>
-              <DrawerLink
+              </DrawerNavLink>
+              <DrawerNavLink
                 href='/products'
-                icon={<Gem size={18} />}
-                onClick={handleNavClick}
+                icon={
+                  <Image
+                    src='/icons/ring2.svg'
+                    alt='ring2'
+                    width={18}
+                    height={18}
+                  />
+                }
               >
                 Engagement Rings
-              </DrawerLink>
-              <DrawerLink
+              </DrawerNavLink>
+              <DrawerNavLink
                 href='/gifting'
-                icon={<Gift size={18} />}
-                onClick={handleNavClick}
+                icon={
+                  <Image
+                    src='/icons/gift.svg'
+                    alt='gift'
+                    width={18}
+                    height={18}
+                  />
+                }
               >
                 Gifting Guide
-              </DrawerLink>
-              <DrawerLink
+              </DrawerNavLink>
+              <DrawerNavLink
                 href='/custom-jewelry'
-                icon={<Gem size={18} />}
-                onClick={handleNavClick}
+                icon={
+                  <Image
+                    src='/icons/necklace.svg'
+                    alt='necklace'
+                    width={18}
+                    height={18}
+                  />
+                }
               >
                 Custom Jewelry
-              </DrawerLink>
+              </DrawerNavLink>
             </DrawerSection>
-            <hr className='my-1' />
+
+            <hr className='my-2' />
+
             <DrawerSection title='Explore'>
-              <DrawerLink
-                href='/blogs'
-                icon={<BookOpen size={18} />}
-                onClick={handleNavClick}
-              >
+              <DrawerNavLink href='/blogs' icon={<Book size={18} />}>
                 Blogs
-              </DrawerLink>
-              <DrawerLink
+              </DrawerNavLink>
+              <DrawerNavLink
                 href='/education'
-                icon={<Book size={18} />}
-                onClick={handleNavClick}
+                icon={
+                  <Image
+                    src='/icons/education.svg'
+                    alt='education'
+                    width={18}
+                    height={18}
+                  />
+                }
               >
                 Education
-              </DrawerLink>
+              </DrawerNavLink>
             </DrawerSection>
-            <hr />
+
+            <hr className='my-2' />
+
             <DrawerSection title='Account'>
-              <DrawerLink
-                href='/account'
-                icon={<User size={18} />}
-                onClick={handleNavClick}
-              >
+              <DrawerNavLink href='/account' icon={<User size={18} />}>
                 My Profile
-              </DrawerLink>
-              <DrawerLink
+              </DrawerNavLink>
+              <DrawerNavLink
                 href='/account/orders'
                 icon={<ShoppingBag size={18} />}
-                onClick={handleNavClick}
               >
                 My Orders
-              </DrawerLink>
+              </DrawerNavLink>
             </DrawerSection>
-            <hr />
+
+            <hr className='my-2' />
+
             <DrawerSection title='Support'>
-              <DrawerLink
-                href='/contact'
-                icon={<Phone size={18} />}
-                onClick={handleNavClick}
-              >
+              <DrawerNavLink href='/contact' icon={<Phone size={18} />}>
                 Contact Us
-              </DrawerLink>
+              </DrawerNavLink>
             </DrawerSection>
           </nav>
-
-          {/* Newsletter */}
-          {/* <div className='bg-secondary mt-2 border-t p-2'>
-            <h4 className='mb-2 text-sm font-semibold'>Join Our Newsletter</h4>
-            <p className='mb-2 text-xs text-gray-500'>
-              Get exclusive offers, new arrivals & tips
-            </p>
-            <div className='flex items-center gap-2'>
-              <Input placeholder='Enter email' className='flex-1 bg-white' />
-              <Button size='sm'>Join</Button>
-            </div>
-          </div> */}
         </div>
 
-        {/* BOTTOM BLACK SECTION */}
-        <div className='bg-black px-4 py-1'>
-          <Link href='/sign-in'>
-            <Button
-              variant='ghost'
-              className='w-full justify-start gap-2 text-white hover:bg-gray-800'
-              onClick={handleNavClick}
-            >
-              <LogIn size={18} />
-              Login / Sign Up
-            </Button>
-          </Link>
-          {/* 
-          <Button variant='ghost' className='w-full justify-start gap-2 text-white hover:bg-gray-800'>
-            <LogOut size={18} />
-            Logout
-          </Button> 
-          */}
+        {/* BOTTOM SECTION */}
+        <div className='bg-primary text-primary-foreground px-4 py-1.5'>
+          <DrawerClose asChild>
+            <Link href='/sign-in'>
+              <Button
+                variant='ghost'
+                className='w-full justify-start gap-2 text-white hover:bg-gray-800'
+              >
+                <LogIn size={18} />
+                Login / Sign Up
+              </Button>
+            </Link>
+          </DrawerClose>
         </div>
       </DrawerContent>
     </Drawer>
   );
 }
 
-function DrawerLink({ href, icon, children, onClick }) {
+function DrawerNavLink({ href, icon, children }) {
   return (
-    <Link
-      href={href}
-      onClick={onClick}
-      className='flex items-center gap-2 transition hover:text-black'
-    >
-      {icon}
-      {children}
-    </Link>
+    <DrawerClose asChild>
+      <Link
+        href={href}
+        className='flex items-center gap-2 rounded-md p-1 transition hover:bg-gray-100'
+      >
+        {icon}
+        {children}
+      </Link>
+    </DrawerClose>
   );
 }
 
 function DrawerSection({ title, children }) {
   return (
-    <div className='space-y-1'>
+    <div className=''>
       <h4 className='text-xs font-medium text-gray-500 uppercase'>{title}</h4>
-      <div className='flex flex-col gap-1'>{children}</div>
+      <div className='flex flex-col'>{children}</div>
     </div>
   );
 }

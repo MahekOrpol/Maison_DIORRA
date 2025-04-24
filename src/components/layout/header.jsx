@@ -12,6 +12,7 @@ import { NotAllowedModal } from '../modals/na-wishlist';
 import { AddToCartNotAllowedModal } from '../modals/na-addtocart';
 import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
+import { GiGemPendant } from 'react-icons/gi';
 
 export default function Header() {
   const [showNotAllowed, setShowNotAllowed] = useState(false);
@@ -126,15 +127,16 @@ export default function Header() {
               {
                 href: '/products',
                 label: 'Fine Jewelry',
-                icon: (
-                  <Image
-                    src='/icons/ring1.svg'
-                    alt='ring'
-                    width={20}
-                    height={20}
-                    className='h-[20px] w-[20px]'
-                  />
-                )
+                icon: <GiGemPendant className='size-5 text-black' />
+                // (
+                //   <Image
+                //     src='/icons/ring1.svg'
+                //     alt='ring'
+                //     width={20}
+                //     height={20}
+                //     className='h-[20px] w-[20px]'
+                //   />
+                // )
               },
               {
                 href: '/products',

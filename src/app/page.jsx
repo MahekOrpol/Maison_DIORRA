@@ -10,9 +10,16 @@ import ShopByCategory from '@/features/home/components/shop-by-category';
 import TestimonialSection from '@/features/home/components/testimonial-section';
 import TrendingCollections from '@/features/home/components/trending-collections';
 import YourDesign from '@/features/home/components/your-design';
-export default function Page() {
+export const metadata = {
+  description:
+    'High-performance ecommerce store built with Next.js, Vercel, and Shopify.',
+  openGraph: {
+    type: 'website'
+  }
+};
+export default function HomePage() {
   return (
-    <div>
+    <>
       <Hero />
       <YourDesign />
       <ShopByCategory />
@@ -23,6 +30,6 @@ export default function Page() {
       <TrendingCollections />
       <BlogsSection />
       <TestimonialSection />
-    </div>
+    </>
   );
 }
