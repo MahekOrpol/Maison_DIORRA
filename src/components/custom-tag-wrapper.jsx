@@ -15,7 +15,7 @@ export default function CustomTagWrapper({ className }) {
       <div
         className={cn(
           // 'my-[5%] flex w-full items-center justify-between gap-3 md:flex-row md:gap-6 xl:my-10',
-          'my-[5%] grid grid-cols-3 place-items-stretch gap-[3vw]',
+          'my-[5%] grid grid-cols-3 place-items-stretch gap-2',
           className
         )}
       >
