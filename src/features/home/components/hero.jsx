@@ -16,7 +16,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="h-[400px] w-full bg-[url('/img/home-m-hero.png')] bg-cover bg-right bg-no-repeat sm:h-[450px] md:h-[500px] md:bg-[url('/img/home-hero.png')] md:bg-left xl:h-[84vh] 2xl:h-[calc(100vh-130px)]">
+    <section className="h-[400px] w-full bg-[url('/img/home-m-hero2.png')] bg-cover bg-right bg-no-repeat sm:h-[450px] md:h-[500px] md:bg-[url('/img/home-hero2.jpg')] md:bg-left xl:h-[84vh] 2xl:h-[calc(100vh-130px)]">
       <div className='wrapper relative h-full'>
         <div className='absolute inset-x-0 bottom-[14%] flex w-full flex-col items-center justify-end text-center text-white md:bottom-[25%] md:left-[12%] md:w-fit md:translate-x-[-15%]'>
           <p className='mb-4 text-base tracking-widest underline underline-offset-6 sm:mb-6 md:text-[21px]'>

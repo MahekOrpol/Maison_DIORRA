@@ -13,7 +13,7 @@ export default function YourDesign() {
       />
       <div className='flex justify-center overflow-x-hidden'>
         <Image
-          src='/img/home-design.png'
+          src='/img/home-design2.png'
           alt='logo'
           width={500}
           height={100}

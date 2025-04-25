@@ -95,7 +95,7 @@ export default function GiftingSection() {
               <SwiperSlide key={index} className=''>
                 <div className='relative aspect-[320/220] rounded-sm xl:aspect-[240/170]'>
                   <Image
-                    src={`/img/gifting/guide${index + 1}.png`}
+                    src={`/img/gifting/guide${index + 1}.jpeg`}
                     fill={true}
                     className='rounded-xl object-cover'
                     alt='Guide image'

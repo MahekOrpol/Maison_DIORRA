@@ -74,7 +74,7 @@ export default function PreviewCard({ product, className }) {
     <>
       <Card
         className={cn(
-          'group relative justify-between gap-0 overflow-hidden rounded-xl border border-gray-400 pt-0 pb-2 shadow transition-transform duration-300 hover:border-black hover:shadow-xl sm:border-2',
+          'group relative justify-between gap-0 overflow-hidden rounded-xl border border-black pt-0 pb-2 shadow transition-transform duration-300 hover:border-black hover:shadow-xl sm:border-2 sm:border-gray-400',
           className
         )}
       >
