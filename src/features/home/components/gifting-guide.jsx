@@ -22,30 +22,51 @@ export default function GiftingSection() {
     const handleResize = () => {
       const width = window.innerWidth;
       setCoverflowConfig((prev) => {
-        if (width > 767 && width < 1024) {
+        if (width > 600 && width < 767) {
           return {
-            depth: 150,
+            depth: 1140,
+            scale: 0.9,
+            spaceBetween: -20,
+            slidesPerView: 1.5
+          };
+        } else if (width >= 767 && width < 1024) {
+          return {
+            depth: 750,
             scale: 0.9,
             spaceBetween: -20,
             slidesPerView: 1.8
           };
         } else if (width >= 1024 && width < 1280) {
           return {
-            depth: 150,
+            depth: 855,
             scale: 0.9,
             spaceBetween: -20,
             slidesPerView: 2
           };
-        } else if (width >= 1280) {
+        } else if (width >= 1280 && width < 1500) {
           return {
-            depth: 607, // 500 earlier before 607
+            depth: 604,
+            scale: 0.95,
+            spaceBetween: 30,
+            slidesPerView: 2.4
+          };
+        } else if (width >= 1500 && width < 1700) {
+          return {
+            depth: 606,
+            scale: 0.95,
+            spaceBetween: 30,
+            slidesPerView: 2.4
+          };
+        } else if (width >= 1700) {
+          return {
+            depth: 610,
             scale: 0.95,
             spaceBetween: 30,
             slidesPerView: 2.4
           };
         } else {
           return {
-            depth: 100,
+            depth: 1150,
             scale: 0.9,
             spaceBetween: -20,
             slidesPerView: 1.5
@@ -85,7 +106,7 @@ export default function GiftingSection() {
             }}
             className='coverflow'
             autoplay={{
-              delay: 4000, // 2.5 seconds between slides
+              delay: 4000,
               disableOnInteraction: false, // keeps autoplay even after user interaction
               pauseOnMouseEnter: false // optional: pause when hovered
             }}
@@ -93,11 +114,11 @@ export default function GiftingSection() {
           >
             {Array.from({ length: 8 }).map((_, index) => (
               <SwiperSlide key={index} className=''>
-                <div className='relative aspect-[320/220] rounded-sm xl:aspect-[240/170]'>
+                <div className='relative aspect-[320/220] overflow-hidden rounded-2xl xl:aspect-[240/170]'>
                   <Image
                     src={`/img/gifting/guide${index + 1}.jpeg`}
                     fill={true}
-                    className='rounded-xl object-cover'
+                    className='rounded-2xl object-cover'
                     alt='Guide image'
                   />
                   <p className='absolute inset-x-0 bottom-0 mx-4 border-t border-white pt-1 pb-2 text-sm font-medium text-white min-[500px]:text-lg md:text-lg md:font-medium lg:pt-2 lg:pb-4 lg:text-xl'>
