@@ -30,12 +30,11 @@ export default function TrendingCollections() {
   console.log('Selected category:', selected);
 
   return (
-    <section className='wrapper pt-6 md:pt-7 lg:pt-10 xl:pt-14'>
+    <section className='wrapper pt-6 md:pt-10 lg:pt-12 xl:pt-14'>
       <Heading
         title='Trending Collection'
         subtitle='Affordable luxury for everyday wear'
       />
-
       <div className='xs:gap-3 flex flex-col gap-2 sm:gap-6 lg:flex-row lg:items-stretch lg:gap-6 2xl:gap-8'>
         {/* Left side cards */}
         <div className='xl:grid-row-2 grid grid-cols-2 gap-4 sm:gap-6 lg:w-[22%] lg:grid-cols-1 xl:w-[25%] 2xl:gap-8'>
@@ -64,7 +63,7 @@ export default function TrendingCollections() {
           <MarkerButton
             onClick={() => setSelected('ring')}
             tooltipContent={ringData.metals[0]}
-            className='absolute top-[32%] left-[22%] lg:left-[20%] xl:left-[18%]'
+            className='absolute top-[32%] left-[22%] lg:left-[20%] xl:left-[18%] 2xl:top-[34%]'
           />
 
           {/* Necklace Button */}
@@ -78,7 +77,7 @@ export default function TrendingCollections() {
           <MarkerButton
             onClick={() => setSelected('earring')}
             tooltipContent={earringData.metals[0]}
-            className='xs:top-[24.5%] xs:right-[17.5%] absolute top-[23%] right-[17%] md:top-[25%] md:right-[18%] lg:top-[24%] lg:right-[16%] xl:top-[24%] xl:right-[17%]'
+            className='xs:top-[24.5%] xs:right-[17.5%] absolute top-[23%] right-[17%] md:top-[25%] md:right-[18%] lg:top-[24%] lg:right-[16%] xl:top-[24%] xl:right-[17%] 2xl:top-[25.5%] 2xl:right-[18%]'
           />
         </div>
 

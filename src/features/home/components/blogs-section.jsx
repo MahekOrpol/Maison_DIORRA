@@ -1,7 +1,7 @@
 'use client';
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import Heading from '@/components/heading';
 import BlogCard from '@/app/blogs/components/blog-card';
 
@@ -99,11 +99,15 @@ const blogPosts = [
 
 export default function BlogsSection() {
   const timer = useRef();
+  const [isSliderReady, setIsSliderReady] = useState(false);
   const [sliderRef, slider] = useKeenSlider({
     loop: true,
     slides: {
       perView: 1,
       spacing: 8
+    },
+    created: () => {
+      setIsSliderReady(true);
     },
     breakpoints: {
       '(min-width: 550px)': {
@@ -129,23 +133,45 @@ export default function BlogsSection() {
 
   useEffect(() => {
     if (!slider.current) return;
-    let clear = false;
 
-    function autoplay() {
-      clearTimeout(timer.current);
-      timer.current = setTimeout(() => {
-        if (!clear && slider.current) {
-          slider.current.next();
-          autoplay();
-        }
-      }, 3000); // Autoplay interval
+    let timeout;
+    let mouseOver = false;
+
+    function clearNextTimeout() {
+      clearTimeout(timeout);
     }
 
-    autoplay();
+    function nextTimeout() {
+      clearTimeout(timeout);
+      if (mouseOver) return;
+      timeout = setTimeout(() => {
+        slider.current?.next();
+        nextTimeout();
+      }, 4000);
+    }
+
+    function handleMouseOver() {
+      mouseOver = true;
+      clearNextTimeout();
+    }
+
+    function handleMouseOut() {
+      mouseOver = false;
+      nextTimeout();
+    }
+
+    slider.current.container.addEventListener('mouseover', handleMouseOver);
+    slider.current.container.addEventListener('mouseout', handleMouseOut);
+
+    nextTimeout();
 
     return () => {
-      clear = true;
-      clearTimeout(timer.current);
+      slider.current?.container.removeEventListener(
+        'mouseover',
+        handleMouseOver
+      );
+      slider.current?.container.removeEventListener('mouseout', handleMouseOut);
+      clearTimeout(timeout);
     };
   }, [slider]);
 
@@ -155,13 +181,12 @@ export default function BlogsSection() {
         title='Blogs and Articles'
         subtitle='Affordable luxury for everyday wear'
       />
-      <div ref={sliderRef} className='keen-slider relative py-4'>
-        {/* Left Gradient */}
-        {/* <div className='absolute inset-y-0 left-0 z-10 w-1.5 bg-gradient-to-r from-white to-transparent'></div> */}
-
-        {/* Right Gradient */}
-        {/* <div className='absolute inset-y-0 right-0 z-10 w-1.5 bg-gradient-to-l from-white to-transparent'></div> */}
-
+      <div
+        ref={sliderRef}
+        className={`keen-slider py-4 transition-opacity duration-300 ${
+          isSliderReady ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
         {blogPosts.map((post, index) => (
           <div key={index} className='keen-slider__slide'>
             <BlogCard {...post} />

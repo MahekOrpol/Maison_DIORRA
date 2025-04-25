@@ -22,7 +22,7 @@ export default function BlogCard({
       className='flex h-full flex-col overflow-hidden rounded-xl bg-white transition duration-300 ease-in-out'
     >
       {/* Image with fixed aspect ratio */}
-      <div className='aspect-[16/9] w-full overflow-hidden rounded-lg'>
+      <div className='aspect-[5/3.25] w-full overflow-hidden rounded-lg'>
         <Image
           src={image}
           alt='Blog Image'
@@ -41,7 +41,7 @@ export default function BlogCard({
           {title || 'Blog Post Title'}
         </h3>
         <hr className='mb-2 border-black/50' />
-        <p className='flex-1 text-sm font-light lg:text-base'>
+        <p className='flex-1 text-sm font-light lg:text-base 2xl:text-lg'>
           A short description of the blog post goes here. It provides a quick
           overview to the reader...
         </p>

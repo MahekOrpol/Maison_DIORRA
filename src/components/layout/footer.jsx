@@ -83,7 +83,7 @@ export default function Footer() {
             <p className='text-2xl font-medium lg:text-[28px]'>
               Subscribe to get Updated
             </p>
-            <p className='text-sm font-extralight'>
+            <p className='mt-2 text-sm font-extralight'>
               Perks include $100 off your first order. <br /> Plus new product
               launches, store openings, and more!
             </p>
@@ -104,21 +104,21 @@ export default function Footer() {
           </form>
         </div>
         {/* main section */}
-        <div className='wrapper relative z-10 mb-8 grid gap-x-2 gap-y-2 lg:mb-16 lg:grid-cols-5 lg:gap-4'>
-          <div className='col-span-2 mb-4 text-center lg:text-left'>
+        <div className='wrapper relative z-10 mb-8 grid gap-x-2 gap-y-2 sm:grid-cols-3 lg:mb-16 lg:grid-cols-5 lg:gap-4'>
+          <div className='col-span-2 mb-4 text-center sm:col-span-3 lg:col-span-2 lg:text-left'>
             <Image
               src='/img/footer-diorra-logo.svg'
               height={80}
               width={270}
               alt='Company logo'
-              className='mx-auto mb-2 hidden md:block lg:-ml-3'
+              className='mx-auto mb-2 hidden lg:-ml-3 lg:block'
             />
             <Image
               src='/icons/diorra-logo.png'
               height={70}
               width={180}
               alt='Company logo'
-              className='mx-auto invert-100 md:hidden lg:-ml-3'
+              className='mx-auto invert-100 lg:-ml-3 lg:hidden'
             />
             <p className='xs:text-sm mx-auto text-xs font-extralight md:w-4/5 md:text-base lg:mx-0'>
               At Feronia, we believe that jewelry is more than just an
@@ -166,8 +166,11 @@ export default function Footer() {
 
           {footerLinks &&
             footerLinks.map((link) => (
-              <div key={link.heading} className='max-[768px]:pl-6'>
-                <h4 className='mb-3 text-2xl font-light tracking-wider text-nowrap md:text-3xl md:font-normal'>
+              <div
+                key={link.heading}
+                className='last:mt-3 max-[768px]:pl-6 sm:last:mt-0 md:pl-10'
+              >
+                <h4 className='mb-3 text-2xl font-light tracking-wider text-nowrap md:font-normal lg:text-3xl'>
                   {link.heading}
                 </h4>
                 <ul>
@@ -175,7 +178,7 @@ export default function Footer() {
                     link?.links.map((link) => (
                       <li
                         key={link.label}
-                        className='hover:text-muted-foreground text-sm leading-8 font-extralight tracking-wide md:text-lg md:leading-[280%] md:font-light'
+                        className='hover:text-muted-foreground text-sm leading-8 font-extralight tracking-wide md:text-base md:font-light lg:text-lg lg:leading-[280%]'
                       >
                         <Link href={link.href} className='block'>
                           {link.label}
