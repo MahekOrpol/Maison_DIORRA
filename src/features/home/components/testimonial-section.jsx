@@ -84,14 +84,14 @@ export default function TestimonialSection() {
   }, [slider]);
 
   return (
-    <section className='wrapper 3xl:mb-24 mb-10 pt-6 md:mb-16 md:pt-7 lg:pt-8 xl:mb-18 xl:pt-10 2xl:mb-22'>
+    <section className='wrapper 3xl:mb-22 mb-8 pt-6 md:mb-16 md:pt-7 lg:pt-8 xl:mb-14 xl:pt-10'>
       <Heading
         title='Client Testimonial'
         subtitle='What Clients Say About Us'
       />
       <div
         ref={sliderRef}
-        className={`keen-slider py-4 transition-opacity duration-300 ${
+        className={`keen-slider transition-opacity duration-300 ${
           isSliderReady ? 'opacity-100' : 'opacity-0'
         }`}
       >

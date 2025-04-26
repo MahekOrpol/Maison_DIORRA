@@ -25,14 +25,13 @@ export default function ProductGallery({ className }) {
   return (
     <>
       {/* Mobile View */}
-      <div className={cn('block md:hidden', className)}>
+      <div className={cn('block lg:hidden', className)}>
         <MobileGallery />
       </div>
-
       {/* Desktop View */}
       <div
         className={cn(
-          '3xl:pl-14 4xl:pl-20 hidden md:block md:px-6 lg:pr-0 lg:pl-8 2xl:pl-12',
+          '3xl:pl-14 4xl:pl-20 hidden md:px-6 lg:block lg:pr-0 lg:pl-8 2xl:pl-12',
           className
         )}
       >
@@ -46,7 +45,7 @@ function MobileGallery() {
   return (
     <div className=''>
       <Tabs defaultValue='360' className=''>
-        <div className='h-[300px] overflow-hidden'>
+        <div className='overflow-hidden'>
           {/* 360 View */}
           <TabsContent
             value='360'

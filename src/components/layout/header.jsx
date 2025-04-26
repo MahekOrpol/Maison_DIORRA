@@ -54,7 +54,7 @@ export default function Header() {
   return (
     <>
       <div
-        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-500 ${
+        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ${
           showHeader ? 'translate-y-0' : '-translate-y-full'
         }`}
       >
@@ -117,7 +117,7 @@ export default function Header() {
           <hr />
 
           {/* web nav */}
-          <nav className='wrapper hidden justify-center gap-2 py-1.5 text-lg lg:flex'>
+          <nav className='wrapper hidden justify-center gap-2 py-1.5 text-lg md:py-2 lg:flex'>
             {[
               {
                 href: '/diamonds',

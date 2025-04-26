@@ -24,7 +24,7 @@ export default function AuthTabs() {
 
   return (
     <>
-      <div className='bg-muted flex items-center justify-center border p-2 sm:p-4'>
+      <div className='bg-muted flex items-center justify-center border px-2 py-8 sm:px-4'>
         <div className='flex w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-md md:h-auto md:max-w-4xl'>
           {/* Left Side Image */}
           <div className='hidden w-1/3 md:block'>
@@ -36,11 +36,10 @@ export default function AuthTabs() {
               className='h-full w-full object-cover'
             />
           </div>
-
           {/* Right Side Form */}
           <div className='flex-1 px-4 pt-0 md:mb-8 md:px-6 md:pt-2 lg:px-10'>
             <Tabs value={tab} onValueChange={setTab} className='w-full'>
-              <TabsList className='grid h-full w-full grid-cols-2 border-b border-gray-500'>
+              <TabsList className='mb-2 grid h-full w-full grid-cols-2 border-b border-gray-500'>
                 <TabsTrigger
                   value='login'
                   className='data-[state=active]:bg-primary r data-[state=active]:text-primary-foreground bg-background h-full border-b border-b-transparent pt-2 pb-1 text-xl font-medium data-[state=active]:border-b-black data-[state=active]:text-2xl sm:border-b-2'
@@ -58,9 +57,9 @@ export default function AuthTabs() {
               {/* Login Tab Content */}
               <TabsContent
                 value='login'
-                className='pb-4 text-center sm:pt-2 md:text-left lg:pt-3'
+                className='pb-6 text-center sm:pt-2 md:text-left lg:pt-3'
               >
-                <h2 className='mb-1 text-xl leading-6 font-medium'>
+                <h2 className='mb-2 text-2xl leading-6 font-medium'>
                   Login using your Email and Password
                 </h2>
                 <p className='text-sm leading-4 font-light'>
@@ -68,7 +67,7 @@ export default function AuthTabs() {
                   required and will be stored.
                 </p>
                 <form action='#'>
-                  <div className='relative my-3 lg:mt-6'>
+                  <div className='relative my-5 pt-2 lg:mt-6'>
                     <input
                       type='email'
                       id='email'
@@ -97,7 +96,7 @@ export default function AuthTabs() {
                       Password
                     </label>
                   </div>
-                  <div className='mb-4 flex items-center justify-between'>
+                  <div className='mt-1 mb-5 flex items-center justify-between'>
                     <span className='inline-flex items-center gap-2'>
                       <Input
                         type='checkbox'
@@ -134,16 +133,16 @@ export default function AuthTabs() {
                     </p>
                     <Button
                       size={'lg'}
-                      className='xs:w-2/3 mb-2 w-full text-lg'
+                      className='xs:w-2/3 mb-2 h-12 w-full text-lg'
                     >
                       Login
                     </Button>
-                    <div className='mx-auto flex w-2/3 items-center justify-center gap-2'>
-                      <hr className='w-[45%]' />
+                    <div className='mx-auto my-4 flex w-2/3 items-center justify-center gap-2'>
+                      <hr className='w-[48%] border-black' />
                       OR
-                      <hr className='w-[45%]' />
+                      <hr className='w-[48%] border-black' />
                     </div>
-                    <button className='xs:w-2/3 mx-auto mb-2 flex w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-base'>
+                    <button className='xs:w-2/3 mx-auto mb-3 flex h-12 w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-base'>
                       <FcGoogle className='h-7 w-7' />
                       Login with Google
                     </button>
@@ -165,9 +164,9 @@ export default function AuthTabs() {
               {/* Register Tab Content */}
               <TabsContent
                 value='register'
-                className='pb-4 text-center sm:pt-2 md:text-left lg:pt-3'
+                className='pb-6 text-center sm:pt-2 md:text-left lg:pt-3'
               >
-                <h2 className='mb-1 text-xl leading-6 font-medium'>
+                <h2 className='mb-2 text-2xl leading-6 font-medium'>
                   Don’t have an Account?
                 </h2>
                 <p className='text-sm leading-4 font-light'>
@@ -175,7 +174,7 @@ export default function AuthTabs() {
                   required and will be stored.
                 </p>
                 <form action='#' className='mt-4'>
-                  <div className='xs:grid-cols-2 grid grid-cols-1 gap-3 sm:gap-4'>
+                  <div className='xs:grid-cols-2 grid grid-cols-1 gap-x-4 gap-y-5 sm:gap-4'>
                     <div className='xs:col-span-2 relative'>
                       <input
                         type='text'
@@ -252,7 +251,7 @@ export default function AuthTabs() {
                     </div>
                   </div>
 
-                  <div className='mx-auto mt-4 w-full items-center text-center lg:mt-10 xl:w-3/4'>
+                  <div className='mx-auto mt-7 w-full items-center text-center lg:mt-10 xl:w-3/4'>
                     <p className='mb-2 text-xs sm:text-sm md:mb-4'>
                       By Continuing, I agree to{' '}
                       <Link
@@ -271,18 +270,17 @@ export default function AuthTabs() {
                     </p>
                     <Button
                       size={'lg'}
-                      className='xs:w-2/3 mb-2 w-full text-lg'
+                      className='xs:w-2/3 mb-2 h-12 w-full text-lg'
                     >
                       Register
                     </Button>
-
-                    <div className='mx-auto flex w-2/3 items-center justify-center gap-2'>
-                      <hr className='w-[45%]' />
+                    <div className='mx-auto my-4 flex w-2/3 items-center justify-center gap-2'>
+                      <hr className='w-[48%] border-black' />
                       OR
-                      <hr className='w-[45%]' />
+                      <hr className='w-[48%] border-black' />
                     </div>
 
-                    <button className='xs:w-2/3 mx-auto mb-2 flex w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-base'>
+                    <button className='xs:w-2/3 mx-auto mb-2 flex h-12 w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-base'>
                       <FcGoogle className='h-7 w-7' />
                       Signup with Google
                     </button>

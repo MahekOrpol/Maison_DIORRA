@@ -1,8 +1,6 @@
 import ProductGallery from '@/features/product/components/product-gallery';
 import ProductDetails from '@/features/product/components/product-details';
-import CustomTag from '@/components/custom-tag';
 import { MdStarRate } from 'react-icons/md';
-
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,32 +11,44 @@ import {
 } from '@/components/ui/breadcrumb';
 import { AiOutlineColumnHeight } from 'react-icons/ai';
 import Image from 'next/image';
-import { Star } from 'lucide-react';
 import Link from 'next/link';
 import { cn } from '@/lib/utils';
 import RelatedProducts from '@/components/related-products';
 import CustomTagWrapper from '@/components/custom-tag-wrapper';
+import { LiaBalanceScaleSolid } from 'react-icons/lia';
+import { AiOutlineGold } from 'react-icons/ai';
+import { IoDiamondOutline } from 'react-icons/io5';
+import { RiWeightLine } from 'react-icons/ri';
+import { PiDiamondsFour } from 'react-icons/pi';
 export default function Page() {
   return (
     <>
       <div className='wrapper'>
-        <Breadcrumb className='my-2'>
+        <Breadcrumb className='pt-4 lg:pt-5'>
           <BreadcrumbList>
             <BreadcrumbItem>
-              <BreadcrumbLink href='/'>Home</BreadcrumbLink>
+              <BreadcrumbLink href='/' className='3xl:text-lg lg:text-base'>
+                Home
+              </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href='/components'>Components</BreadcrumbLink>
+              <BreadcrumbLink
+                href='/components'
+                className='3xl:text-lg lg:text-base'
+              >
+                Components
+              </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbPage>Breadcrumb</BreadcrumbPage>
+              <BreadcrumbPage className='3xl:text-lg lg:text-base'>
+                Breadcrumb
+              </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        {/* arrowed label */}
-        <CustomTagWrapper className='xl:mb-14' />
+        <CustomTagWrapper className='xs:my-[20px] 3xl:my-[60px] my-[15px] lg:my-[30px] xl:mb-[40px] 2xl:mb-[50px]' />
       </div>
       <div className='mx-auto mb-8 flex w-full max-w-[2100px] flex-col gap-3 md:gap-4 lg:flex-row xl:gap-6'>
         <ProductGallery className='lg:sticky lg:top-10 lg:h-fit lg:w-[45%]' />
@@ -73,16 +83,19 @@ function RingDetails({ className }) {
       icon: '/icons/ring-fv.svg',
       items: [
         {
+          icon: <AiOutlineColumnHeight size={20} />,
           label: 'RING DIAMETER',
           value: '1.62 cm',
           desc: 'Measured at the base of the ring.'
         },
         {
+          icon: <LiaBalanceScaleSolid size={22} />,
           label: 'APPROX CTW',
           value: '0.2 ct ',
           desc: 'Measured at the base of the ring.'
         },
         {
+          icon: <AiOutlineGold size={20} />,
           label: 'METAL',
           value: '925 Silver',
           desc: 'It comes with the authenticity and guarantee certificate of 925 Silver with lifetime exchange guarantee.',
@@ -94,10 +107,26 @@ function RingDetails({ className }) {
       category: 'Ring Details',
       icon: '/icons/ring-top-fv.svg',
       items: [
-        { label: 'DIAMOND SHAPE', value: 'Circle' },
-        { label: 'DIAMOND SIZE', value: 'Moissanite Diamond 0.18 ctw' },
-        { label: 'DIAMOND WEIGHT', value: '0.18 Ct Approx' },
-        { label: 'DIAMOND PURITY', value: '4 ctw' }
+        {
+          icon: <IoDiamondOutline size={20} />,
+          label: 'DIAMOND SHAPE',
+          value: 'Circle'
+        },
+        {
+          icon: <AiOutlineColumnHeight size={20} />,
+          label: 'DIAMOND SIZE',
+          value: 'Moissanite Diamond 0.18 ctw'
+        },
+        {
+          icon: <RiWeightLine size={20} />,
+          label: 'DIAMOND WEIGHT',
+          value: '0.18 Ct Approx'
+        },
+        {
+          icon: <PiDiamondsFour size={20} />,
+          label: 'DIAMOND PURITY',
+          value: '4 ctw'
+        }
       ]
     }
   ];
@@ -107,7 +136,7 @@ function RingDetails({ className }) {
         Ring and Stone Details:
         <hr className='mb-2' />
       </h2>
-      <div className='bg-secondary grid grid-cols-1 gap-8 px-2 pt-2 pb-8 sm:px-4 sm:pt-4 md:grid-cols-2 md:px-8'>
+      <div className='bg-secondary grid grid-cols-1 gap-4 px-2 pt-2 pb-8 sm:px-4 sm:pt-4 md:grid-cols-2 md:gap-8 md:px-8'>
         {details.map(({ category, icon, items }) => (
           <div key={category}>
             <div className='mb-2 flex items-center gap-4 text-lg font-medium md:mb-4 lg:text-2xl'>
@@ -123,7 +152,7 @@ function RingDetails({ className }) {
               {category}
             </div>
             <div className='grid grid-cols-2 gap-2 md:gap-4'>
-              {items.map(({ label, value, desc, fullWidth }, index) => (
+              {items.map(({ icon, label, value, desc, fullWidth }, index) => (
                 <div
                   key={index}
                   className={`flex min-h-[142px] flex-col gap-2 rounded-md bg-white p-2 md:p-4 ${
@@ -131,13 +160,13 @@ function RingDetails({ className }) {
                   }`}
                 >
                   <div className='inline-flex gap-2 text-xs font-light sm:text-sm'>
-                    <AiOutlineColumnHeight size={20} />
+                    {icon}
                     {label}
                   </div>
-                  <div className='leading-6 font-semibold sm:text-2xl'>
+                  <div className='xs:text-xl text-lg leading-6 font-semibold lg:text-2xl'>
                     {value}
                   </div>
-                  {desc && <p className='text-sm'>{desc}</p>}
+                  {desc && <p className='text-xs'>{desc}</p>}
                 </div>
               ))}
             </div>
@@ -181,7 +210,7 @@ export const CustomerReviews = ({ className }) => {
   return (
     <div className={cn('mt-8', className)}>
       <h2 className='text-2xl font-medium md:text-3xl md:font-medium lg:text-4xl'>
-        Customer Reviews
+        Customer Reviews :
         <hr className='mb-4' />
       </h2>
 
@@ -191,7 +220,7 @@ export const CustomerReviews = ({ className }) => {
         ))}
       </div>
       <div className=''>
-        <h3 className='py-4 text-xl font-medium md:text-2xl md:font-medium lg:text-3xl'>
+        <h3 className='pt-4 text-xl font-medium md:text-xl md:font-medium lg:text-2xl'>
           Add a Review
         </h3>
         <p className='mb-4'>

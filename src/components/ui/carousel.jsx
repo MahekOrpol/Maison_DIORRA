@@ -14,7 +14,6 @@ function useCarousel() {
   if (!context) {
     throw new Error('useCarousel must be used within a <Carousel />');
   }
-
   return context;
 }
 
@@ -129,7 +128,7 @@ function CarouselContent({ className, ...props }) {
   );
 }
 
-function CarouselItem({ className, ...props }) {
+function CarouselItem({ className, fullHeight = false, ...props }) {
   const { orientation } = useCarousel();
 
   return (
@@ -140,6 +139,7 @@ function CarouselItem({ className, ...props }) {
       className={cn(
         'min-w-0 shrink-0 grow-0 basis-full',
         orientation === 'horizontal' ? 'pl-4' : 'pt-4',
+        fullHeight && 'h-full', // ✅ apply full height if requested
         className
       )}
       {...props}

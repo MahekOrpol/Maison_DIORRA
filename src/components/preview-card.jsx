@@ -31,7 +31,6 @@ export default function PreviewCard({ product, className }) {
   const [isProductClicked, setIsProductClicked] = useState(false);
   const [isClientMobile, setIsClientMobile] = useState(false);
   const [liked, setLiked] = useState(false);
-
   const router = useRouter();
 
   // Fix: Reset metal when product changes
@@ -41,7 +40,7 @@ export default function PreviewCard({ product, className }) {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsClientMobile(window.innerWidth < 768);
+      setIsClientMobile(window.innerWidth < 1024);
     };
     handleResize();
     window.addEventListener('resize', handleResize);
@@ -81,7 +80,7 @@ export default function PreviewCard({ product, className }) {
         {/* Wishlist Button */}
         <button
           onClick={() => setLiked(!liked)}
-          className='hover:bg-primary/10 xs:w-7 xs:h-7 absolute top-1 right-1 z-10 flex h-6 w-6 items-center justify-center rounded-full bg-white'
+          className='hover:bg-primary/10 absolute top-1 right-1 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white'
         >
           <Heart
             className={cn(
@@ -92,7 +91,10 @@ export default function PreviewCard({ product, className }) {
         </button>
 
         <Carousel
-          opts={{ align: 'start', loop: false }}
+          opts={{
+            align: 'start',
+            loop: false
+          }}
           className='relative w-full'
         >
           <CarouselContent className='ml-0 aspect-[1/1] w-full gap-0'>
@@ -113,9 +115,9 @@ export default function PreviewCard({ product, className }) {
             ))}
           </CarouselContent>
 
-          <div className='3xl:-bottom-3 absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 2xl:bottom-2'>
-            <CarouselPrevious className='h-7 w-7 translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white 2xl:h-8 2xl:w-8 2xl:translate-x-1' />
-            <CarouselNext className='h-7 w-7 -translate-x-4 rounded-full border-none bg-white/80 transition hover:bg-white 2xl:h-8 2xl:w-8' />
+          <div className='3xl:-bottom-3 absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 2xl:bottom-4'>
+            <CarouselPrevious className='h-7 w-7 translate-x-4 rounded-full border-none bg-white/80 text-gray-600 transition hover:bg-white 2xl:h-8 2xl:w-8 2xl:translate-x-1' />
+            <CarouselNext className='h-7 w-7 -translate-x-4 rounded-full border-none bg-white/80 text-gray-600 transition hover:bg-white 2xl:h-8 2xl:w-8' />
           </div>
         </Carousel>
 
@@ -125,7 +127,7 @@ export default function PreviewCard({ product, className }) {
               <p className='leading-1 font-medium sm:text-[22px] lg:text-xl xl:text-2xl'>
                 ${selectedMetal.amount}
               </p>
-              <span className='text-sm leading-1 font-normal text-[#958F86] line-through sm:text-lg xl:text-xl'>
+              <span className='text-xs leading-1 font-normal text-[#958F86] line-through sm:text-base xl:text-lg'>
                 ${selectedMetal.wrongAmount}
               </span>
             </div>
@@ -173,9 +175,9 @@ export default function PreviewCard({ product, className }) {
         <Drawer
           open={isProductClicked}
           onOpenChange={setIsProductClicked}
-          className='!h-auto !max-h-[90vh] overflow-y-auto rounded-t-xl px-4 pt-10 pb-6'
+          className='pt0 pb-1-6 overflow-y-auto rounded-t-xl px-4'
         >
-          <DrawerContent className='!max-h-[90vh]'>
+          <DrawerContent className=''>
             <DrawerHeader className='relative p-0'>
               <DrawerTitle className='wrapper absolute top-3 z-10 flex justify-between border-none'>
                 <button
@@ -184,9 +186,9 @@ export default function PreviewCard({ product, className }) {
                   aria-label='Add to wishlist'
                 >
                   <FaHeart
-                    className={`h-6 w-7 transition-colors duration-300 ${
+                    className={`h-5 w-6 transition-colors duration-300 ${
                       liked
-                        ? 'fill-red-600 stroke-[20] text-white'
+                        ? 'fill-primary stroke-[20] text-white'
                         : 'fill-white stroke-[30] text-black'
                     }`}
                   />
@@ -198,15 +200,15 @@ export default function PreviewCard({ product, className }) {
               <ProductGallery />
             </DrawerHeader>
 
-            <DrawerFooter>
+            <DrawerFooter className='pt-2'>
               {/* Static example content below */}
               <div className=''>
                 <div className='mb-1 flex justify-between text-lg font-medium'>
                   <div>
                     <p>{selectedMetal.name}</p>
                     <p>
-                      <span>${selectedMetal.amount}</span>{' '}
-                      <span className='text-muted-foreground'>
+                      <span className=''>${selectedMetal.amount}</span>{' '}
+                      <span className='text-muted-foreground pl-2 text-sm line-through'>
                         ${selectedMetal.wrongAmount}
                       </span>
                     </p>
@@ -220,7 +222,7 @@ export default function PreviewCard({ product, className }) {
                 </div>
                 <div className='grid grid-cols-3 gap-3 text-sm'>
                   {/* Replace with dynamic product features if needed */}
-                  <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border border-transparent p-3 transition focus:border-black'>
+                  <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border border-transparent px-3 pt-4 pb-2 transition focus:border-black'>
                     <Image
                       src={`/icons/shape-pear.svg`}
                       width={40}
@@ -229,7 +231,7 @@ export default function PreviewCard({ product, className }) {
                     />
                     Pear
                   </button>
-                  <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border border-transparent px-3 py-2 transition focus:border-black'>
+                  <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border border-transparent px-3 pt-4 pb-2 transition focus:border-black'>
                     <Image
                       src={`/img/gold-theme.png`}
                       width={30}
@@ -238,7 +240,7 @@ export default function PreviewCard({ product, className }) {
                     />
                     Gold
                   </button>
-                  <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border border-transparent px-3 py-2 transition focus:border-black'>
+                  <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border border-transparent px-3 pt-4 pb-2 transition focus:border-black'>
                     <Image
                       src={`/icons/ring-style-solitare.svg`}
                       width={50}

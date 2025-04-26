@@ -183,7 +183,7 @@ export default function BlogsSection() {
       />
       <div
         ref={sliderRef}
-        className={`keen-slider py-4 transition-opacity duration-300 ${
+        className={`keen-slider transition-opacity duration-300 ${
           isSliderReady ? 'opacity-100' : 'opacity-0'
         }`}
       >

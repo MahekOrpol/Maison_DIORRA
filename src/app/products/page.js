@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
-import { Funnel, X } from 'lucide-react';
+import { Funnel, RotateCcw, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Drawer,
@@ -81,15 +81,13 @@ const data = repeatProducts(50);
 
 export default function Page() {
   const [selectedStyle, setSelectedStyle] = useState(null);
-
-  console.log(data);
   return (
     <div className='wrapper'>
       {/* arrowed label */}
-      <CustomTagWrapper />
+      <CustomTagWrapper className='xs:my-[25px] my-[20px] sm:my-[30px] lg:my-[35px] xl:mt-[50px] xl:mb-[45px] 2xl:mt-[65px] 2xl:mb-[60px]' />
       {/* select ring style */}
       <div className='hidden text-center md:block'>
-        <h2 className='mb-3 sm:text-xl md:text-2xl lg:text-3xl'>
+        <h2 className='3xl:text-5xl mb-3 font-medium sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl'>
           Choose Perfect Ring Style for You
         </h2>
         <div className='my-4 flex justify-center gap-4'>
@@ -101,7 +99,7 @@ export default function Page() {
                 onClick={() => setSelectedStyle(style.styleType)}
                 className={`inline-flex w-[100px] flex-col items-center rounded-lg border p-2 pt-4 text-xs transition-all ${isSelected ? 'bg-muted border-black' : 'border-transparent hover:border-gray-300'} `}
               >
-                <div className='mb-4 flex h-[30px] w-[70px] items-center justify-center'>
+                <div className='mb-4 flex h-[30px] w-[70px] items-center justify-center 2xl:h-[35px]'>
                   <Image
                     src={style.imgUrl}
                     height={30}
@@ -110,7 +108,7 @@ export default function Page() {
                     className='h-full w-full object-contain'
                   />
                 </div>
-                <p className='mt-auto text-[15px] text-nowrap'>
+                <p className='3xl:text-xl mt-auto text-[15px] leading-4 text-nowrap xl:text-base'>
                   {style.styleType}
                 </p>
               </button>
@@ -121,7 +119,7 @@ export default function Page() {
       {/* filters */}
       <ProductsFilter />
       {/* listing components */}
-      <div className='mt-6 mb-10 grid grid-cols-2 gap-2 md:mb-20 md:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-5 xl:gap-6'>
+      <div className='mt-4 mb-10 grid grid-cols-2 gap-2 md:mb-20 md:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-5 xl:gap-6'>
         {data.map((product, index) => {
           // Separate ad indices for different breakpoints
           const mobileAdIndex = Math.floor(index / 2) % advertisements.length;
@@ -194,13 +192,14 @@ export default function Page() {
 
 function ProductsFilter() {
   const [selectedStyle, setSelectedStyle] = useState(null);
+  const [selectedPurity, setSelectedPurity] = useState('14 K');
   return (
     <div>
       {/* mobile */}
       <Drawer>
         <DrawerTrigger
           asChild
-          className='flex items-center rounded-xs border border-black px-2 py-[4px] shadow-none md:hidden'
+          className='flex items-center rounded-xs border border-black px-2 py-[4px] shadow-none lg:hidden'
         >
           <button>
             {' '}
@@ -229,7 +228,7 @@ function ProductsFilter() {
                 {['gold', 'rose', 'white'].map((metal, idx) => (
                   <button
                     key={idx}
-                    className='bg-secondary flex flex-col items-center gap-2 rounded-md border border-transparent px-4 py-2 text-sm transition focus:border-black'
+                    className='bg-secondary flex flex-col items-center gap-2 rounded-md border border-transparent px-4 py-2 text-sm transition hover:border-black focus:border-black'
                   >
                     <Image
                       src={`/img/${metal}-theme.png`}
@@ -251,61 +250,59 @@ function ProductsFilter() {
                 <span className='text-secondary-foreground'>14 K</span>
               </p>
               <div className='xs:gap-4 mt-2 grid grid-cols-4 gap-3 text-xs'>
-                {['14 K', '18 K', '20 K'].map((karat) => (
-                  <Button
-                    key={karat}
-                    variant='outline'
-                    className='bg-secondary rounded-md border-none'
-                  >
-                    {karat}
-                  </Button>
-                ))}
+                {['14 K', '18 K', '20 K'].map((karat) => {
+                  const isSelected = selectedPurity === karat;
+                  return (
+                    <Button
+                      key={karat}
+                      variant='outline'
+                      onClick={() => setSelectedPurity(karat)}
+                      className={`bg-secondary rounded-md transition ${
+                        isSelected
+                          ? 'border-black'
+                          : 'border-transparent hover:border-black'
+                      }`}
+                    >
+                      {karat}
+                    </Button>
+                  );
+                })}
               </div>
             </div>
 
-            {/* Ring Style Section */}
+            {/* Ring Style Section - Now using grid instead of carousel */}
             <div>
               <p>
                 <strong className='font-medium'>Ring Style : </strong>
                 <span className='text-secondary-foreground'>Halo</span>
               </p>
-              <Carousel
-                opts={{
-                  align: 'start'
-                }}
-                className='w-full'
-              >
-                <CarouselContent className=''>
-                  {ringStyles.map((style, idx) => {
-                    const isSelected = selectedStyle === style.styleType;
-
-                    return (
-                      <CarouselItem
-                        key={idx}
-                        className='xs:pl-4 basis-1/4 pl-3' // 4 items per row
-                      >
-                        <button
-                          onClick={() => setSelectedStyle(style.styleType)}
-                          className={`bg-secondary flex h-full w-full flex-col items-center rounded-md border px-3 py-2 text-xs transition-all ${
-                            isSelected ? 'border-black' : 'hover:border-black'
-                          }`}
-                        >
-                          <Image
-                            src={style.imgUrl}
-                            width={50}
-                            height={25}
-                            alt={style.styleType}
-                            className='my-2 h-[25px] w-[50px] object-contain'
-                          />
-                          <p className='mt-2 text-center text-nowrap'>
-                            {style.styleType}
-                          </p>
-                        </button>
-                      </CarouselItem>
-                    );
-                  })}
-                </CarouselContent>
-              </Carousel>
+              <div className='xs:gap-4 mt-2 grid grid-cols-4 gap-3 text-xs'>
+                {ringStyles.map((style, idx) => {
+                  const isSelected = selectedStyle === style.styleType;
+                  return (
+                    <button
+                      key={idx}
+                      onClick={() => setSelectedStyle(style.styleType)}
+                      className={`bg-secondary flex h-full flex-col items-center rounded-md border px-3 py-2 text-xs transition-all ${
+                        isSelected
+                          ? 'border-black'
+                          : 'border-transparent hover:border-black'
+                      }`}
+                    >
+                      <Image
+                        src={style.imgUrl}
+                        width={50}
+                        height={25}
+                        alt={style.styleType}
+                        className='my-2 h-[25px] w-[50px] object-contain'
+                      />
+                      <p className='mt-2 text-center text-nowrap'>
+                        {style.styleType}
+                      </p>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Diamond Shape Section */}
@@ -318,7 +315,7 @@ function ProductsFilter() {
                 {['round', 'pear', 'emerlad', 'princess'].map((shape, idx) => (
                   <button
                     key={idx}
-                    className='bg-secondary flex flex-col items-center rounded-md border border-transparent px-3 py-2 transition focus:border-black'
+                    className='bg-secondary flex flex-col items-center rounded-md border border-transparent px-3 py-2 transition hover:border-black'
                   >
                     <Image
                       src={`/icons/shape-${shape}.svg`}
@@ -334,8 +331,8 @@ function ProductsFilter() {
           </div>
         </DrawerContent>
       </Drawer>
-      {/* desktop */}
-      <div className='mt-8 hidden gap-4 md:flex'>
+      {/* desktop - unchanged */}
+      <div className='mt-8 hidden gap-4 lg:flex'>
         <Select>
           <SelectTrigger className='data-[placeholder]:text-foreground w-[150px] border-black'>
             <SelectValue placeholder='Select Metal' />
@@ -473,6 +470,10 @@ function ProductsFilter() {
             </SelectItem>
           </SelectContent>
         </Select>
+        <Button variant='outline' className='border-black font-normal'>
+          <RotateCcw />
+          Reset Filters
+        </Button>
       </div>
     </div>
   );

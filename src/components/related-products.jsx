@@ -1,19 +1,25 @@
 'use client';
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
-import { useRef, useEffect } from 'react';
-import Heading from './heading';
+import { useRef, useEffect, useState } from 'react';
+import Heading from '@/components/heading';
+import PreviewCard from '@/components/preview-card';
 import { cn, repeatProducts } from '@/lib/utils';
-import PreviewCard from './preview-card';
 
-const products = repeatProducts(22);
+const products = repeatProducts(20);
+
 export default function RelatedProducts({ className }) {
   const timer = useRef();
+  const [isSliderReady, setIsSliderReady] = useState(false);
   const [sliderRef, slider] = useKeenSlider({
     loop: true,
+    mode: 'snap',
     slides: {
       perView: 2,
       spacing: 8
+    },
+    created: () => {
+      setIsSliderReady(true);
     },
     breakpoints: {
       '(min-width: 425px)': {
@@ -36,26 +42,47 @@ export default function RelatedProducts({ className }) {
       }
     }
   });
-
   useEffect(() => {
     if (!slider.current) return;
-    let clear = false;
 
-    function autoplay() {
-      clearTimeout(timer.current);
-      timer.current = setTimeout(() => {
-        if (!clear && slider.current) {
-          slider.current.next();
-          autoplay();
-        }
-      }, 3000);
+    let timeout;
+    let mouseOver = false;
+
+    function clearNextTimeout() {
+      clearTimeout(timeout);
     }
 
-    autoplay();
+    function nextTimeout() {
+      clearTimeout(timeout);
+      if (mouseOver) return;
+      timeout = setTimeout(() => {
+        slider.current?.next();
+        nextTimeout();
+      }, 4000);
+    }
+
+    function handleMouseOver() {
+      mouseOver = true;
+      clearNextTimeout();
+    }
+
+    function handleMouseOut() {
+      mouseOver = false;
+      nextTimeout();
+    }
+
+    slider.current.container.addEventListener('mouseover', handleMouseOver);
+    slider.current.container.addEventListener('mouseout', handleMouseOut);
+
+    nextTimeout();
 
     return () => {
-      clear = true;
-      clearTimeout(timer.current);
+      slider.current?.container.removeEventListener(
+        'mouseover',
+        handleMouseOver
+      );
+      slider.current?.container.removeEventListener('mouseout', handleMouseOut);
+      clearTimeout(timeout);
     };
   }, [slider]);
 
@@ -66,11 +93,15 @@ export default function RelatedProducts({ className }) {
         subtitle='You might also like to buy'
         className='mb-3 sm:mb-4 md:mb-5'
       />
-
-      <div ref={sliderRef} className='keen-slider'>
-        {products.map((product, index) => (
+      <div
+        ref={sliderRef}
+        className={`keen-slider transition-opacity duration-300 ${
+          isSliderReady ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        {products.map((product, i) => (
           <div
-            key={index}
+            key={i}
             className='keen-slider__slide overflow-hidden rounded-xl'
           >
             <PreviewCard product={product} />

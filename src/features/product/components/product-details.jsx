@@ -87,36 +87,41 @@ export default function ProductDetails({ className }) {
     <section className={cn(className)}>
       <div>
         {/* Sale Badge */}
-        <span className='mb-2 inline-block rounded-full bg-black px-4 py-1.5 text-sm text-white'>
-          SALE 20%
+        <span className='bg-primary text-primary-foreground mb-2 inline-block rounded-full px-3 py-1 text-xs'>
+          SAVE 20%
         </span>
 
         {/* Product Title */}
-        <div className='flex items-center gap-4 md:mb-1'>
+        <div className='mb-2 flex gap-4 md:mb-3'>
           <h1 className='mb-2 flex-1 text-xl leading-6 font-medium sm:text-2xl sm:leading-8 md:text-3xl md:leading-10'>
             Solitaire Engagement Ring Embellished With a Falling Edge Pave Halo
             Head
           </h1>
-          <GiBigDiamondRing className='h-5 w-5 sm:h-7 sm:w-7' />
+          <Image src='/icons/hand.svg' alt='hand icon' height={40} width={40} />
+          {/* <GiBigDiamondRing className='h-5 w-5 sm:h-7 sm:w-7 lg:h-14 lg:w-14' /> */}
         </div>
 
         {/* Reviews */}
-        <div className='xs:text-sm mb-1 flex items-center gap-2 text-xs text-nowrap sm:mb-2 md:gap-4'>
+        <div className='xs:text-sm xs:gap-6 mb-1 flex items-center gap-2 text-xs text-nowrap min-[350px]:gap-5 sm:mb-2 md:gap-4 xl:gap-12'>
           <span className='flex'>
             <span className='flex items-center'>
               {[...Array(5)].map((_, i) => (
                 <IoStarSharp
                   key={i}
-                  className='h-3.5 w-3.5 fill-yellow-400 sm:h-4 sm:w-4'
+                  className='h-4 w-4 fill-yellow-400 xl:h-5 xl:w-5'
                 />
               ))}
             </span>
-            <span className='ml-1 md:text-base'>24 Reviews</span>
+            <span className='xs:ml-2 ml-1 md:text-base xl:text-lg'>
+              24 Reviews
+            </span>
           </span>
-          <span className='xs:text-sm md:text-base'>SKU : KD-566498</span>
+          <span className='xs:text-sm md:text-base xl:text-lg'>
+            SKU : KD-566498
+          </span>
           <Badge
             variant='outline'
-            className='xs:text-xs ml-auto rounded-full border-black text-[10px]'
+            className='xs:text-xs rounded-full border-black text-[10px] xl:text-sm'
           >
             IN STOCK
           </Badge>
@@ -143,7 +148,7 @@ export default function ProductDetails({ className }) {
 
       {/* Installment Option */}
       <div className='xs:text-sm mb-6 border-b py-4 text-xs md:text-sm'>
-        <h3 className='mb-2 text-xl font-medium underline underline-offset-3 md:mb-4 md:text-2xl md:underline-offset-10'>
+        <h3 className='mb-2 text-xl font-medium underline underline-offset-5 md:mb-4 md:text-2xl md:underline-offset-8'>
           Buy Jewelry on Interest Free Installment
         </h3>
         <p className='mt-1'>
@@ -197,7 +202,7 @@ export default function ProductDetails({ className }) {
                 type='button'
                 onClick={() => setSelectedMetal(metal.name)}
                 className={cn(
-                  'inline-flex items-center justify-center rounded-full border p-[2px] transition-all', // Base styles
+                  'inline-flex items-center justify-center rounded-full border transition-all', // Base styles
                   selectedMetal === metal.name
                     ? 'border-gray-400'
                     : 'border-transparent' // Hide border when not selected
@@ -208,7 +213,7 @@ export default function ProductDetails({ className }) {
                   alt={metal.name}
                   width={20}
                   height={20}
-                  className='h-[20px] w-[20px]'
+                  className='m-1 h-[20px] w-[20px] rounded-full'
                 />
               </button>
             ))}
@@ -363,7 +368,7 @@ export default function ProductDetails({ className }) {
           </div>
         </div>
       </div>
-
+      {/* warranty details grid */}
       <div className='bg-secondary grid grid-cols-3 rounded-md p-2 text-sm sm:p-4 md:gap-4 md:text-lg'>
         {icons.map((icon) => (
           <div

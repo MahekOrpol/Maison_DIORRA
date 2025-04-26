@@ -20,7 +20,7 @@ export default function YourDesign() {
           className='aspect-ratio h-[60vw] w-[90vw] object-cover object-[20%] sm:w-[100vw] md:h-[40vw] md:w-[90%] md:-translate-x-8 lg:h-[37vw] lg:w-full lg:-translate-x-15 lg:object-[50%] xl:h-auto'
         />
       </div>
-      <CustomTagWrapper className='-mt-6 mb-0' />
+      <CustomTagWrapper className='-mt-6' />
     </section>
   );
 }
