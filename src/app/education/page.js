@@ -14,7 +14,7 @@ export default function Page() {
       <EduBanner imgUrl='/img/banner/banner4.png' className='' />
       <section>
         <Tabs defaultValue='diamonds' className='wrapper pb-8'>
-          <TabsList className='grid h-auto w-full grid-cols-3 gap-1 rounded-none border-b bg-transparent text-xs md:gap-[10vw]'>
+          <TabsList className='grid h-[55px] w-full grid-cols-3 gap-1 rounded-none border-b bg-transparent text-xs md:gap-[10vw]'>
             <TabsTrigger
               value='diamonds'
               className='border-b-2 border-b-transparent py-1 text-xs font-medium data-[state=active]:border-b-black sm:py-2 sm:text-sm lg:text-base'

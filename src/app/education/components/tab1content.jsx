@@ -16,6 +16,35 @@ import Image from 'next/image';
 //   backgroundImage: '/img/ads/add1.png',
 //   align: 'left'
 // };
+const clarityGrades = [
+  {
+    grade: 'Flawless (FL)',
+    meaning: 'No inclusions or blemishes using 10x magnification'
+  },
+  {
+    grade: 'Internally flawless (IF)',
+    meaning: 'No inclusions using 10x magnification'
+  },
+  {
+    grade: 'Very, very slightly included (VVS1 and VVS2)',
+    meaning:
+      'Slight inclusions barely visible to a skilled diamond grader using 10x magnification'
+  },
+  {
+    grade: 'Very slightly included (VS1 and VS2)',
+    meaning:
+      'Small inclusions ranging from difficult to somewhat easy to identify by a grader using 10x magnification'
+  },
+  {
+    grade: 'Slightly included (SI1 and SI2)',
+    meaning: 'Inclusions are visible with 10x magnification'
+  },
+  {
+    grade: 'Included (I1, I2 and I3)',
+    meaning:
+      'Obvious inclusions using 10x magnification which might affect brilliance and transparency'
+  }
+];
 
 export default function Tab1Content() {
   return (
@@ -23,7 +52,6 @@ export default function Tab1Content() {
       {/* Left side index - sticky on desktop */}
       <div className='lg:sticky lg:top-8 lg:h-[calc(100vh-4rem)] lg:w-[30%] lg:self-start lg:overflow-y-auto'>
         <DiamondKnowledge />
-
         <div className='mx-auto mt-4 w-full rounded-lg border border-gray-200 bg-white px-6 py-4 shadow-sm dark:bg-black dark:text-white'>
           <div className='flex flex-col items-center justify-between gap-3 sm:flex-row'>
             <p className='text-base font-medium'>
@@ -50,7 +78,7 @@ export default function Tab1Content() {
           about sparkle, size, and saving money… Continue reading to learn about
           inclusions, blemishes, clarity grades, and more!
         </p>
-        <div>
+        <div className=''>
           <Image
             src='/img/blogs/edu1.png'
             width={200}
@@ -58,6 +86,9 @@ export default function Tab1Content() {
             alt='Education image'
             className='mx-auto w-full max-w-5xl'
           />
+          <div className='bg-secondary relative bottom-6 z-20 mx-auto w-fit rounded-full border border-black px-8 py-2'>
+            Round, Emerald, Princess and Pear shaped Diamond
+          </div>
         </div>
         <h3 className='text-left text-xl font-medium md:text-2xl xl:text-3xl'>
           What exactly is Diamond Clarity?
@@ -79,88 +110,41 @@ export default function Tab1Content() {
           range combined with SI clarity are excellent values.
         </p>
         {/* table section */}
-        <div className='rounded-sm border p-2 md:p-4'>
-          <p>
+        <div className='rounded-sm border p-2 md:p-4 xl:p-6'>
+          <p className='font-normal'>
             To determine the clarity of a diamond, the GIA (Gemological
             Institute of America) uses a diamond clarity scale, consisting of 11
             grades:
           </p>
-          <div className=''>
-            <div className='mt-4 overflow-x-auto'>
-              <table className='overflow-hidden rounded-md border-2 border-black bg-[#EFEFEF]'>
+          <div className='mt-4'>
+            <div className='overflow-x-auto'>
+              <table className='w-full border-separate border-spacing-0 border border-black'>
                 <thead className='bg-[#B8BABA]'>
                   <tr>
-                    <th className='px-4 py-2 text-left text-sm font-medium tracking-wider uppercase'>
+                    <th className='border-r border-black px-3 py-3 text-xs font-medium sm:text-sm md:px-4 md:text-base lg:text-lg'>
                       Clarity Grade
                     </th>
-                    <th className='px-4 py-2 text-left text-sm font-medium tracking-wider uppercase'>
+                    <th className='px-3 py-3 text-xs font-medium sm:text-sm md:px-4 md:text-base lg:text-lg'>
                       Meaning
                     </th>
                   </tr>
                 </thead>
-                <tbody className='divide-y divide-[#EFEFEF] whitespace-nowrap'>
-                  {/* Flawless */}
-                  <tr className='odd:bg-gray-50'>
-                    <td className='px-4 py-2 text-sm font-medium whitespace-nowrap text-gray-900'>
-                      Flawless (FL)
-                    </td>
-                    <td className='px-4 py-2 text-sm whitespace-nowrap text-gray-500'>
-                      No inclusions or blemishes using 10x magnification
-                    </td>
-                  </tr>
-
-                  {/* Internally Flawless */}
-                  <tr className='hover:bg-gray-50'>
-                    <td className='px-4 py-2 text-sm font-medium whitespace-nowrap text-gray-900'>
-                      Internally flawless (IF)
-                    </td>
-                    <td className='px-4 py-2 text-sm text-gray-500'>
-                      No inclusions using 10x magnification
-                    </td>
-                  </tr>
-
-                  {/* VVS */}
-                  <tr className='odd:bg-gray-50'>
-                    <td className='px-4 py-2 text-sm font-medium whitespace-nowrap text-gray-900'>
-                      Very, very slightly included (VVS1 and VVS2)
-                    </td>
-                    <td className='px-4 py-2 text-sm text-gray-500'>
-                      Slight inclusions barely visible to a skilled diamond
-                      grader using 10x magnification
-                    </td>
-                  </tr>
-
-                  {/* VS */}
-                  <tr className='hover:bg-gray-50'>
-                    <td className='px-4 py-2 text-sm font-medium whitespace-nowrap text-gray-900'>
-                      Very slightly included (VS1 and VS2)
-                    </td>
-                    <td className='px-4 py-2 text-sm text-gray-500'>
-                      Small inclusions ranging from difficult to somewhat easy
-                      to identify by a grader using 10x magnification
-                    </td>
-                  </tr>
-
-                  {/* SI */}
-                  <tr className='odd:bg-gray-50'>
-                    <td className='px-4 py-2 text-sm font-medium whitespace-nowrap text-gray-900'>
-                      Slightly included (SI1 and SI2)
-                    </td>
-                    <td className='px-4 py-2 text-sm text-gray-500'>
-                      Inclusions are visible with 10x magnification
-                    </td>
-                  </tr>
-
-                  {/* Included */}
-                  <tr className='hover:bg-gray-50'>
-                    <td className='px-4 py-2 text-sm font-medium whitespace-nowrap text-gray-900'>
-                      Included (I1, I2 and I3)
-                    </td>
-                    <td className='px-4 py-2 text-sm text-gray-500'>
-                      Obvious inclusions using 10x magnification which might
-                      affect brilliance and transparency
-                    </td>
-                  </tr>
+                <tbody>
+                  {clarityGrades.map((item, index) => (
+                    <tr
+                      key={index}
+                      className={
+                        index % 2 === 0 ? 'bg-[#EFEFEF]' : 'bg-[#E0E0E0]'
+                      }
+                    >
+                      <td className='border-r border-black px-3 py-2.5 text-xs font-medium sm:text-sm md:px-4 md:py-3 2xl:text-base'>
+                        {item.grade}
+                      </td>
+                      <td className='px-3 py-2.5 text-xs sm:text-sm md:px-4 md:py-3 2xl:text-base'>
+                        {item.meaning}
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
             </div>
@@ -216,7 +200,16 @@ export const DiamondKnowledge = () => {
           {/* 4C's Section */}
           <AccordionItem value='item-1'>
             <AccordionTrigger className='px-2 py-3 text-base font-medium hover:no-underline'>
-              4C's of Diamonds
+              <div>
+                <Image
+                  src='/icons/content-4c.svg'
+                  width={18}
+                  height={18}
+                  alt='icon'
+                  className='mr-2 inline-block'
+                />
+                4C's of Diamonds
+              </div>
             </AccordionTrigger>
             <AccordionContent className='space-y-2 pl-4'>
               <ul className='xs:space-y-2 list-disc space-y-1 pl-5'>
@@ -247,7 +240,16 @@ export const DiamondKnowledge = () => {
           {/* Shapes Section */}
           <AccordionItem value='item-2'>
             <AccordionTrigger className='px-2 py-3 text-base font-medium hover:no-underline'>
-              Diamond Shapes
+              <div>
+                <Image
+                  src='/icons/content-4c.svg'
+                  width={18}
+                  height={18}
+                  alt='icon'
+                  className='mr-2 inline-block'
+                />
+                Diamond Shapes{' '}
+              </div>
             </AccordionTrigger>
             <AccordionContent className='space-y-2 pl-4'>
               <ul className='xs:space-y-2 list-disc space-y-1 pl-5'>
@@ -290,7 +292,16 @@ export const DiamondKnowledge = () => {
           {/* Types Section */}
           <AccordionItem value='item-3'>
             <AccordionTrigger className='px-2 py-3 text-base font-medium hover:no-underline'>
-              Diamond Types
+              <div>
+                <Image
+                  src='/icons/content-4c.svg'
+                  width={18}
+                  height={18}
+                  alt='icon'
+                  className='mr-2 inline-block'
+                />
+                Diamond Types{' '}
+              </div>
             </AccordionTrigger>
             <AccordionContent className='space-y-2 pl-4'>
               <ul className='xs:space-y-2 list-disc space-y-1 pl-5'>
@@ -317,7 +328,16 @@ export const DiamondKnowledge = () => {
           {/* Other Sections */}
           <AccordionItem value='item-4'>
             <AccordionTrigger className='px-2 py-3 text-base font-medium hover:no-underline'>
-              Diamond Characteristics
+              <div>
+                <Image
+                  src='/icons/content-4c.svg'
+                  width={18}
+                  height={18}
+                  alt='icon'
+                  className='mr-2 inline-block'
+                />
+                Diamond Characteristics
+              </div>
             </AccordionTrigger>
             <AccordionContent className='space-y-2 pl-4'>
               <ul className='xs:space-y-2 list-disc space-y-1 pl-5'>

@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
-import { Funnel, RotateCcw, X } from 'lucide-react';
+import { Funnel, RotateCcw, RotateCcwIcon, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Drawer,
@@ -206,25 +206,31 @@ function ProductsFilter() {
             <Funnel className='mr-1 h-4 w-4' /> Filter
           </button>
         </DrawerTrigger>
-        <DrawerContent className='no-drag-handle max-h-[90vh] rounded-t-lg p-0 [data-radix-drawer-handle]:hidden'>
+        <DrawerContent className='no-drag-handle max-h-[90vh] rounded-t-lg p-0 lg:hidden [data-radix-drawer-handle]:hidden'>
           <DrawerTitle className='sr-only'>Filter drawer</DrawerTitle>
-          <div className='bg-secondary flex items-center justify-between px-4 py-2'>
-            <Button className='w-fit rounded-sm text-sm' variant='outline'>
+          <div className='bg-secondary flex items-center justify-between gap-2 px-4 py-2'>
+            <Button className='w-fit rounded-sm text-xs' variant='outline'>
               Filters Selected (2)
+            </Button>
+            <Button
+              className='mr-auto w-fit rounded-sm text-xs'
+              variant='outline'
+            >
+              <RotateCcwIcon /> Reset Filters
             </Button>
             <DrawerClose className='flex h-7 w-7 items-center justify-center rounded-full bg-[#D9D9D9] transition hover:bg-gray-300'>
               <X size={20} />
             </DrawerClose>
           </div>
 
-          <div className='space-y-3 overflow-y-auto px-4 py-6'>
+          <div className='space-y-3 overflow-y-auto px-4 pt-2 pb-4'>
             {/* Metal Section */}
             <div>
               <p>
                 <strong className='font-medium'>Metal : </strong>
                 <span className='text-secondary-foreground'>White Gold</span>
               </p>
-              <div className='xs:gap-4 mt-2 grid grid-cols-4 gap-3 text-xs'>
+              <div className='xs:grid-cols-5 mt-2 grid grid-cols-4 gap-2 text-[11px] sm:w-2/3'>
                 {['gold', 'rose', 'white'].map((metal, idx) => (
                   <button
                     key={idx}
@@ -242,14 +248,13 @@ function ProductsFilter() {
                 ))}
               </div>
             </div>
-
             {/* Purity Section */}
             <div>
               <p>
                 <strong className='font-medium'>Purity : </strong>
                 <span className='text-secondary-foreground'>14 K</span>
               </p>
-              <div className='xs:gap-4 mt-2 grid grid-cols-4 gap-3 text-xs'>
+              <div className='xs:grid-cols-5 mt-2 grid grid-cols-4 gap-2 text-[11px] sm:w-2/3'>
                 {['14 K', '18 K', '20 K'].map((karat) => {
                   const isSelected = selectedPurity === karat;
                   return (
@@ -276,14 +281,14 @@ function ProductsFilter() {
                 <strong className='font-medium'>Ring Style : </strong>
                 <span className='text-secondary-foreground'>Halo</span>
               </p>
-              <div className='xs:gap-4 mt-2 grid grid-cols-4 gap-3 text-xs'>
+              <div className='mt-2 grid grid-cols-5 gap-2 text-xs sm:grid-cols-8'>
                 {ringStyles.map((style, idx) => {
                   const isSelected = selectedStyle === style.styleType;
                   return (
                     <button
                       key={idx}
                       onClick={() => setSelectedStyle(style.styleType)}
-                      className={`bg-secondary flex h-full flex-col items-center rounded-md border px-3 py-2 text-xs transition-all ${
+                      className={`bg-secondary flex h-full flex-col items-center rounded-md border px-2 pb-2 text-[10px] transition-all ${
                         isSelected
                           ? 'border-black'
                           : 'border-transparent hover:border-black'
@@ -296,32 +301,30 @@ function ProductsFilter() {
                         alt={style.styleType}
                         className='my-2 h-[25px] w-[50px] object-contain'
                       />
-                      <p className='mt-2 text-center text-nowrap'>
-                        {style.styleType}
-                      </p>
+                      <p className='mt-2 text-center'>{style.styleType}</p>
                     </button>
                   );
                 })}
               </div>
             </div>
-
             {/* Diamond Shape Section */}
             <div>
               <p>
                 <strong className='font-medium'>Diamond Shape : </strong>
                 <span className='text-secondary-foreground'>Round</span>
               </p>
-              <div className='xs:gap-4 mt-2 grid grid-cols-4 gap-3 text-xs'>
+              <div className='mt-2 grid grid-cols-5 gap-2 text-xs sm:grid-cols-8'>
                 {['round', 'pear', 'emerlad', 'princess'].map((shape, idx) => (
                   <button
                     key={idx}
-                    className='bg-secondary flex flex-col items-center rounded-md border border-transparent px-3 py-2 transition hover:border-black'
+                    className='bg-secondary flex flex-col items-center rounded-md border border-transparent px-1 pb-2 text-[10px] transition hover:border-black'
                   >
                     <Image
                       src={`/icons/shape-${shape}.svg`}
-                      width={80}
-                      height={80}
+                      width={48}
+                      height={48}
                       alt={shape}
+                      className='h-12 w-12'
                     />
                     {shape.charAt(0).toUpperCase() + shape.slice(1)}
                   </button>

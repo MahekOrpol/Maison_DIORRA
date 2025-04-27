@@ -3,6 +3,7 @@ import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
 import { useRef, useEffect, useState } from 'react';
 import Heading from '@/components/heading';
+import { Quote } from 'lucide-react';
 
 export default function TestimonialSection() {
   const timer = useRef();
@@ -96,28 +97,56 @@ export default function TestimonialSection() {
         }`}
       >
         {Array.from({ length: 20 }).map((_, index) => (
+          // <div key={index} className='keen-slider__slide'>
+          //   <div className='xs:p-6 3xl:aspect-[3/1] aspect-[4.5/2] rounded-xl border-2 border-gray-300 bg-white p-4 sm:px-8 sm:py-6'>
+          //     {/* Author Section */}
+          //     <div className='flex items-center gap-4'>
+          //       <img
+          //         src={`https://randomuser.me/api/portraits/men/${30 + index}.jpg`}
+          //         alt='Author Image'
+          //         className='h-14 w-14 rounded-full border border-gray-300 2xl:h-16 2xl:w-16'
+          //       />
+          //       <div>
+          //         <h4 className='text-lg font-semibold text-gray-900 md:text-xl xl:text-2xl'>
+          //           John Doe
+          //         </h4>
+          //         <p className='text-xs font-light xl:text-sm'>CEO, TechCorp</p>
+          //       </div>
+          //     </div>
+          //     {/* Quote */}
+          //     <p className='full mt-2 text-sm font-light whitespace-normal md:mt-4 lg:text-base 2xl:line-clamp-3 2xl:text-lg'>
+          //       "This product has transformed the way we do business. The team
+          //       is amazing, and the support has been outstanding. Highly
+          //       recommend!"
+          //     </p>
+          //   </div>
+          // </div>
           <div key={index} className='keen-slider__slide'>
-            <div className='xs:p-6 3xl:aspect-[3/1] aspect-[4.5/2] rounded-xl border-2 border-gray-300 bg-white p-4 sm:px-8 sm:py-6'>
-              {/* Author Section */}
+            <div className='xs:p-6 3xl:aspect-[3/1] aspect-[4.5/2] rounded-xl border-2 border-gray-300 bg-white px-2 py-4 sm:px-8 sm:py-6'>
               <div className='flex items-center gap-4'>
                 <img
-                  src={`https://randomuser.me/api/portraits/men/${30 + index}.jpg`}
+                  src={`https://randomuser.me/api/portraits/women/${40 + index}.jpg`}
                   alt='Author Image'
-                  className='h-12 w-12 rounded-full border border-gray-300'
+                  className='h-14 w-14 rounded-full border border-gray-300 2xl:h-16 2xl:w-16'
                 />
                 <div>
-                  <h4 className='text-lg font-semibold text-gray-900'>
-                    John Doe
+                  <h4 className='text-lg font-semibold text-gray-900 md:text-xl xl:text-2xl'>
+                    Sarah Johnson
                   </h4>
-                  <p className='text-sm text-gray-500'>CEO, TechCorp</p>
+                  <p className='text-xs font-light xl:text-sm'>
+                    Marketing Director, BrandCo
+                  </p>
                 </div>
               </div>
-              {/* Quote */}
-              <p className='full mt-2 text-sm font-light whitespace-normal md:mt-4 lg:text-base 2xl:line-clamp-3 2xl:text-lg'>
-                "This product has transformed the way we do business. The team
-                is amazing, and the support has been outstanding. Highly
-                recommend!"
-              </p>
+              <div className='relative mt-2 md:mt-4'>
+                <Quote className='absolute -top-1 -left-3 h-4 w-4 rotate-180 stroke-1' />
+                <p className='full px-3 text-justify text-sm font-light whitespace-normal lg:text-base 2xl:line-clamp-3 2xl:text-lg'>
+                  The service exceeded all our expectations. Their attention to
+                  detail and creative approach solved problems we didn't even
+                  know we had!
+                </p>
+                <Quote className='absolute -right-4 bottom-3 h-4 w-4 stroke-1' />
+              </div>
             </div>
           </div>
         ))}
