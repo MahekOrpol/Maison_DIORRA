@@ -112,7 +112,7 @@ export function ReviewForm() {
         </div>
 
         <div className='pt-2'>
-          <Button type='submit' size='lg' className='w-full max-w-xs'>
+          <Button type='submit' size='lg' className='w-full max-w-md'>
             Post a Review
           </Button>
         </div>

@@ -23,7 +23,9 @@ import {
   DrawerHeader,
   DrawerTitle
 } from './ui/drawer';
-import ProductGallery from '@/features/product/components/product-gallery';
+import ProductGallery, {
+  MobileGallery
+} from '@/features/product/components/product-gallery';
 import { useRouter } from 'next/navigation';
 
 export default function PreviewCard({ product, className }) {
@@ -175,7 +177,7 @@ export default function PreviewCard({ product, className }) {
         <Drawer
           open={isProductClicked}
           onOpenChange={setIsProductClicked}
-          className='pt0 pb-1-6 overflow-y-auto rounded-t-xl px-4'
+          className='overflow-y-auto rounded-t-xl px-4 pb-1'
         >
           <DrawerContent className=''>
             <DrawerHeader className='relative p-0'>
@@ -197,7 +199,7 @@ export default function PreviewCard({ product, className }) {
                   <X size={20} />
                 </DrawerClose>
               </DrawerTitle>
-              <ProductGallery />
+              <MobileGallery />
             </DrawerHeader>
 
             <DrawerFooter className='pt-2'>

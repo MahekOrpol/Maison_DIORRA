@@ -41,55 +41,58 @@ export default function ProductGallery({ className }) {
   );
 }
 
-function MobileGallery() {
+export function MobileGallery() {
   return (
     <div className=''>
-      <Tabs defaultValue='360' className=''>
-        <div className='overflow-hidden'>
-          {/* 360 View */}
-          <TabsContent
-            value='360'
-            className='flex h-full w-full items-center justify-center overflow-hidden rounded-md p-4'
-          >
-            <Image
-              src='/img/dummy/360view.gif'
-              alt='360 view'
-              width={400}
-              height={300}
-              className='max-h-full max-w-full object-contain'
-            />
-          </TabsContent>
+      <Tabs defaultValue='360' className='aspect-[9.5/10] sm:aspect-[5/4]'>
+        {/* 360 View */}
+        <TabsContent
+          value='360'
+          className='flex h-full w-full items-center justify-center overflow-hidden rounded-md p-4'
+        >
+          <Image
+            src='/img/dummy/360view.gif'
+            alt='360 view'
+            width={400}
+            height={300}
+            className='max-h-full max-w-full object-contain'
+          />
+        </TabsContent>
 
-          {/* Image Carousel */}
-          <TabsContent value='images' className='h-full w-full overflow-hidden'>
-            <Carousel className='h-full w-full'>
-              <CarouselContent className='ml-0'>
-                {images.map((img, i) => (
-                  <CarouselItem key={i} className='h-[300px] p-0'>
-                    <Image
-                      src={img}
-                      alt={`Dummy ${i}`}
-                      width={300}
-                      height={300}
-                      className='h-full w-full object-cover'
-                    />
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-              <CarouselPrevious className='translate-x-12 border-none' />
-              <CarouselNext className='-translate-x-12 border-none' />
-            </Carousel>
-          </TabsContent>
+        {/* Image Carousel */}
+        <TabsContent value='images' className='h-full w-full overflow-hidden'>
+          <Carousel className='h-full w-full'>
+            <CarouselContent className='ml-0 !h-full'>
+              {images.map((img, i) => (
+                <CarouselItem key={i} className='h-full p-0'>
+                  <Image
+                    src={img}
+                    alt={`Dummy ${i}`}
+                    width={400}
+                    height={400}
+                    className='h-full w-full object-cover'
+                  />
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <CarouselPrevious className='translate-x-12 border-none' />
+            <CarouselNext className='-translate-x-12 border-none' />
+          </Carousel>
+        </TabsContent>
 
-          {/* Video */}
-          <TabsContent value='video' className='h-full w-full overflow-hidden'>
+        {/* Video */}
+        <TabsContent
+          value='video'
+          className='h-full w-full overflow-hidden bg-amber-500'
+        >
+          <div className='h-full w-full bg-amber-300'>
             <video
               src='/img/dummy/video.mp4'
               controls
-              className='h-full max-w-full rounded-md object-cover'
+              className='h-full w-full object-cover'
             />
-          </TabsContent>
-        </div>
+          </div>
+        </TabsContent>
 
         <TabsList className='flex w-full justify-start gap-2 rounded-none border-b bg-transparent'>
           <TabsTrigger
