@@ -9,6 +9,7 @@ import NewArrivals from '@/features/home/components/new-arrivals';
 import ShopByCategory from '@/features/home/components/shop-by-category';
 import TestimonialSection from '@/features/home/components/testimonial-section';
 import TrendingCollections from '@/features/home/components/trending-collections';
+import TrendingCollectionsV1 from '@/features/home/components/trending-collectionsv1';
 import YourDesign from '@/features/home/components/your-design';
 export const metadata = {
   description:
@@ -27,6 +28,7 @@ export default function HomePage() {
       <GiftingSection />
       <DiamondShapes />
       <NewArrivals />
+      <TrendingCollectionsV1 />
       <TrendingCollections />
       <BlogsSection />
       <TestimonialSection />

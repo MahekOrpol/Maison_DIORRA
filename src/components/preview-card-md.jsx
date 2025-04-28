@@ -28,7 +28,7 @@ import ProductGallery, {
 } from '@/features/product/components/product-gallery';
 import { useRouter } from 'next/navigation';
 
-export default function PreviewCard({ product, className }) {
+export default function PreviewCardMd({ product, className }) {
   const [selectedMetal, setSelectedMetal] = useState(product?.metals?.[0]);
   const [isProductClicked, setIsProductClicked] = useState(false);
   const [isClientMobile, setIsClientMobile] = useState(false);
@@ -75,7 +75,7 @@ export default function PreviewCard({ product, className }) {
     <>
       <Card
         className={cn(
-          'group relative justify-between gap-0 overflow-hidden rounded-xl border border-gray-400 pt-0 pb-2 shadow transition-transform duration-300 hover:shadow-xl lg:border-2',
+          'group relative justify-between gap-0 overflow-hidden rounded-xl border border-black pt-0 pb-2 shadow transition-transform duration-300 hover:border-black hover:shadow-xl sm:border-2 sm:border-gray-400',
           className
         )}
       >
@@ -99,7 +99,7 @@ export default function PreviewCard({ product, className }) {
           }}
           className='relative w-full'
         >
-          <CarouselContent className='ml-0 aspect-[1/1] w-full gap-0'>
+          <CarouselContent className='ml-0 w-full gap-0 lg:h-[200px] xl:h-[230px]'>
             {selectedMetal.images.map((image, index) => (
               <CarouselItem
                 key={index}
@@ -111,7 +111,7 @@ export default function PreviewCard({ product, className }) {
                   alt={selectedMetal.name}
                   width={300}
                   height={300}
-                  className='h-full w-full object-cover object-center'
+                  className='h-full w-full object-cover object-center xl:object-contain'
                 />
               </CarouselItem>
             ))}
@@ -123,8 +123,8 @@ export default function PreviewCard({ product, className }) {
           </div>
         </Carousel>
 
-        <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2 xl:px-4 xl:pb-3'>
-          <div className='flex items-center justify-between border-t pt-2 xl:pt-4'>
+        <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2 xl:px-4 xl:pb-1'>
+          <div className='flex items-center justify-between border-t pt-2'>
             <div className='flex gap-1 sm:gap-2'>
               <p className='leading-1 font-medium sm:text-[22px] lg:text-xl xl:text-2xl'>
                 ${selectedMetal.amount}
@@ -155,7 +155,7 @@ export default function PreviewCard({ product, className }) {
             </div>
           </div>
 
-          <p className='xs:text-base line-clamp-2 block min-h-[2.2em] text-left text-sm leading-4 font-light text-gray-900 sm:text-lg xl:font-normal 2xl:text-xl'>
+          <p className='xs:text-base 4xl:text-xl line-clamp-2 block min-h-[2.2em] text-left text-sm leading-4 font-light text-gray-900 sm:text-base xl:font-normal'>
             <button
               onClick={handleProductClick}
               className='block w-full text-left'
@@ -164,10 +164,10 @@ export default function PreviewCard({ product, className }) {
             </button>
           </p>
           <Button
-            className='xs:text-base xs:h-9 3xl:h-12 mt-auto h-8 w-full text-sm lg:h-10 2xl:text-xl'
+            className='xs:text-base xs:h-9 3xl:text-xl mt-auto h-8 w-full text-sm lg:h-10'
             onClick={handleAddToCart}
           >
-            Add to Cart <ShoppingBagIcon size={20} className='ml-2 xl:size-7' />
+            Add to Cart <ShoppingBagIcon size={20} className='ml-2 xl:size-5' />
           </Button>
         </CardContent>
       </Card>

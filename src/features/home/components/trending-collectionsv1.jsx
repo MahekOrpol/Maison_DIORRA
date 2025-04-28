@@ -17,6 +17,7 @@ import {
   necklaceData,
   ringData
 } from '@/constants/data';
+import PreviewCardMd from '@/components/preview-card-md';
 
 const categories = {
   ring: ringData,
@@ -25,7 +26,7 @@ const categories = {
   earring: earringData
 };
 
-export default function TrendingCollections() {
+export default function TrendingCollectionsV1() {
   const [selected, setSelected] = useState('ring');
   console.log('Selected category:', selected);
 
@@ -35,15 +36,15 @@ export default function TrendingCollections() {
         title='Trending Collection'
         subtitle='Affordable luxury for everyday wear'
       />
-      <div className='xs:gap-3 flex flex-col gap-2 sm:gap-6 lg:flex-row lg:items-stretch lg:gap-6 2xl:gap-8'>
+      <div className='xs:gap-3 3xl:max-h-[840px] flex flex-col gap-2 sm:gap-6 lg:max-h-[700px] lg:flex-row lg:items-stretch lg:justify-center lg:gap-4 xl:max-h-[760px] 2xl:gap-6'>
         {/* Left side cards */}
-        <div className='xl:grid-row-2 grid grid-cols-2 gap-4 sm:gap-6 lg:w-[22%] lg:grid-cols-1 xl:w-[25%] 2xl:gap-8'>
-          <PreviewCard key='1' product={{ ...categories[selected] }} />
-          <PreviewCard key='2' product={{ ...categories[selected] }} />
+        <div className='xl:grid-row-2 grid grid-cols-2 gap-4 sm:gap-4 lg:w-[22%] lg:grid-cols-1 2xl:gap-6'>
+          <PreviewCardMd key='1' product={{ ...categories[selected] }} />
+          <PreviewCardMd key='2' product={{ ...categories[selected] }} />
         </div>
 
         {/* Center model image with marker buttons */}
-        <div className='relative aspect-[766/980] w-full overflow-hidden rounded-xl border lg:w-[60%]'>
+        <div className='relative aspect-[10/9] w-full overflow-hidden rounded-xl border lg:w-[54%] xl:aspect-[9/10]'>
           <Image
             src='/img/model-img.svg'
             height={1000}
@@ -56,35 +57,35 @@ export default function TrendingCollections() {
           <MarkerButton
             onClick={() => setSelected('bracelet')}
             tooltipContent={braceletData.metals[0]}
-            className='absolute bottom-[18%] left-[26%]'
+            className='3xl:bottom-[6%] absolute bottom-[12%] left-[40%] lg:bottom-[18%] lg:left-[30%] xl:bottom-[8%]'
           />
 
           {/* Ring Button */}
           <MarkerButton
             onClick={() => setSelected('ring')}
             tooltipContent={ringData.metals[0]}
-            className='absolute top-[32%] left-[22%] lg:left-[20%] xl:left-[18%] 2xl:top-[34%]'
+            className='3xl:top-[30%] absolute top-[25%] left-[20%] md:top-[26%] lg:top-[34%] lg:left-[14%] xl:top-[32%]'
           />
 
           {/* Necklace Button */}
           <MarkerButton
             onClick={() => setSelected('necklace')}
             tooltipContent={necklaceData.metals[0]}
-            className='xs:right-[28%] absolute right-[26%] bottom-[28%] lg:right-[22%] lg:bottom-[33%] 2xl:right-[24%]'
+            className='absolute right-[23%] bottom-[28%] lg:right-[22%] lg:bottom-[33%]'
           />
 
           {/* Earring Button */}
           <MarkerButton
             onClick={() => setSelected('earring')}
             tooltipContent={earringData.metals[0]}
-            className='xs:top-[24.5%] xs:right-[17.5%] absolute top-[23%] right-[17%] md:top-[25%] md:right-[18%] lg:top-[24%] lg:right-[16%] xl:top-[24%] xl:right-[17%] 2xl:top-[25.5%] 2xl:right-[18%]'
+            className='3xl:top-[16%] absolute top-[14%] right-[17%] md:top-[15%] md:right-[18%] lg:top-[24%] lg:right-[16%] xl:top-[20%] xl:right-[17%]'
           />
         </div>
 
         {/* Right side cards */}
-        <div className='xl:grid-row-2 grid grid-cols-2 gap-4 sm:gap-6 lg:w-[22%] lg:grid-cols-1 lg:gap-6 xl:w-[25%] 2xl:gap-8'>
-          <PreviewCard key='3' product={{ ...categories[selected] }} />
-          <PreviewCard key='4' product={{ ...categories[selected] }} />
+        <div className='xl:grid-row-2 grid grid-cols-2 gap-4 sm:gap-4 lg:w-[22%] lg:grid-cols-1 2xl:gap-6'>
+          <PreviewCardMd key='3' product={{ ...categories[selected] }} />
+          <PreviewCardMd key='4' product={{ ...categories[selected] }} />
         </div>
       </div>
     </section>

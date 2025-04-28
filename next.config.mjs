@@ -5,7 +5,8 @@ const nextConfig = {
     domains: [
       'picsum.photos', // example: for demo images
       'res.cloudinary.com', // add your image CDN or asset host
-      'your-cdn.com'
+      'your-cdn.com',
+      'randomuser.me'
     ]
   }
 };

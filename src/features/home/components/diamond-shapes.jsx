@@ -47,11 +47,13 @@ export default function DiamondShapes() {
           className='mb-4 lg:mt-6'
           opts={{
             align: 'start',
-            loop: true
+            loop: true,
+            dragFree: false, // Enables momentum scrolling
+            dragEnabled: true
           }}
           plugins={[
             Autoplay({
-              delay: 4000,
+              delay: 3000,
               stopOnInteraction: false, // keeps autoplay running
               stopOnMouseEnter: true, // pause when hovered (optional)
               resetProgress: false
@@ -75,7 +77,7 @@ export default function DiamondShapes() {
                         className='h-full w-auto object-contain'
                       />
                     </div>
-                    <p className='xs:text-base -mt-4 text-sm font-medium md:font-normal lg:text-xl 2xl:text-2xl'>
+                    <p className='xs:text-base 4xl:text-2xl -mt-4 text-sm font-medium md:font-normal lg:text-xl'>
                       {item.name}
                     </p>
                   </div>
