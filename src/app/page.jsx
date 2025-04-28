@@ -29,7 +29,7 @@ export default function HomePage() {
       <DiamondShapes />
       <NewArrivals />
       <TrendingCollectionsV1 />
-      <TrendingCollections />
+      {/* <TrendingCollections /> */}
       <BlogsSection />
       <TestimonialSection />
     </>

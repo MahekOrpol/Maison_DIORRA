@@ -99,7 +99,7 @@ export default function PreviewCardMd({ product, className }) {
           }}
           className='relative w-full'
         >
-          <CarouselContent className='ml-0 w-full gap-0 lg:h-[200px] xl:h-[230px]'>
+          <CarouselContent className='3xl:h-[250px] ml-0 w-full gap-0 lg:h-[200px] xl:h-[230px]'>
             {selectedMetal.images.map((image, index) => (
               <CarouselItem
                 key={index}
@@ -111,7 +111,7 @@ export default function PreviewCardMd({ product, className }) {
                   alt={selectedMetal.name}
                   width={300}
                   height={300}
-                  className='h-full w-full object-cover object-center xl:object-contain'
+                  className='h-full w-full object-cover object-center'
                 />
               </CarouselItem>
             ))}
@@ -164,14 +164,13 @@ export default function PreviewCardMd({ product, className }) {
             </button>
           </p>
           <Button
-            className='xs:text-base xs:h-9 3xl:text-xl mt-auto h-8 w-full text-sm lg:h-10'
+            className='xs:text-base xs:h-9 3xl:text-xl 3xl:h-12 mt-auto h-8 w-full text-sm lg:h-10'
             onClick={handleAddToCart}
           >
             Add to Cart <ShoppingBagIcon size={20} className='ml-2 xl:size-5' />
           </Button>
         </CardContent>
       </Card>
-
       {/* Mobile Drawer */}
       {isClientMobile && (
         <Drawer

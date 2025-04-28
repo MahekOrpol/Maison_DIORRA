@@ -1,17 +1,19 @@
-import CustomTagWrapper from '@/components/custom-tag-wrapper';
+import CustomTagWrapper, {
+  ProductSelectionStepsForDiamonds
+} from '@/components/custom-tag-wrapper';
 import ProductGallery from '@/features/product/components/product-gallery';
 import DiamondDetails from '../components/diamond-details';
 
 export default function Page() {
   return (
-    <div className=''>
-      <CustomTagWrapper className='wrapper xl:mb-14' />
-      <div className='mx-auto mb-4 flex w-full max-w-[1600px] flex-col gap-6 lg:flex-row'>
-        <ProductGallery className='lg:sticky lg:top-10 lg:h-fit lg:w-[45%]' />
-        <DiamondDetails className='px-3 sm:px-6 lg:w-[55%] lg:pr-8 xl:pr-10' />
+    <>
+      <ProductSelectionStepsForDiamonds className='wrapper xs:my-[25px] my-[20px] sm:my-[30px] lg:my-[35px] xl:mt-[50px] xl:mb-[45px] 2xl:mt-[65px] 2xl:mb-[60px]' />
+      <div className='mx-auto mb-8 flex w-full max-w-[2100px] flex-col gap-3 md:gap-4 lg:flex-row xl:gap-6'>
+        <ProductGallery className='lg:sticky lg:top-10 lg:h-fit lg:w-[55%]' />
+        <DiamondDetails className='3xl:pr-14 4xl:pr-20 px-3 sm:px-6 lg:w-[45%] lg:pr-8 2xl:pr-12' />
       </div>
       <DiamondClarityTable />
-    </div>
+    </>
   );
 }
 

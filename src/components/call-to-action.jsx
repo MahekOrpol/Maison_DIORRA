@@ -40,9 +40,9 @@ export default function CallToAction({ className }) {
       <Image
         src='/icons/logo-diorra2.svg'
         alt='logo'
-        width={350}
-        height={150}
-        className=''
+        width={200}
+        height={100}
+        className='w-[200px] md:w-[300px] xl:w-[400px]'
       />
       <p className='max-w-5xl text-center text-xs leading-4 lg:text-sm lg:leading-5 xl:text-base xl:leading-6'>
         Discover exquisite craftsmanship and timeless elegance with our stunning

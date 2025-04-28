@@ -66,7 +66,8 @@ export default function Tab1Content() {
           </div>
         </div>
       </div>
-      <div className='space-y-2 text-justify text-sm leading-5 font-light md:space-y-3 md:text-base md:leading-6 lg:w-[65%] xl:text-lg'>
+      {/* Right side Article content */}
+      <div className='3xl:text-lg space-y-2 text-justify text-sm leading-5 font-light md:space-y-3 md:text-base md:leading-6 lg:w-[65%]'>
         <h2 className='text-left text-2xl font-semibold md:text-3xl xl:text-4xl'>
           All you need to know about Diamond Clarity
         </h2>
@@ -86,7 +87,7 @@ export default function Tab1Content() {
             alt='Education image'
             className='mx-auto w-full max-w-5xl'
           />
-          <div className='bg-secondary xs:px-8 xs:py-2 relative bottom-4 z-20 mx-auto w-fit rounded-full border border-black px-2 py-1 text-xs sm:bottom-6 lg:text-sm'>
+          <div className='bg-secondary xs:px-8 xs:py-2 relative bottom-4 z-20 mx-auto w-fit rounded-full border border-black px-2 py-1 text-center text-xs sm:bottom-6 lg:text-sm'>
             Round, Emerald, Princess and Pear shaped Diamond
           </div>
         </div>
@@ -307,7 +308,7 @@ export const DiamondKnowledge = () => {
   return (
     <>
       <div className='mx-auto rounded-sm border p-4'>
-        <h1 className='mb-3 border-b pb-1 text-2xl font-medium underline decoration-1 underline-offset-10 md:text-2xl'>
+        <h1 className='mb-3 border-b pb-1 text-2xl font-medium underline decoration-1 underline-offset-12 md:text-2xl'>
           Know about Diamonds
         </h1>
         <Accordion
@@ -317,7 +318,7 @@ export const DiamondKnowledge = () => {
         >
           {accordionItems.map((item) => (
             <AccordionItem key={item.value} value={item.value}>
-              <AccordionTrigger className='px-2 py-3 text-base font-semibold hover:no-underline'>
+              <AccordionTrigger className='px-2 py-3 text-base font-medium hover:no-underline'>
                 <div>
                   <Image
                     src={item.icon}
@@ -333,7 +334,10 @@ export const DiamondKnowledge = () => {
                 <ul className='xs:space-y-2 list-disc space-y-1 pl-5 [&>li::marker]:text-xs'>
                   {item.items.map((link, index) => (
                     <li key={index}>
-                      <Link href={link.href} className='hover:underline'>
+                      <Link
+                        href={link.href}
+                        className='underline-offset-3 hover:underline'
+                      >
                         {link.text}
                       </Link>
                     </li>

@@ -25,7 +25,7 @@ export default function ChooseSettingsModal({ open, onOpenChange }) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className='w-full max-w-sm rounded-xl p-8 sm:max-w-sm'>
+      <DialogContent className='w-[95vw] max-w-sm rounded-xl p-8 sm:max-w-sm'>
         <DialogTitle className='text-center text-2xl font-semibold'>
           Choose Your Setting
         </DialogTitle>

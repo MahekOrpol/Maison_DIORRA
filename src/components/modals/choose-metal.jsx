@@ -28,7 +28,7 @@ export default function ChooseMetalModal({ open, onOpenChange }) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className='w-full max-w-sm rounded-xl px-6 py-8'>
+      <DialogContent className='w-[95vw] max-w-sm rounded-xl px-6 py-8'>
         <DialogTitle className='text-center text-2xl font-semibold'>
           Choose Your Metal
         </DialogTitle>

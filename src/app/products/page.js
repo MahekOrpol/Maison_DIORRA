@@ -119,7 +119,7 @@ export default function Page() {
       {/* filters */}
       <ProductsFilter />
       {/* listing components */}
-      <div className='mt-4 mb-10 grid grid-cols-2 gap-2 md:mb-20 md:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-5 xl:gap-6'>
+      <div className='mt-8 mb-10 grid grid-cols-2 gap-2 md:mb-20 md:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-5 xl:gap-6'>
         {data.map((product, index) => {
           // Separate ad indices for different breakpoints
           const mobileAdIndex = Math.floor(index / 2) % advertisements.length;

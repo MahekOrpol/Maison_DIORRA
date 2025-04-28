@@ -31,9 +31,8 @@ export default function BlogCard({
           height={210}
         />
       </div>
-
       {/* Content */}
-      <div className='flex flex-1 flex-col px-2 pb-2'>
+      <div className='flex flex-1 flex-col p-2'>
         <p className='text-xs leading-5 lg:text-sm lg:leading-6'>
           22.DEC.2025 <span className='text-base leading-3'>•</span> BY FERONIA
         </p>

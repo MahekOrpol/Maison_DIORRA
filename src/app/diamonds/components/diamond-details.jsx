@@ -57,6 +57,13 @@ export default function DiamondDetails({ className }) {
     { src: '/icons/dollar-inhand.svg', label: '30 Days Free Return' },
     { src: '/icons/certificate.svg', label: 'Certificate & Appraisal' }
   ];
+  const characteristics = [
+    { propety: 'Carat', value: '0.5' },
+    { propety: 'Color', value: 'I' },
+    { propety: 'Clarity', value: 'IF' },
+    { propety: 'Ratio', value: '1.4' },
+    { propety: 'L/W (mm)', value: '5.23/3.73' }
+  ];
 
   const handleAddToCart = async () => {
     const res = await fetch('/api/check-auth', {
@@ -89,13 +96,13 @@ export default function DiamondDetails({ className }) {
         </h1>
         <div className='bg-secondary grid grid-cols-5 py-2'>
           {/* MAP DETAILS HERE */}
-          {Array.from({ length: 5 }).map((item, i) => (
+          {characteristics.map((item, i) => (
             <div
               key={i}
               className='border-black text-center text-xs not-last:border-r md:text-base'
             >
-              <p>0.5</p>
-              <p className='text-muted-foreground text-sm'>Carat</p>
+              <p>{item.value}</p>
+              <p className='text-muted-foreground text-sm'>{item.propety}</p>
             </div>
           ))}
         </div>
@@ -149,23 +156,28 @@ export default function DiamondDetails({ className }) {
           </div>
           <hr />
         </div>
-        <div className='mb-6 flex gap-3'>
-          {/* Add to Cart */}
-          <Button className='flex-1 py-6 text-lg' onClick={handleAddToCart}>
-            Complete Your Ring <ChevronRight className='ml-2 h-7 w-7' />
+        <div className='xs:gap-2 mb-4 flex w-full items-center gap-1 md:w-1/2 lg:w-full'>
+          <Button
+            className='h-10 flex-1 gap-4 rounded-lg text-base lg:h-12 lg:text-lg'
+            onClick={handleAddToCart}
+          >
+            Complete Your Ring
           </Button>
 
           {/* Add to Wishlist */}
           <button
             onClick={handleAddToWishlist}
-            className='hover:bg-muted flex h-[48px] w-[48px] items-center justify-center rounded-full border border-gray-300 bg-white transition'
+            className='hover:bg-muted flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 bg-white transition md:h-10 md:w-10'
           >
-            <Heart className='h-6 w-6' strokeWidth={1.6} />
+            <Heart className='h-4 w-4 md:h-5 md:w-5' strokeWidth={1.6} />
           </button>
 
           {/* Share */}
-          <button className='hover:bg-muted flex h-[48px] w-[48px] items-center justify-center rounded-full border border-gray-300 bg-white transition'>
-            <Share2 className='h-6 w-6' strokeWidth={1.6} />
+          <button
+            onClick={handleAddToWishlist}
+            className='hover:bg-muted flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 bg-white transition md:h-10 md:w-10'
+          >
+            <Share2 className='h-4 w-4 md:h-5 md:w-5' strokeWidth={1.6} />
           </button>
         </div>
       </div>

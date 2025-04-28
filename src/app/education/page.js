@@ -39,10 +39,10 @@ export default function Page() {
             <Tab1Content />
           </TabsContent>
           <TabsContent value='gemstones'>
-            <Tab2Content />
+            <Tab1Content />
           </TabsContent>
           <TabsContent value='rings'>
-            <Tab3Content />
+            <Tab1Content />
           </TabsContent>
         </Tabs>
       </section>

@@ -58,18 +58,18 @@ const footerLinks = [
   {
     heading: 'Services',
     links: [
-      { href: '#', label: 'Refund' },
-      { href: '#', label: 'Shipping' },
-      { href: '#', label: 'Order Status' },
-      { href: '#', label: 'FAQ' },
-      { href: '#', label: 'Exchange' }
+      { href: 'd', label: 'Refund' },
+      { href: 'd', label: 'Shipping' },
+      { href: 'd', label: 'Order Status' },
+      { href: 'd', label: 'FAQ' },
+      { href: 'd', label: 'Exchange' }
     ]
   },
   {
     heading: 'Support',
     links: [
-      { href: '#', label: 'Privacy Policy' },
-      { href: '#', label: 'Terms of Use' }
+      { href: 'd', label: 'Privacy Policy' },
+      { href: 'd', label: 'Terms of Use' }
     ]
   }
 ];

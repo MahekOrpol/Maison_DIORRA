@@ -9,7 +9,7 @@ export default function Page() {
       <h1 className='mb-6 text-2xl font-bold'>My Account</h1>
 
       {/* Profile Info */}
-      <Card className='mb-6'>
+      <Card className='mb-6 gap-1 pt-2 pb-4 md:gap-4 md:py-6'>
         <CardHeader className='flex flex-row items-center justify-between'>
           <CardTitle>Profile Details</CardTitle>
           <Button variant='ghost' size='icon' aria-label='Edit Profile'>
@@ -17,7 +17,7 @@ export default function Page() {
           </Button>
         </CardHeader>
         <hr />
-        <CardContent className='space-y-2 pt-4'>
+        <CardContent className='space-y-2'>
           <div>
             <p className='text-muted-foreground text-sm font-medium'>Name</p>
             <p className='text-base'>John Doe</p>
@@ -34,7 +34,7 @@ export default function Page() {
       </Card>
 
       {/* Address Info */}
-      <Card>
+      <Card className='mb-6 gap-1 pt-2 pb-4 md:gap-4 md:py-6'>
         <CardHeader className='flex flex-row items-center justify-between'>
           <CardTitle>Saved Address</CardTitle>
           <Button variant='ghost' size='icon' aria-label='Edit Address'>
@@ -42,7 +42,7 @@ export default function Page() {
           </Button>
         </CardHeader>
         <hr />
-        <CardContent className='pt-4'>
+        <CardContent className=''>
           <p className='text-base'>
             123, Royal Avenue, Diamond Nagar,
             <br />

@@ -35,7 +35,9 @@ export function OrderSummary({
                 className='h-26 w-26 rounded-md shadow-[0px_0px_3px_1px_rgba(0,_0,_0,_0.1)]'
               />
               <div className='flex-1'>
-                <h3 className='leading-5 font-medium'>{item.name}</h3>
+                <h3 className='line-clamp-1 leading-5 font-medium'>
+                  {item.name}
+                </h3>
                 <p className='text-muted-foreground text-sm'>{item.variant}</p>
                 {item.size && (
                   <p className='text-muted-foreground text-sm'>

@@ -21,7 +21,7 @@ const CheckoutPage = () => {
   // }, []);
 
   return (
-    <div className='wrapper'>
+    <div className='wrapper pt-2 lg:pt-4'>
       {/* Progress Bar */}
       <ProgressBar />
 

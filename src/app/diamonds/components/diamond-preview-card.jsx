@@ -4,6 +4,12 @@ import Link from 'next/link';
 import React from 'react';
 
 export default function DiamondPreviewCard({ href }) {
+  const characteristics = [
+    { propety: 'Carat', value: '0.5' },
+    { propety: 'Color', value: 'I' },
+    { propety: 'Clarity', value: 'IF' },
+    { propety: 'Ratio', value: '1.4' }
+  ];
   return (
     <div className='w-full max-w-sm overflow-hidden rounded-lg border'>
       <div className='bg-[#d4d4d4] md:h-[300px]'>
@@ -22,10 +28,10 @@ export default function DiamondPreviewCard({ href }) {
         </div>
         <div className='grid grid-cols-4'>
           {/* MAP DETAILS HERE */}
-          {Array.from({ length: 4 }).map((item, i) => (
+          {characteristics.map((item, i) => (
             <div key={i} className='text-center text-xs not-last:border-r'>
-              <p>0.5</p>
-              <p className='text-muted-foreground text-xs'>Carat</p>
+              <p>{item.value}</p>
+              <p className='text-muted-foreground text-xs'>{item.propety}</p>
             </div>
           ))}
         </div>

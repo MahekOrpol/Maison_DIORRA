@@ -58,7 +58,7 @@ export default function Header() {
           showHeader ? 'translate-y-0' : '-translate-y-full'
         }`}
       >
-        <header className='bg-background text-foreground shadow-md'>
+        <header className='bg-background text-foreground shadow-xs'>
           {/* banner */}
           <div className='bg-primary py-2 text-center tracking-wider text-white md:py-1'>
             {/* <p className='wrapper text-sm leading-4 md:hidden'>
@@ -91,14 +91,14 @@ export default function Header() {
                 />
               </Link>
             </div>
-            <div className='flex gap-3 md:gap-4'>
+            <div className='flex gap-0.5 min-[340px]:gap-1.5 md:gap-4'>
               <AccountDropdown isLoggedIn={true} />
               {/* Wishlist Link */}
               <button
                 className='relative rounded-full p-1 transition-all duration-200 hover:scale-110 hover:bg-gray-100'
                 onClick={handleWishlistClick}
               >
-                <Heart strokeWidth={1.2} size={30} />
+                <Heart strokeWidth={1.2} size={28} />
                 <span className='text-background absolute top-0 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-black text-xs'>
                   8
                 </span>
@@ -117,7 +117,7 @@ export default function Header() {
           <hr />
 
           {/* web nav */}
-          <nav className='wrapper hidden justify-center gap-2 py-1.5 text-lg md:py-2 lg:flex'>
+          <nav className='wrapper hidden justify-center gap-3 py-1.5 text-lg md:py-2 lg:flex'>
             {[
               {
                 href: '/diamonds',

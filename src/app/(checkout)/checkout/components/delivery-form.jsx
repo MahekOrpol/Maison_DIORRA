@@ -97,9 +97,8 @@ export default function DeliveryForm({ onNext }) {
             onEnterShipping={() => console.log('Entering shipping address')}
           />
         </div>
-
         {/* Address Form - SECOND on mobile, FIRST on desktop */}
-        <div className='order-2 flex-1 min-[1000px]:order-1'>
+        <div className='order-2 mt-4 flex-1 min-[1000px]:order-1 min-[1000px]:mt-0'>
           <h2 className='mb-4 text-2xl font-semibold'>
             Select Delivery Address
           </h2>

@@ -29,8 +29,8 @@ export default function ChooseStonelModal({ open, onOpenChange }) {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className='w-full max-w-sm rounded-xl px-4 py-8 sm:px-8'>
-        <DialogTitle className='text-center text-2xl font-semibold'>
+      <DialogContent className='w-[95vw] max-w-sm rounded-xl px-4 py-8 sm:px-8'>
+        <DialogTitle className='mt-2 text-center text-2xl font-semibold'>
           Choose Your Diamond
         </DialogTitle>
 

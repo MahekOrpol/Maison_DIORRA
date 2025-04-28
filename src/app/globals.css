@@ -77,3 +77,12 @@
 .hero-font {
   font-size: clamp(1.5rem, 0.9474rem + 2.9474vw, 5rem);
 }
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}

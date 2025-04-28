@@ -253,7 +253,10 @@ export default function ContactPage() {
                 )}
               </div>
 
-              <Button type='submit' className='h-12 w-[180px] text-lg'>
+              <Button
+                type='submit'
+                className='h-12 w-full text-lg lg:max-w-[220px]'
+              >
                 Submit Now
               </Button>
             </form>

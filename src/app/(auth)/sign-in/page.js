@@ -13,8 +13,7 @@ import {
   DialogContent,
   DialogFooter,
   DialogHeader,
-  DialogTitle,
-  DialogTrigger
+  DialogTitle
 } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 
@@ -25,14 +24,14 @@ export default function AuthTabs() {
   return (
     <>
       <div className='bg-muted flex items-center justify-center border px-2 py-8 sm:px-4'>
-        <div className='flex w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-md md:h-auto md:max-w-4xl'>
+        <div className='flex w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-md md:h-[660px] md:max-w-5xl'>
           {/* Left Side Image */}
-          <div className='hidden w-1/3 md:block'>
+          <div className='hidden w-[40%] md:block'>
             <Image
               src='/img/login-model.png'
               alt='Jewelry model'
-              width={600}
-              height={600}
+              width={500}
+              height={500}
               className='h-full w-full object-cover'
             />
           </div>
@@ -107,7 +106,7 @@ export default function AuthTabs() {
                     </span>
                     <Button
                       variant='link'
-                      className='p-0 text-sm font-medium underline-offset-2 hover:underline'
+                      className='p-0 text-sm font-medium underline underline-offset-3'
                       onClick={() => setOpenForgotPassword(true)}
                     >
                       Forgot Password
@@ -119,14 +118,14 @@ export default function AuthTabs() {
                       By Continuing, I agree to{' '}
                       <Link
                         href='#'
-                        className='font-medium underline-offset-2 hover:underline'
+                        className='font-medium underline underline-offset-2'
                       >
                         Terms of Use
                       </Link>{' '}
                       &{' '}
                       <Link
                         href='#'
-                        className='font-medium underline-offset-2 hover:underline'
+                        className='font-medium underline underline-offset-2'
                       >
                         Privacy Policy
                       </Link>
@@ -250,20 +249,19 @@ export default function AuthTabs() {
                       </label>
                     </div>
                   </div>
-
                   <div className='mx-auto mt-7 w-full items-center text-center lg:mt-10 xl:w-3/4'>
                     <p className='mb-2 text-xs sm:text-sm md:mb-4'>
                       By Continuing, I agree to{' '}
                       <Link
                         href='#'
-                        className='font-medium underline-offset-2 hover:underline'
+                        className='font-medium underline underline-offset-3'
                       >
                         Terms of Use
                       </Link>{' '}
                       &{' '}
                       <Link
                         href='#'
-                        className='font-medium underline-offset-2 hover:underline'
+                        className='font-medium underline underline-offset-3'
                       >
                         Privacy Policy
                       </Link>

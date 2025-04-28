@@ -187,7 +187,9 @@ function CartContainer({ cart, setCart }) {
                   <span className='text-muted-foreground text-sm font-medium'>
                     {item.category}
                   </span>
-                  <p className='font-medium md:text-lg'>{item.name}</p>
+                  <p className='line-clamp-1 font-medium md:text-lg'>
+                    {item.name}
+                  </p>
                   <span className=''>$ {item.price}</span>
                 </div>
               </div>

@@ -120,6 +120,7 @@ export function ArrivalSwiper({ className }) {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+  console.log(coverflowConfig);
 
   return (
     <Swiper
