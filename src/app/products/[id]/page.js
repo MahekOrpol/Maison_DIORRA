@@ -241,9 +241,11 @@ function TestimonialCard({ author, authorImg, date, content, rating = 5 }) {
       {/* Responsive Image Wrapper */}
       <div className='flex w-fit items-center justify-center self-start rounded-full bg-black p-[0.6px]'>
         <div className='rounded-full bg-white p-1'>
-          <img
+          <Image
             src={authorImg}
             alt='Testimonial Author'
+            width={56}
+            height={56}
             className='h-14 w-14 rounded-full object-cover lg:h-15 lg:w-15'
           />
         </div>

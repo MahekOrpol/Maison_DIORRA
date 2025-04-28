@@ -27,7 +27,6 @@ const categories = {
 
 export default function TrendingCollections() {
   const [selected, setSelected] = useState('ring');
-  console.log('Selected category:', selected);
 
   return (
     <section className='wrapper pt-6 md:pt-10 lg:pt-12 xl:pt-14'>
