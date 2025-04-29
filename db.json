@@ -37,7 +37,43 @@
     {
       "id": "1",
       "name": "Diamond Solitaire Ring",
-      "category": "Ring"
+      "description": "Introducing Solitaire Ring, a solitaire engagement ring that radiates timeless charm. Its classic design is elevated by a high-profile setting, creating a sleek and elegant silhouette that is perfect for daily wear and pairs seamlessly with other rings in a stack. Its refined simplicity allows the true beauty of the stone to shine, symbolizing a love that's pure and enduring. The delicate band enhances the diamond's brilliance without overpowering it, lending an understated elegance that transcends fleeting trends.",
+      "category": "Ring",
+      "price": 1299,
+      "originalPrice": 1499,
+      "sku": "KD-566498",
+      "inStock": true,
+      "selectedVariants": {
+        "size": 5,
+        "metalType": "white",
+        "purity": "14K",
+        "diamondShape": "round",
+        "shank": "solitare"
+      },
+      "media": {
+        "white": [
+          {
+            "mediaType": "image",
+            "medias": [
+              "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-WG_0.jpg?v=1695166735",
+              "/img/preview/ring1.png"
+            ]
+          },
+          {
+            "mediaType": "video",
+            "medias": ["/img/preview/ring1.mp4", "/img/preview/ring1.mp4"]
+          },
+          {
+            "mediaType": "360",
+            "medias": ["/img/preview/ring1.mp4"]
+          }
+        ],
+        "gold": [
+          "/img/preview/ring1-yellow.png",
+          "/img/preview/ring2-yellow.png"
+        ],
+        "rose": ["/img/preview/ring1-rose.png"]
+      }
     }
   ]
 }

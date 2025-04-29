@@ -11,14 +11,38 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Image from 'next/image';
 import { Md360 } from 'react-icons/md';
 import { IoImageOutline, IoVideocamOutline } from 'react-icons/io5';
+import Jewelry360Viewer, {
+  Jewelry360Viewer2
+} from '@/components/product360viewer';
 
 const images = [
   '/img/preview/ring1.png',
   '/img/preview/ring2.png',
   '/img/preview/ring3.png',
   '/img/preview/gold1.png',
-  '/img/preview/gold2.png',
-  '/img/preview/gold3.png'
+  '/img/preview/gold2.png'
+];
+const images360 = Array.from(
+  { length: 75 },
+  (_, i) => `/img/360/ezgif-frame-${String(i + 1).padStart(3, '0')}.jpg`
+);
+
+// rings
+const images2 = [
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-WG_0.jpg?v=1695166735&width=1200&height=1200&crop=center',
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-A19-WG_0_439d1b74-7b6e-439f-8f61-936dd2c8f331.jpg?v=1695166735&width=1200&height=1200&crop=center',
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/files/405QS-ER-R-WG_attGdLS1s2lDdmysX_d6d2aef0-4b02-4d2b-adfd-c37cceed29d4.jpg?v=1714946503&width=800&height=800&crop=center',
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/files/405QS-ER-R-WG_attORTuXHyMGar1zF_1a07ab42-9c8a-4056-98b6-cc8507f53bf0.jpg?v=1714946504&width=1200&height=1200&crop=center',
+  // gold
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-YG_0_6ed69b33-41f1-45a6-a66a-4b959b6fb034.jpg?v=1695166772&width=1200&height=1200&crop=center',
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-YG_0_6ed69b33-41f1-45a6-a66a-4b959b6fb034.jpg?v=1695166772&width=1200&height=1200&crop=center',
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C1-YG-DIA-2Ks_0.jpg?v=1695166754&width=800&height=800&crop=center',
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C125-YG-DIA-2ks_0.jpg?v=1695166754&width=800&height=800&crop=center',
+  // rose
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-RG_0_3480720d-c5a2-4887-be46-41cbf009bac0.jpg?v=1695166763&width=1200&height=1200&crop=center',
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-RG_0_3480720d-c5a2-4887-be46-41cbf009bac0.jpg?v=1695166763&width=1200&height=1200&crop=center',
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C125-RG-DIA-2ks_0.jpg?v=1695166744&width=800&height=800&crop=center',
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C1-RG-DIA-2Ks_0.jpg?v=1695166744&width=800&height=800&crop=center'
 ];
 
 export default function ProductGallery({ className }) {
@@ -50,15 +74,15 @@ export function MobileGallery() {
           value='360'
           className='flex h-full w-full items-center justify-center overflow-hidden rounded-md p-4'
         >
-          <Image
+          {/* <Image
             src='/img/dummy/360view.gif'
             alt='360 view'
             width={400}
             height={300}
             className='max-h-full max-w-full object-contain'
-          />
+          /> */}
+          <Jewelry360Viewer images={images360} />
         </TabsContent>
-
         {/* Image Carousel */}
         <TabsContent value='images' className='h-full w-full overflow-hidden'>
           <Carousel className='h-full w-full'>
@@ -79,7 +103,6 @@ export function MobileGallery() {
             <CarouselNext className='-translate-x-12 border-none' />
           </Carousel>
         </TabsContent>
-
         {/* Video */}
         <TabsContent
           value='video'
@@ -93,7 +116,6 @@ export function MobileGallery() {
             />
           </div>
         </TabsContent>
-
         <TabsList className='flex w-full justify-start gap-2 rounded-none border-b bg-transparent'>
           <TabsTrigger
             value='360'
@@ -122,11 +144,10 @@ export function MobileGallery() {
 
 function DesktopGallery() {
   return (
-    <div className='grid grid-cols-2 gap-4 overflow-hidden'>
+    <div className='grid grid-cols-2 gap-4 overflow-hidden bg-red-500'>
       {images.map((image, index) => {
         const isFirst = index === 0;
         const isLast = index === images.length - 1;
-
         return (
           <div
             key={index}
@@ -143,6 +164,8 @@ function DesktopGallery() {
           </div>
         );
       })}
+
+      <Jewelry360Viewer images={images360} className='col-span-1' />
     </div>
   );
 }
