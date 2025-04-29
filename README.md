@@ -29,3 +29,4 @@ custom reference https://buildui.com/posts/global-progress-in-nextjs
 
 page.js : make all api calls here + pass data to components for SSR , ISR / SSG
 features : prodcuts, carts, auth related Api calls, store and reusable components. etc.
+<!-- anjali -->
