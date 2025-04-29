@@ -32,5 +32,12 @@
       "image": "/img/preview/gold1.png",
       "category": "Ring"
     }
+  ],
+  "products": [
+    {
+      "id": "1",
+      "name": "Diamond Solitaire Ring",
+      "category": "Ring"
+    }
   ]
 }

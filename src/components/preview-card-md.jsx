@@ -154,7 +154,6 @@ export default function PreviewCardMd({ product, className }) {
               })}
             </div>
           </div>
-
           <p className='xs:text-base 4xl:text-xl line-clamp-2 block min-h-[2.2em] text-left text-sm leading-4 font-light text-gray-900 sm:text-base xl:font-normal'>
             <button
               onClick={handleProductClick}
