@@ -108,7 +108,7 @@ export default function Page() {
                     className='h-full w-full object-contain'
                   />
                 </div>
-                <p className='3xl:text-xl mt-auto text-[15px] leading-4 text-nowrap xl:text-base'>
+                <p className='3xl:text-lg mt-auto text-[15px] leading-4 text-nowrap xl:text-base'>
                   {style.styleType}
                 </p>
               </button>

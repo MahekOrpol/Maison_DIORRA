@@ -1,6 +1,6 @@
 import ProductGallery from '@/features/product/components/product-gallery';
 import ProductDetails from '@/features/product/components/product-details';
-import { MdStarRate } from 'react-icons/md';
+import { MdStarRate, MdVerified } from 'react-icons/md';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -211,10 +211,10 @@ export const CustomerReviews = ({ className }) => {
     <div className={cn('mt-8', className)}>
       <h2 className='text-2xl font-medium md:text-3xl md:font-medium lg:text-4xl'>
         Customer Reviews :
-        <hr className='mb-4' />
+        <hr className='mb-4 mt-4' />
       </h2>
 
-      <div className='space-y-2'>
+      <div className='space-y-6 md:space-y-3'>
         {reviews.map((review) => (
           <TestimonialCard key={review.id} {...review} />
         ))}
@@ -237,7 +237,7 @@ export const CustomerReviews = ({ className }) => {
 
 function TestimonialCard({ author, authorImg, date, content, rating = 5 }) {
   return (
-    <div className='flex items-center gap-2 border-b pb-1 md:gap-4'>
+    <div className='flex items-center gap-2 border-b md:pb-6 md:gap-4 xs:pb-3 pb-2.5'>
       {/* Responsive Image Wrapper */}
       <div className='flex w-fit items-center justify-center self-start rounded-full bg-black p-[0.6px]'>
         <div className='rounded-full bg-white p-1'>
@@ -253,18 +253,22 @@ function TestimonialCard({ author, authorImg, date, content, rating = 5 }) {
 
       {/* Author Details */}
       <div className='flex-1'>
-        <div className='mb-[1px] flex'>
-          {[...Array(5)].map((_, i) => (
-            <MdStarRate
-              key={i}
-              className={`h-5 w-5 ${i < rating ? 'fill-yellow-400 text-yellow-400' : 'fill-gray-300 text-gray-300'} transition-colors duration-300`}
-            />
-          ))}
+        <div className='flex  items-center gap-3'>
+          <span className='xs:text-xl text-sm inline-flex items-center gap-1'>{author}<MdVerified className='fill-green-700 inline' size={20} /></span>
+          <span className='text-xs xs:text-sm'> VERIFIED PURCHASE</span>
         </div>
-        <div className='flex items-center gap-4 text-sm font-semibold sm:text-base'>
-          {author} | {date}
+        <div className='flex items-center gap-3 text-sm font-semibold sm:text-base pt-1'>
+          <div className='flex'>
+            {[...Array(5)].map((_, i) => (
+              <MdStarRate
+                key={i}
+                className={`h-5 w-5 ${i < rating ? 'fill-yellow-400 text-yellow-400' : 'fill-gray-300 text-gray-300'} transition-colors duration-300`}
+              />
+            ))}{' '}
+          </div>
+          <p> {date}</p>
         </div>
-        <p className='text-xs leading-4 font-light sm:text-sm xl:text-[15px]'>
+        <p className='pt-3 text-xs leading-4 font-light sm:text-sm xl:text-[15px]'>
           {content}
         </p>
       </div>

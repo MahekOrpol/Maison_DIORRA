@@ -92,7 +92,7 @@ export default function ProductDetails({ className }) {
         </span>
 
         {/* Product Title */}
-        <div className='mb-2 flex gap-4 md:mb-3'>
+        <div className='mb-2 flex gap-4 md:mb-3 pt-2 xs:pt-0'>
           <h1 className='mb-2 flex-1 text-xl leading-6 font-medium sm:text-2xl sm:leading-8 md:text-3xl md:leading-10'>
             Solitaire Engagement Ring Embellished With a Falling Edge Pave Halo
             Head
@@ -138,7 +138,7 @@ export default function ProductDetails({ className }) {
         </div>
 
         {/* Product Description */}
-        <p className='mb-3 text-justify text-xs text-gray-700 md:mb-6 md:text-sm lg:text-base'>
+        <p className='mb-3 text-justify text-xs text-gray-700 md:mb-6 md:text-sm lg:text-base pt-3 xs:p-0'>
           A halo diamond ring is a classic and sophisticated choice, renowned
           for its dazzling design and ability to elevate the brilliance of the
           center stone. This style has become a favorite for engagement rings
@@ -293,9 +293,9 @@ export default function ProductDetails({ className }) {
         </div>
       </div>
 
-      <div className=''>
+      <div className='pt-3 xs:p-0'>
         {/* See It Live Section */}
-        <div className='bg-secondary mb-6 flex items-center gap-2 rounded-lg p-1 sm:gap-6 sm:p-4 md:items-start'>
+        <div className='bg-secondary mb-6 flex items-center gap-2 rounded-lg p-1 sm:gap-6 sm:p-4 md:items-start pb-3 xs:pb-0'>
           <Image
             src='/img/live-consultation.png'
             alt='Live Consultant'

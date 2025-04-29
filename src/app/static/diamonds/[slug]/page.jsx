@@ -53,7 +53,7 @@ export const DiamondClarityTable = () => {
       <h2 className='mb-3 border-b pb-4 text-2xl font-semibold text-gray-800 sm:text-3xl xl:text-4xl'>
         Understand Diamond Quality
       </h2>
-      <p className='mb-6 text-sm md:text-base'>
+      <p className='mb-6 text-sm md:text-lg'>
         To determine the clarity of a diamond, the GIA (Gemological Institute of
         America) uses a diamond clarity scale, consisting of 11 grades:
       </p>
@@ -65,13 +65,13 @@ export const DiamondClarityTable = () => {
             <tr>
               <th
                 scope='col'
-                className='px-6 py-3 text-left text-xs font-medium tracking-wider uppercase'
+                className='px-6 py-3 text-left text-lg font-medium tracking-wider uppercase'
               >
                 Clarity Grade
               </th>
               <th
                 scope='col'
-                className='px-6 py-3 text-left text-xs font-medium tracking-wider uppercase'
+                className='px-6 py-3 text-left text-lg font-medium tracking-wider uppercase'
               >
                 Meaning
               </th>
@@ -81,10 +81,10 @@ export const DiamondClarityTable = () => {
             {clarityGrades.map((item, index) => (
               <tr key={index} className='font-light'>
                 <td className='px-6 py-2 whitespace-normal'>
-                  <div className='text-sm font-medium'>{item.grade}</div>
+                  <div className='text-base font-medium'>{item.grade}</div>
                 </td>
                 <td className='px-6 py-2 whitespace-normal'>
-                  <div className='text-sm'>{item.meaning}</div>
+                  <div className='text-base'>{item.meaning}</div>
                 </td>
               </tr>
             ))}
