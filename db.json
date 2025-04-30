@@ -33,12 +33,12 @@
       "category": "Ring"
     }
   ],
-  "products": [
+  "productDetails": [
     {
       "id": "1",
-      "name": "Diamond Solitaire Ring",
+      "name": "Diamond Solitaire Ring lorem ipsum",
       "description": "Introducing Solitaire Ring, a solitaire engagement ring that radiates timeless charm. Its classic design is elevated by a high-profile setting, creating a sleek and elegant silhouette that is perfect for daily wear and pairs seamlessly with other rings in a stack. Its refined simplicity allows the true beauty of the stone to shine, symbolizing a love that's pure and enduring. The delicate band enhances the diamond's brilliance without overpowering it, lending an understated elegance that transcends fleeting trends.",
-      "category": "Ring",
+      "category": "ring",
       "price": 1299,
       "originalPrice": 1499,
       "sku": "KD-566498",
@@ -54,26 +54,186 @@
         "white": [
           {
             "mediaType": "image",
-            "medias": [
-              "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-WG_0.jpg?v=1695166735",
-              "/img/preview/ring1.png"
-            ]
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-WG_0.jpg?v=1695166735&width=1200&height=1200&crop=center"
+          },
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-A19-WG_0_439d1b74-7b6e-439f-8f61-936dd2c8f331.jpg?v=1695166735&width=1200&height=1200&crop=center"
+          },
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/files/405QS-ER-R-WG_attGdLS1s2lDdmysX_d6d2aef0-4b02-4d2b-adfd-c37cceed29d4.jpg?v=1714946503&width=800&height=800&crop=center"
+          },
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/files/405QS-ER-R-WG_attORTuXHyMGar1zF_1a07ab42-9c8a-4056-98b6-cc8507f53bf0.jpg?v=1714946504&width=1200&height=1200&crop=center"
           },
           {
             "mediaType": "video",
-            "medias": ["/img/preview/ring1.mp4", "/img/preview/ring1.mp4"]
+            "thumbnailImg": "https://cdn.shopify.com/s/files/1/0039/6994/1568/files/preview_images/a23cfeccd86a4dd8bee5f19192ff2f55.thumbnail.0000000000.jpg?v=1724662895",
+            "mediaUrl": "https://checkout.keyzarjewelry.com/cdn/shop/videos/c/vp/a23cfeccd86a4dd8bee5f19192ff2f55/a23cfeccd86a4dd8bee5f19192ff2f55.HD-1080p-7.2Mbps-33725443.mp4"
           },
           {
             "mediaType": "360",
-            "medias": ["/img/preview/ring1.mp4"]
+            "mediaUrls": [""]
           }
         ],
         "gold": [
-          "/img/preview/ring1-yellow.png",
-          "/img/preview/ring2-yellow.png"
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-YG_0_6ed69b33-41f1-45a6-a66a-4b959b6fb034.jpg?v=1695166772&width=1200&height=1200&crop=center"
+          },
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-YG_0_6ed69b33-41f1-45a6-a66a-4b959b6fb034.jpg?v=1695166772&width=1200&height=1200&crop=center"
+          },
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C1-YG-DIA-2Ks_0.jpg?v=1695166754&width=800&height=800&crop=center"
+          },
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C125-YG-DIA-2ks_0.jpg?v=1695166754&width=800&height=800&crop=center"
+          }
         ],
-        "rose": ["/img/preview/ring1-rose.png"]
+        "rose": [
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-RG_0_3480720d-c5a2-4887-be46-41cbf009bac0.jpg?v=1695166763&width=1200&height=1200&crop=center"
+          },
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-RG_0_3480720d-c5a2-4887-be46-41cbf009bac0.jpg?v=1695166763&width=1200&height=1200&crop=center"
+          },
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C125-RG-DIA-2ks_0.jpg?v=1695166744&width=800&height=800&crop=center"
+          },
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C1-RG-DIA-2Ks_0.jpg?v=1695166744&width=800&height=800&crop=center"
+          },
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C125-RG-DIA-2ks_0.jpg?v=1695166744&width=800&height=800&crop=center"
+          }
+        ]
+      },
+      "finalProductDetails": {
+        "ringDetails": {
+          "diameter": "1.62 cm",
+          "ctw": "0.2 ct",
+          "metal": "925 18K Silver"
+        },
+        "diamondDetails": {
+          "shape": "Round",
+          "weight": "0.92",
+          "size": "5.23/3.73 L/W (mm)",
+          "clarity": "VS1"
+        }
       }
     }
-  ]
+  ],
+  "rings": [
+    {
+      "id": "1",
+      "name": "Diamond Solitaire Ring lorem ipsum",
+      "description": "Introducing Solitaire Ring, a solitaire engagement ring that radiates timeless charm. Its classic design is elevated by a high-profile setting, creating a sleek and elegant silhouette that is perfect for daily wear and pairs seamlessly with other rings in a stack. Its refined simplicity allows the true beauty of the stone to shine, symbolizing a love that's pure and enduring. The delicate band enhances the diamond's brilliance without overpowering it, lending an understated elegance that transcends fleeting trends.",
+      "category": "ring",
+      "price": 1299,
+      "originalPrice": 1499,
+      "sku": "KD-566498",
+      "inStock": true,
+      "selectedVariants": {
+        "size": 5,
+        "metalType": "white",
+        "purity": "14K",
+        "diamondShape": "round",
+        "shank": "solitare"
+      },
+      "media": {
+        "white": [
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-WG_0.jpg?v=1695166735&width=1200&height=1200&crop=center"
+          },
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-A19-WG_0_439d1b74-7b6e-439f-8f61-936dd2c8f331.jpg?v=1695166735&width=1200&height=1200&crop=center"
+          },
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/files/405QS-ER-R-WG_attGdLS1s2lDdmysX_d6d2aef0-4b02-4d2b-adfd-c37cceed29d4.jpg?v=1714946503&width=800&height=800&crop=center"
+          },
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/files/405QS-ER-R-WG_attORTuXHyMGar1zF_1a07ab42-9c8a-4056-98b6-cc8507f53bf0.jpg?v=1714946504&width=1200&height=1200&crop=center"
+          },
+          {
+            "mediaType": "video",
+            "thumbnailImg": "https://cdn.shopify.com/s/files/1/0039/6994/1568/files/preview_images/a23cfeccd86a4dd8bee5f19192ff2f55.thumbnail.0000000000.jpg?v=1724662895",
+            "mediaUrl": "https://checkout.keyzarjewelry.com/cdn/shop/videos/c/vp/a23cfeccd86a4dd8bee5f19192ff2f55/a23cfeccd86a4dd8bee5f19192ff2f55.HD-1080p-7.2Mbps-33725443.mp4"
+          },
+          {
+            "mediaType": "360",
+            "mediaUrls": [""]
+          }
+        ],
+        "gold": [
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-YG_0_6ed69b33-41f1-45a6-a66a-4b959b6fb034.jpg?v=1695166772&width=1200&height=1200&crop=center"
+          },
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-YG_0_6ed69b33-41f1-45a6-a66a-4b959b6fb034.jpg?v=1695166772&width=1200&height=1200&crop=center"
+          },
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C1-YG-DIA-2Ks_0.jpg?v=1695166754&width=800&height=800&crop=center"
+          },
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C125-YG-DIA-2ks_0.jpg?v=1695166754&width=800&height=800&crop=center"
+          }
+        ],
+        "rose": [
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-RG_0_3480720d-c5a2-4887-be46-41cbf009bac0.jpg?v=1695166763&width=1200&height=1200&crop=center"
+          },
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-RG_0_3480720d-c5a2-4887-be46-41cbf009bac0.jpg?v=1695166763&width=1200&height=1200&crop=center"
+          },
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C125-RG-DIA-2ks_0.jpg?v=1695166744&width=800&height=800&crop=center"
+          },
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C1-RG-DIA-2Ks_0.jpg?v=1695166744&width=800&height=800&crop=center"
+          },
+          {
+            "mediaType": "image",
+            "mediaUrl": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C125-RG-DIA-2ks_0.jpg?v=1695166744&width=800&height=800&crop=center"
+          }
+        ]
+      },
+      "finalProductDetails": {
+        "ringDetails": {
+          "diameter": "1.62 cm",
+          "ctw": "0.2 ct",
+          "metal": "925 18K Silver"
+        },
+        "diamondDetails": {
+          "shape": "Round",
+          "weight": "0.92",
+          "size": "5.23/3.73 L/W (mm)",
+          "clarity": "VS1"
+        }
+      }
+    }
+  ],
+  "diamonds": []
 }

@@ -11,9 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Image from 'next/image';
 import { Md360 } from 'react-icons/md';
 import { IoImageOutline, IoVideocamOutline } from 'react-icons/io5';
-import Jewelry360Viewer, {
-  Jewelry360Viewer2
-} from '@/components/product360viewer';
+import Jewelry360Viewer from '@/components/product360viewer';
 
 const images = [
   '/img/preview/ring1.png',
@@ -42,9 +40,10 @@ const images2 = [
   'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-RG_0_3480720d-c5a2-4887-be46-41cbf009bac0.jpg?v=1695166763&width=1200&height=1200&crop=center',
   'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-RG_0_3480720d-c5a2-4887-be46-41cbf009bac0.jpg?v=1695166763&width=1200&height=1200&crop=center',
   'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C125-RG-DIA-2ks_0.jpg?v=1695166744&width=800&height=800&crop=center',
-  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C1-RG-DIA-2Ks_0.jpg?v=1695166744&width=800&height=800&crop=center'
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C1-RG-DIA-2Ks_0.jpg?v=1695166744&width=800&height=800&crop=center',
+  // videos
+  'https://checkout.keyzarjewelry.com/cdn/shop/videos/c/vp/a23cfeccd86a4dd8bee5f19192ff2f55/a23cfeccd86a4dd8bee5f19192ff2f55.HD-1080p-7.2Mbps-33725443.mp4'
 ];
-
 export default function ProductGallery({ className }) {
   return (
     <>

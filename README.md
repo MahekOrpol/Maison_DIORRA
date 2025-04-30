@@ -29,3 +29,20 @@ custom reference https://buildui.com/posts/global-progress-in-nextjs
 
 page.js : make all api calls here + pass data to components for SSR , ISR / SSG
 features : prodcuts, carts, auth related Api calls, store and reusable components. etc.
+
+<!-- references.. -->
+
+1. https://www.jamesallen.com/
+2. https://keyzarjewelry.com/
+
+<!-- video keyzar -->
+
+<video tabindex="0" class="w-full h-full aspect-square fadeIn object-cover" sizes="(min-width: 64em) 60vw, (min-width: 48em) 50vw, 90vw" 
+options="[object Object]" width="100%" loop=""
+preload="auto" id="gid://shopify/Video/24054323445811" playsinline=""
+poster="https://cdn.shopify.com/s/files/1/0039/6994/1568/files/preview_images/a23cfeccd86a4dd8bee5f19192ff2f55.thumbnail.0000000000.jpg?v=1724662895">
+
+<source src="https://checkout.keyzarjewelry.com/cdn/shop/videos/c/vp/a23cfeccd86a4dd8bee5f19192ff2f55/a23cfeccd86a4dd8bee5f19192ff2f55.HD-1080p-7.2Mbps-33725443.mp4" type="video/mp4">
+<source src="https://checkout.keyzarjewelry.com/cdn/shop/videos/c/vp/a23cfeccd86a4dd8bee5f19192ff2f55/a23cfeccd86a4dd8bee5f19192ff2f55.m3u8" type="application/x-mpegURL">
+<source src="https://checkout.keyzarjewelry.com/cdn/shop/videos/c/vp/a23cfeccd86a4dd8bee5f19192ff2f55/a23cfeccd86a4dd8bee5f19192ff2f55.HD-720p-4.5Mbps-33725443.mp4" type="video/mp4">
+<source src="https://checkout.keyzarjewelry.com/cdn/shop/videos/c/vp/a23cfeccd86a4dd8bee5f19192ff2f55/a23cfeccd86a4dd8bee5f19192ff2f55.SD-480p-1.5Mbps-33725443.mp4" type="video/mp4"></video>

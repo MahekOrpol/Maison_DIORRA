@@ -154,11 +154,10 @@ export default function PreviewCard({ product, className }) {
               })}
             </div>
           </div>
-
-          <p className='xs:text-base line-clamp-2 block min-h-[2.2em] text-left text-sm leading-4 font-light text-gray-900 sm:text-lg xl:font-normal 2xl:text-xl'>
+          <p className='xs:text-base block pb-2 text-left text-sm leading-4 font-light text-gray-900 sm:text-lg xl:font-normal 2xl:text-xl'>
             <button
               onClick={handleProductClick}
-              className='block w-full text-left'
+              className='!line-clamp-1 block w-full text-left'
             >
               {selectedMetal.name}
             </button>

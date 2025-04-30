@@ -1,21 +1,25 @@
 'use client';
 import { cn } from '@/lib/utils';
 import { ReactImageTurntable } from 'react-image-turntable';
-import {
-  ArrowLeftCircle,
-  ArrowRightCircle,
-  ChevronLeft,
-  ChevronRight
-} from 'lucide-react';
 import { PiArrowBendDoubleUpLeftThin } from 'react-icons/pi';
-
+import { useState } from 'react';
 export default function Jewelry360Viewer({ images, className }) {
+  const [rotationDisabled, setRotationDisabled] = useState(false);
+  const handleKeyDown = (ev) => {
+    if (rotationDisabled) return;
+
+    if (ev.key === 'ArrowLeft' || ev.key === 'ArrowRight') {
+      setRotationDisabled(true);
+    }
+  };
   return (
     <div className={cn('relative cursor-grab', className)}>
       <div className='h-full w-full'>
         <ReactImageTurntable
-          autoRotate={{ disabled: true }}
           images={images}
+          autoRotate={{ disabled: rotationDisabled, interval: 150 }}
+          onKeyDown={handleKeyDown}
+          onKeyUp={() => setRotationDisabled(false)}
           movementSensitivity={-0.5}
           className='h-full w-full'
           style={{ display: 'block' }}
@@ -29,3 +33,20 @@ export default function Jewelry360Viewer({ images, className }) {
     </div>
   );
 }
+
+// export function Jewelry360Viewer2({ images }) {
+//   // Extract base URL and count from your array
+//   const baseUrl = images[0].substring(0, images[0].lastIndexOf('/') + '/');
+//   const fileName = images[0].substring(images[0].lastIndexOf('/') + 1);
+//   const fileType = fileName.split('.').pop();
+//   const baseName = fileName.split('_')[0]; // Assumes "product_01.jpg" format
+//   return (
+//     <React360Viewer
+//       imagesBaseUrl={baseUrl}
+//       imagesPrefix={baseName + '_'} // e.g., "product_"
+//       imagesCount={images.length}
+//       imagesFiletype={fileType}
+//       mouseDragSpeed={10}
+//     />
+//   );
+// }
