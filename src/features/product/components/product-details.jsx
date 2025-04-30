@@ -27,14 +27,25 @@ import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
 import { FaWhatsapp } from 'react-icons/fa';
+import { ScheduleCallDialog } from '@/components/modals/schedule-meeting-modal';
 
-export default function ProductDetails({ className }) {
+export default function ProductDetails({ className, data }) {
   const [selectedSize, setSelectedSize] = useState();
-  const [selectedMetal, setSelectedMetal] = useState('rose');
-  const [selectedShape, setSelectedShape] = useState('Round');
-  const [selectedPurity, setSelectedPurity] = useState('22K');
-  const [selectedShank, setSelectedShank] = useState('Solitare');
+  const [selectedMetal, setSelectedMetal] = useState(
+    data?.selectedVariants?.metalType || ' '
+  );
+  const [selectedShape, setSelectedShape] = useState(
+    data?.selectedVariants?.diamondShape || ' '
+  );
+  const [selectedPurity, setSelectedPurity] = useState(
+    data?.selectedVariants?.purity || ' '
+  );
+  const [selectedShank, setSelectedShank] = useState(
+    data?.selectedVariants?.shank || ' '
+  );
+  const [openMeeting, setOpenMeeting] = useState(false);
 
+  console.log(data.selectedVariants);
   const router = useRouter();
 
   const metalTypes = [
@@ -42,18 +53,31 @@ export default function ProductDetails({ className }) {
     { name: 'gold', url: '/img/gold-theme.png' },
     { name: 'white', url: '/img/white-theme.png' }
   ];
-  const diamondShapes = ['Round', 'Pear', 'Emerald', 'Princess'];
   const metalPurities = ['14K', '18K', '22K'];
-  const ringSizes = Array.from({ length: 10 }, (_, i) => (i + 3).toString());
+  const ringSizes = [
+    { us: '3', mm: '44.2' },
+    { us: '4', mm: '45.0' },
+    { us: '5', mm: '45.8' },
+    { us: '6', mm: '46.5' },
+    { us: '7', mm: '47.3' },
+    { us: '8', mm: '48.1' },
+    { us: '9', mm: '48.9' },
+    { us: '10', mm: '49.7' },
+    { us: '11', mm: '50.5' },
+    { us: '12', mm: '51.3' },
+    { us: '13', mm: '52.1' },
+    { us: '14', mm: '52.9' },
+    { us: '15', mm: '53.7' }
+  ];
   const shapes = [
-    { name: 'Round', imgUrl: '/icons/shape-round.svg' },
-    { name: 'Pear', imgUrl: '/icons/shape-pear.svg' },
-    { name: 'Emerald', imgUrl: '/icons/shape-emerlad.svg' },
-    { name: 'Princess', imgUrl: '/icons/shape-princess.svg' }
+    { name: 'round', imgUrl: '/icons/shape-round.svg' },
+    { name: 'pear', imgUrl: '/icons/shape-pear.svg' },
+    { name: 'emerald', imgUrl: '/icons/shape-emerlad.svg' },
+    { name: 'princess', imgUrl: '/icons/shape-princess.svg' }
   ];
   const shanks = [
-    { name: 'Solitare', imgUrl: '/img/shapes/shank1.png' },
-    { name: 'French Pave', imgUrl: '/img/shapes/shank2.png' }
+    { name: 'solitare', imgUrl: '/img/shapes/shank1.png' },
+    { name: 'french pave', imgUrl: '/img/shapes/shank2.png' }
   ];
   const icons = [
     { src: '/icons/badge.svg', label: 'Lifetime Warranty' },
@@ -90,59 +114,74 @@ export default function ProductDetails({ className }) {
         <span className='bg-primary text-primary-foreground mb-2 inline-block rounded-full px-3 py-1 text-xs'>
           SAVE 20%
         </span>
-
         {/* Product Title */}
         <div className='mb-2 flex gap-4 md:mb-3'>
           <h1 className='mb-2 flex-1 text-xl leading-6 font-medium sm:text-2xl sm:leading-8 md:text-3xl md:leading-10'>
-            Solitaire Engagement Ring Embellished With a Falling Edge Pave Halo
-            Head
+            {data?.name || 'Product name'}
           </h1>
           <Image src='/icons/hand.svg' alt='hand icon' height={40} width={40} />
           {/* <GiBigDiamondRing className='h-5 w-5 sm:h-7 sm:w-7 lg:h-14 lg:w-14' /> */}
         </div>
-
         {/* Reviews */}
         <div className='xs:text-sm xs:gap-6 mb-1 flex items-center gap-2 text-xs text-nowrap min-[350px]:gap-5 sm:mb-2 md:gap-4 xl:gap-12'>
-          <span className='flex'>
+          <span className='flex items-center'>
+            {/* Star Rating Display */}
             <span className='flex items-center'>
               {[...Array(5)].map((_, i) => (
                 <IoStarSharp
                   key={i}
-                  className='h-4 w-4 fill-yellow-400 xl:h-5 xl:w-5'
+                  className={cn(
+                    'h-4 w-4 xl:h-5 xl:w-5',
+                    i < Math.ceil(data?.reviews?.avgRating || 0)
+                      ? 'fill-yellow-400'
+                      : 'fill-gray-300'
+                  )}
                 />
               ))}
             </span>
+
+            {/* Review Count or Add Review Button */}
             <span className='xs:ml-2 ml-1 md:text-base xl:text-lg'>
-              24 Reviews
+              {!data?.reviews?.reviews?.length ? (
+                <button
+                  className='underline underline-offset-2 hover:no-underline'
+                  onClick={() => {
+                    /* Add your review handler here */
+                  }}
+                >
+                  Add a review
+                </button>
+              ) : (
+                <span>
+                  {data?.reviews?.avgRating || 0}/5 |{' '}
+                  {data?.reviews?.reviews?.length} Reviews
+                </span>
+              )}
             </span>
           </span>
           <span className='xs:text-sm md:text-base xl:text-lg'>
-            SKU : KD-566498
+            SKU: {data?.sku}
           </span>
           <Badge
             variant='outline'
-            className='xs:text-xs rounded-full border-black text-[10px] xl:text-sm'
+            className='xs:text-xs rounded-full border-black text-[10px] uppercase xl:text-sm'
           >
-            IN STOCK
+            {data?.inStock ? 'In Stock' : 'Out of Stock'}
           </Badge>
         </div>
 
         {/* Pricing */}
         <div className='mb-1 md:mb-2'>
           <span className='text-2xl font-semibold text-gray-900 lg:text-3xl'>
-            $ 40,000
+            $ {data?.price}
           </span>
           <span className='text-muted-foreground ml-2 text-xl line-through'>
-            $ 48,000
+            $ {data?.originalPrice}
           </span>
         </div>
-
         {/* Product Description */}
         <p className='mb-3 text-justify text-xs text-gray-700 md:mb-6 md:text-sm lg:text-base'>
-          A halo diamond ring is a classic and sophisticated choice, renowned
-          for its dazzling design and ability to elevate the brilliance of the
-          center stone. This style has become a favorite for engagement rings
-          and statement jewelry due to its captivating charm and versatility.
+          {data?.description}
         </p>
       </div>
 
@@ -182,8 +221,8 @@ export default function ProductDetails({ className }) {
             </SelectTrigger>
             <SelectContent>
               {ringSizes.map((size) => (
-                <SelectItem key={size} value={size}>
-                  Size {size}
+                <SelectItem key={size.us} value={size.us}>
+                  US {size.us} - {size.mm}mm
                 </SelectItem>
               ))}
             </SelectContent>
@@ -262,7 +301,11 @@ export default function ProductDetails({ className }) {
                 alt={shape.name}
                 className='h-3/4 w-3/4 object-contain'
               />
-              <span className='mt-1'>{shape.name}</span>
+              <span className='mt-1'>
+                {shape.name
+                  ? shape.name.charAt(0).toUpperCase() + shape.name.slice(1)
+                  : ''}
+              </span>
             </button>
           ))}
         </div>
@@ -287,7 +330,11 @@ export default function ProductDetails({ className }) {
                 alt={shank.name}
                 className='h-[30px] w-[30px] object-contain'
               />
-              <span className='mt-1'>{shank.name}</span>
+              <span className='mt-1'>
+                {shank.name
+                  ? shank.name.charAt(0).toUpperCase() + shank.name.slice(1)
+                  : ''}
+              </span>
             </button>
           ))}
         </div>
@@ -295,7 +342,10 @@ export default function ProductDetails({ className }) {
 
       <div className=''>
         {/* See It Live Section */}
-        <div className='bg-secondary mb-6 flex items-center gap-2 rounded-lg p-1 sm:gap-6 sm:p-4 md:items-start'>
+        <div
+          onClick={() => setOpenMeeting(true)}
+          className='bg-secondary mb-6 flex items-center gap-2 rounded-lg p-1 sm:gap-6 sm:p-4 md:items-start'
+        >
           <Image
             src='/img/live-consultation.png'
             alt='Live Consultant'
@@ -317,6 +367,7 @@ export default function ProductDetails({ className }) {
           </div>
           <hr />
         </div>
+        <ScheduleCallDialog open={openMeeting} setOpen={setOpenMeeting} />
         <div className='mb-6 flex flex-col gap-3 sm:items-center md:flex-row lg:flex-col'>
           {/* Add to Cart */}
           <div className='grid w-full grid-cols-2 gap-2 md:w-1/2 lg:w-full'>

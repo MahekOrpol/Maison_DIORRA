@@ -46,8 +46,8 @@
       "selectedVariants": {
         "size": 5,
         "metalType": "white",
-        "purity": "14K",
-        "diamondShape": "round",
+        "purity": "18K",
+        "diamondShape": "pear",
         "shank": "solitare"
       },
       "media": {
@@ -131,6 +131,191 @@
           "size": "5.23/3.73 L/W (mm)",
           "clarity": "VS1"
         }
+      },
+      "reviews": {
+        "avgRating": 4.3,
+        "reviews": [
+          {
+            "id": 1,
+            "userId": 101,
+            "author": "Rosalina Kelin",
+            "date": "19th June, 2024",
+            "authorImg": "https://randomuser.me/api/portraits/women/1.jpg",
+            "rating": 5,
+            "content": "Absolutely love my new necklace! The craftsmanship is exceptional and it arrived sooner than expected."
+          },
+          {
+            "id": 2,
+            "userId": 102,
+            "author": "Michael Chen",
+            "date": "15th June, 2024",
+            "authorImg": "",
+            "rating": 4,
+            "content": "Good quality earrings, though slightly smaller than I imagined. Still very pretty."
+          },
+          {
+            "id": 3,
+            "userId": 103,
+            "author": "Sarah Johnson",
+            "date": "12th June, 2024",
+            "authorImg": "https://randomuser.me/api/portraits/women/22.jpg",
+            "rating": 5,
+            "content": "Perfect gift for my anniversary! My partner loved the bracelet. Will definitely shop here again."
+          },
+          {
+            "id": 4,
+            "userId": 104,
+            "author": "David Wilson",
+            "date": "10th June, 2024",
+            "authorImg": "",
+            "rating": 3,
+            "content": "The ring is nice but the sizing was off. Had to get it resized which was an extra cost."
+          },
+          {
+            "id": 5,
+            "userId": 105,
+            "author": "Emma Thompson",
+            "date": "8th June, 2024",
+            "authorImg": "https://randomuser.me/api/portraits/women/45.jpg",
+            "rating": 5,
+            "content": "Stunning piece! Exactly as pictured. The packaging was beautiful too - made it feel like a luxury purchase."
+          },
+          {
+            "id": 6,
+            "userId": 106,
+            "author": "James Rodriguez",
+            "date": "5th June, 2024",
+            "authorImg": "https://randomuser.me/api/portraits/men/33.jpg",
+            "rating": 2,
+            "content": "Disappointed with the quality for the price. The stone fell out after just two weeks."
+          },
+          {
+            "id": 7,
+            "userId": 107,
+            "author": "Olivia Martinez",
+            "date": "3rd June, 2024",
+            "authorImg": "",
+            "rating": 4,
+            "content": "Beautiful pendant, but the chain was shorter than I expected. Still wearable though."
+          },
+          {
+            "id": 8,
+            "userId": 108,
+            "author": "Robert Kim",
+            "date": "1st June, 2024",
+            "authorImg": "https://randomuser.me/api/portraits/men/12.jpg",
+            "rating": 5,
+            "content": "Exceptional customer service! They helped me choose the perfect engagement ring. She said yes!"
+          },
+          {
+            "id": 9,
+            "userId": 109,
+            "author": "Sophia Garcia",
+            "date": "28th May, 2024",
+            "authorImg": "",
+            "rating": 1,
+            "content": "Item arrived damaged. Still waiting for resolution from customer service."
+          },
+          {
+            "id": 10,
+            "userId": 110,
+            "author": "Daniel Brown",
+            "date": "25th May, 2024",
+            "authorImg": "https://randomuser.me/api/portraits/men/8.jpg",
+            "rating": 5,
+            "content": "The watch is even more beautiful in person. Very happy with this purchase!"
+          },
+          {
+            "id": 11,
+            "userId": 111,
+            "author": "Ava Lee",
+            "date": "22nd May, 2024",
+            "authorImg": "",
+            "rating": 3,
+            "content": "It's okay. Not as shiny as in the photos but decent for the price."
+          },
+          {
+            "id": 12,
+            "userId": 112,
+            "author": "William Taylor",
+            "date": "20th May, 2024",
+            "authorImg": "https://randomuser.me/api/portraits/men/65.jpg",
+            "rating": 4,
+            "content": "Good product overall. Shipping took longer than expected but worth the wait."
+          },
+          {
+            "id": 13,
+            "userId": 113,
+            "author": "Mia Anderson",
+            "date": "18th May, 2024",
+            "authorImg": "",
+            "rating": 5,
+            "content": "Absolutely perfect! The attention to detail is amazing. Will be buying more jewelry from here."
+          },
+          {
+            "id": 14,
+            "userId": 114,
+            "author": "Ethan Harris",
+            "date": "15th May, 2024",
+            "authorImg": "https://randomuser.me/api/portraits/men/42.jpg",
+            "rating": 2,
+            "content": "The clasp on the bracelet broke after 3 days. Disappointed with the durability."
+          },
+          {
+            "id": 15,
+            "userId": 115,
+            "author": "Charlotte Clark",
+            "date": "12th May, 2024",
+            "authorImg": "",
+            "rating": 5,
+            "content": "Gorgeous piece! Gets compliments every time I wear it. Highly recommend!"
+          },
+          {
+            "id": 16,
+            "userId": 116,
+            "author": "Benjamin White",
+            "date": "10th May, 2024",
+            "authorImg": "https://randomuser.me/api/portraits/men/88.jpg",
+            "rating": 4,
+            "content": "Nice quality for the price. The only reason I'm not giving 5 stars is because the sizing guide was slightly off."
+          },
+          {
+            "id": 17,
+            "userId": 117,
+            "author": "Amelia Scott",
+            "date": "8th May, 2024",
+            "authorImg": "",
+            "rating": 5,
+            "content": "Exceeded all my expectations! The jewelry looks even better in person than on the website."
+          },
+          {
+            "id": 18,
+            "userId": 118,
+            "author": "Lucas Green",
+            "date": "5th May, 2024",
+            "authorImg": "https://randomuser.me/api/portraits/men/24.jpg",
+            "rating": 3,
+            "content": "It's nice, but I expected it to be a bit heavier based on the description."
+          },
+          {
+            "id": 19,
+            "userId": 119,
+            "author": "Harper Adams",
+            "date": "2nd May, 2024",
+            "authorImg": "",
+            "rating": 5,
+            "content": "Perfect gift for my mother's birthday! She loved it and the personalization was done beautifully."
+          },
+          {
+            "id": 20,
+            "userId": 120,
+            "author": "Henry Baker",
+            "date": "30th April, 2024",
+            "authorImg": "https://randomuser.me/api/portraits/men/76.jpg",
+            "rating": 4,
+            "content": "Great product overall. The only minor issue was a small scratch on the back, but not noticeable when worn."
+          }
+        ]
       }
     }
   ],
@@ -146,7 +331,7 @@
       "inStock": true,
       "selectedVariants": {
         "size": 5,
-        "metalType": "white",
+        "metalType": "rose",
         "purity": "14K",
         "diamondShape": "round",
         "shank": "solitare"

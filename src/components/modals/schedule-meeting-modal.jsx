@@ -1,0 +1,261 @@
+'use client';
+import { Button } from '@/components/ui/button';
+import { Calendar } from '@/components/ui/calendar';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from '@/components/ui/select';
+import { Textarea } from '@/components/ui/textarea';
+import { Clock, Calendar as CalendarIcon } from 'lucide-react';
+import { useState } from 'react';
+import Image from 'next/image';
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '@/components/ui/popover';
+import { format } from 'date-fns';
+
+export function ScheduleCallDialog({ open, setOpen }) {
+  const [date, setDate] = useState(new Date());
+  const [time, setTime] = useState('10:00');
+  const [language, setLanguage] = useState('english');
+  const [countryCode, setCountryCode] = useState('+96');
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogContent className='p-0 sm:max-w-5xl'>
+        <div className='flex'>
+          {/* Left Side - Banner */}
+          <div className='bg-primary hidden w-2/5 md:block'>
+            <div className='flex h-full flex-col justify-between p-8 text-white'>
+              <div>
+                <h3 className='text-2xl font-bold'>Live Video Consultation</h3>
+                <p className='mt-2 text-sm opacity-90'>
+                  See your favorite jewelry designs up close with our experts
+                </p>
+              </div>
+
+              <ul className='mt-6 space-y-4 text-sm'>
+                <li className='flex items-start'>
+                  <div className='mt-0.5 mr-3 flex h-5 w-5 items-center justify-center rounded-full bg-white/20'>
+                    ✓
+                  </div>
+                  <span>Personalized design recommendations</span>
+                </li>
+                <li className='flex items-start'>
+                  <div className='mt-0.5 mr-3 flex h-5 w-5 items-center justify-center rounded-full bg-white/20'>
+                    ✓
+                  </div>
+                  <span>See actual size and details in real-time</span>
+                </li>
+                <li className='flex items-start'>
+                  <div className='mt-0.5 mr-3 flex h-5 w-5 items-center justify-center rounded-full bg-white/20'>
+                    ✓
+                  </div>
+                  <span>Get expert styling advice</span>
+                </li>
+              </ul>
+
+              <div className='mt-8'>
+                <div className='h-40 w-full rounded-lg bg-white/10'>
+                  {/* Placeholder for jewelry image or decorative element */}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right Side - Form */}
+          <div className='w-full p-6 md:w-3/5'>
+            <DialogHeader>
+              <DialogTitle className='text-2xl font-bold text-gray-800'>
+                Schedule Video Consultation
+              </DialogTitle>
+              <p className='text-sm text-gray-600'>
+                Our expert will contact you at your preferred time
+              </p>
+            </DialogHeader>
+
+            <div className='mt-6 space-y-4'>
+              <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+                {/* Date Picker */}
+                <div className='space-y-2'>
+                  <label className='block text-sm font-medium text-gray-700'>
+                    Preferred Date*
+                  </label>
+                  <Popover>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant='outline'
+                        className='w-full justify-start text-left font-normal'
+                      >
+                        <CalendarIcon className='mr-2 h-4 w-4' />
+                        {date ? format(date, 'PPP') : <span>Pick a date</span>}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className='w-auto p-0'>
+                      <Calendar
+                        mode='single'
+                        selected={date}
+                        onSelect={setDate}
+                        initialFocus
+                      />
+                    </PopoverContent>
+                  </Popover>
+                </div>
+
+                {/* Time Selector */}
+                <div className='space-y-2'>
+                  <label className='block text-sm font-medium text-gray-700'>
+                    Preferred Time*
+                  </label>
+                  <div className='relative'>
+                    <Clock className='absolute top-3 left-3 h-4 w-4 text-gray-400' />
+                    <Select value={time} onValueChange={setTime}>
+                      <SelectTrigger className='w-full pl-10'>
+                        <SelectValue placeholder='Select time' />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {[
+                          '10:00',
+                          '11:00',
+                          '12:00',
+                          '14:00',
+                          '15:00',
+                          '16:00',
+                          '17:00'
+                        ].map((slot) => (
+                          <SelectItem key={slot} value={slot}>
+                            {slot}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </div>
+
+              {/* Contact Information */}
+              <div className='grid grid-cols-1 gap-4 md:grid-cols-2'>
+                <div className='space-y-2'>
+                  <label className='block text-sm font-medium text-gray-700'>
+                    Phone Number*
+                  </label>
+                  <div className='grid grid-cols-12 gap-2'>
+                    <div className='col-span-4'>
+                      <Select
+                        value={countryCode}
+                        onValueChange={setCountryCode}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder='+1' />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {[
+                            { code: '+1', name: 'US' },
+                            { code: '+44', name: 'UK' },
+                            { code: '+91', name: 'India' },
+                            { code: '+971', name: 'UAE' },
+                            { code: '+65', name: 'Singapore' },
+                            { code: '+60', name: 'Malaysia' }
+                          ].map((country) => (
+                            <SelectItem
+                              key={country.code}
+                              value={country.code}
+                              className='flex items-center gap-2'
+                            >
+                              <span className='text-muted-foreground'>
+                                {country.code}
+                              </span>
+                              <span>{country.name}</span>
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </div>
+                    <div className='col-span-8'>
+                      <Input
+                        type='tel'
+                        placeholder='(123) 456-7890'
+                        required
+                        className='w-full'
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className='space-y-2'>
+                <label className='block text-sm font-medium text-gray-700'>
+                  Email Address*
+                </label>
+                <Input type='email' placeholder='your@email.com' required />
+              </div>
+
+              {/* Language Preference */}
+              <div className='space-y-2'>
+                <label className='block text-sm font-medium text-gray-700'>
+                  Language Preference
+                </label>
+                <div className='grid grid-cols-2 gap-2 sm:grid-cols-4'>
+                  {[
+                    'English',
+                    'Spanish',
+                    'Chinese',
+                    'French',
+                    'Arabic',
+                    'Hindi',
+                    'Others'
+                  ].map((lang) => (
+                    <Button
+                      key={lang}
+                      variant={
+                        language === lang.toLowerCase() ? 'default' : 'outline'
+                      }
+                      onClick={() => setLanguage(lang.toLowerCase())}
+                      className='h-auto py-1 text-sm'
+                    >
+                      {lang}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+              <Select>
+                <SelectTrigger className='w-full'>
+                  <SelectValue placeholder='Preferred platform' />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value='zoom'>Zoom (Recommended)</SelectItem>
+                  <SelectItem value='google-meet'>Google Meet</SelectItem>
+                  <SelectItem value='whatsapp'>WhatsApp Video</SelectItem>
+                  <SelectItem value='phone'>Phone Call (No Video)</SelectItem>
+                </SelectContent>
+              </Select>
+
+              {/* Additional Notes */}
+              <div className='space-y-2'>
+                <label className='block text-sm font-medium text-gray-700'>
+                  Any specific designs you'd like to see? (Optional)
+                </label>
+                <Textarea placeholder='Mention product codes or styles...' />
+              </div>
+              <Button className='mt-6 w-full py-4 text-lg font-medium'>
+                Confirm Video Call Appointment
+              </Button>
+            </div>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
