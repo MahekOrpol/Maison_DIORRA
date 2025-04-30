@@ -34,10 +34,16 @@ export default function CustomersFavourite() {
           spacing: 20
         }
       },
-      '(min-width: 1024px)': {
+      '(min-width: 1000px)': {
         slides: {
           perView: 4,
-          spacing: 26
+          spacing: 20
+        }
+      },
+      '(min-width: 1500px)': {
+        slides: {
+          perView: 5,
+          spacing: 24
         }
       }
     }
