@@ -19,6 +19,7 @@ export default function Header() {
   const [showCartDialog, setShowCartDialog] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [showFineJewelryMenu, setShowFineJewelryMenu] = useState(false);
   // const cookieStore = await cookies();
   // const token = cookieStore.get('token')?.value;
 
@@ -54,9 +55,8 @@ export default function Header() {
   return (
     <>
       <div
-        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ${
-          showHeader ? 'translate-y-0' : '-translate-y-full'
-        }`}
+        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ${showHeader ? 'translate-y-0' : '-translate-y-full'
+          }`}
       >
         <header className='bg-background text-foreground shadow-xs'>
           {/* banner */}
@@ -127,16 +127,9 @@ export default function Header() {
               {
                 href: '/products',
                 label: 'Fine Jewelry',
-                icon: <GiGemPendant className='size-5 text-black' />
-                // (
-                //   <Image
-                //     src='/icons/ring1.svg'
-                //     alt='ring'
-                //     width={20}
-                //     height={20}
-                //     className='h-[20px] w-[20px]'
-                //   />
-                // )
+                icon: <GiGemPendant className='size-5 text-black' />,
+                onMouseEnter: () => setShowFineJewelryMenu(true),
+                onMouseLeave: () => setShowFineJewelryMenu(false),
               },
               {
                 href: '/products',
@@ -195,8 +188,14 @@ export default function Header() {
               <Link
                 key={index}
                 href={item.href}
+                onMouseEnter={() => {
+                  if (item.label === 'Fine Jewelry') setShowFineJewelryMenu(true);
+                }}
+                onMouseLeave={() => {
+                  if (item.label === 'Fine Jewelry') setShowFineJewelryMenu(false);
+                }}
                 className={cn(
-                  'flex items-center gap-0.5 px-2 underline-offset-8 transition-all duration-400 hover:underline',
+                  'flex items-center gap-0.5 px-2 underline-offset-8 transition-all duration-400 hover:underline decoration-2',
                   pathname === item.href && 'underline'
                 )}
               >
@@ -206,6 +205,47 @@ export default function Header() {
             ))}
           </nav>
         </header>
+        {showFineJewelryMenu && (
+          <div
+            className="wrapper gap-[5%] p-2 3xl:p-6 absolute top-full z-40 w-full bg-white shadow-md border-t px-[4%] 3xl:px-[12%] grid grid-cols-5 text-sm"
+            onMouseEnter={() => setShowFineJewelryMenu(true)}
+          >
+            <div className='border-r py-10'>
+              <p className='font-semibold mb-2 text-lg'>Rings</p>
+              <ul className='space-y-1'>
+                <li>Wedding Bands</li>
+                <li>Eternity Rings</li>
+                <li>Anniversary Rings</li>
+              </ul>
+            </div>
+            <div className='border-r py-10'>
+              <p className='font-semibold mb-2 text-lg'>Earrings</p>
+              <ul className='space-y-1'>
+                <li>Diamond Earrings</li>
+                <li>Drop & Dangle</li>
+                <li>Huggies & Hoops</li>
+                <li>Crawlers</li>
+              </ul>
+            </div>
+            <div className='border-r py-10'>
+              <p className='font-semibold mb-2 text-lg'>Necklaces</p>
+              <ul className='space-y-1'>
+                <li>Diamond Pendants</li>
+                <li>Necklaces</li>
+              </ul>
+            </div>
+            <div className='py-10'>
+              <p className='font-semibold mb-2 text-lg'>Bracelets</p>
+              <ul className='space-y-1'>
+                <li>Tennis</li>
+                <li>Bangles</li>
+              </ul>
+            </div>
+            <div>
+              <img src='img/headerimg.webp' className='h-full' />
+            </div>
+          </div>
+        )}
       </div>
       <NotAllowedModal open={showNotAllowed} onOpenChange={setShowNotAllowed} />
       <AddToCartNotAllowedModal

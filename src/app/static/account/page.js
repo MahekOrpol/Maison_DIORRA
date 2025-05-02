@@ -63,9 +63,9 @@ export default function Page() {
       </Card>
       {/* Edit Profile Modal */}
       <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
-        <DialogContent className='bg-white sm:h-fit sm:max-w-fit'>
+        <DialogContent className='bg-white md:h-fit md:max-w-fit'>
           <DialogHeader>
-            <DialogTitle className='text-black text-2xl pb-3'>Edit Profile</DialogTitle>
+            <DialogTitle className='text-black text-2xl pb-3 text-left'>Edit Profile</DialogTitle>
           </DialogHeader>
           <form className='space-y-4'>
             <div className='flex gap-2'>
