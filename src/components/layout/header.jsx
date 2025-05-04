@@ -19,6 +19,7 @@ export default function Header() {
   const [showCartDialog, setShowCartDialog] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
+  const [activeMenu, setActiveMenu] = useState(null);
   // const cookieStore = await cookies();
   // const token = cookieStore.get('token')?.value;
 
@@ -50,6 +51,325 @@ export default function Header() {
   const handleAddToCart = () => {
     setShowCartDialog(true);
   };
+  const menuItems = [
+    {
+      href: '/diamonds',
+      label: 'Diamonds',
+      icon: <IoDiamondOutline className='h-4 w-4' />,
+      content: (
+        <div className='grid w-full max-w-6xl grid-cols-2 gap-8 p-6'>
+          <div className='col-span-1'>
+            <h3 className='mb-4 font-semibold'>DIAMONDS BY SHAPE</h3>
+            <ul className='space-y-2 font-light'>
+              {[
+                'Round',
+                'Princess',
+                'Cushion',
+                'Emerald',
+                'Oval',
+                'Pear',
+                'Marquise',
+                'Radiant',
+                'Asscher',
+                'Heart'
+              ].map((shape) => (
+                <li key={shape}>
+                  <Link
+                    href={`/diamonds/${shape.toLowerCase()}`}
+                    className='hover:underline'
+                  >
+                    {shape}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className='col-span-1'>
+            <h3 className='mb-4 font-semibold'>DIAMONDS BY PRICE</h3>
+            <ul className='space-y-2 font-light'>
+              {[
+                'Under $1,000',
+                '$1,000 - $2,500',
+                '$2,500 - $5,000',
+                '$5,000 - $10,000',
+                'Over $10,000'
+              ].map((price) => (
+                <li key={price}>
+                  <Link
+                    href={`/diamonds?price=${price}`}
+                    className='hover:underline'
+                  >
+                    {price}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )
+    },
+    {
+      href: '#',
+      label: 'Fine Jewelry',
+      icon: <GiGemPendant className='size-4.5 text-black' />,
+      content: (
+        <div className='grid w-full max-w-6xl grid-cols-3 gap-8 p-6'>
+          <div>
+            <h3 className='mb-4 font-semibold'>RINGS</h3>
+            <ul className='space-y-2 font-light'>
+              {[
+                'Wedding Bands',
+                'Berminy Rings',
+                'Anniversary Rings',
+                'Stackable Rings',
+                'Statement Rings'
+              ].map((item) => (
+                <li key={item}>
+                  <Link
+                    href={`/products/rings/${item.toLowerCase().replace(/\s+/g, '-')}`}
+                    className='hover:underline'
+                  >
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h3 className='mb-4 font-semibold'>EARRINGS</h3>
+            <ul className='space-y-2 font-light'>
+              {[
+                'Diamond Earrings',
+                'Drop & Dangle',
+                'Huggies & Hoops',
+                'Crawlers',
+                'Studs'
+              ].map((item) => (
+                <li key={item}>
+                  <Link
+                    href={`/products/earrings/${item.toLowerCase().replace(/\s+/g, '-')}`}
+                    className='hover:underline'
+                  >
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h3 className='mb-4 font-semibold'>NECKLACES</h3>
+            <ul className='space-y-2 font-light'>
+              {[
+                'Diamond Pendants',
+                'Necklaces',
+                'Chokers',
+                'Lockets',
+                'Statement Necklaces'
+              ].map((item) => (
+                <li key={item}>
+                  <Link
+                    href={`/products/necklaces/${item.toLowerCase().replace(/\s+/g, '-')}`}
+                    className='hover:underline'
+                  >
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )
+    },
+    {
+      href: '/products/rings/engagement-rings',
+      label: 'Engagement Rings',
+      icon: <Image src='/icons/ring2.svg' alt='ring2' width={16} height={16} />,
+      content: (
+        <div className='grid w-full max-w-6xl grid-cols-3 gap-8 p-6'>
+          <div>
+            <h3 className='mb-4 font-semibold'>ENGAGEMENT RINGS</h3>
+            <ul className='space-y-2 font-light'>
+              {[
+                'Solitaire',
+                'Halo',
+                'Three-Stone',
+                'Vintage',
+                'Modern',
+                'Custom Design'
+              ].map((style) => (
+                <li key={style}>
+                  <Link
+                    href={`/products/rings/engagement-rings?style=${style.toLowerCase().replace(/\s+/g, '-')}`}
+                    className='hover:underline'
+                  >
+                    {style}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h3 className='mb-4 font-semibold'>METAL TYPES</h3>
+            <ul className='space-y-2 font-light'>
+              {[
+                'Platinum',
+                'White Gold',
+                'Yellow Gold',
+                'Rose Gold',
+                'Two-Tone'
+              ].map((metal) => (
+                <li key={metal}>
+                  <Link
+                    href={`/products/rings/engagement-rings?metal=${metal.toLowerCase().replace(/\s+/g, '-')}`}
+                    className='hover:underline'
+                  >
+                    {metal}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h3 className='mb-4 font-semibold'>SHOP BY COLLECTION</h3>
+            <ul className='space-y-2 font-light'>
+              {[
+                'Classic',
+                'Bridal',
+                'Art Deco',
+                'Nature Inspired',
+                'Minimalist'
+              ].map((collection) => (
+                <li key={collection}>
+                  <Link
+                    href={`/products/rings/engagement-rings/collections/${collection.toLowerCase().replace(/\s+/g, '-')}`}
+                    className='hover:underline'
+                  >
+                    {collection}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )
+    },
+    {
+      href: '/custom-jewelry',
+      label: 'Custom Jewelry',
+      icon: (
+        <Image
+          src='/icons/necklace.svg'
+          alt='necklace'
+          width={16}
+          height={16}
+        />
+      ),
+      content: (
+        <div className='grid w-full max-w-6xl grid-cols-2 gap-8 p-6'>
+          <div>
+            <h3 className='mb-4 font-semibold'>CUSTOM JEWELRY</h3>
+            <ul className='space-y-2 font-light'>
+              {[
+                'Design Your Own Ring',
+                'Custom Engagement Rings',
+                'Custom Pendants',
+                'Family Heirlooms',
+                'Replica Services'
+              ].map((service) => (
+                <li key={service}>
+                  <Link
+                    href={`/custom-jewelry/${service.toLowerCase().replace(/\s+/g, '-')}`}
+                    className='hover:underline'
+                  >
+                    {service}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h3 className='mb-4 font-semibold'>THE PROCESS</h3>
+            <ul className='space-y-2 font-light'>
+              {[
+                'Consultation',
+                'Design',
+                '3D Rendering',
+                'Production',
+                'Final Approval'
+              ].map((step) => (
+                <li key={step}>
+                  <Link
+                    href='/custom-jewelry#process'
+                    className='hover:underline'
+                  >
+                    {step}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )
+    },
+    {
+      href: '/education',
+      label: 'Education',
+      icon: (
+        <Image
+          src='/icons/education.svg'
+          alt='education'
+          width={16}
+          height={16}
+        />
+      ),
+      content: (
+        <div className='grid w-full max-w-6xl grid-cols-2 gap-8 p-6'>
+          <div>
+            <h3 className='mb-4 font-semibold'>DIAMOND EDUCATION</h3>
+            <ul className='space-y-2 font-light'>
+              {[
+                'The 4 Cs',
+                'Diamond Shapes',
+                'Certifications',
+                'Fluorescence',
+                'Conflict-Free Diamonds'
+              ].map((topic) => (
+                <li key={topic}>
+                  <Link
+                    href={`/education/diamonds/${topic.toLowerCase().replace(/\s+/g, '-')}`}
+                    className='hover:underline'
+                  >
+                    {topic}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div>
+            <h3 className='mb-4 font-semibold'>JEWELRY CARE</h3>
+            <ul className='space-y-2 font-light'>
+              {[
+                'Cleaning Guide',
+                'Storage Tips',
+                'Maintenance',
+                'Insurance',
+                'Appraisals'
+              ].map((topic) => (
+                <li key={topic}>
+                  <Link
+                    href={`/education/care/${topic.toLowerCase().replace(/\s+/g, '-')}`}
+                    className='hover:underline'
+                  >
+                    {topic}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      )
+    }
+  ];
 
   return (
     <>
@@ -114,83 +434,44 @@ export default function Header() {
               </button>
             </div>
           </div>
-          <hr />
 
-          {/* web nav */}
-          <nav className='wrapper hidden justify-center gap-3 py-1.5 text-lg md:py-2 lg:flex'>
-            {[
-              {
-                href: '/diamonds',
-                label: 'Diamonds',
-                icon: <IoDiamondOutline className='h-5 w-5' />
-              },
-              {
-                href: '/products/earrings',
-                label: 'Fine Jewelry',
-                icon: <GiGemPendant className='size-5 text-black' />
-                // (
-                //   <Image
-                //     src='/icons/ring1.svg'
-                //     alt='ring'
-                //     width={20}
-                //     height={20}
-                //     className='h-[20px] w-[20px]'
-                //   />
-                // )
-              },
-              {
-                href: '/products/rings/engagement-rings',
-                label: 'Engagement Rings',
-                icon: (
-                  <Image
-                    src='/icons/ring2.svg'
-                    alt='ring2'
-                    width={20}
-                    height={20}
-                    className='h-[20px] w-[20px]'
-                  />
-                )
-              },
-              {
-                href: '/custom-jewelry',
-                label: 'Custom Jewelry',
-                icon: (
-                  <Image
-                    src='/icons/necklace.svg'
-                    alt='necklace'
-                    width={20}
-                    height={20}
-                    className='h-[20px] w-[20px]'
-                  />
-                )
-              },
-              {
-                href: '/education',
-                label: 'Education',
-                icon: (
-                  <Image
-                    src='/icons/education.svg'
-                    alt='education'
-                    width={20}
-                    height={20}
-                    className='h-[20px] w-[20px]'
-                  />
-                )
-              }
-            ].map((item, index) => (
-              <Link
+          {/* desktop nav */}
+          <nav className='wrapper hidden justify-center border-t border-gray-100 font-light lg:flex'>
+            {menuItems.map((item, index) => (
+              <div
                 key={index}
-                href={item.href}
-                className={cn(
-                  'flex items-center gap-0.5 px-2 underline-offset-8 transition-all duration-400 hover:underline',
-                  pathname === item.href && 'underline'
-                )}
+                className='relative'
+                onMouseEnter={() => setActiveMenu(item.label)}
+                onMouseLeave={() => setActiveMenu(null)}
               >
-                {item.icon}
-                {item.label}
-              </Link>
+                <Link
+                  href={item.href}
+                  className={cn(
+                    'relative flex items-center gap-0.5 px-2 py-1',
+                    'after:absolute after:right-0 after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-center after:scale-x-0 after:content-[""]',
+                    'after:bg-black after:transition-transform after:duration-300',
+                    activeMenu === item.label && 'font-normal after:scale-x-95'
+                  )}
+                >
+                  {item.icon}
+                  {item.label}
+                </Link>
+              </div>
             ))}
           </nav>
+
+          {/* Mega Menu Dropdown */}
+          {activeMenu && (
+            <div
+              className='wrapper absolute right-0 left-0 z-50 border-t border-gray-100 bg-white shadow-lg'
+              onMouseEnter={() => setActiveMenu(activeMenu)}
+              onMouseLeave={() => setActiveMenu(null)}
+            >
+              <div className='container mx-auto'>
+                {menuItems.find((item) => item.label === activeMenu)?.content}
+              </div>
+            </div>
+          )}
         </header>
       </div>
       <NotAllowedModal open={showNotAllowed} onOpenChange={setShowNotAllowed} />
