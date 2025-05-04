@@ -25,7 +25,7 @@ import {
 } from './ui/drawer';
 import ProductGallery, {
   MobileGallery
-} from '@/features/product/components/product-gallery';
+} from '@/app/(storefront)/products/[category]/components/product-gallery';
 import { useRouter } from 'next/navigation';
 
 export default function PreviewCard({ product, className }) {

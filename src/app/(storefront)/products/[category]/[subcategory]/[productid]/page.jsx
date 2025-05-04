@@ -20,7 +20,10 @@ import { AiOutlineGold } from 'react-icons/ai';
 import { IoDiamondOutline } from 'react-icons/io5';
 import { RiWeightLine } from 'react-icons/ri';
 import { PiDiamondsFour } from 'react-icons/pi';
-export default function Page() {
+export default async function Page() {
+  const data = await fetch('http://localhost:5000/productDetails/1');
+  const product = await data.json();
+  // console.log(product);
   return (
     <>
       <div className='wrapper'>
@@ -52,10 +55,13 @@ export default function Page() {
       </div>
       <div className='mx-auto mb-8 flex w-full max-w-[2100px] flex-col gap-3 md:gap-4 lg:flex-row xl:gap-6'>
         <ProductGallery className='lg:sticky lg:top-10 lg:h-fit lg:w-[45%]' />
-        <ProductDetails className='3xl:pr-14 4xl:pr-20 px-3 sm:px-6 lg:w-[55%] lg:pr-8 2xl:pr-12' />
+        <ProductDetails
+          className='3xl:pr-14 4xl:pr-20 px-3 sm:px-6 lg:w-[55%] lg:pr-8 2xl:pr-12'
+          data={product}
+        />
       </div>
-      <RingDetails className='wrapper' />
-      <CustomerReviews className='wrapper' />
+      <RingDetails className='wrapper' data={product.finalProductDetails} />
+      <CustomerReviews className='wrapper' review />
       <RelatedProducts className='wrapper' />
     </>
   );
@@ -76,7 +82,7 @@ export const PriceDisplay = ({ price, originalPrice, className = '' }) => {
   );
 };
 
-function RingDetails({ className }) {
+function RingDetails({ data, className }) {
   const details = [
     {
       category: 'Know your Setting',
@@ -85,37 +91,37 @@ function RingDetails({ className }) {
         {
           icon: <AiOutlineColumnHeight size={20} />,
           label: 'RING DIAMETER',
-          value: '1.62 cm',
+          value: data.ringDetails.diameter,
           desc: 'Measured at the base of the ring.'
         },
         {
           icon: <LiaBalanceScaleSolid size={22} />,
           label: 'APPROX CTW',
-          value: '0.2 ct ',
+          value: data.ringDetails.ctw,
           desc: 'Measured at the base of the ring.'
         },
         {
           icon: <AiOutlineGold size={20} />,
           label: 'METAL',
-          value: '925 Silver',
+          value: data.ringDetails.metal,
           desc: 'It comes with the authenticity and guarantee certificate of 925 Silver with lifetime exchange guarantee.',
           fullWidth: true
         }
       ]
     },
     {
-      category: 'Ring Details',
+      category: 'Diamond Details',
       icon: '/icons/ring-top-fv.svg',
       items: [
         {
           icon: <IoDiamondOutline size={20} />,
           label: 'DIAMOND SHAPE',
-          value: 'Circle'
+          value: data.diamondDetails.shape
         },
         {
           icon: <AiOutlineColumnHeight size={20} />,
           label: 'DIAMOND SIZE',
-          value: 'Moissanite Diamond 0.18 ctw'
+          value: data.diamondDetails.size
         },
         {
           icon: <RiWeightLine size={20} />,
@@ -124,8 +130,8 @@ function RingDetails({ className }) {
         },
         {
           icon: <PiDiamondsFour size={20} />,
-          label: 'DIAMOND PURITY',
-          value: '4 ctw'
+          label: 'DIAMOND CLARITY',
+          value: data.diamondDetails.clarity
         }
       ]
     }
@@ -177,7 +183,7 @@ function RingDetails({ className }) {
   );
 }
 
-export const CustomerReviews = ({ className }) => {
+export const CustomerReviews = ({ className, data }) => {
   const reviews = [
     {
       id: 1,

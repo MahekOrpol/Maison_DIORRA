@@ -125,7 +125,7 @@ export default function Header() {
                 icon: <IoDiamondOutline className='h-5 w-5' />
               },
               {
-                href: '/products',
+                href: '/products/earrings',
                 label: 'Fine Jewelry',
                 icon: <GiGemPendant className='size-5 text-black' />
                 // (
@@ -139,25 +139,12 @@ export default function Header() {
                 // )
               },
               {
-                href: '/products',
+                href: '/products/rings/engagement-rings',
                 label: 'Engagement Rings',
                 icon: (
                   <Image
                     src='/icons/ring2.svg'
                     alt='ring2'
-                    width={20}
-                    height={20}
-                    className='h-[20px] w-[20px]'
-                  />
-                )
-              },
-              {
-                href: '/gifting',
-                label: 'Gifting Guide',
-                icon: (
-                  <Image
-                    src='/icons/gift.svg'
-                    alt='gift'
                     width={20}
                     height={20}
                     className='h-[20px] w-[20px]'
@@ -191,7 +178,6 @@ export default function Header() {
                 )
               }
             ].map((item, index) => (
-              // show underline when active page
               <Link
                 key={index}
                 href={item.href}

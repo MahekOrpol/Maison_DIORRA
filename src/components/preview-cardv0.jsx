@@ -29,7 +29,7 @@ import {
   DrawerHeader,
   DrawerTitle
 } from './ui/drawer';
-import ProductGallery from '@/features/product/components/product-gallery';
+import ProductGallery from '@/app/(storefront)/products/[category]/components/product-gallery';
 import { useRouter } from 'next/navigation';
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';

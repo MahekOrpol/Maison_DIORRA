@@ -1,7 +1,5 @@
 import { Outfit, Rozha_One } from 'next/font/google';
 import './globals.css';
-import Header from '@/components/layout/header';
-import Footer from '@/components/layout/footer';
 import { Toaster } from '@/components/ui/sonner';
 import localFont from 'next/font/local';
 import NextTopLoader from 'nextjs-toploader';
@@ -66,12 +64,8 @@ export default function RootLayout({ children }) {
           height={3}
           showSpinner={false}
         />
-        <Header />
-        <main className='flex-1 pt-[85px] min-[1023px]:pt-[126px]'>
-          {children}
-        </main>
+        {children}
         <Toaster expand={true} position='top-center' richColors />
-        <Footer />
       </body>
     </html>
   );
