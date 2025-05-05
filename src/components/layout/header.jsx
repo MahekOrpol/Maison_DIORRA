@@ -435,7 +435,7 @@ export default function Header() {
             </div>
           </div>
           {/* desktop nav */}
-          <nav className='wrapper hidden justify-center border-t border-gray-100 font-light lg:flex'>
+          <nav className='wrapper hidden justify-center border-t border-gray-100 font-light lg:flex gap-3 text-lg'>
             {menuItems.map((item, index) => (
               <div
                 key={index}

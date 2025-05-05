@@ -38,7 +38,7 @@ export default function LoginPage() {
           {/* Right Side Form */}
           <div className='flex-1 pt-0 md:mb-8 md:px-6 md:pt-2 lg:px-10'>
             <Tabs value={tab} onValueChange={setTab} className='w-full'>
-              <TabsList className='mb-2 grid h-full w-full grid-cols-2 border-b border-gray-500'>
+              <TabsList className='mb-2 grid h-full w-full grid-cols-2 border-gray-500'>
                 <TabsTrigger
                   value='login'
                   className='data-[state=active]:bg-primary r data-[state=active]:text-primary-foreground bg-background h-full border-b border-b-transparent pt-2 pb-1 text-xl font-medium data-[state=active]:border-b-black data-[state=active]:text-2xl sm:border-b-2'
@@ -58,7 +58,7 @@ export default function LoginPage() {
                 value='login'
                 className='px-6 pb-6 text-center sm:pt-2 md:text-left lg:pt-3'
               >
-                <div className='ps-3'>
+                <div className='ps-3 pt-3 md:pt-0'>
                   <h2 className='mb-2 text-2xl leading-6 font-medium'>
                     Login using your Email and Password
                   </h2>
@@ -167,7 +167,7 @@ export default function LoginPage() {
                 value='register'
                 className='pb-6 text-center sm:pt-2 md:text-left lg:pt-3'
               >
-                <div className='px-6'>
+                <div className='px-6  pt-3 md:pt-0'>
                   <h2 className='mb-2 text-2xl leading-6 font-medium'>
                     Don’t have an Account?
                   </h2>

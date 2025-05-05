@@ -38,7 +38,7 @@ export default function S1HeroSection() {
             </p>
           </div>
           <Link
-            href='/products'
+            href='/products/rings/engagement-rings'
             className='relative flex items-center rounded-full bg-black px-8 py-2.5 text-sm font-semibold text-white transition-all duration-300 before:absolute before:top-1 before:left-1 before:-z-10 before:h-full before:w-full before:rounded-full before:bg-white hover:before:opacity-0 md:py-3 md:text-base'
           >
             SHOP NOW <MoveRight className='ml-2 inline' />
