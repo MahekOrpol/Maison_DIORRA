@@ -434,7 +434,6 @@ export default function Header() {
               </button>
             </div>
           </div>
-
           {/* desktop nav */}
           <nav className='wrapper hidden justify-center border-t border-gray-100 font-light lg:flex'>
             {menuItems.map((item, index) => (
@@ -481,4 +480,47 @@ export default function Header() {
       />
     </>
   );
+}
+
+// anjalis, mega menu
+{
+  /* <div
+            className="wrapper gap-[5%] p-2 3xl:p-6 absolute top-full z-40 w-full bg-white shadow-md border-t px-[4%] 3xl:px-[12%] grid grid-cols-5 text-sm"
+            onMouseEnter={() => setShowFineJewelryMenu(true)}
+          >
+            <div className='border-r py-10'>
+              <p className='font-semibold mb-2 text-lg'>Rings</p>
+              <ul className='space-y-1'>
+                <li>Wedding Bands</li>
+                <li>Eternity Rings</li>
+                <li>Anniversary Rings</li>
+              </ul>
+            </div>
+            <div className='border-r py-10'>
+              <p className='font-semibold mb-2 text-lg'>Earrings</p>
+              <ul className='space-y-1'>
+                <li>Diamond Earrings</li>
+                <li>Drop & Dangle</li>
+                <li>Huggies & Hoops</li>
+                <li>Crawlers</li>
+              </ul>
+            </div>
+            <div className='border-r py-10'>
+              <p className='font-semibold mb-2 text-lg'>Necklaces</p>
+              <ul className='space-y-1'>
+                <li>Diamond Pendants</li>
+                <li>Necklaces</li>
+              </ul>
+            </div>
+            <div className='py-10'>
+              <p className='font-semibold mb-2 text-lg'>Bracelets</p>
+              <ul className='space-y-1'>
+                <li>Tennis</li>
+                <li>Bangles</li>
+              </ul>
+            </div>
+            <div>
+              <img src='img/headerimg.webp' className='h-full' />
+            </div>
+          </div> */
 }

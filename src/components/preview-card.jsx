@@ -77,19 +77,19 @@ export default function PreviewCard({ product, className }) {
     <>
       <Card
         className={cn(
-          'group relative justify-between gap-0 overflow-hidden rounded-xl border border-gray-400 pt-0 pb-2 shadow transition-transform duration-300 hover:shadow-xl lg:border-2',
+          'group relative justify-between gap-0 overflow-hidden rounded-xl border border-gray-200 pt-0 pb-2 shadow transition-transform duration-300 hover:shadow-xl lg:border-2',
           className
         )}
       >
         {/* Wishlist Button */}
         <button
           onClick={() => setLiked(!liked)}
-          className='hover:bg-primary/10 absolute top-1 right-1 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white'
+          className='hover:bg-primary/4 absolute top-1 right-1 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow shadow-gray-400 xl:top-3 xl:right-3'
         >
           <Heart
             className={cn(
               'xs:h-5 xs:w-5 h-4 w-4 transition-colors',
-              liked ? 'fill-primary text-primary' : 'text-muted-foreground'
+              liked ? 'fill-primary text-primary' : 'text-black'
             )}
           />
         </button>
@@ -119,14 +119,14 @@ export default function PreviewCard({ product, className }) {
             ))}
           </CarouselContent>
 
-          <div className='3xl:-bottom-3 absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 2xl:bottom-4'>
+          <div className='3xl:-bottom-[-4.9%] absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 2xl:bottom-4'>
             <CarouselPrevious className='h-7 w-7 translate-x-4 rounded-full border-none bg-white/80 text-gray-600 transition hover:bg-white 2xl:h-8 2xl:w-8 2xl:translate-x-1' />
             <CarouselNext className='h-7 w-7 -translate-x-4 rounded-full border-none bg-white/80 text-gray-600 transition hover:bg-white 2xl:h-8 2xl:w-8' />
           </div>
         </Carousel>
 
         <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2 xl:px-4 xl:pb-3'>
-          <div className='flex items-center justify-between border-t pt-2 xl:pt-4'>
+          <div className='flex items-center justify-between border-t pt-2 xl:pt-5'>
             <div className='flex gap-1 sm:gap-2'>
               <p className='leading-1 font-medium sm:text-[22px] lg:text-xl xl:text-2xl'>
                 ${selectedMetal.price}
@@ -157,7 +157,7 @@ export default function PreviewCard({ product, className }) {
               })}
             </div>
           </div>
-          <p className='xs:text-base block pb-2 text-left text-sm leading-4 font-light text-gray-900 sm:text-lg xl:font-normal 2xl:text-xl'>
+          <p className='xs:text-base mb-2 block text-left text-sm font-light text-gray-900 sm:text-lg xl:font-normal 2xl:text-xl'>
             <button
               onClick={handleProductClick}
               className='!line-clamp-1 block w-full text-left'
@@ -190,11 +190,10 @@ export default function PreviewCard({ product, className }) {
                   aria-label='Add to wishlist'
                 >
                   <FaHeart
-                    className={`h-5 w-6 transition-colors duration-300 ${
-                      liked
+                    className={`h-5 w-6 transition-colors duration-300 ${liked
                         ? 'fill-primary stroke-[20] text-white'
                         : 'fill-white stroke-[30] text-black'
-                    }`}
+                      }`}
                   />
                 </button>
                 <DrawerClose className='flex h-7 w-7 items-center justify-center rounded-full bg-[#D9D9D9] transition focus:scale-105'>

@@ -1,6 +1,6 @@
 import ProductGallery from '@/app/(storefront)/products/[category]/components/product-gallery';
 import ProductDetails from '@/app/(storefront)/products/[category]/components/product-details';
-import { MdStarRate } from 'react-icons/md';
+import { MdStarRate, MdVerified } from 'react-icons/md';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -211,10 +211,10 @@ export const CustomerReviews = ({ className }) => {
     <div className={cn('mt-8', className)}>
       <h2 className='text-2xl font-medium md:text-3xl md:font-medium lg:text-4xl'>
         Customer Reviews :
-        <hr className='mb-4' />
+        <hr className='mt-4 mb-4' />
       </h2>
 
-      <div className='space-y-2'>
+      <div className='space-y-6 md:space-y-3'>
         {reviews.map((review) => (
           <TestimonialCard key={review.id} {...review} />
         ))}
@@ -237,7 +237,7 @@ export const CustomerReviews = ({ className }) => {
 
 function TestimonialCard({ author, authorImg, date, content, rating = 5 }) {
   return (
-    <div className='flex items-center gap-2 border-b pb-1 md:gap-4'>
+    <div className='xs:pb-3 flex items-center gap-2 border-b pb-2.5 md:gap-4 md:pb-6'>
       {/* Responsive Image Wrapper */}
       <div className='flex w-fit items-center justify-center self-start rounded-full bg-black p-[0.6px]'>
         <div className='rounded-full bg-white p-1'>
@@ -253,18 +253,25 @@ function TestimonialCard({ author, authorImg, date, content, rating = 5 }) {
 
       {/* Author Details */}
       <div className='flex-1'>
-        <div className='mb-[1px] flex'>
-          {[...Array(5)].map((_, i) => (
-            <MdStarRate
-              key={i}
-              className={`h-5 w-5 ${i < rating ? 'fill-yellow-400 text-yellow-400' : 'fill-gray-300 text-gray-300'} transition-colors duration-300`}
-            />
-          ))}
+        <div className='flex items-center gap-3'>
+          <span className='xs:text-xl inline-flex items-center gap-1 text-sm'>
+            {author}
+            <MdVerified className='inline fill-green-700' size={20} />
+          </span>
+          <span className='xs:text-sm text-xs'> VERIFIED PURCHASE</span>
         </div>
-        <div className='flex items-center gap-4 text-sm font-semibold sm:text-base'>
-          {author} | {date}
+        <div className='flex items-center gap-3 pt-1 text-sm font-semibold sm:text-base'>
+          <div className='flex'>
+            {[...Array(5)].map((_, i) => (
+              <MdStarRate
+                key={i}
+                className={`h-5 w-5 ${i < rating ? 'fill-yellow-400 text-yellow-400' : 'fill-gray-300 text-gray-300'} transition-colors duration-300`}
+              />
+            ))}{' '}
+          </div>
+          <p> {date}</p>
         </div>
-        <p className='text-xs leading-4 font-light sm:text-sm xl:text-[15px]'>
+        <p className='pt-3 text-xs leading-4 font-light sm:text-sm xl:text-[15px]'>
           {content}
         </p>
       </div>

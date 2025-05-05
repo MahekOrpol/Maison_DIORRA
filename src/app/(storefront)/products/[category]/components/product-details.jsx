@@ -114,7 +114,7 @@ export default function ProductDetails({ className, data }) {
           SAVE 20%
         </span>
         {/* Product Title */}
-        <div className='mb-2 flex gap-4 md:mb-3'>
+        <div className='xs:pt-0 mb-2 flex gap-4 pt-2 md:mb-3'>
           <h1 className='mb-2 flex-1 text-xl leading-6 font-medium sm:text-2xl sm:leading-8 md:text-3xl md:leading-10'>
             {data?.name || 'Product name'}
           </h1>
@@ -179,7 +179,7 @@ export default function ProductDetails({ className, data }) {
           </span>
         </div>
         {/* Product Description */}
-        <p className='mb-3 text-justify text-xs text-gray-700 md:mb-6 md:text-sm lg:text-base'>
+        <p className='xs:p-0 mb-3 pt-3 text-justify text-xs text-gray-700 md:mb-6 md:text-sm lg:text-base'>
           {data?.description}
         </p>
       </div>
@@ -339,11 +339,11 @@ export default function ProductDetails({ className, data }) {
         </div>
       </div>
 
-      <div className=''>
+      <div className='xs:p-0 pt-3'>
         {/* See It Live Section */}
         <div
           onClick={() => setOpenMeeting(true)}
-          className='bg-secondary mb-6 flex items-center gap-2 rounded-lg p-1 sm:gap-6 sm:p-4 md:items-start'
+          className='bg-secondary xs:pb-0 mb-6 flex items-center gap-2 rounded-lg p-1 pb-3 sm:gap-6 sm:p-4 md:items-start'
         >
           <Image
             src='/img/live-consultation.png'

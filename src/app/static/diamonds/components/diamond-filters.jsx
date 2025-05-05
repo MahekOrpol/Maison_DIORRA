@@ -16,7 +16,7 @@ export default function DiamondFilters() {
       </h2>
       {/* shape */}
       <div className='my-4 flex justify-center gap-2'>
-        <button className='w-[80px] rounded-lg border border-transparent hover:border-black'>
+        <button className='w-[80px] rounded-lg border border-transparent hover:bg-gray-100 hover:border-black'>
           <div className='flex items-center justify-center'>
             <Image
               src='/icons/shape-round.svg'
@@ -28,7 +28,7 @@ export default function DiamondFilters() {
           </div>
           Round
         </button>
-        <button className='w-[80px] rounded-lg border border-transparent hover:border-black'>
+        <button className='w-[80px] rounded-lg border border-transparent hover:bg-gray-100 hover:border-black'>
           <div className='flex items-center justify-center'>
             <Image
               src='/icons/shape-pear.svg'
@@ -40,7 +40,7 @@ export default function DiamondFilters() {
           </div>
           Pear
         </button>
-        <button className='w-[80px] rounded-lg border border-transparent hover:border-black'>
+        <button className='w-[80px] rounded-lg border border-transparent hover:bg-gray-100 hover:border-black'>
           <div className='flex items-center justify-center'>
             <Image
               src='/icons/shape-emerlad.svg'
@@ -52,7 +52,7 @@ export default function DiamondFilters() {
           </div>
           Emerlad
         </button>
-        <button className='w-[80px] rounded-lg border border-transparent hover:border-black'>
+        <button className='w-[80px] rounded-lg border border-transparent hover:bg-gray-100 hover:border-black'>
           <div className='flex items-center justify-center'>
             <Image
               src='/icons/shape-princess.svg'
@@ -67,7 +67,7 @@ export default function DiamondFilters() {
       </div>
       {/* quality */}
       <div className='w-full space-y-6 p-0 md:p-4'>
-        <div className='grid grid-cols-1 place-items-center justify-center gap-3 sm:grid-cols-2 lg:grid-cols-3'>
+        <div className='grid grid-cols-1 xl:gap-[20%] justify-center place-items-center xl:place-items-stretch sm:grid-cols-2 lg:grid-cols-3'>
           {/* Color Filter */}
           <div className=''>
             <h3 className='mb-1 font-medium'>Color</h3>
