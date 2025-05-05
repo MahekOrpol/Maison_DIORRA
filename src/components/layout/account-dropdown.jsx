@@ -70,7 +70,7 @@ export function AccountDropdown({ isLoggedIn }) {
           <>
             {/* for testing purpose */}
             <DropdownMenuItem asChild>
-              <Link href='/sign-in'>
+              <Link href='/login'>
                 {' '}
                 <CiLogin className='' />
                 Sign In
