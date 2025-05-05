@@ -1,0 +1,88 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-rozha: var(--font-rozha-one), serif;
+  --font-outfit: var(--font-outfit), sans-serif;
+  --font-sande: var(--font-sande-more), sans-serif;
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --breakpoint-xxs: 20rem;
+  --breakpoint-xs2: 23rem;
+  --breakpoint-xs: 26rem;
+  --breakpoint-3xl: 108rem;
+  --breakpoint-4xl: 120rem;
+}
+
+:root {
+  --radius: 0.325rem;
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.95 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.141 0.005 285.823);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.141 0.005 285.823);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button,
+  a {
+    @apply cursor-pointer;
+  }
+  .wrapper {
+    @apply 3xl:px-14 4xl:px-20 mx-auto w-full max-w-[2100px] px-3 sm:px-6 lg:px-8 2xl:px-12;
+  }
+  .header-wrapper {
+    @apply 3xl:px-14 4xl:px-16 mx-auto w-full px-3 sm:px-6 lg:px-8;
+  }
+  .swiper_container {
+    @apply h-[500px] bg-red-100;
+  }
+}
+.hero-font {
+  font-size: clamp(1.5rem, 0.9474rem + 2.9474vw, 5rem);
+}
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}

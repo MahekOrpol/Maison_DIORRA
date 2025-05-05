@@ -1,0 +1,149 @@
+import React from 'react';
+import { BlogsFilter } from '../page';
+import { BlogsBanner } from '../blogs-banner';
+import Image from 'next/image';
+import { ReviewForm } from '../review-form';
+import Link from 'next/link';
+import { ArrowRight, ChevronLeft, ChevronRight, MoveRight } from 'lucide-react';
+import { ImQuotesLeft, ImQuotesRight } from 'react-icons/im';
+
+export default async function Page({ params }) {
+  const { slug } = await params;
+  return (
+    <div className='mb-8 md:mb-10'>
+      <BlogsBanner
+        imgUrl='/img/banner/banner2.png'
+        title='Blogs and Articles'
+        subtitle='Home - Blogs and Articles'
+        className='h-[200px]'
+      />
+      <section className='wrapper flex w-full flex-col gap-4 py-3 md:my-8 lg:gap-[4%] xl:flex-row xl:justify-between'>
+        {/* blog details - takes about 70% width on desktop */}
+        <article className='flex-1 xl:w-[66%]'>
+          {/* hero */}
+          <div className='mb-3 border-b-2 pb-2'>
+            <div>
+              <Image
+                src='/img/blogs/blog-details.png'
+                width={800}
+                height={400}
+                alt='Blog header w-full'
+                className='w-full rounded-md'
+              />
+            </div>
+            <p className='my-1 text-sm font-light md:my-2 lg:text-base'>
+              Posted by Feronia - Mar 09 2024
+            </p>
+            <h2 className='text-2xl leading-6 font-semibold md:text-3xl lg:text-4xl'>
+              The North Earings Bronze
+            </h2>
+          </div>
+
+          {/* blog content */}
+          <div className='space-y-4 text-sm md:text-base'>
+            {/* Your existing blog content sections */}
+            {[...Array(2)].map((_, sectionIndex) => (
+              <div key={sectionIndex} className='space-y-4'>
+                <p className='text-justify'>
+                  Explore the history behind vintage pieces, how to style them,
+                  and tips for caring for them. Share stories of famous vintage
+                  pieces and their significance. Offer a guide on selecting an
+                  engagement ring that reflects personal style. Discuss
+                  different styles, settings, and stones, and include tips for
+                  budget considerations. Provide tips on how to successfully
+                  layer necklaces for a trendy look.
+                </p>
+                <div>
+                  <div>
+                    <ImQuotesLeft className='h-10 w-10' />
+                    <blockquote className='mx-auto w-4/5'>
+                      &quot;Learn how to keep your jewelry shining bright! From
+                      cleaning techniques to storage solutions, our blog offers
+                      expert advice. Each item is handcrafted with love and
+                      precision, using ethically sourced materials to ensure
+                      beauty that you feel good about. Learn how to keep your
+                      jewelry shining bright! From cleaning techniques to
+                      storage solutions, our blog offers expert advice.&quot;
+                    </blockquote>
+                    <ImQuotesRight className='ml-auto h-10 w-10' />
+                  </div>
+                  <p className='font-medium'>- Jasmin Rosie</p>
+                </div>
+                <div>
+                  <h3 className='text-2xl font-medium'>
+                    Trends to Watch in the Jewelry World
+                  </h3>
+                  <ul className='ml-10'>
+                    {Array.from({ length: 8 }).map((item, i) => (
+                      <li className='list-disc' key={i}>
+                        Jewellery Care 101: Keeping Your Pieces Sparkling
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ))}
+          </div>
+        </article>
+
+        {/* Sticky sidebar - takes about 30% width on desktop */}
+        <div className='xl:w-[30%]'>
+          <div className='xl:sticky xl:-top-1/4 xl:h-fit xl:self-start'>
+            <BlogsFilter className='w-full xl:max-w-md' />
+          </div>
+        </div>
+      </section>
+
+      {/* prev - nextt */}
+      <div className='wrapper my-6 grid grid-cols-1 justify-between border-y py-2 sm:grid-cols-2'>
+        <Link href='#' className='inline-flex items-center gap-4 border-r p-2'>
+          <Image
+            src='/img/blogs/blog11.png'
+            width={90}
+            height={90}
+            alt='article thumbnail'
+            className='w-[90px] rounded-lg lg:w-[100px]'
+          />
+          <div className='space-y-1'>
+            <p className='xs:text-xs inline-flex items-center text-[10px] font-medium tracking-widest'>
+              <ChevronLeft size={18} className='-ml-1 inline' />
+              PREVIOUS BLOG
+            </p>
+            <p className='xs:text-base text-sm leading-4 font-medium lg:text-lg'>
+              Redefining Elegance through Unique Charms
+            </p>
+            <p className='text-sm'>
+              Read More <MoveRight className='inline' size={16} />
+            </p>
+          </div>
+        </Link>
+        <Link
+          href='#'
+          className='inline-flex items-center gap-4 justify-self-end p-2'
+        >
+          <div className='space-y-1 text-right'>
+            <p className='xs:text-xs inline-flex items-center text-[10px] font-medium tracking-widest'>
+              NEXT BLOG
+              <ChevronRight size={18} className='inline' />
+            </p>
+            <p className='xs:text-base text-sm leading-4 font-medium lg:text-lg'>
+              Redefining Elegance through Unique Charms
+            </p>
+            <p className='text-sm font-medium'>
+              Read More <MoveRight className='inline' size={16} />
+            </p>
+          </div>
+          <Image
+            src='/img/blogs/blog11.png'
+            width={90}
+            height={90}
+            alt='article thumbnail'
+            className='w-[90px] rounded-lg lg:w-[100px]'
+          />
+        </Link>
+      </div>
+      {/* review */}
+      <ReviewForm />
+    </div>
+  );
+}
