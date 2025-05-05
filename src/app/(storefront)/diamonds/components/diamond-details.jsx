@@ -99,20 +99,20 @@ export default function DiamondDetails({ className }) {
           {characteristics.map((item, i) => (
             <div
               key={i}
-              className='border-black text-center text-xs not-last:border-r md:text-base'
+              className='border-black text-center text-xs not-last:border-r xl:text-xl font-medium'
             >
               <p>{item.value}</p>
-              <p className='text-muted-foreground text-sm'>{item.propety}</p>
+              <p className='text-muted-foreground text-sm xl:text-base'>{item.propety}</p>
             </div>
           ))}
         </div>
       </div>
       {/* Installment Option */}
-      <div className='xs:text-sm mb-6 border-b py-4 text-xs md:text-sm'>
-        <h3 className='mb-2 text-lg font-medium underline underline-offset-3 md:mb-4 md:text-2xl md:underline-offset-10'>
+      <div className='xs:text-sm mb-6 border-b py-4 text-xs md:text-sm pt-4'>
+        <h3 className='mb-2 text-lg font-medium underline underline-offset-3 md:mb-4 md:text-xl xl:text-2xl md:underline-offset-10'>
           Buy Jewelry on Interest Free Installment
         </h3>
-        <p className='mt-1'>
+        <p className='mt-1 text-sm xl:text-base'>
           Installments starting at ₹5,000 per month
           <Link
             href='#'
@@ -122,7 +122,7 @@ export default function DiamondDetails({ className }) {
           </Link>
         </p>
 
-        <p className='mt-1'>
+        <p className='mt-1 text-base'>
           Earn 5% cashback on this purchase.{' '}
           <Link
             href='#'
@@ -143,10 +143,10 @@ export default function DiamondDetails({ className }) {
             className='h-[80px] w-[120px] rounded-sm md:h-[120px] md:w-[180px]'
           />
           <div className='flex-1'>
-            <h3 className='text-sm font-medium md:text-xl'>
+          <h3 className='text-base font-medium xl:text-2xl'>
               See it before you Buy it
             </h3>
-            <p className='mb-2 text-xs font-light sm:mb-3 md:text-sm'>
+            <p className='mb-2 text-sm font-light sm:mb-3 md:text-sm xl:text-lg'>
               Join live video call with our consultants to see the designs up
               close
             </p>

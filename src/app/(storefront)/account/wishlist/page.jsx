@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Heart, ShoppingCart } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import PreviewCard3 from '@/components/preview-card';
+import { BsHandbagFill } from 'react-icons/bs';
+import Link from 'next/link';
 
 const wishlist = [
   {
@@ -56,7 +58,27 @@ const wishlist = [
 export default function WishlistPage() {
   return (
     <div className='wrapper pt-4 pb-10'>
-      <h1 className='mb-4 text-3xl font-bold md:mb-6'>Your Wishlist</h1>
+      {/* <h1 className='mb-4 text-3xl font-bold md:mb-6'>Your Wishlist</h1> */}
+      <div className='flex flex-col items-center justify-center h-[50vh]'>
+        <div className='w-[120px] sm:w-[150px]'>
+          <img src={'/img/wishlist.jpg'} />
+        </div>
+        <p className='text-muted-foreground text-sm sm:text-lg'>YOUR CART IS EMPTY.</p>
+        <div className='flex gap-1 sm:gap-4 pt-3'>
+          <Link
+            href='/products'
+            className='hover:bg-primary hover:text-primary-foreground inline-block rounded-md border border-black px-6 py-3 text-xs sm:px-9 sm:py-3 sm:text-lg'
+          >
+            Continue Shopping
+          </Link>
+          <Link
+            href='/products'
+            className='bg-primary text-primary-foreground inline-block rounded-md border border-black px-6 py-3 text-xs sm:px-9 sm:py-3 sm:text-lg'
+          >
+            Add products to your cart
+          </Link>
+        </div>
+      </div>
 
       <div className='grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-6'>
         {wishlist.map((item, i) => (
