@@ -11,6 +11,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
 import { BiVideoPlus } from 'react-icons/bi';
+import { BsHandbagFill } from 'react-icons/bs';
 
 const ShoppingCart = ({ onNext }) => {
   const { cart, setCart } = useCheckoutStore();
@@ -111,9 +112,8 @@ export function PricingDetails({
           <div key={index} className='flex justify-between'>
             <span className='text-sm'>{item.label}</span>
             <span
-              className={`text-sm font-medium ${
-                item.isDiscount ? 'text-green-600' : ''
-              }`}
+              className={`text-sm font-medium ${item.isDiscount ? 'text-green-600' : ''
+                }`}
             >
               {item.isDiscount && '-'}
               {currency}
@@ -159,14 +159,25 @@ function CartContainer({ cart, setCart }) {
         Cart Products
       </div>
       {cart.length === 0 ? (
-        <div className='mt-4 flex flex-col items-center justify-center gap-4'>
-          <p className='text-muted-foreground'>Your cart is empty.</p>
-          <Link
-            href='/products'
-            className='hover:bg-primary hover:text-primary-foreground inline-block rounded-md border border-black px-6 py-2'
-          >
-            Add products to your cart
-          </Link>
+        <div className='mt-4 flex flex-col items-center justify-center gap-4 pt-4'>
+          <div className='rounded-full p-3 sm:p-6 bg-gray-200'>
+            <BsHandbagFill size={24} />
+          </div>
+          <p className='text-muted-foreground text-sm'>Your cart is empty.</p>
+          <div className='flex gap-2 sm:gap-4'>
+            <Link
+              href='/products'
+              className='hover:bg-primary hover:text-primary-foreground inline-block rounded-md border border-black px-6 py-3 text-xs sm:px-9 sm:py-3 sm:text-lg'
+            >
+              Continue Shopping
+            </Link>
+            <Link
+              href='/products'
+                  className='bg-primary text-primary-foreground inline-block rounded-md border border-black px-6 py-3 text-xs sm:px-9 sm:py-3 sm:text-lg'
+            >
+              Add products to your cart
+            </Link>
+          </div>
         </div>
       ) : (
         <div className='space-y-4'>

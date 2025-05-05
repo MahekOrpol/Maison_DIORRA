@@ -23,14 +23,14 @@ export default function DiamondPreviewCard({ href }) {
       </div>
       <div className='xs:p-2 space-y-2 p-1 md:p-4'>
         <div className='flex justify-between md:text-xl'>
-          <span className='font-medium'>Emerlad</span>
+          <span className='md:text-2xl text-base'>Emerlad</span>
           <span className='text-muted-foreground'>$ 5000</span>
         </div>
         <div className='grid grid-cols-4'>
           {/* MAP DETAILS HERE */}
           {characteristics.map((item, i) => (
-            <div key={i} className='text-center text-xs not-last:border-r'>
-              <p>{item.value}</p>
+            <div key={i} className='text-center text-sm md:text-xl not-last:border-r'>
+              <p className=' font-medium'>{item.value}</p>
               <p className='text-muted-foreground text-xs'>{item.propety}</p>
             </div>
           ))}
