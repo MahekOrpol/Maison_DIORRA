@@ -1,6 +1,6 @@
 'use client';
 import Image from 'next/image';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import {
   Select,
@@ -81,10 +81,25 @@ const ringStyles = [
     imgUrl: '/img/ring-style-stone.svg'
   }
 ];
-const data = repeatProducts(80);
+// const data = repeatProducts(80);
 
-export default function Page() {
+export default function ProductListingPage({ params }) {
   const [selectedStyle, setSelectedStyle] = useState(null);
+  const [data, setData] = useState([]);
+  const { category, subcategory } = React.use(params);
+  // const data = await fetch('http://localhost:5000/rings');
+  // const products = await data.json();
+  useEffect(() => {
+    (async function fetchData() {
+      try {
+        const data = await fetch(`http://localhost:5000/${category}`);
+        const products = await data.json();
+        setData(products);
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  }, []);
   return (
     <div className='wrapper'>
       {/* arrowed label */}

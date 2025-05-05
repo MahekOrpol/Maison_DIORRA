@@ -12,18 +12,22 @@ import {
 import { ShoppingBag } from 'lucide-react';
 import PreviewCard from '@/components/preview-card';
 import {
+  bracelet01,
   braceletData,
+  earring01,
   earringData,
+  necklace01,
   necklaceData,
+  ring01,
   ringData
 } from '@/constants/data';
 import PreviewCardMd from '@/components/preview-card-md';
 
 const categories = {
-  ring: ringData,
-  bracelet: braceletData,
-  necklace: necklaceData,
-  earring: earringData
+  ring: ring01,
+  bracelet: bracelet01,
+  necklace: necklace01,
+  earring: earring01
 };
 
 export default function S8TrendingCollections() {

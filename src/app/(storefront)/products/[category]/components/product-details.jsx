@@ -45,7 +45,6 @@ export default function ProductDetails({ className, data }) {
   );
   const [openMeeting, setOpenMeeting] = useState(false);
 
-  console.log(data.selectedVariants);
   const router = useRouter();
 
   const metalTypes = [

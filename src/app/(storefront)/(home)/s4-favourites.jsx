@@ -3,10 +3,10 @@ import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
 import { useRef, useEffect, useState } from 'react';
 import Heading from '@/components/heading';
+import { repeatProducts, repeatProductsV1 } from '@/lib/utils';
 import PreviewCard from '@/components/preview-card';
-import { repeatProducts } from '@/lib/utils';
 
-const customersFavourite = repeatProducts(20);
+const customersFavourite = repeatProductsV1(20);
 
 export default function S4FavouriteSection() {
   const timer = useRef();

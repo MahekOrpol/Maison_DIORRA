@@ -374,7 +374,7 @@ export default function Header() {
   return (
     <>
       <div
-        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ${
+        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ease-in ${
           showHeader ? 'translate-y-0' : '-translate-y-full'
         }`}
       >

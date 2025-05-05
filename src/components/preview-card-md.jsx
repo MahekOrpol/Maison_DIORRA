@@ -29,7 +29,7 @@ import ProductGallery, {
 import { useRouter } from 'next/navigation';
 
 export default function PreviewCardMd({ product, className }) {
-  const [selectedMetal, setSelectedMetal] = useState(product?.metals?.[0]);
+  const [selectedMetal, setSelectedMetal] = useState(product?.variants?.[0]);
   const [isProductClicked, setIsProductClicked] = useState(false);
   const [isClientMobile, setIsClientMobile] = useState(false);
   const [liked, setLiked] = useState(false);
@@ -37,7 +37,7 @@ export default function PreviewCardMd({ product, className }) {
 
   // Fix: Reset metal when product changes
   useEffect(() => {
-    setSelectedMetal(product?.metals?.[0]);
+    setSelectedMetal(product?.variants?.[0]);
   }, [product]);
 
   useEffect(() => {
@@ -53,7 +53,9 @@ export default function PreviewCardMd({ product, className }) {
     if (isClientMobile) {
       setIsProductClicked(true);
     } else {
-      router.push(`/products/productid`);
+      router.push(
+        `/products/${product?.category}/${product?.subcategory ? product.subcategory : 'all'}/${product.id}`
+      );
     }
   };
 
@@ -100,15 +102,15 @@ export default function PreviewCardMd({ product, className }) {
           className='relative w-full'
         >
           <CarouselContent className='3xl:h-[250px] ml-0 w-full gap-0 lg:h-[200px] xl:h-[230px]'>
-            {selectedMetal.images.map((image, index) => (
+            {selectedMetal.media.map((image, index) => (
               <CarouselItem
                 key={index}
                 onClick={handleProductClick}
                 className='m-0 h-full w-full basis-full p-0'
               >
                 <Image
-                  src={image}
-                  alt={selectedMetal.name}
+                  src={image.mediaUrl}
+                  alt={selectedMetal.metalType}
                   width={300}
                   height={300}
                   className='h-full w-full object-cover object-center'
@@ -127,25 +129,26 @@ export default function PreviewCardMd({ product, className }) {
           <div className='flex items-center justify-between border-t pt-2'>
             <div className='flex gap-1 sm:gap-2'>
               <p className='leading-1 font-medium sm:text-[22px] lg:text-xl xl:text-2xl'>
-                ${selectedMetal.amount}
+                ${selectedMetal.price}
               </p>
               <span className='text-xs leading-1 font-normal text-[#958F86] line-through sm:text-base xl:text-lg'>
-                ${selectedMetal.wrongAmount}
+                ${selectedMetal.originalPrice}
               </span>
             </div>
             <div className='flex gap-0.5'>
-              {product.metals.map((metalOption) => {
-                const isSelected = metalOption.metal === selectedMetal.metal;
+              {product.variants.map((variant) => {
+                const isSelected =
+                  variant.metalType === selectedMetal.metalType;
                 return (
                   <button
-                    key={metalOption.metal}
-                    onClick={() => setSelectedMetal(metalOption)}
+                    key={variant.metalType}
+                    onClick={() => setSelectedMetal(variant)}
                     className={cn(
                       'h-4.5 w-4.5 rounded-full border-2 border-white hover:outline hover:outline-offset-1 sm:h-5.25 sm:w-5.25 md:h-6 md:w-6',
                       isSelected ? 'ring-primary/40 ring-offset-0.5 ring' : ''
                     )}
                     style={{
-                      backgroundImage: `url('/img/preview/${metalOption.metal}.png')`,
+                      backgroundImage: `url('/img/preview/${variant.metalType}.png')`,
                       backgroundSize: 'cover',
                       backgroundPosition: 'center'
                     }}
@@ -159,7 +162,7 @@ export default function PreviewCardMd({ product, className }) {
               onClick={handleProductClick}
               className='block w-full text-left'
             >
-              {selectedMetal.name}
+              {product.name}
             </button>
           </p>
           <Button
@@ -171,7 +174,7 @@ export default function PreviewCardMd({ product, className }) {
         </CardContent>
       </Card>
       {/* Mobile Drawer */}
-      {isClientMobile && (
+      {/* {isClientMobile && (
         <Drawer
           open={isProductClicked}
           onOpenChange={setIsProductClicked}
@@ -201,7 +204,6 @@ export default function PreviewCardMd({ product, className }) {
             </DrawerHeader>
 
             <DrawerFooter className='pt-2'>
-              {/* Static example content below */}
               <div className=''>
                 <div className='mb-1 flex justify-between text-lg font-medium'>
                   <div>
@@ -221,7 +223,6 @@ export default function PreviewCardMd({ product, className }) {
                   />
                 </div>
                 <div className='grid grid-cols-3 gap-3 text-sm'>
-                  {/* Replace with dynamic product features if needed */}
                   <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border border-transparent px-3 pt-4 pb-2 transition focus:border-black'>
                     <Image
                       src={`/icons/shape-pear.svg`}
@@ -278,7 +279,7 @@ export default function PreviewCardMd({ product, className }) {
             </DrawerFooter>
           </DrawerContent>
         </Drawer>
-      )}
+      )} */}
     </>
   );
 }

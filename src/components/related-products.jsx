@@ -4,9 +4,9 @@ import { useKeenSlider } from 'keen-slider/react';
 import { useRef, useEffect, useState } from 'react';
 import Heading from '@/components/heading';
 import PreviewCard from '@/components/preview-card';
-import { cn, repeatProducts } from '@/lib/utils';
+import { cn, repeatProducts, repeatProductsV1 } from '@/lib/utils';
 
-const products = repeatProducts(20);
+const products = repeatProductsV1(20);
 
 export default function RelatedProducts({ className }) {
   const timer = useRef();

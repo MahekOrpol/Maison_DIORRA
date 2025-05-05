@@ -1,6 +1,7 @@
 import ProductGallery from '@/app/(storefront)/products/[category]/components/product-gallery';
 import ProductDetails from '@/app/(storefront)/products/[category]/components/product-details';
 import { MdStarRate } from 'react-icons/md';
+import { FaUserCircle } from 'react-icons/fa';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -20,10 +21,9 @@ import { AiOutlineGold } from 'react-icons/ai';
 import { IoDiamondOutline } from 'react-icons/io5';
 import { RiWeightLine } from 'react-icons/ri';
 import { PiDiamondsFour } from 'react-icons/pi';
-export default async function Page() {
+export default async function ProductDetailsPage() {
   const data = await fetch('http://localhost:5000/productDetails/1');
   const product = await data.json();
-  // console.log(product);
   return (
     <>
       <div className='wrapper'>
@@ -61,7 +61,10 @@ export default async function Page() {
         />
       </div>
       <RingDetails className='wrapper' data={product.finalProductDetails} />
-      <CustomerReviews className='wrapper' review />
+      <CustomerReviews
+        className='wrapper'
+        data={product?.reviews?.reviews ?? []}
+      />
       <RelatedProducts className='wrapper' />
     </>
   );
@@ -213,18 +216,22 @@ export const CustomerReviews = ({ className, data }) => {
         'I recently purchased a ring from your store, and I am extremely happy with my purchase'
     }
   ];
+  console.log(data); //null
   return (
     <div className={cn('mt-8', className)}>
       <h2 className='text-2xl font-medium md:text-3xl md:font-medium lg:text-4xl'>
         Customer Reviews :
         <hr className='mb-4' />
       </h2>
-
-      <div className='space-y-2'>
-        {reviews.map((review) => (
-          <TestimonialCard key={review.id} {...review} />
-        ))}
-      </div>
+      {data.length === 0 ? (
+        <p className='text-gray-500'>No customer reviews yet.</p>
+      ) : (
+        <div className='space-y-2'>
+          {data.map((review) => (
+            <TestimonialCard key={review.id} {...review} />
+          ))}
+        </div>
+      )}
       <div className=''>
         <h3 className='pt-4 text-xl font-medium md:text-xl md:font-medium lg:text-2xl'>
           Add a Review
@@ -245,15 +252,19 @@ function TestimonialCard({ author, authorImg, date, content, rating = 5 }) {
   return (
     <div className='flex items-center gap-2 border-b pb-1 md:gap-4'>
       {/* Responsive Image Wrapper */}
-      <div className='flex w-fit items-center justify-center self-start rounded-full bg-black p-[0.6px]'>
-        <div className='rounded-full bg-white p-1'>
-          <Image
-            src={authorImg}
-            alt='Testimonial Author'
-            width={56}
-            height={56}
-            className='h-14 w-14 rounded-full object-cover lg:h-15 lg:w-15'
-          />
+      <div className='flex w-fit items-center justify-center self-start rounded-full border'>
+        <div className='rounded-full bg-white'>
+          {authorImg ? (
+            <Image
+              src={authorImg}
+              alt='Testimonial Author'
+              width={56}
+              height={56}
+              className='h-14 w-14 rounded-full object-cover'
+            />
+          ) : (
+            <FaUserCircle className='h-14 w-14 rounded-full object-cover' />
+          )}
         </div>
       </div>
 
