@@ -134,7 +134,7 @@ export default function ProductListingPage({ params }) {
         </div>
       </div>
       {/* filters */}
-      <ProductsFilter />
+      <ProductsFilter category={category} subCategory={subcategory} />
       {/* listing components */}
       <div className='mt-8 mb-10 grid grid-cols-2 gap-2 md:mb-20 md:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-5 xl:gap-6'>
         {data.map((product, index) => {
@@ -142,7 +142,6 @@ export default function ProductListingPage({ params }) {
           const mobileAdIndex = Math.floor(index / 2) % advertisements.length;
           const mediumAdIndex = Math.floor(index / 6) % advertisements.length;
           const largeAdIndex = Math.floor(index / 8) % advertisements.length;
-          console.log('index ', index, ' largeAdIndex ', largeAdIndex);
 
           // Get the correct ad based on the breakpoint
           const mobileAd = advertisements[mobileAdIndex];
@@ -208,9 +207,23 @@ export default function ProductListingPage({ params }) {
   );
 }
 
-function ProductsFilter() {
+function ProductsFilter({ category, subCategory }) {
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [selectedPurity, setSelectedPurity] = useState('14 K');
+
+  const isRing = category === 'rings';
+  const isDiamondBased = subCategory?.toLowerCase().includes('diamond');
+  const showRingStyle = isRing;
+  const showDiamondShapes = isDiamondBased;
+  const showCommonFilters = [
+    'rings',
+    'necklaces',
+    'bracelets',
+    'earrings'
+  ].includes(category);
+
+  console.log(category, subCategory);
+
   return (
     <div>
       {/* mobile */}
@@ -354,143 +367,166 @@ function ProductsFilter() {
       </Drawer>
       {/* desktop - unchanged */}
       <div className='mt-8 hidden gap-4 lg:flex'>
-        <Select>
-          <SelectTrigger className='data-[placeholder]:text-foreground w-[150px] border-black'>
-            <SelectValue placeholder='Select Metal' />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value='gold' className='py-2'>
-              <Image
-                src='/img/gold-theme.png'
-                width={18}
-                height={18}
-                alt='metal'
-              />
-              Gold
-            </SelectItem>
-            <SelectItem value='rose' className='py-2'>
-              <Image
-                src='/img/rose-theme.png'
-                width={18}
-                height={18}
-                alt='metal'
-              />
-              Rose Gold
-            </SelectItem>
-            <SelectItem value='white' className='py-2'>
-              <Image
-                src='/img/white-theme.png'
-                width={18}
-                height={18}
-                alt='metal'
-              />
-              White Gold
-            </SelectItem>
-          </SelectContent>
-        </Select>
-        <Select>
-          <SelectTrigger className='data-[placeholder]:text-foreground w-[120px] border-black'>
-            <SelectValue placeholder='Purity' />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value='14k' className='py-2'>
-              14K Pure
-            </SelectItem>
-            <SelectItem value='18k' className='py-2'>
-              18K Pure
-            </SelectItem>
-            <SelectItem value='20k' className='py-2'>
-              20K Pure
-            </SelectItem>
-          </SelectContent>
-        </Select>
-        <Select>
-          <SelectTrigger className='data-[placeholder]:text-foreground w-[170px] border-black'>
-            <SelectValue placeholder='Ring Style' />
-          </SelectTrigger>
-          <SelectContent className=''>
-            <SelectItem value='solitare' className='py-2'>
-              <Image
-                src='/img/ring-style-solitaire.svg'
-                width={35}
-                height={30}
-                alt='metal'
-              />
-              Solitare
-            </SelectItem>
-            <SelectItem value='pave' className='py-2'>
-              <Image
-                src='/img/ring-style-pave.svg'
-                width={35}
-                height={30}
-                alt='metal'
-              />
-              Pave
-            </SelectItem>
-            <SelectItem value='halo' className='py-2'>
-              <Image
-                src='/img/ring-style-halo.svg'
-                width={35}
-                height={30}
-                alt='metal'
-              />
-              Halo
-            </SelectItem>
-            <SelectItem value='hidden-halo' className='py-2'>
-              <Image
-                src='/img/ring-style-hidden.svg'
-                width={25}
-                height={18}
-                alt='metal'
-                className='h-[18px] w-[25px] object-contain'
-              />
-              Hidden Halo
-            </SelectItem>
-          </SelectContent>
-        </Select>
-        <Select>
-          <SelectTrigger className='data-[placeholder]:text-foreground w-[150px] border-black'>
-            <SelectValue placeholder='Diamond Shape' />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value='round'>
-              <Image
-                src='/icons/shape-round.svg'
-                width={26}
-                height={26}
-                alt='metal'
-              />
-              Round
-            </SelectItem>
-            <SelectItem value='pear'>
-              <Image
-                src='/icons/shape-pear.svg'
-                width={26}
-                height={26}
-                alt='metal'
-              />
-              Pear
-            </SelectItem>
-            <SelectItem value='emerlad'>
-              <Image
-                src='/icons/shape-emerlad.svg'
-                width={26}
-                height={26}
-                alt='metal'
-              />
-              Emerlad
-            </SelectItem>
-            <SelectItem value='princess'>
-              <Image
-                src='/icons/shape-princess.svg'
-                width={26}
-                height={26}
-                alt='metal'
-              />
-              Princess
-            </SelectItem>
-          </SelectContent>
-        </Select>
+        {showCommonFilters && (
+          <Select>
+            <SelectTrigger className='data-[placeholder]:text-foreground w-[150px] border-black'>
+              <SelectValue placeholder='Select Metal' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value='gold' className='py-2'>
+                <Image
+                  src='/img/gold-theme.png'
+                  width={18}
+                  height={18}
+                  alt='metal'
+                />
+                Gold
+              </SelectItem>
+              <SelectItem value='rose' className='py-2'>
+                <Image
+                  src='/img/rose-theme.png'
+                  width={18}
+                  height={18}
+                  alt='metal'
+                />
+                Rose Gold
+              </SelectItem>
+              <SelectItem value='white' className='py-2'>
+                <Image
+                  src='/img/white-theme.png'
+                  width={18}
+                  height={18}
+                  alt='metal'
+                />
+                White Gold
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        )}
+        {showCommonFilters && (
+          <Select>
+            <SelectTrigger className='data-[placeholder]:text-foreground w-[120px] border-black'>
+              <SelectValue placeholder='Purity' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value='14k' className='py-2'>
+                14K Pure
+              </SelectItem>
+              <SelectItem value='18k' className='py-2'>
+                18K Pure
+              </SelectItem>
+              <SelectItem value='20k' className='py-2'>
+                20K Pure
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        )}
+        {showCommonFilters && (
+          <Select>
+            <SelectTrigger className='data-[placeholder]:text-foreground w-[120px] border-black'>
+              <SelectValue placeholder='Price' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value='14k' className='py-2'>
+                Price low to high
+              </SelectItem>
+              <SelectItem value='18k' className='py-2'>
+                Price high to low
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        )}
+        {showRingStyle && (
+          <Select>
+            <SelectTrigger className='data-[placeholder]:text-foreground w-[170px] border-black'>
+              <SelectValue placeholder='Ring Style' />
+            </SelectTrigger>
+            <SelectContent className=''>
+              <SelectItem value='solitare' className='py-2'>
+                <Image
+                  src='/img/ring-style-solitaire.svg'
+                  width={35}
+                  height={30}
+                  alt='metal'
+                />
+                Solitare
+              </SelectItem>
+              <SelectItem value='pave' className='py-2'>
+                <Image
+                  src='/img/ring-style-pave.svg'
+                  width={35}
+                  height={30}
+                  alt='metal'
+                />
+                Pave
+              </SelectItem>
+              <SelectItem value='halo' className='py-2'>
+                <Image
+                  src='/img/ring-style-halo.svg'
+                  width={35}
+                  height={30}
+                  alt='metal'
+                />
+                Halo
+              </SelectItem>
+              <SelectItem value='hidden-halo' className='py-2'>
+                <Image
+                  src='/img/ring-style-hidden.svg'
+                  width={25}
+                  height={18}
+                  alt='metal'
+                  className='h-[18px] w-[25px] object-contain'
+                />
+                Hidden Halo
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        )}
+        {showDiamondShapes && (
+          <Select>
+            <SelectTrigger className='data-[placeholder]:text-foreground w-[150px] border-black'>
+              <SelectValue placeholder='Diamond Shape' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value='round'>
+                <Image
+                  src='/icons/shape-round.svg'
+                  width={26}
+                  height={26}
+                  alt='metal'
+                />
+                Round
+              </SelectItem>
+              <SelectItem value='pear'>
+                <Image
+                  src='/icons/shape-pear.svg'
+                  width={26}
+                  height={26}
+                  alt='metal'
+                />
+                Pear
+              </SelectItem>
+              <SelectItem value='emerlad'>
+                <Image
+                  src='/icons/shape-emerlad.svg'
+                  width={26}
+                  height={26}
+                  alt='metal'
+                />
+                Emerlad
+              </SelectItem>
+              <SelectItem value='princess'>
+                <Image
+                  src='/icons/shape-princess.svg'
+                  width={26}
+                  height={26}
+                  alt='metal'
+                />
+                Princess
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        )}
         <Button variant='outline' className='border-black font-normal'>
           <RotateCcw />
           Reset Filters

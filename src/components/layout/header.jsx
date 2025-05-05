@@ -96,14 +96,14 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div className='relative col-span-2 h-full min-h-[325px]'>
+          {/* <div className='relative col-span-2 h-full min-h-[325px]'>
             <Image
               src='/img/ads/add4.png'
               alt='Ad Image'
               fill
               className='object-contain'
             />
-          </div>
+          </div> */}
         </div>
       )
     },
@@ -190,14 +190,6 @@ export default function Header() {
                 </li>
               ))}
             </ul>
-          </div>
-          <div className='col-span-1 min-h-[250px]'>
-            <Image
-              src='/img/ads/add4.png'
-              alt='Ad Image'
-              fill
-              className='object-contain'
-            />
           </div>
         </div>
       )
