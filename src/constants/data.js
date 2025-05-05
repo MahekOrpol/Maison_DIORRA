@@ -642,7 +642,7 @@ export const earring02 = {
   }
 };
 export const bracelet01 = {
-  id: 'ring-003',
+  id: 'bracelet-001',
   name: 'The Claudia h halo Ring',
   description:
     'A classic hidden halo with a high-profile setting to maximize brilliance.',
@@ -727,6 +727,97 @@ export const bracelet01 = {
           mediaType: 'image',
           mediaUrl:
             'https://cdn.shopify.com/s/files/1/0039/6994/1568/files/6225_1_3x_jpg_68eb141d-df65-4719-bcd6-340b513a7c80.webp?v=1692783170&width=800&height=800&crop=center'
+        }
+      ]
+    }
+  ]
+};
+export const bracelet02 = {
+  id: 'bracelet-002',
+  name: 'The Claudia h halo Ring',
+  description:
+    'A classic hidden halo with a high-profile setting to maximize brilliance.',
+  category: 'rings',
+  subcategory: 'engagement-rings',
+  sku: 'KD-566498',
+  inStock: true,
+  rating: 4.8,
+  reviewsCount: 132,
+  badge: 'Bestseller',
+  isNewArrival: false,
+  diamondShape: 'round',
+  shank: 'solitaire',
+  availableSizes: [5, 6, 7, 8],
+  variants: [
+    {
+      metalId: 'white-14k',
+      metalType: 'white',
+      purity: '14K',
+      price: 1299,
+      originalPrice: 1499,
+      media: [
+        {
+          mediaType: 'image',
+          mediaUrl:
+            'https://cdn.shopify.com/s/files/1/0039/6994/1568/files/186Q-BN-R-2_5-WG_0_f85b3d8b-e886-4ff2-9192-a1a2b0e096a3_3x_jpg.webp?v=1692777858&width=800&height=800&crop=center'
+        },
+        {
+          mediaType: 'image',
+          mediaUrl:
+            'https://cdn.shopify.com/s/files/1/0039/6994/1568/files/186Q-BN-R-2_5-WG_HAND1_56491662-14a9-423c-8c2b-ca2372d0e538_3x_jpg.webp?v=1692777858&width=800&height=800&crop=center'
+        },
+        {
+          mediaType: 'image',
+          mediaUrl:
+            'https://cdn.shopify.com/s/files/1/0039/6994/1568/files/6227_2_5-16_0_3x_jpg.webp?v=1692777858&width=800&height=800&crop=center'
+        }
+      ]
+    },
+    {
+      metalId: 'gold-14k',
+      metalType: 'gold',
+      purity: '14K',
+      price: 1399,
+      originalPrice: 1599,
+      media: [
+        {
+          mediaType: 'image',
+          mediaUrl:
+            'https://cdn.shopify.com/s/files/1/0039/6994/1568/files/186Q-BN-R-2_5-YG_0_370bd265-d7a8-4aad-98f2-c97afe6e39db_3x_jpg.webp?v=1692777861&width=800&height=800&crop=center'
+        },
+        {
+          mediaType: 'image',
+          mediaUrl:
+            'https://cdn.shopify.com/s/files/1/0039/6994/1568/files/186Q-BN-R-2_5-YG_HAND1_935b9533-8034-4f8d-b8a4-cf352b918e60_3x_jpg.webp?v=1692777862&width=800&height=800&crop=center'
+        },
+        {
+          mediaType: 'image',
+          mediaUrl:
+            'https://cdn.shopify.com/s/files/1/0039/6994/1568/files/6227_2_5-16_0_3x_jpg.webp?v=1692777858&width=800&height=800&crop=center'
+        }
+      ]
+    },
+    {
+      metalId: 'rose-14k',
+      metalType: 'rose',
+      purity: '14K',
+      price: 1349,
+      originalPrice: 1549,
+      media: [
+        {
+          mediaType: 'image',
+          mediaUrl:
+            'https://cdn.shopify.com/s/files/1/0039/6994/1568/files/186Q-BN-R-2_5-RG_0_44d6ee83-0933-4453-a18f-ae98d8ce6601_3x_jpg.webp?v=1692777860&width=800&height=800&crop=center'
+        },
+        {
+          mediaType: 'image',
+          mediaUrl:
+            'https://cdn.shopify.com/s/files/1/0039/6994/1568/files/186Q-BN-R-2_5-YG_HAND1_935b9533-8034-4f8d-b8a4-cf352b918e60_3x_jpg.webp?v=1692777862&width=800&height=800&crop=center'
+        },
+        {
+          mediaType: 'image',
+          mediaUrl:
+            'https://cdn.shopify.com/s/files/1/0039/6994/1568/files/6227_2_5-16_0_3x_jpg.webp?v=1692777858&width=800&height=800&crop=center'
         }
       ]
     }

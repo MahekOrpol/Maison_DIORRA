@@ -1,5 +1,6 @@
 import {
   bracelet01,
+  bracelet02,
   braceletData,
   earring01,
   earring02,
@@ -39,7 +40,8 @@ export function repeatProductsV1(count) {
     bracelet01,
     ring02,
     earring02,
-    necklace02
+    necklace02,
+    bracelet02
   ].flat();
   const result = [];
 

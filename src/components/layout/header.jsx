@@ -57,34 +57,25 @@ export default function Header() {
       label: 'Diamonds',
       icon: <IoDiamondOutline className='h-4 w-4' />,
       content: (
-        <div className='grid w-full max-w-6xl grid-cols-2 gap-8 p-6'>
-          <div className='col-span-1'>
+        <div className='grid h-fit w-full grid-cols-4 gap-8'>
+          <div className='col-span-1 p-6'>
             <h3 className='mb-4 font-semibold'>DIAMONDS BY SHAPE</h3>
             <ul className='space-y-2 font-light'>
-              {[
-                'Round',
-                'Princess',
-                'Cushion',
-                'Emerald',
-                'Oval',
-                'Pear',
-                'Marquise',
-                'Radiant',
-                'Asscher',
-                'Heart'
-              ].map((shape) => (
-                <li key={shape}>
-                  <Link
-                    href={`/diamonds/${shape.toLowerCase()}`}
-                    className='hover:underline'
-                  >
-                    {shape}
-                  </Link>
-                </li>
-              ))}
+              {['Round', 'Princess', 'Cushion', 'Emerald', 'Oval'].map(
+                (shape) => (
+                  <li key={shape}>
+                    <Link
+                      href={`/diamonds/${shape.toLowerCase()}`}
+                      className='hover:underline'
+                    >
+                      {shape}
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
           </div>
-          <div className='col-span-1'>
+          <div className='col-span-1 p-6'>
             <h3 className='mb-4 font-semibold'>DIAMONDS BY PRICE</h3>
             <ul className='space-y-2 font-light'>
               {[
@@ -105,6 +96,14 @@ export default function Header() {
               ))}
             </ul>
           </div>
+          <div className='relative col-span-2 h-full min-h-[325px]'>
+            <Image
+              src='/img/ads/add4.png'
+              alt='Ad Image'
+              fill
+              className='object-contain'
+            />
+          </div>
         </div>
       )
     },
@@ -113,7 +112,7 @@ export default function Header() {
       label: 'Fine Jewelry',
       icon: <GiGemPendant className='size-4.5 text-black' />,
       content: (
-        <div className='grid w-full max-w-6xl grid-cols-3 gap-8 p-6'>
+        <div className='grid w-full max-w-6xl grid-cols-5 gap-8 p-6'>
           <div>
             <h3 className='mb-4 font-semibold'>RINGS</h3>
             <ul className='space-y-2 font-light'>
@@ -176,6 +175,29 @@ export default function Header() {
                 </li>
               ))}
             </ul>
+          </div>
+          <div>
+            <h3 className='mb-4 font-semibold'>BRACELETS</h3>
+            <ul className='space-y-2 font-light'>
+              {['Bracelets', 'Bangles'].map((item) => (
+                <li key={item}>
+                  <Link
+                    href={`/products/bracelets/${item.toLowerCase().replace(/\s+/g, '-')}`}
+                    className='hover:underline'
+                  >
+                    {item}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className='col-span-1 min-h-[250px]'>
+            <Image
+              src='/img/ads/add4.png'
+              alt='Ad Image'
+              fill
+              className='object-contain'
+            />
           </div>
         </div>
       )

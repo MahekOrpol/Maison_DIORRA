@@ -87,8 +87,6 @@ export default function ProductListingPage({ params }) {
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [data, setData] = useState([]);
   const { category, subcategory } = React.use(params);
-  // const data = await fetch('http://localhost:5000/rings');
-  // const products = await data.json();
   useEffect(() => {
     (async function fetchData() {
       try {
