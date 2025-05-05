@@ -25,6 +25,20 @@ export default function Header() {
 
   // const isLoggedIn = !!token;
   const pathname = usePathname();
+  const messages = [
+    "Welcome to our jewelry collection!",
+    "Enjoy 10% off on your first purchase!"
+  ];
+
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % messages.length);
+    }, 40000); // 10 seconds
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -75,7 +89,7 @@ export default function Header() {
               )}
             </ul>
           </div>
-          <div className='col-span-1 p-6'>
+          <div className='col-span-2 p-6'>
             <h3 className='mb-4 font-semibold'>DIAMONDS BY PRICE</h3>
             <ul className='space-y-2 font-light'>
               {[
@@ -96,12 +110,12 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div className='relative col-span-2 h-full min-h-[325px]'>
+          <div className='relative w-72 overflow-hidden group'>
             <Image
               src='/img/ads/add4.png'
               alt='Ad Image'
               fill
-              className='object-contain'
+              className='w-full h-auto object-cover'
             />
           </div>
         </div>
@@ -112,8 +126,8 @@ export default function Header() {
       label: 'Fine Jewelry',
       icon: <GiGemPendant className='size-4.5 text-black' />,
       content: (
-        <div className='grid w-full max-w-6xl grid-cols-5 gap-8 p-6'>
-          <div>
+        <div className='grid h-fit w-full grid-cols-5 gap-2'>
+          <div className='col-span-1 p-6'>
             <h3 className='mb-4 font-semibold'>RINGS</h3>
             <ul className='space-y-2 font-light'>
               {[
@@ -134,7 +148,7 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div>
+          <div className='col-span-1 p-6'>
             <h3 className='mb-4 font-semibold'>EARRINGS</h3>
             <ul className='space-y-2 font-light'>
               {[
@@ -155,7 +169,7 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div>
+          <div className='col-span-1 p-6'>
             <h3 className='mb-4 font-semibold'>NECKLACES</h3>
             <ul className='space-y-2 font-light'>
               {[
@@ -176,7 +190,7 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div>
+          <div className='col-span-1 p-6'>
             <h3 className='mb-4 font-semibold'>BRACELETS</h3>
             <ul className='space-y-2 font-light'>
               {['Bracelets', 'Bangles'].map((item) => (
@@ -191,12 +205,12 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div className='col-span-1 min-h-[250px]'>
+          <div class="relative w-72 overflow-hidden group">
             <Image
-              src='/img/ads/add4.png'
+              src='/img/DiamondStuds.webp'
               alt='Ad Image'
               fill
-              className='object-contain'
+              className='w-full h-auto object-cover'
             />
           </div>
         </div>
@@ -207,8 +221,8 @@ export default function Header() {
       label: 'Engagement Rings',
       icon: <Image src='/icons/ring2.svg' alt='ring2' width={16} height={16} />,
       content: (
-        <div className='grid w-full max-w-6xl grid-cols-3 gap-8 p-6'>
-          <div>
+        <div className='grid w-full grid-cols-4 gap-8'>
+          <div className='col-span-1 p-6'>
             <h3 className='mb-4 font-semibold'>ENGAGEMENT RINGS</h3>
             <ul className='space-y-2 font-light'>
               {[
@@ -230,7 +244,7 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div>
+          <div className='col-span-1 p-6'>
             <h3 className='mb-4 font-semibold'>METAL TYPES</h3>
             <ul className='space-y-2 font-light'>
               {[
@@ -251,7 +265,7 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div>
+          <div className='col-span-1 p-6'>
             <h3 className='mb-4 font-semibold'>SHOP BY COLLECTION</h3>
             <ul className='space-y-2 font-light'>
               {[
@@ -272,6 +286,14 @@ export default function Header() {
               ))}
             </ul>
           </div>
+          <div className='relative w-72 overflow-hidden group'>
+            <Image
+              src='/img/ads/add4.png'
+              alt='Ad Image'
+              fill
+              className='w-full h-auto object-cover'
+            />
+          </div>
         </div>
       )
     },
@@ -287,8 +309,8 @@ export default function Header() {
         />
       ),
       content: (
-        <div className='grid w-full max-w-6xl grid-cols-2 gap-8 p-6'>
-          <div>
+        <div className='grid h-fit w-full grid-cols-4 gap-8'>
+          <div className='col-span-1 p-6'>
             <h3 className='mb-4 font-semibold'>CUSTOM JEWELRY</h3>
             <ul className='space-y-2 font-light'>
               {[
@@ -309,7 +331,7 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div>
+          <div className='col-span-2 p-6'>
             <h3 className='mb-4 font-semibold'>THE PROCESS</h3>
             <ul className='space-y-2 font-light'>
               {[
@@ -330,6 +352,14 @@ export default function Header() {
               ))}
             </ul>
           </div>
+          <div class="relative w-72 overflow-hidden group">
+            <Image
+              src='/img/DiamondStuds.webp'
+              alt='Ad Image'
+              fill
+              className='w-full h-auto object-cover'
+            />
+          </div>
         </div>
       )
     },
@@ -345,8 +375,8 @@ export default function Header() {
         />
       ),
       content: (
-        <div className='grid w-full max-w-6xl grid-cols-2 gap-8 p-6'>
-          <div>
+        <div className='grid h-fit w-full grid-cols-4 gap-8'>
+          <div className='col-span-1 p-6'>
             <h3 className='mb-4 font-semibold'>DIAMOND EDUCATION</h3>
             <ul className='space-y-2 font-light'>
               {[
@@ -367,7 +397,7 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div>
+          <div className='col-span-2 p-6'>
             <h3 className='mb-4 font-semibold'>JEWELRY CARE</h3>
             <ul className='space-y-2 font-light'>
               {[
@@ -388,6 +418,14 @@ export default function Header() {
               ))}
             </ul>
           </div>
+          <div className='relative w-72 overflow-hidden group'>
+            <Image
+              src='/img/ads/add4.png'
+              alt='Ad Image'
+              fill
+              className='w-full h-auto object-cover'
+            />
+          </div>
         </div>
       )
     }
@@ -396,23 +434,17 @@ export default function Header() {
   return (
     <>
       <div
-        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ease-in ${
-          showHeader ? 'translate-y-0' : '-translate-y-full'
-        }`}
+        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ease-in ${showHeader ? 'translate-y-0' : '-translate-y-full'
+          }`}
       >
         <header className='bg-background text-foreground shadow-xs'>
           {/* banner */}
-          <div className='bg-primary py-2 text-center tracking-wider text-white md:py-1'>
-            {/* <p className='wrapper text-sm leading-4 md:hidden'>
-          Shop Gold and Diamond Jewellery
-        </p> */}
-            <p className='text-xs leading-4 md:text-sm'>
-              THE ESSENSTIALS |{' '}
-              <span className='font-semibold md:text-base'>
-                UPTO 40% OFF<sup>* </sup>
-              </span>
-              Ends in April
-            </p>
+          <div className="bg-primary py-2 text-center tracking-wider text-white relative h-10 overflow-hidden">
+            <div className="absolute w-full transition-opacity duration-1000 ease-in-out opacity-100 animate-fade">
+              <p key={index} className="text-sm md:text-base">
+                {messages[index]}
+              </p>
+            </div>
           </div>
           {/* header */}
           <div className='header-wrapper relative flex items-center justify-between py-2'>
@@ -488,13 +520,19 @@ export default function Header() {
               onMouseEnter={() => setActiveMenu(activeMenu)}
               onMouseLeave={() => setActiveMenu(null)}
             >
-              <div className='container mx-auto'>
+              <div className='max-w-7xl mx-auto'>
                 {menuItems.find((item) => item.label === activeMenu)?.content}
               </div>
             </div>
           )}
         </header>
       </div>
+      {activeMenu && (
+        <div
+          className="fixed inset-0 backdrop-blur-xs bg-black/40 z-30"
+          onClick={() => setActiveMenu(null)} // Optional: close on click
+        />
+      )}
       <NotAllowedModal open={showNotAllowed} onOpenChange={setShowNotAllowed} />
       <AddToCartNotAllowedModal
         open={showCartDialog}
