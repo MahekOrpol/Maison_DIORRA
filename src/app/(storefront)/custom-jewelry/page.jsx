@@ -1,8 +1,32 @@
-import React from 'react';
+'use client'
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { BiSolidHomeCircle } from 'react-icons/bi';
 import { FaEnvelopeOpenText, FaGift, FaPeopleRoof } from 'react-icons/fa6';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription
+} from '@/components/ui/dialog';
 
 export default function UnderConstruction() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset
+  } = useForm();
+
+  const [showDialog, setShowDialog] = useState(false);
+
+  const onSubmit = (data) => {
+    console.log('Form Data:', data);
+    setShowDialog(true);
+    reset();
+  };
+
   return (
     <div className='min-h-screen bg-white'>
       {/* Header Section */}
@@ -15,7 +39,7 @@ export default function UnderConstruction() {
           <p className='mt-2 text-sm text-gray-600'>
             Jewelry as Unique as Your Story
           </p>
-          <img src='/img/customline.png' className='w-2/3 pb-10 xl:w-[20%]' />
+          <img src='/img/customline.png' className='pb-10 w-64 sm:w-96' />
         </div>
 
         {/* Features Section */}
@@ -66,70 +90,149 @@ export default function UnderConstruction() {
             Create a unique piece of jewelry that reflects your personal style
             and story
           </p>
-          <img src='/img/customline.png' className='w-2/3 pb-10 xl:w-[20%]' />
+          <img src='/img/customline.png' className='pb-10 w-64 sm:w-96' />
         </div>
 
-        <form className='mx-auto max-w-6xl'>
+        {/* Form */}
+        <form className='mx-auto max-w-6xl' onSubmit={handleSubmit(onSubmit)}>
           <div className='grid grid-cols-1 gap-3 pb-3 md:grid-cols-2'>
-            <input
-              type='text'
-              placeholder='Name*'
-              className='w-full rounded border p-3'
-              required
-            />
-            <input
-              type='tel'
-              placeholder='Mobile Number*'
-              className='w-full rounded border p-3'
-              required
-            />
+            <div>
+              <input
+                type='text'
+                placeholder='Name*'
+                {...register('name', { required: 'Name is required' })}
+                className={`w-full rounded border p-3 focus:outline-none focus:ring-0 ${errors.name ? 'border-red-500' : ''
+                  }`}
+              />
+              {errors.name && <p className='text-sm text-red-500'>{errors.name.message}</p>}
+            </div>
+
+            <div>
+              <input
+                type='tel'
+                placeholder='Mobile Number*'
+                {...register('phone', {
+                  required: 'Mobile number is required',
+                  pattern: {
+                    value: /^[0-9]{10,14}$/,
+                    message: 'Enter a valid phone number'
+                  }
+                })}
+                className={`w-full rounded border p-3 focus:outline-none focus:ring-0 ${errors.phone ? 'border-red-500' : ''
+                  }`}
+              />
+              {errors.phone && <p className='text-sm text-red-500'>{errors.phone.message}</p>}
+            </div>
           </div>
-          <input
-            type='email'
-            placeholder='Email Address*'
-            className='mb-3 w-full rounded border p-3 md:col-span-2'
-            required
-          />
-          <select className='mb-3 w-full rounded border p-3'>
-            <option>Choose Type</option>
-            <option>Ring</option>
-            <option>Necklace</option>
-            <option>Bracelet</option>
-            <option>Earrings</option>
-          </select>
+
+          <div>
+            <input
+              type='email'
+              placeholder='Email Address*'
+              {...register('email', {
+                required: 'Email is required',
+                pattern: {
+                  value: /^\S+@\S+$/i,
+                  message: 'Enter a valid email'
+                }
+              })}
+              className={`mb-3 w-full rounded border p-3 focus:outline-none focus:ring-0 ${errors.email ? 'border-red-500' : ''
+                }`}
+            />
+            {errors.email && <p className='text-sm text-red-500'>{errors.email.message}</p>}
+          </div>
+
+          <div>
+            <select
+              {...register('type', { required: 'Type is required' })}
+              className={`mb-3 w-full rounded border p-3 focus:outline-none focus:ring-0 ${errors.type ? 'border-red-500' : ''
+                }`}
+            >
+              <option value=''>Choose Type</option>
+              <option value='Ring'>Ring</option>
+              <option value='Necklace'>Necklace</option>
+              <option value='Bracelet'>Bracelet</option>
+              <option value='Earrings'>Earrings</option>
+            </select>
+            {errors.type && <p className='text-sm text-red-500'>{errors.type.message}</p>}
+          </div>
+
           <div className='grid grid-cols-1 gap-3 pb-3 md:grid-cols-2'>
-            <input
-              type='text'
-              placeholder='Total Budget'
-              className='w-full rounded border p-3'
-            />
-            <input
-              type='text'
-              placeholder='Metal Type'
-              className='w-full rounded border p-3'
-            />
+            <div>
+              <input
+                type='text'
+                placeholder='Total Budget'
+                {...register('budget', {
+                  required: 'Budget is required'
+                })}
+                className={`w-full rounded border p-3 focus:outline-none focus:ring-0 ${errors.budget ? 'border-red-500' : ''
+                  }`}
+              />
+              {errors.budget && <p className='text-sm text-red-500'>{errors.budget.message}</p>}
+            </div>
+
+            <div>
+              <input
+                type='text'
+                placeholder='Metal Type'
+                {...register('metal', { required: 'Metal type is required' })}
+                className={`w-full rounded border p-3 focus:outline-none focus:ring-0 ${errors.metal ? 'border-red-500' : ''
+                  }`}
+              />
+              {errors.metal && <p className='text-sm text-red-500'>{errors.metal.message}</p>}
+            </div>
           </div>
-          <input
-            type='file'
-            accept='.jpg,.jpeg,.png,.pdf,.doc,.docx'
-            className='mb-1 w-full rounded border p-3 md:col-span-2'
-          />
-          <p className='mb-3 text-xs text-gray-500 md:col-span-2'>
-            Choose your file here to be upload. Allowed types: pdf, jpg, png,
-            jpeg, doc, docx
-          </p>
-          <textarea
-            placeholder='Please describe your idea for this Custom Project...'
-            className='mb-3 w-full rounded border p-2 md:col-span-2'
-            rows={4}
-          ></textarea>
+
+          <div>
+            <input
+              type='file'
+              {...register('file', { required: 'File upload is required' })}
+              accept='.jpg,.jpeg,.png,.pdf,.doc,.docx'
+              className={`mb-1 w-full rounded border p-3 focus:outline-none focus:ring-0 ${errors.file ? 'border-red-500' : ''
+                }`}
+            />
+            {errors.file && <p className='text-sm text-red-500'>{errors.file.message}</p>}
+            <p className='mb-3 text-xs text-gray-500'>
+              Choose your file here to be uploaded. Allowed types: pdf, jpg, png, jpeg, doc, docx
+            </p>
+          </div>
+
+          <div>
+            <textarea
+              placeholder='Please describe your idea for this Custom Project...'
+              {...register('message', { required: 'Description is required' })}
+              className={`mb-3 w-full rounded border p-2 focus:outline-none focus:ring-0 ${errors.message ? 'border-red-500' : ''
+                }`}
+              rows={4}
+            ></textarea>
+            {errors.message && <p className='text-sm text-red-500'>{errors.message.message}</p>}
+          </div>
+
           <button
             type='submit'
-            className='w-full rounded bg-black px-6 py-3 text-base text-white md:col-span-2'
+            className='w-full rounded bg-black px-6 py-3 text-base text-white'
           >
             SUBMIT
           </button>
         </form>
+        <Dialog open={showDialog} onOpenChange={setShowDialog}>
+          <DialogContent className='text-center'>
+            <DialogHeader>
+              <DialogTitle className='text-2xl font-bold'>
+                Thank You!
+              </DialogTitle>
+              <DialogDescription className='text-gray-700 pt-2 text-base'>
+                Your custom jewelry request has been submitted. We’ll get back to you soon.
+              </DialogDescription>
+            </DialogHeader>
+            <button
+              onClick={() => setShowDialog(false)}
+              className='mt-6 w-full rounded bg-black text-white h-12'
+            >
+              CLOSE
+            </button>
+          </DialogContent>
+        </Dialog>
       </div>
     </div>
   );
