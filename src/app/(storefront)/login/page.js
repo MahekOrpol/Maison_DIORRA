@@ -16,10 +16,97 @@ import {
   DialogTitle
 } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
+import { toast } from 'sonner';
+
+// Mock API service
+const authService = {
+  login: async (data) => {
+    console.log('Logging in with:', data);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ success: true, token: 'mock-token' });
+      }, 1000);
+    });
+  },
+  register: async (data) => {
+    console.log('Registering with:', data);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ success: true });
+      }, 1000);
+    });
+  },
+  forgotPassword: async (email) => {
+    console.log('Sending reset link to:', email);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ success: true });
+      }, 1000);
+    });
+  },
+  resetPassword: async (data) => {
+    console.log('Resetting password with:', data);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({ success: true });
+      }, 1000);
+    });
+  }
+};
 
 export default function LoginPage() {
   const [tab, setTab] = useState('login');
   const [openForgotPassword, setOpenForgotPassword] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Login Form
+  const {
+    register: loginRegister,
+    handleSubmit: handleLoginSubmit,
+    formState: { errors: loginErrors },
+    reset: resetLoginForm
+  } = useForm();
+
+  // Register Form
+  const {
+    register: registerRegister,
+    handleSubmit: handleRegisterSubmit,
+    formState: { errors: registerErrors },
+    watch: registerWatch,
+    reset: resetRegisterForm
+  } = useForm();
+
+  const onLogin = async (data) => {
+    setIsSubmitting(true);
+    try {
+      const response = await authService.login(data);
+      if (response.success) {
+        toast.success('Login successful!');
+        resetLoginForm();
+        // Redirect or handle successful login
+      }
+    } catch (error) {
+      toast.error('Login failed. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const onRegister = async (data) => {
+    setIsSubmitting(true);
+    try {
+      const response = await authService.register(data);
+      if (response.success) {
+        toast.success('Registration successful! Please login.');
+        resetRegisterForm();
+        setTab('login');
+      }
+    } catch (error) {
+      toast.error('Registration failed. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <>
@@ -66,13 +153,23 @@ export default function LoginPage() {
                     For the purpose of industry registration, your details are
                     required and will be stored.
                   </p>
-                  <form action='#'>
+                  <form onSubmit={handleLoginSubmit(onLogin)}>
                     <div className='relative my-5 pt-2 lg:mt-6'>
                       <input
                         type='email'
                         id='email'
-                        className='peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none'
+                        className={cn(
+                          'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
+                          loginErrors.email ? 'border-red-500' : ''
+                        )}
                         placeholder=''
+                        {...loginRegister('email', {
+                          required: 'Email is required',
+                          pattern: {
+                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                            message: 'Invalid email address'
+                          }
+                        })}
                       />
                       <label
                         htmlFor='email'
@@ -80,21 +177,41 @@ export default function LoginPage() {
                       >
                         Email
                       </label>
+                      {loginErrors.email && (
+                        <p className='mt-1 text-xs text-red-500'>
+                          {loginErrors.email.message}
+                        </p>
+                      )}
                     </div>
 
                     <div className='relative'>
                       <input
                         type='password'
-                        id='default_outlined'
-                        className='peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none'
+                        id='password'
+                        className={cn(
+                          'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
+                          loginErrors.password ? 'border-red-500' : ''
+                        )}
                         placeholder=''
+                        {...loginRegister('password', {
+                          required: 'Password is required',
+                          minLength: {
+                            value: 6,
+                            message: 'Password must be at least 6 characters'
+                          }
+                        })}
                       />
                       <label
-                        htmlFor='default_outlined'
+                        htmlFor='password'
                         className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
                       >
                         Password
                       </label>
+                      {loginErrors.password && (
+                        <p className='mt-1 text-xs text-red-500'>
+                          {loginErrors.password.message}
+                        </p>
+                      )}
                     </div>
                     <div className='mt-1 mb-5 flex items-center justify-between'>
                       <span className='inline-flex items-center gap-2'>
@@ -109,6 +226,7 @@ export default function LoginPage() {
                         variant='link'
                         className='p-0 text-sm font-medium underline underline-offset-3'
                         onClick={() => setOpenForgotPassword(true)}
+                        type='button'
                       >
                         Forgot Password
                       </Button>
@@ -134,15 +252,20 @@ export default function LoginPage() {
                       <Button
                         size={'lg'}
                         className='xs:w-2/3 mb-2 h-12 w-full text-lg'
+                        type='submit'
+                        disabled={isSubmitting}
                       >
-                        Login
+                        {isSubmitting ? 'Logging in...' : 'Login'}
                       </Button>
                       <div className='mx-auto my-4 flex w-2/3 items-center justify-center gap-2'>
                         <hr className='w-[48%] border-black' />
                         OR
                         <hr className='w-[48%] border-black' />
                       </div>
-                      <button className='xs:w-2/3 mx-auto mb-3 flex h-12 w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-base'>
+                      <button
+                        className='xs:w-2/3 mx-auto mb-3 flex h-12 w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-base'
+                        type='button'
+                      >
                         <FcGoogle className='h-7 w-7' />
                         Login with Google
                       </button>
@@ -167,22 +290,35 @@ export default function LoginPage() {
                 value='register'
                 className='pb-6 text-center sm:pt-2 md:text-left lg:pt-3'
               >
-                <div className='px-6  pt-3 md:pt-0'>
+                <div className='px-6 pt-3 md:pt-0'>
                   <h2 className='mb-2 text-2xl leading-6 font-medium'>
-                    Don’t have an Account?
+                    Don't have an Account?
                   </h2>
                   <p className='text-sm leading-4 font-light'>
                     For the purpose of industry registration, your details are
                     required and will be stored.
                   </p>
-                  <form action='#' className='mt-4'>
+                  <form
+                    onSubmit={handleRegisterSubmit(onRegister)}
+                    className='mt-4'
+                  >
                     <div className='xs:grid-cols-2 grid grid-cols-1 gap-x-4 gap-y-5 sm:gap-4'>
                       <div className='xs:col-span-2 relative'>
                         <input
                           type='text'
                           id='name'
-                          className='peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none'
+                          className={cn(
+                            'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
+                            registerErrors.name ? 'border-red-500' : ''
+                          )}
                           placeholder=''
+                          {...registerRegister('name', {
+                            required: 'Name is required',
+                            minLength: {
+                              value: 2,
+                              message: 'Name must be at least 2 characters'
+                            }
+                          })}
                         />
                         <label
                           htmlFor='name'
@@ -190,14 +326,29 @@ export default function LoginPage() {
                         >
                           Name
                         </label>
+                        {registerErrors.name && (
+                          <p className='mt-1 text-xs text-red-500'>
+                            {registerErrors.name.message}
+                          </p>
+                        )}
                       </div>
 
                       <div className='relative col-span-1'>
                         <input
                           type='email'
                           id='email'
-                          className='peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none'
+                          className={cn(
+                            'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
+                            registerErrors.email ? 'border-red-500' : ''
+                          )}
                           placeholder=''
+                          {...registerRegister('email', {
+                            required: 'Email is required',
+                            pattern: {
+                              value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                              message: 'Invalid email address'
+                            }
+                          })}
                         />
                         <label
                           htmlFor='email'
@@ -205,14 +356,33 @@ export default function LoginPage() {
                         >
                           Email
                         </label>
+                        {registerErrors.email && (
+                          <p className='mt-1 text-xs text-red-500'>
+                            {registerErrors.email.message}
+                          </p>
+                        )}
                       </div>
 
                       <div className='relative col-span-1'>
                         <input
                           type='tel'
                           id='mobile'
-                          className='peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none'
+                          className={cn(
+                            'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
+                            registerErrors.mobile ? 'border-red-500' : ''
+                          )}
                           placeholder=''
+                          {...registerRegister('mobile', {
+                            required: 'Mobile number is required',
+                            minLength: {
+                              value: 10,
+                              message: 'Invalid mobile number'
+                            },
+                            pattern: {
+                              value: /^[0-9]+$/,
+                              message: 'Only numbers are allowed'
+                            }
+                          })}
                         />
                         <label
                           htmlFor='mobile'
@@ -220,14 +390,29 @@ export default function LoginPage() {
                         >
                           Mobile Number
                         </label>
+                        {registerErrors.mobile && (
+                          <p className='mt-1 text-xs text-red-500'>
+                            {registerErrors.mobile.message}
+                          </p>
+                        )}
                       </div>
 
                       <div className='relative col-span-1'>
                         <input
                           type='password'
                           id='password'
-                          className='peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none'
+                          className={cn(
+                            'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
+                            registerErrors.password ? 'border-red-500' : ''
+                          )}
                           placeholder=''
+                          {...registerRegister('password', {
+                            required: 'Password is required',
+                            minLength: {
+                              value: 6,
+                              message: 'Password must be at least 6 characters'
+                            }
+                          })}
                         />
                         <label
                           htmlFor='password'
@@ -235,14 +420,30 @@ export default function LoginPage() {
                         >
                           Password
                         </label>
+                        {registerErrors.password && (
+                          <p className='mt-1 text-xs text-red-500'>
+                            {registerErrors.password.message}
+                          </p>
+                        )}
                       </div>
 
                       <div className='relative col-span-1'>
                         <input
                           type='password'
                           id='confirmPassword'
-                          className='peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none'
+                          className={cn(
+                            'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
+                            registerErrors.confirmPassword
+                              ? 'border-red-500'
+                              : ''
+                          )}
                           placeholder=''
+                          {...registerRegister('confirmPassword', {
+                            required: 'Please confirm your password',
+                            validate: (value) =>
+                              value === registerWatch('password') ||
+                              "Passwords don't match"
+                          })}
                         />
                         <label
                           htmlFor='confirmPassword'
@@ -250,6 +451,11 @@ export default function LoginPage() {
                         >
                           Confirm Password
                         </label>
+                        {registerErrors.confirmPassword && (
+                          <p className='mt-1 text-xs text-red-500'>
+                            {registerErrors.confirmPassword.message}
+                          </p>
+                        )}
                       </div>
                     </div>
                     <div className='mx-auto mt-7 w-full items-center text-center lg:mt-10 xl:w-3/4'>
@@ -272,8 +478,10 @@ export default function LoginPage() {
                       <Button
                         size={'lg'}
                         className='xs:w-2/3 mb-2 h-12 w-full text-lg'
+                        type='submit'
+                        disabled={isSubmitting}
                       >
-                        Register
+                        {isSubmitting ? 'Registering...' : 'Register'}
                       </Button>
                       <div className='mx-auto my-4 flex w-2/3 items-center justify-center gap-2'>
                         <hr className='w-[48%] border-black' />
@@ -281,7 +489,10 @@ export default function LoginPage() {
                         <hr className='w-[48%] border-black' />
                       </div>
 
-                      <button className='xs:w-2/3 mx-auto mb-2 flex h-12 w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-base'>
+                      <button
+                        className='xs:w-2/3 mx-auto mb-2 flex h-12 w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-base'
+                        type='button'
+                      >
                         <FcGoogle className='h-7 w-7' />
                         Signup with Google
                       </button>
@@ -314,14 +525,30 @@ export default function LoginPage() {
 
 export function ForgotPasswordDialog({ open = false, setOpen }) {
   const [openOtpModal, setOpenOtpModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const { register, handleSubmit, formState, reset } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset
+  } = useForm();
 
-  const onSubmit = (data) => {
-    console.log('Forgot password email:', data.email);
-    // Your forgot password API logic here
-    reset();
-    setOpen(false);
+  const onSubmit = async (data) => {
+    setIsSubmitting(true);
+    try {
+      const response = await authService.forgotPassword(data.email);
+      if (response.success) {
+        toast.success('Reset link sent to your email!');
+        reset();
+        setOpen(false);
+        setOpenOtpModal(true);
+      }
+    } catch (error) {
+      toast.error('Failed to send reset link. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -342,10 +569,16 @@ export function ForgotPasswordDialog({ open = false, setOpen }) {
                   id='email'
                   className={cn(
                     'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
-                    formState.errors.email ? 'border-red-500' : ''
+                    errors.email ? 'border-red-500' : ''
                   )}
                   placeholder=''
-                  {...register('email', { required: true })}
+                  {...register('email', {
+                    required: 'Email is required',
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: 'Invalid email address'
+                    }
+                  })}
                 />
                 <label
                   htmlFor='email'
@@ -353,8 +586,8 @@ export function ForgotPasswordDialog({ open = false, setOpen }) {
                 >
                   Email
                 </label>
-                {formState.errors.email && (
-                  <p className='text-xs text-red-500'>Email is required</p>
+                {errors.email && (
+                  <p className='text-xs text-red-500'>{errors.email.message}</p>
                 )}
               </div>
             </div>
@@ -364,33 +597,51 @@ export function ForgotPasswordDialog({ open = false, setOpen }) {
                 type='submit'
                 size={'lg'}
                 className='h-11 w-full text-base'
-                onClick={() => setOpenOtpModal(true)}
+                disabled={isSubmitting}
               >
-                Send Reset Link
+                {isSubmitting ? 'Sending...' : 'Send Reset Link'}
               </Button>
             </DialogFooter>
           </form>
         </DialogContent>
       </Dialog>
-      <OTPDialog open={openOtpModal} onOpenChange={setOpenOtpModal} />
+      <OTPDialog
+        open={openOtpModal}
+        onOpenChange={setOpenOtpModal}
+        onSubmit={(otp) => {
+          console.log('OTP submitted:', otp);
+          // Handle OTP verification
+        }}
+      />
     </>
   );
 }
 
 export function ResetPasswordDialog({ open = false, setOpen }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
-    reset
+    reset,
+    watch
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log('Resetting password with:', data);
-    // Your reset password API logic here
-    reset();
-    setOpen(false);
+  const onSubmit = async (data) => {
+    setIsSubmitting(true);
+    try {
+      const response = await authService.resetPassword(data);
+      if (response.success) {
+        toast.success('Password reset successfully!');
+        reset();
+        setOpen(false);
+      }
+    } catch (error) {
+      toast.error('Failed to reset password. Please try again.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -409,8 +660,17 @@ export function ResetPasswordDialog({ open = false, setOpen }) {
               type='password'
               id='password'
               placeholder=''
-              {...register('password', { required: true })}
-              className={`peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none ${errors.password ? 'border-red-500' : ''}`}
+              {...register('password', {
+                required: 'Password is required',
+                minLength: {
+                  value: 6,
+                  message: 'Password must be at least 6 characters'
+                }
+              })}
+              className={cn(
+                'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
+                errors.password ? 'border-red-500' : ''
+              )}
             />
             <label
               htmlFor='password'
@@ -419,7 +679,9 @@ export function ResetPasswordDialog({ open = false, setOpen }) {
               Password
             </label>
             {errors.password && (
-              <p className='mt-1 text-xs text-red-500'>Password is required</p>
+              <p className='mt-1 text-xs text-red-500'>
+                {errors.password.message}
+              </p>
             )}
           </div>
 
@@ -430,11 +692,14 @@ export function ResetPasswordDialog({ open = false, setOpen }) {
               id='confirmPassword'
               placeholder=''
               {...register('confirmPassword', {
-                required: true,
-                validate: (val) =>
-                  val === watch('password') || 'Passwords do not match'
+                required: 'Please confirm your password',
+                validate: (value) =>
+                  value === watch('password') || "Passwords don't match"
               })}
-              className={`peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none ${errors.confirmPassword ? 'border-red-500' : ''}`}
+              className={cn(
+                'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
+                errors.confirmPassword ? 'border-red-500' : ''
+              )}
             />
             <label
               htmlFor='confirmPassword'
@@ -444,15 +709,19 @@ export function ResetPasswordDialog({ open = false, setOpen }) {
             </label>
             {errors.confirmPassword && (
               <p className='mt-1 text-xs text-red-500'>
-                {errors.confirmPassword.message ||
-                  'Confirm Password is required'}
+                {errors.confirmPassword.message}
               </p>
             )}
           </div>
 
           <DialogFooter className='pt-2'>
-            <Button type='submit' size={'lg'} className='h-11 w-full text-base'>
-              Update Password
+            <Button
+              type='submit'
+              size={'lg'}
+              className='h-11 w-full text-base'
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? 'Updating...' : 'Update Password'}
             </Button>
           </DialogFooter>
         </form>
@@ -512,12 +781,17 @@ export function OTPDialog({ open, onOpenChange, onSubmit }) {
                 className='h-12 w-10 rounded-md border border-gray-300 text-center text-lg focus:border-black focus:outline-none'
                 value={data}
                 onChange={(e) => handleChange(e.target, index)}
+                onFocus={(e) => e.target.select()}
               />
             ))}
           </div>
 
           <DialogFooter>
-            <Button className='h-11 w-full text-base' onClick={handleSubmit}>
+            <Button
+              className='h-11 w-full text-base'
+              onClick={handleSubmit}
+              disabled={otp.join('').length !== 6}
+            >
               Verify OTP
             </Button>
           </DialogFooter>

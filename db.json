@@ -1,4 +1,18 @@
 {
+  "users": [
+    {
+      "id": 1,
+      "email": "john@example.com",
+      "password": "123456",
+      "name": "John Doe"
+    },
+    {
+      "id": 2,
+      "email": "jane@example.com",
+      "password": "abcdef",
+      "name": "Jane Smith"
+    }
+  ],
   "cart": [
     {
       "id": "1",
