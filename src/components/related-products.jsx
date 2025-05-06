@@ -104,7 +104,7 @@ export default function RelatedProducts({ className }) {
             key={i}
             className='keen-slider__slide overflow-hidden rounded-xl'
           >
-            <PreviewCard product={product} />
+            <PreviewCard isDraggable={false} product={product} />
           </div>
         ))}
       </div>

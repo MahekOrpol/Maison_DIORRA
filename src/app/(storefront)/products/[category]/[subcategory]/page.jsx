@@ -18,7 +18,7 @@ import {
   DrawerClose,
   DrawerTitle
 } from '@/components/ui/drawer';
-import { cn, repeatProducts } from '@/lib/utils';
+import { cn } from '@/lib/utils';
 import CustomTagWrapper from '@/components/custom-tag-wrapper';
 import PreviewCard from '@/components/preview-card';
 
@@ -87,6 +87,7 @@ export default function ProductListingPage({ params }) {
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [data, setData] = useState([]);
   const { category, subcategory } = React.use(params);
+
   useEffect(() => {
     (async function fetchData() {
       try {
@@ -98,43 +99,64 @@ export default function ProductListingPage({ params }) {
       }
     })();
   }, []);
+
+  console.log(category);
   return (
     <div className='wrapper'>
       {/* arrowed label */}
-      <CustomTagWrapper className='xs:my-[25px] my-[20px] sm:my-[30px] lg:my-[35px] xl:mt-[50px] xl:mb-[45px] 2xl:mt-[65px] 2xl:mb-[60px]' />
+      {category === 'rings' && (
+        <CustomTagWrapper className='xs:mt-[25px] mt-[20px] sm:mt-[30px] lg:mt-[35px] xl:mt-[45px] 2xl:mt-[65px]' />
+      )}
       {/* select styles */}
-      <div className='hidden text-center md:block'>
-        <h2 className='3xl:text-5xl mb-3 font-medium sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl'>
-          Choose Perfect Ring Style for You
+      <div className='mt-[16px] text-center sm:mt-[25px] md:block lg:mt-[30px] xl:mt-[35px] 2xl:mt-[50px]'>
+        <h2 className='3xl:text-5xl xs mb-1 text-lg font-medium sm:text-2xl lg:text-3xl xl:text-4xl'>
+          Choose Perfect{' '}
+          {category &&
+            `${category.charAt(0).toUpperCase() + category.slice(1, -1)}`}{' '}
+          Style for You
         </h2>
-        <div className='my-4 flex justify-center gap-4'>
-          {ringStyles.map((style) => {
-            const isSelected = selectedStyle === style.styleType;
-            return (
-              <button
-                key={style.styleType}
-                onClick={() => setSelectedStyle(style.styleType)}
-                className={`inline-flex w-[100px] flex-col items-center rounded-lg border p-2 pt-4 text-xs transition-all ${isSelected ? 'bg-muted border-black' : 'border-transparent hover:border-gray-300'} `}
-              >
-                <div className='mb-4 flex h-[30px] w-[70px] items-center justify-center 2xl:h-[35px]'>
-                  <Image
-                    src={style.imgUrl}
-                    height={30}
-                    width={70}
-                    alt={style.styleType}
-                    className='h-full w-full object-contain'
-                  />
-                </div>
-                <p className='3xl:text-lg mt-auto text-[15px] leading-4 text-nowrap xl:text-base'>
-                  {style.styleType}
-                </p>
-              </button>
-            );
-          })}
-        </div>
+        <p
+          className={cn(
+            'text-muted-foreground 3xl:text-2xl text-xs sm:text-base 2xl:text-lg',
+            category === 'rings' && 'lg:hidden'
+          )}
+        >
+          Find Your Statement Piece – Crafted to Elevate Your Style
+        </p>
+        {category === 'rings' && (
+          <div className='hidden justify-center gap-4 pt-2 lg:flex'>
+            {ringStyles.map((style) => {
+              const isSelected = selectedStyle === style.styleType;
+              return (
+                <button
+                  key={style.styleType}
+                  onClick={() => setSelectedStyle(style.styleType)}
+                  className={`inline-flex w-[100px] flex-col items-center rounded-lg border p-2 pt-4 text-xs transition-all ${isSelected ? 'bg-muted border-black' : 'border-transparent hover:border-gray-300'} `}
+                >
+                  <div className='mb-4 flex h-[30px] w-[70px] items-center justify-center 2xl:h-[35px]'>
+                    <Image
+                      src={style.imgUrl}
+                      height={30}
+                      width={70}
+                      alt={style.styleType}
+                      className='h-full w-full object-contain'
+                    />
+                  </div>
+                  <p className='3xl:text-lg mt-auto text-[15px] leading-4 text-nowrap xl:text-base'>
+                    {style.styleType}
+                  </p>
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
       {/* product filters */}
-      <ProductsFilter category={category} subCategory={subcategory} />
+      <ProductsFilter
+        category={category}
+        subCategory={subcategory}
+        className='mt-3 lg:mt-8 2xl:mt-10'
+      />
       {/* listing components */}
       <div className='mt-8 mb-10 grid grid-cols-2 gap-2 md:mb-20 md:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-5 xl:gap-6'>
         {data.map((product, index) => {
@@ -207,7 +229,7 @@ export default function ProductListingPage({ params }) {
   );
 }
 
-function ProductsFilter({ category, subCategory }) {
+function ProductsFilter({ category, subCategory, className }) {
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [selectedPurity, setSelectedPurity] = useState('14 K');
 
@@ -222,10 +244,10 @@ function ProductsFilter({ category, subCategory }) {
     'earrings'
   ].includes(category);
 
-  console.log(category, subCategory);
+  // console.log(category, subCategory);
 
   return (
-    <div>
+    <div className={cn(className)}>
       {/* mobile */}
       <Drawer>
         <DrawerTrigger
@@ -233,7 +255,6 @@ function ProductsFilter({ category, subCategory }) {
           className='flex items-center rounded-xs border border-black px-2 py-[4px] shadow-none lg:hidden'
         >
           <button>
-            {' '}
             <Funnel className='mr-1 h-4 w-4' /> Filter
           </button>
         </DrawerTrigger>
@@ -366,7 +387,7 @@ function ProductsFilter({ category, subCategory }) {
         </DrawerContent>
       </Drawer>
       {/* desktop - unchanged */}
-      <div className='mt-8 hidden gap-4 lg:flex'>
+      <div className='hidden gap-4 lg:flex'>
         {showCommonFilters && (
           <Select>
             <SelectTrigger className='data-[placeholder]:text-foreground w-[150px] border-black'>

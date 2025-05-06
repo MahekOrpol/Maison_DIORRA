@@ -28,7 +28,11 @@ import ProductGallery, {
 } from '@/app/(storefront)/products/[category]/components/product-gallery';
 import { useRouter } from 'next/navigation';
 
-export default function PreviewCard({ product, className }) {
+export default function PreviewCard({
+  product,
+  className,
+  isDraggable = true
+}) {
   const [selectedMetal, setSelectedMetal] = useState(product?.variants?.[0]);
   const [isProductClicked, setIsProductClicked] = useState(false);
   const [isClientMobile, setIsClientMobile] = useState(false);
@@ -98,7 +102,7 @@ export default function PreviewCard({ product, className }) {
           opts={{
             align: 'start',
             loop: false,
-            watchDrag: false
+            watchDrag: isDraggable
           }}
           className='relative w-full'
         >
