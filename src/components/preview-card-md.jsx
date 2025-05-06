@@ -113,7 +113,7 @@ export default function PreviewCardMd({ product, className }) {
                   alt={selectedMetal.metalType}
                   width={300}
                   height={300}
-                  className='max-h-full w-full object-cover object-center'
+                  className='max-h-full max-w-full object-cover object-center'
                 />
                 {/* <Image
                   src={image.mediaUrl}

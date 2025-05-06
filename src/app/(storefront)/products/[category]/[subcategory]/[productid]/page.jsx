@@ -22,7 +22,7 @@ import { IoDiamondOutline } from 'react-icons/io5';
 import { RiWeightLine } from 'react-icons/ri';
 import { PiDiamondsFour } from 'react-icons/pi';
 export default async function ProductDetailsPage() {
-  const data = await fetch('http://localhost:5000/productDetails/1');
+  const data = await fetch('http://localhost:5000/productDetails/2');
   const product = await data.json();
   return (
     <>

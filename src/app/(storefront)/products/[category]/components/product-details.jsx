@@ -9,12 +9,6 @@ import {
 } from '@/components/ui/select';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from '@/components/ui/accordion';
 import { IoStarSharp } from 'react-icons/io5';
 import { Badge } from '@/components/ui/badge';
 import { Heart, Share2, ShoppingBag, Star } from 'lucide-react';
@@ -83,6 +77,8 @@ export default function ProductDetails({ className, data }) {
     { src: '/icons/dollar-inhand.svg', label: '30 Days Free Return' },
     { src: '/icons/certificate.svg', label: 'Certificate & Appraisal' }
   ];
+
+  console.log(data);
 
   const handleAddToCart = async () => {
     const res = await fetch('/api/check-auth', {
