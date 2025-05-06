@@ -122,7 +122,7 @@ export default function S10TestimonialSection() {
           //   </div>
           // </div>
           <div key={index} className='keen-slider__slide'>
-            <div className='xs:p-6 3xl:aspect-[3/1] aspect-[4.5/2] rounded-xl border-2 border-gray-300 bg-white px-2 py-4 sm:px-8 sm:py-6'>
+            <div className='xs:p-6 3xl:aspect-[3/1] aspect-[4.5/2] rounded-xl border-2 border-gray-300 bg-white px-5 py-4 sm:px-8 sm:py-6'>
               <div className='flex items-center gap-4'>
                 <img
                   src={`https://randomuser.me/api/portraits/women/${40 + index}.jpg`}
@@ -140,7 +140,7 @@ export default function S10TestimonialSection() {
               </div>
               <div className='relative mt-2 md:mt-4'>
                 <Quote className='absolute -top-1 -left-3 h-4 w-4 rotate-180 stroke-1' />
-                <p className='full px-3 text-justify text-sm font-light whitespace-normal lg:text-base 2xl:line-clamp-3 2xl:text-lg'>
+                <p className='full px-3 text-justify text-xs font-light whitespace-normal md:text-sm lg:text-base 2xl:line-clamp-3 2xl:text-lg'>
                   The service exceeded all our expectations. Their attention to
                   detail and creative approach solved problems we didn't even
                   know we had!

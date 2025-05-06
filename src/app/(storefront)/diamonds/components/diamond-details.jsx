@@ -91,7 +91,7 @@ export default function DiamondDetails({ className }) {
     <section className={cn(className)}>
       <div>
         {/* Product Title */}
-        <h1 className='mb-2 text-xl leading-6 font-medium sm:text-2xl sm:leading-8 md:text-3xl md:leading-10'>
+        <h1 className='mb-2 text-lg xs:text-xl leading-6 font-medium sm:text-2xl sm:leading-8 md:text-3xl md:leading-10'>
           0.5 Carat I IF Emerald Natural Diamond <br /> $ 420
         </h1>
         <div className='bg-secondary grid grid-cols-5 py-2'>
