@@ -84,7 +84,7 @@ export default function PreviewCard({ product, className }) {
         {/* Wishlist Button */}
         <button
           onClick={() => setLiked(!liked)}
-          className='hover:bg-primary/4 absolute top-1 right-1 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow shadow-gray-400 xl:top-3 xl:right-3'
+          className='hover:bg-primary/4 absolute top-1 right-1 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow shadow-gray-400 xl:top-2 xl:right-2'
         >
           <Heart
             className={cn(
@@ -95,6 +95,7 @@ export default function PreviewCard({ product, className }) {
         </button>
 
         <Carousel
+          key={selectedMetal.metalType}
           opts={{
             align: 'start',
             loop: false
@@ -106,7 +107,7 @@ export default function PreviewCard({ product, className }) {
               <CarouselItem
                 key={index}
                 onClick={handleProductClick}
-                className='m-0 h-full w-full basis-full p-0'
+                className='h-full w-full basis-full cursor-pointer pl-[0.5px]'
               >
                 <Image
                   src={image.mediaUrl}
@@ -118,13 +119,11 @@ export default function PreviewCard({ product, className }) {
               </CarouselItem>
             ))}
           </CarouselContent>
-
           <div className='3xl:-bottom-[-4.9%] absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 2xl:bottom-4'>
             <CarouselPrevious className='h-7 w-7 translate-x-4 rounded-full border-none bg-white/80 text-gray-600 transition hover:bg-white 2xl:h-8 2xl:w-8 2xl:translate-x-1' />
             <CarouselNext className='h-7 w-7 -translate-x-4 rounded-full border-none bg-white/80 text-gray-600 transition hover:bg-white 2xl:h-8 2xl:w-8' />
           </div>
         </Carousel>
-
         <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2 xl:px-4 xl:pb-3'>
           <div className='flex items-center justify-between border-t pt-2 xl:pt-5'>
             <div className='flex gap-1 sm:gap-2'>
@@ -157,7 +156,7 @@ export default function PreviewCard({ product, className }) {
               })}
             </div>
           </div>
-          <p className='xs:text-base mb-2 block text-left text-sm font-light text-gray-900 sm:text-lg xl:font-normal 2xl:text-xl'>
+          <p className='xs:text-base 3xl:text-xl mb-2 block text-left text-sm font-light text-gray-900 sm:text-lg xl:font-normal'>
             <button
               onClick={handleProductClick}
               className='!line-clamp-1 block w-full text-left'
@@ -166,10 +165,11 @@ export default function PreviewCard({ product, className }) {
             </button>
           </p>
           <Button
-            className='xs:text-base xs:h-9 3xl:h-12 mt-auto h-8 w-full text-sm lg:h-10 2xl:text-xl'
+            className='xs:text-base xs:h-9 3xl:h-12 3xl:text-xl mt-auto h-8 w-full text-sm lg:h-10'
             onClick={handleAddToCart}
           >
-            Add to Cart <ShoppingBagIcon size={20} className='ml-2 xl:size-7' />
+            Add to Cart{' '}
+            <ShoppingBagIcon size={20} className='ml-2 stroke-1 xl:size-6' />
           </Button>
         </CardContent>
       </Card>

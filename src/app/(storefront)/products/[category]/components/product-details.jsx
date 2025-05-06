@@ -144,16 +144,14 @@ export default function ProductDetails({ className, data }) {
               {!data?.reviews?.reviews?.length ? (
                 <button
                   className='underline underline-offset-2 hover:no-underline'
-                  onClick={() => {
-                    /* Add your review handler here */
-                  }}
+                  onClick={() => {}}
                 >
                   Add a review
                 </button>
               ) : (
                 <span>
-                  {data?.reviews?.avgRating || 0}/5 |{' '}
-                  {data?.reviews?.reviews?.length} Reviews
+                  {data?.reviews?.avgRating || 0}/5
+                  {/* {data?.reviews?.reviews?.length} Reviews */}
                 </span>
               )}
             </span>
@@ -163,7 +161,12 @@ export default function ProductDetails({ className, data }) {
           </span>
           <Badge
             variant='outline'
-            className='xs:text-xs rounded-full border-black text-[10px] uppercase xl:text-sm'
+            className={cn(
+              'xs:text-xs rounded-full text-[10px] uppercase xl:text-sm',
+              data?.inStock
+                ? 'me-2 border border-green-400 bg-green-100 px-2.5 py-0.5 text-green-800'
+                : 'me-2 border border-gray-500 bg-gray-100 px-2.5 py-0.5 text-gray-800'
+            )}
           >
             {data?.inStock ? 'In Stock' : 'Out of Stock'}
           </Badge>

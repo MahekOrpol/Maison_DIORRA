@@ -154,7 +154,11 @@ function CarouselPrevious({
   ...props
 }) {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel();
-
+  const handleClick = (e) => {
+    e.stopPropagation(); // prevent bubbling regardless
+    if (!canScrollPrev) return; // do nothing if disabled
+    scrollPrev(); // otherwise scroll
+  };
   return (
     <Button
       data-slot='carousel-previous'
@@ -163,14 +167,14 @@ function CarouselPrevious({
       className={cn(
         'absolute size-8 rounded-full',
         // 'bg-transparent text-xl shadow-none hover:scale-120 dark:border-none dark:bg-transparent dark:hover:bg-transparent',
-        'border bg-transparent text-xl shadow-none dark:bg-transparent',
+        'border bg-transparent text-xl shadow-none disabled:cursor-not-allowed dark:bg-transparent',
         orientation === 'horizontal'
           ? 'top-1/2 -left-12 -translate-y-1/2'
           : '-top-12 left-1/2 -translate-x-1/2 rotate-90',
         className
       )}
       disabled={!canScrollPrev}
-      onClick={scrollPrev}
+      onClick={handleClick}
       {...props}
     >
       {/* <SlArrowLeft /> */}

@@ -102,7 +102,7 @@ export default function ProductListingPage({ params }) {
     <div className='wrapper'>
       {/* arrowed label */}
       <CustomTagWrapper className='xs:my-[25px] my-[20px] sm:my-[30px] lg:my-[35px] xl:mt-[50px] xl:mb-[45px] 2xl:mt-[65px] 2xl:mb-[60px]' />
-      {/* select ring style */}
+      {/* select styles */}
       <div className='hidden text-center md:block'>
         <h2 className='3xl:text-5xl mb-3 font-medium sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl'>
           Choose Perfect Ring Style for You
@@ -133,7 +133,7 @@ export default function ProductListingPage({ params }) {
           })}
         </div>
       </div>
-      {/* filters */}
+      {/* product filters */}
       <ProductsFilter category={category} subCategory={subcategory} />
       {/* listing components */}
       <div className='mt-8 mb-10 grid grid-cols-2 gap-2 md:mb-20 md:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-5 xl:gap-6'>
@@ -214,7 +214,7 @@ function ProductsFilter({ category, subCategory }) {
   const isRing = category === 'rings';
   const isDiamondBased = subCategory?.toLowerCase().includes('diamond');
   const showRingStyle = isRing;
-  const showDiamondShapes = isDiamondBased;
+  const showDiamondShapes = isDiamondBased || isRing;
   const showCommonFilters = [
     'rings',
     'necklaces',
@@ -415,8 +415,8 @@ function ProductsFilter({ category, subCategory }) {
               <SelectItem value='18k' className='py-2'>
                 18K Pure
               </SelectItem>
-              <SelectItem value='20k' className='py-2'>
-                20K Pure
+              <SelectItem value='22k' className='py-2'>
+                22K Pure
               </SelectItem>
             </SelectContent>
           </Select>

@@ -40,7 +40,7 @@ export default function S4FavouriteSection() {
           spacing: 20
         }
       },
-      '(min-width: 1500px)': {
+      '(min-width: 1800px)': {
         slides: {
           perView: 5,
           spacing: 24

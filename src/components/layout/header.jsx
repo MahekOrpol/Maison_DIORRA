@@ -10,7 +10,6 @@ import LocateAndSearch from './locate-search';
 import { useState, useEffect } from 'react';
 import { NotAllowedModal } from '../modals/na-wishlist';
 import { AddToCartNotAllowedModal } from '../modals/na-addtocart';
-import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { GiGemPendant } from 'react-icons/gi';
 
@@ -20,22 +19,22 @@ export default function Header() {
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [activeMenu, setActiveMenu] = useState(null);
+  const [index, setIndex] = useState(0);
+
   // const cookieStore = await cookies();
   // const token = cookieStore.get('token')?.value;
 
   // const isLoggedIn = !!token;
-  const pathname = usePathname();
   const messages = [
     'Welcome to our jewelry collection!',
-    'Enjoy 10% off on your first purchase!'
+    'Enjoy 10% off on your first purchase!',
+    'THE ESSENTIALS | UP TO 40% OFF* Ends in April'
   ];
-
-  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % messages.length);
-    }, 40000); // 10 seconds
+    }, 4000);
 
     return () => clearInterval(interval);
   }, []);
@@ -75,18 +74,16 @@ export default function Header() {
           <div className='col-span-1 p-6'>
             <h3 className='mb-4 font-semibold'>DIAMONDS BY SHAPE</h3>
             <ul className='space-y-2 font-light'>
-              {['Round', 'Princess', 'Cushion', 'Emerald', 'Oval'].map(
-                (shape) => (
-                  <li key={shape}>
-                    <Link
-                      href={`/diamonds/${shape.toLowerCase()}`}
-                      className='hover:underline'
-                    >
-                      {shape}
-                    </Link>
-                  </li>
-                )
-              )}
+              {['Princess', 'Round', 'Emerald', 'Pear'].map((shape) => (
+                <li key={shape}>
+                  <Link
+                    href={`/diamonds?shape=${shape.toLowerCase()}`}
+                    className='hover:underline'
+                  >
+                    {shape}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
           <div className='col-span-2 p-6'>
@@ -96,8 +93,7 @@ export default function Header() {
                 'Under $1,000',
                 '$1,000 - $2,500',
                 '$2,500 - $5,000',
-                '$5,000 - $10,000',
-                'Over $10,000'
+                'Over $5,000'
               ].map((price) => (
                 <li key={price}>
                   <Link
@@ -205,7 +201,7 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div class='group relative w-72 overflow-hidden'>
+          <div className='group relative w-72 overflow-hidden'>
             <Image
               src='/img/DiamondStuds.webp'
               alt='Ad Image'
@@ -225,35 +221,24 @@ export default function Header() {
           <div className='col-span-1 p-6'>
             <h3 className='mb-4 font-semibold'>ENGAGEMENT RINGS</h3>
             <ul className='space-y-2 font-light'>
-              {[
-                'Solitaire',
-                'Halo',
-                'Three-Stone',
-                'Vintage',
-                'Modern',
-                'Custom Design'
-              ].map((style) => (
-                <li key={style}>
-                  <Link
-                    href={`/products/rings/engagement-rings?style=${style.toLowerCase().replace(/\s+/g, '-')}`}
-                    className='hover:underline'
-                  >
-                    {style}
-                  </Link>
-                </li>
-              ))}
+              {['Solitaire', 'Halo', 'Pave', 'Hidden Halo', 'Side Stone'].map(
+                (style) => (
+                  <li key={style}>
+                    <Link
+                      href={`/products/rings/engagement-rings?style=${style.toLowerCase().replace(/\s+/g, '-')}`}
+                      className='hover:underline'
+                    >
+                      {style}
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
           </div>
           <div className='col-span-1 p-6'>
             <h3 className='mb-4 font-semibold'>METAL TYPES</h3>
             <ul className='space-y-2 font-light'>
-              {[
-                'Platinum',
-                'White Gold',
-                'Yellow Gold',
-                'Rose Gold',
-                'Two-Tone'
-              ].map((metal) => (
+              {['White Gold', 'Yellow Gold', 'Rose Gold'].map((metal) => (
                 <li key={metal}>
                   <Link
                     href={`/products/rings/engagement-rings?metal=${metal.toLowerCase().replace(/\s+/g, '-')}`}
@@ -268,22 +253,18 @@ export default function Header() {
           <div className='col-span-1 p-6'>
             <h3 className='mb-4 font-semibold'>SHOP BY COLLECTION</h3>
             <ul className='space-y-2 font-light'>
-              {[
-                'Classic',
-                'Bridal',
-                'Art Deco',
-                'Nature Inspired',
-                'Minimalist'
-              ].map((collection) => (
-                <li key={collection}>
-                  <Link
-                    href={`/products/rings/engagement-rings/collections/${collection.toLowerCase().replace(/\s+/g, '-')}`}
-                    className='hover:underline'
-                  >
-                    {collection}
-                  </Link>
-                </li>
-              ))}
+              {['Classic', 'Bridal', 'Nature Inspired', 'Minimalist'].map(
+                (collection) => (
+                  <li key={collection}>
+                    <Link
+                      href={`/products/rings/engagement-rings/collections/${collection.toLowerCase().replace(/\s+/g, '-')}`}
+                      className='hover:underline'
+                    >
+                      {collection}
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
           </div>
           <div className='group relative w-72 overflow-hidden'>
@@ -335,11 +316,11 @@ export default function Header() {
             <h3 className='mb-4 font-semibold'>THE PROCESS</h3>
             <ul className='space-y-2 font-light'>
               {[
-                'Consultation',
-                'Design',
-                '3D Rendering',
-                'Production',
-                'Final Approval'
+                '1. Consultation',
+                '2. Design',
+                '3. 3D Rendering',
+                '4. Production',
+                '5. Final Approval'
               ].map((step) => (
                 <li key={step}>
                   <Link
@@ -352,7 +333,7 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div class='group relative w-72 overflow-hidden'>
+          <div className='group relative w-72 overflow-hidden'>
             <Image
               src='/img/DiamondStuds.webp'
               alt='Ad Image'
@@ -439,8 +420,8 @@ export default function Header() {
         }`}
       >
         <header className='bg-background text-foreground shadow-xs'>
-          {/* banner */}
-          <div className='bg-primary relative h-10 overflow-hidden py-2 text-center tracking-wider text-white'>
+          {/* black banner */}
+          <div className='bg-primary relative h-9 overflow-hidden py-2 text-center tracking-wider text-white'>
             <div className='animate-fade absolute w-full opacity-100 transition-opacity duration-1000 ease-in-out'>
               <p key={index} className='text-sm md:text-base'>
                 {messages[index]}
@@ -490,7 +471,7 @@ export default function Header() {
             </div>
           </div>
           {/* desktop nav */}
-          <nav className='wrapper hidden justify-center gap-3 border-t border-gray-100 text-lg font-light lg:flex'>
+          <nav className='wrapper 3xl:text-base hidden justify-center border-t border-gray-100 text-sm uppercase lg:flex'>
             {menuItems.map((item, index) => (
               <div
                 key={index}
@@ -501,10 +482,10 @@ export default function Header() {
                 <Link
                   href={item.href}
                   className={cn(
-                    'relative flex items-center gap-0.5 px-2 py-1',
+                    'relative flex items-center gap-1 px-3.5 py-2',
                     'after:absolute after:right-0 after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-center after:scale-x-0 after:content-[""]',
                     'after:bg-black after:transition-transform after:duration-300',
-                    activeMenu === item.label && 'font-normal after:scale-x-95'
+                    activeMenu === item.label && 'font-medium after:scale-x-95'
                   )}
                 >
                   {item.icon}
