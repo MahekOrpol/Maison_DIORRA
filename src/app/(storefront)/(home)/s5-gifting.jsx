@@ -9,7 +9,50 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import Image from 'next/image';
+import Link from 'next/link';
 
+const giftingCollectionCards = [
+  {
+    img: '/img/gifting/guide1.jpeg',
+    label: 'Diamond Solitaire Ring',
+    href: '/products/rings/engagement-rings'
+  },
+  {
+    img: '/img/gifting/guide2.jpeg',
+    label: 'Platinum Couple Bands',
+    href: '/products/rings/couple-bands'
+  },
+  {
+    img: '/img/gifting/guide3.jpeg',
+    label: 'Emerald Pendant Necklace',
+    href: '/products/necklaces/diamond-emerald-pendants'
+  },
+  {
+    img: '/img/gifting/guide4.jpeg',
+    label: 'Gold Hoop Earrings',
+    href: '/products/earrings/gold-hoops'
+  },
+  {
+    img: '/img/gifting/guide5.jpeg',
+    label: 'Diamond Stud Earrings',
+    href: '/products/earrings/diamond-studs'
+  },
+  {
+    img: '/img/gifting/guide6.jpeg',
+    label: 'Pearl Drop Earrings',
+    href: '/products/earrings/diaomond-pearl-drops'
+  },
+  {
+    img: '/img/gifting/guide7.jpeg',
+    label: 'Sapphire Tennis Bracelet',
+    href: '/products/bracelets/sapphire-tennis'
+  },
+  {
+    img: '/img/gifting/guide8.jpeg',
+    label: 'Custom Name Pendant',
+    href: '/products/necklaces/diamond-custom-name'
+  }
+];
 export default function S5GiftingCollections() {
   const [coverflowConfig, setCoverflowConfig] = useState({
     depth: 450,
@@ -78,7 +121,7 @@ export default function S5GiftingCollections() {
     window.addEventListener('resize', handleResize); // on resize
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  // console.log(coverflowConfig);
+
   return (
     <section className='wrapper pt-6 md:pt-7 lg:pt-8 xl:pt-10'>
       <Heading
@@ -111,23 +154,25 @@ export default function S5GiftingCollections() {
               pauseOnMouseEnter: false // optional: pause when hovered
             }}
           >
-            {Array.from({ length: 8 }).map((_, index) => (
+            {giftingCollectionCards.map((data, index) => (
               <SwiperSlide key={index} className=''>
                 <div className='relative aspect-[320/220] overflow-hidden rounded-2xl xl:aspect-[240/170]'>
                   <Image
-                    src={`/img/gifting/guide${index + 1}.jpeg`}
+                    src={data.img}
                     fill={true}
                     className='rounded-2xl object-cover'
-                    alt='Guide image'
+                    alt='Gifting collection image'
                   />
-                  <p className='absolute inset-x-0 bottom-0 mx-4 border-t border-white pt-1 pb-2 text-sm font-medium text-white min-[500px]:text-lg md:text-lg md:font-medium lg:pt-2 lg:pb-4 lg:text-xl'>
-                    Eternal Rings (400 Items)
-                  </p>
+                  <Link
+                    href={data.href}
+                    className='absolute inset-x-0 bottom-0 mx-4 border-t border-white pt-1 pb-2 text-sm font-medium text-white transition-all duration-300 hover:border-t-2 hover:font-light min-[500px]:text-lg md:text-lg md:font-medium lg:pt-2 lg:pb-4 lg:text-xl'
+                  >
+                    {data.label}
+                  </Link>
                 </div>
               </SwiperSlide>
             ))}
           </Swiper>
-          {/* my new one ------------- */}
         </div>
       </div>
       {/* mobile & desktop */}

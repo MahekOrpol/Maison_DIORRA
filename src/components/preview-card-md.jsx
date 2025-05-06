@@ -106,15 +106,31 @@ export default function PreviewCardMd({ product, className }) {
               <CarouselItem
                 key={index}
                 onClick={handleProductClick}
-                className='m-0 h-full w-full basis-full p-0'
+                className='h-full w-full basis-full cursor-pointer pl-[0.5px]'
               >
                 <Image
                   src={image.mediaUrl}
                   alt={selectedMetal.metalType}
                   width={300}
                   height={300}
-                  className='h-full w-full object-cover object-center'
+                  className='max-h-full w-full object-cover object-center'
                 />
+                {/* <Image
+                  src={image.mediaUrl}
+                  alt={selectedMetal.metalType}
+                  width={300}
+                  height={300}
+                  className='max-h-full max-w-full object-contain'
+                /> */}
+                {/* <div className='flex h-full w-full items-center justify-center p-1'>
+                  <Image
+                    src={image.mediaUrl}
+                    alt={selectedMetal.metalType}
+                    width={300}
+                    height={300}
+                    className='max-h-full max-w-full object-contain'
+                  />
+                </div> */}
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -125,10 +141,10 @@ export default function PreviewCardMd({ product, className }) {
           </div>
         </Carousel>
 
-        <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2 xl:px-4 xl:pb-1'>
-          <div className='flex items-center justify-between border-t pt-2'>
+        <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2 xl:space-y-1 xl:px-4'>
+          <div className='flex items-center justify-between border-t pt-2 xl:pt-1'>
             <div className='flex gap-1 sm:gap-2'>
-              <p className='leading-1 font-medium sm:text-[22px] lg:text-xl xl:text-2xl'>
+              <p className='3xl:text-2xl leading-1 font-medium sm:text-[22px] lg:text-xl'>
                 ${selectedMetal.price}
               </p>
               <span className='text-xs leading-1 font-normal text-[#958F86] line-through sm:text-base xl:text-lg'>
@@ -157,10 +173,10 @@ export default function PreviewCardMd({ product, className }) {
               })}
             </div>
           </div>
-          <p className='xs:text-base 4xl:text-xl line-clamp-2 block min-h-[2.2em] text-left text-sm leading-4 font-light text-gray-900 sm:text-base xl:font-normal'>
+          <p className='xs:text-base 3xl:text-xl mb-1 block text-left text-sm font-light text-gray-900 sm:text-lg xl:font-normal'>
             <button
               onClick={handleProductClick}
-              className='block w-full text-left'
+              className='!line-clamp-1 block w-full text-left'
             >
               {product.name}
             </button>
