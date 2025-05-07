@@ -160,10 +160,10 @@ function CartContainer({ cart, setCart }) {
       </div>
       {cart.length === 0 ? (
         <div className='mt-4 flex flex-col items-center justify-center gap-4 pt-4'>
-          <div className='rounded-full p-3 sm:p-6 bg-gray-200'>
-            <BsHandbagFill size={24} />
+          <div className='rounded-full p-3 bg-gray-200'>
+            <BsHandbagFill size={20} />
           </div>
-          <p className='text-muted-foreground text-sm'>Your cart is empty.</p>
+          <p className='text-muted-foreground text-lg'>Your cart is empty.</p>
           <div className='flex gap-2 sm:gap-4'>
             <Link
               href='/products'

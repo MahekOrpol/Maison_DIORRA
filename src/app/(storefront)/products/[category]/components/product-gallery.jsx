@@ -14,11 +14,15 @@ import { IoImageOutline, IoVideocamOutline } from 'react-icons/io5';
 import Jewelry360Viewer from '@/components/product360viewer';
 
 const images = [
-  '/img/preview/ring1.png',
-  '/img/preview/ring2.png',
-  '/img/preview/ring3.png',
-  '/img/preview/gold1.png',
-  '/img/preview/gold2.png'
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-YG_0_6ed69b33-41f1-45a6-a66a-4b959b6fb034.jpg?v=1695166772&width=1200&height=1200&crop=center',
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-YG_0_6ed69b33-41f1-45a6-a66a-4b959b6fb034.jpg?v=1695166772&width=1200&height=1200&crop=center',
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C1-YG-DIA-2Ks_0.jpg?v=1695166754&width=800&height=800&crop=center',
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C125-YG-DIA-2ks_0.jpg?v=1695166754&width=800&height=800&crop=center',
+  // rose
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-RG_0_3480720d-c5a2-4887-be46-41cbf009bac0.jpg?v=1695166763&width=1200&height=1200&crop=center',
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-RG_0_3480720d-c5a2-4887-be46-41cbf009bac0.jpg?v=1695166763&width=1200&height=1200&crop=center',
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C125-RG-DIA-2ks_0.jpg?v=1695166744&width=800&height=800&crop=center',
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C1-RG-DIA-2Ks_0.jpg?v=1695166744&width=800&height=800&crop=center',
 ];
 const images360 = Array.from(
   { length: 75 },
@@ -67,11 +71,11 @@ export default function ProductGallery({ className }) {
 export function MobileGallery() {
   return (
     <div className=''>
-      <Tabs defaultValue='360' className='aspect-[9.5/10] sm:aspect-[5/4]'>
+      <Tabs defaultValue='360' className='aspect-[9.7/10] sm:aspect-[5/4]'>
         {/* 360 View */}
         <TabsContent
           value='360'
-          className='flex h-full w-full items-center justify-center overflow-hidden rounded-md p-4'
+          className='flex h-full w-full items-center justify-center overflow-hidden rounded-md'
         >
           {/* <Image
             src='/img/dummy/360view.gif'
@@ -106,7 +110,7 @@ export function MobileGallery() {
         <TabsContent value='video' className='h-full w-full overflow-hidden'>
           <div className='h-full w-full'>
             <video
-              src='/img/dummy/video.mp4'
+              src="https://checkout.keyzarjewelry.com/cdn/shop/videos/c/vp/a23cfeccd86a4dd8bee5f19192ff2f55/a23cfeccd86a4dd8bee5f19192ff2f55.HD-1080p-7.2Mbps-33725443.mp4"
               controls
               className='h-full w-full object-cover'
             />
@@ -141,6 +145,7 @@ export function MobileGallery() {
 function DesktopGallery() {
   return (
     <div className='grid grid-cols-2 gap-4 overflow-hidden'>
+           <Jewelry360Viewer images={images360} className='col-span-1' />
       {images.map((image, index) => {
         const isFirst = index === 0;
         const isLast = index === images.length - 1;
@@ -148,9 +153,9 @@ function DesktopGallery() {
           <div
             key={index}
             className={`flex items-center justify-center overflow-hidden border border-black/20 bg-gray-100`}
-            // ${
-            //   isFirst ? 'rounded-tl-[60px]' : ''
-            // } ${isLast ? 'rounded-br-[60px]' : ''}
+          // ${
+          //   isFirst ? 'rounded-tl-[60px]' : ''
+          // } ${isLast ? 'rounded-br-[60px]' : ''}
           >
             <img
               src={image}
@@ -160,8 +165,6 @@ function DesktopGallery() {
           </div>
         );
       })}
-
-      <Jewelry360Viewer images={images360} className='col-span-1' />
     </div>
   );
 }
