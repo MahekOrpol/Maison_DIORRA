@@ -62,13 +62,13 @@ const ZoomableImage = ({ src, alt }) => {
   };
 
   const handleMouseLeave = () => {
-    setBackgroundPos('50% 50%');
+    setBackgroundPos('80% 80%');
   };
 
   return (
     <div
       ref={containerRef}
-      className="zoom-container relative h-full w-full overflow-hidden"
+      className="zoom-container relative h-full w-full overflow-hidden cursor-zoom-in"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
