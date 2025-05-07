@@ -22,6 +22,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
 import { FaWhatsapp } from 'react-icons/fa';
 import { ScheduleCallDialog } from '@/components/modals/schedule-meeting-modal';
+import ShareButton from '@/app/checkout/components/share-button';
 
 export default function ProductDetails({ className, data }) {
   const [selectedSize, setSelectedSize] = useState();
@@ -140,7 +141,7 @@ export default function ProductDetails({ className, data }) {
               {!data?.reviews?.reviews?.length ? (
                 <button
                   className='underline underline-offset-2 hover:no-underline'
-                  onClick={() => {}}
+                  onClick={() => { }}
                 >
                   Add a review
                 </button>
@@ -406,14 +407,9 @@ export default function ProductDetails({ className, data }) {
             >
               <Heart className='h-4 w-4 md:h-5 md:w-5' strokeWidth={1.6} />
             </button>
-
-            {/* Share */}
-            <button
-              onClick={handleAddToWishlist}
-              className='hover:bg-muted flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 bg-white transition md:h-10 md:w-10'
-            >
-              <Share2 className='h-4 w-4 md:h-5 md:w-5' strokeWidth={1.6} />
-            </button>
+              <ShareButton
+                url={window.location.href}
+              />
           </div>
         </div>
       </div>

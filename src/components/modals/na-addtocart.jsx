@@ -28,10 +28,10 @@ export function AddToCartNotAllowedModal({ open, onOpenChange }) {
           {/* Left Section - Optional Advertisement */}
           <div className='bg-muted relative hidden md:block'>
             <Image
-              src='/img/ads/add4.png'
+              src='/img/addcart.png'
               alt='Ad Image'
               fill
-              className='object-contain'
+              className='object-fill'
             />
           </div>
 
