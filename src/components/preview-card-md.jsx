@@ -101,7 +101,7 @@ export default function PreviewCardMd({ product, className }) {
           }}
           className='relative w-full'
         >
-          <CarouselContent className='3xl:h-[250px] ml-0 w-full gap-0 lg:h-[200px] xl:h-[230px]'>
+          <CarouselContent className='3xl:h-[283px] ml-0 w-full gap-0 lg:h-[200px] xl:h-[257px]'>
             {selectedMetal.media.map((image, index) => (
               <CarouselItem
                 key={index}
@@ -113,7 +113,7 @@ export default function PreviewCardMd({ product, className }) {
                   alt={selectedMetal.metalType}
                   width={300}
                   height={300}
-                  className='max-h-full w-full object-cover object-center'
+                  className='max-h-full w-full object-fill object-center'
                 />
                 {/* <Image
                   src={image.mediaUrl}
@@ -141,7 +141,7 @@ export default function PreviewCardMd({ product, className }) {
           </div>
         </Carousel>
 
-        <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2 xl:space-y-1 xl:px-4'>
+        <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2 md:space-y-1 xl:px-4'>
           <div className='flex items-center justify-between border-t pt-2 xl:pt-1'>
             <div className='flex gap-1 sm:gap-2'>
               <p className='3xl:text-2xl leading-1 font-medium sm:text-[22px] lg:text-xl'>

@@ -60,10 +60,10 @@ export default function WishlistPage() {
     <div className='wrapper pt-4 pb-10'>
       {/* <h1 className='mb-4 text-3xl font-bold md:mb-6'>Your Wishlist</h1> */}
       <div className='flex flex-col items-center justify-center h-[50vh]'>
-        <div className='w-[120px] sm:w-[150px]'>
+        <div className='w-[120px] sm:w-[170px]'>
           <img src={'/img/wishlist.jpg'} />
         </div>
-        <p className='text-muted-foreground text-sm sm:text-lg'>YOUR CART IS EMPTY.</p>
+        <p className='text-muted-foreground text-sm sm:text-xl'>YOUR WISHLIST IS EMPTY.</p>
         <div className='flex gap-1 sm:gap-4 pt-3'>
           <Link
             href='/products'
