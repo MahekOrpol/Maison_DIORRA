@@ -17,6 +17,8 @@ import {
 } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import axios from 'axios';
+import { useRouter } from 'nextjs-toploader/app';
 
 // Mock API service
 const authService = {
@@ -59,6 +61,8 @@ export default function LoginPage() {
   const [openForgotPassword, setOpenForgotPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const router = useRouter();
+
   // Login Form
   const {
     register: loginRegister,
@@ -76,14 +80,52 @@ export default function LoginPage() {
     reset: resetRegisterForm
   } = useForm();
 
+  /* Mock API service for testing. dont remove this code plz */
+  // const onLogin = async (data) => {
+  //   setIsSubmitting(true);
+  //   try {
+  //     const response = await authService.login(data);
+  //     if (response.success) {
+  //       toast.success('Login successful!');
+  //       resetLoginForm();
+  //       // Redirect or handle successful login
+  //     }
+  //   } catch (error) {
+  //     toast.error('Login failed. Please try again.');
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
+  // const onRegister = async (data) => {
+  //   setIsSubmitting(true);
+  //   try {
+  //     const response = await authService.register(data);
+  //     if (response.success) {
+  //       toast.success('Registration successful! Please login.');
+  //       resetRegisterForm();
+  //       setTab('login');
+  //     }
+  //   } catch (error) {
+  //     toast.error('Registration failed. Please try again.');
+  //   } finally {
+  //     setIsSubmitting(false);
+  //   }
+  // };
   const onLogin = async (data) => {
     setIsSubmitting(true);
+    const { email, password } = data;
+    console.log(email, password);
     try {
-      const response = await authService.login(data);
-      if (response.success) {
+      const response = await axios.post('/api/login', { email, password });
+      console.log(response);
+      if (response.status === 200) {
         toast.success('Login successful!');
         resetLoginForm();
         // Redirect or handle successful login
+        // store in localStorage or context for now (simulate session)
+        localStorage.setItem('user', JSON.stringify(data));
+        router.push('/account/orders');
+        // show in header or wherever
       }
     } catch (error) {
       toast.error('Login failed. Please try again.');
@@ -162,7 +204,7 @@ export default function LoginPage() {
                           'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
                           loginErrors.email ? 'border-red-500' : ''
                         )}
-                        placeholder=''
+                        placeholder='john@example.com'
                         {...loginRegister('email', {
                           required: 'Email is required',
                           pattern: {
@@ -192,7 +234,7 @@ export default function LoginPage() {
                           'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
                           loginErrors.password ? 'border-red-500' : ''
                         )}
-                        placeholder=''
+                        placeholder='123456'
                         {...loginRegister('password', {
                           required: 'Password is required',
                           minLength: {

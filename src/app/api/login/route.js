@@ -1,29 +1,30 @@
-// pages/api/login.js
-export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Method not allowed' });
-  }
-
-  const { email, password } = req.body;
-
+export async function POST(request) {
   try {
+    const body = await request.json();
+    const { email, password } = body;
+
     const response = await fetch(
-      `http://localhost:4000/users?email=${email}&password=${password}`
+      `http://localhost:5000/users?email=${email}&password=${password}`
     );
     const users = await response.json();
 
     if (users.length === 1) {
       const user = users[0];
-      // Simulate setting session or cookie here if needed
-      return res.status(200).json({
-        id: user.id,
-        name: user.name,
-        email: user.email
-      });
+      return Response.json(
+        {
+          id: user.id,
+          name: user.name,
+          email: user.email
+        },
+        { status: 200 }
+      );
     }
 
-    return res.status(401).json({ message: 'Invalid email or password' });
+    return Response.json(
+      { message: 'Invalid email or password' },
+      { status: 401 }
+    );
   } catch (error) {
-    return res.status(500).json({ message: 'Server error' });
+    return Response.json({ message: 'Server error' }, { status: 500 });
   }
 }

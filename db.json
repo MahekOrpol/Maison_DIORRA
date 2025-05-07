@@ -2,49 +2,121 @@
   "users": [
     {
       "id": 1,
+      "userId": 1,
       "email": "john@example.com",
       "password": "123456",
       "name": "John Doe"
     },
     {
       "id": 2,
+      "userId": 2,
       "email": "jane@example.com",
       "password": "abcdef",
       "name": "Jane Smith"
     }
   ],
-  "cart": [
+  "carts": [
     {
-      "id": "1",
-      "name": "Diamond Solitaire Ring",
-      "price": 1299.99,
-      "quantity": 1,
-      "image": "/img/preview/ring1.png",
-      "category": "Ring"
+      "id": 1,
+      "userId": 1,
+      "items": [
+        {
+          "productId": "1",
+          "name": "Diamond Solitaire Ring",
+          "price": 1299.5,
+          "quantity": 1,
+          "image": "/img/preview/ring1.png",
+          "category": "rings"
+        },
+        {
+          "productId": "2",
+          "name": "14K White Gold Pendant",
+          "price": 999.5,
+          "quantity": 2,
+          "image": "/img/preview/pendant.png",
+          "category": "necklaces"
+        }
+      ]
     },
     {
-      "id": "2",
-      "name": "14K White Gold Pendant lorem lorem lorem lorem",
-      "price": 894545459.99124545,
-      "quantity": 1,
-      "image": "/img/preview/pendant.png",
-      "category": "Pendant"
+      "id": 2,
+      "userId": 2,
+      "items": [
+        {
+          "productId": "3",
+          "name": "Platinum Engagement Ring",
+          "price": 2499.99,
+          "quantity": 1,
+          "image": "/img/preview/ring2.png",
+          "category": "rings"
+        }
+      ]
+    }
+  ],
+  "wishlists": [
+    {
+      "id": 1,
+      "userId": 1,
+      "items": [
+        {
+          "productId": "4",
+          "name": "Gold Engagement Ring",
+          "price": 1499.99,
+          "image": "/img/preview/gold1.png",
+          "category": "rings"
+        }
+      ]
     },
     {
-      "id": "3",
-      "name": "Platinum Engagement Ring",
-      "price": 2499.99,
-      "quantity": 1,
-      "image": "/img/preview/ring2.png",
-      "category": "Ring"
+      "id": 2,
+      "userId": 2,
+      "items": [
+        {
+          "productId": "2",
+          "name": "14K White Gold Pendant",
+          "price": 999.99,
+          "image": "/img/preview/pendant.png",
+          "category": "necklaces"
+        }
+      ]
+    }
+  ],
+  "orders": [
+    {
+      "id": 1,
+      "userId": 1,
+      "date": "2025-05-06",
+      "total": 2299.98,
+      "status": "delivered",
+      "items": [
+        {
+          "productId": "1",
+          "name": "Diamond Solitaire Ring",
+          "price": 1299.99,
+          "quantity": 1
+        },
+        {
+          "productId": "2",
+          "name": "14K White Gold Pendant",
+          "price": 999.99,
+          "quantity": 1
+        }
+      ]
     },
     {
-      "id": "4",
-      "name": "Gold Engagement Ring",
-      "price": 1499.99,
-      "quantity": 1,
-      "image": "/img/preview/gold1.png",
-      "category": "Ring"
+      "id": 2,
+      "userId": 2,
+      "date": "2025-05-05",
+      "total": 2499.99,
+      "status": "shipped",
+      "items": [
+        {
+          "productId": "3",
+          "name": "Platinum Engagement Ring",
+          "price": 2499.99,
+          "quantity": 1
+        }
+      ]
     }
   ],
   "productDetails": [
