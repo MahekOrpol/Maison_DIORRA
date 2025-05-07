@@ -179,7 +179,7 @@ export default function PreviewCard({
       </Card>
 
       {/* Mobile Drawer */}
-      {/* {isClientMobile && (
+     {isClientMobile && (
         <Drawer
           open={isProductClicked}
           onOpenChange={setIsProductClicked}
@@ -258,10 +258,10 @@ export default function PreviewCard({
 
                 <div className='mt-4 mb-1 flex items-stretch gap-3'>
                   <Link
-                    href='/products/productid'
+                    href='/products/rings/engagement-rings/1'
                     onClick={() => setIsProductClicked(true)}
                     className='relative inline-block h-[40px] overflow-hidden rounded-md border border-black bg-white px-4 py-2 text-base text-black transition-colors duration-400'
-                  >
+                  > 
                     More info
                   </Link>
                   <Button
@@ -283,7 +283,7 @@ export default function PreviewCard({
             </DrawerFooter>
           </DrawerContent>
         </Drawer>
-      )} */}
+      )}
     </>
   );
 }

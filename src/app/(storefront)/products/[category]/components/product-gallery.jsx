@@ -12,6 +12,7 @@ import Image from 'next/image';
 import { Md360 } from 'react-icons/md';
 import { IoImageOutline, IoVideocamOutline } from 'react-icons/io5';
 import Jewelry360Viewer from '@/components/product360viewer';
+import { useRef, useState } from 'react';
 
 const images = [
   'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-YG_0_6ed69b33-41f1-45a6-a66a-4b959b6fb034.jpg?v=1695166772&width=1200&height=1200&crop=center',
@@ -48,6 +49,41 @@ const images2 = [
   // videos
   'https://checkout.keyzarjewelry.com/cdn/shop/videos/c/vp/a23cfeccd86a4dd8bee5f19192ff2f55/a23cfeccd86a4dd8bee5f19192ff2f55.HD-1080p-7.2Mbps-33725443.mp4'
 ];
+
+const ZoomableImage = ({ src, alt }) => {
+  const [backgroundPos, setBackgroundPos] = useState('0% 0%');
+  const containerRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    const { left, top, width, height } = containerRef.current.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+    setBackgroundPos(`${x}% ${y}%`);
+  };
+
+  const handleMouseLeave = () => {
+    setBackgroundPos('50% 50%');
+  };
+
+  return (
+    <div
+      ref={containerRef}
+      className="zoom-container relative h-full w-full overflow-hidden"
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      <img
+        src={src}
+        alt={alt}
+        className="zoom-image h-full w-full object-cover transition-transform duration-300 hover:scale-150"
+        style={{
+          transformOrigin: backgroundPos,
+        }}
+      />
+    </div>
+  );
+};
+
 export default function ProductGallery({ className }) {
   return (
     <>
@@ -92,13 +128,7 @@ export function MobileGallery() {
             <CarouselContent className='ml-0 !h-full'>
               {images.map((img, i) => (
                 <CarouselItem key={i} className='h-full p-0'>
-                  <Image
-                    src={img}
-                    alt={`Dummy ${i}`}
-                    width={400}
-                    height={400}
-                    className='h-full w-full object-cover'
-                  />
+                  <ZoomableImage src={img} alt={`Dummy ${i}`} />
                 </CarouselItem>
               ))}
             </CarouselContent>
@@ -156,15 +186,8 @@ function DesktopGallery() {
           <div
             key={index}
             className={`flex items-center justify-center overflow-hidden border border-black/20 bg-gray-100`}
-          // ${
-          //   isFirst ? 'rounded-tl-[60px]' : ''
-          // } ${isLast ? 'rounded-br-[60px]' : ''}
           >
-            <img
-              src={image}
-              alt={`Product ${index}`}
-              className='h-full w-full object-cover'
-            />
+            <ZoomableImage src={image} alt={`Product ${index}`} />
           </div>
         );
       })}

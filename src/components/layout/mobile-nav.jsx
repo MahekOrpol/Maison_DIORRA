@@ -118,13 +118,13 @@ export default function MobileNavDrawer() {
                 Diamonds
               </DrawerNavLink>
               <DrawerNavLink
-                href='/products'
+                href='/products/rings/all'
                 icon={<GiGemPendant className='size-4.5' strokeWidth={1} />}
               >
                 Fine Jewelry
               </DrawerNavLink>
               <DrawerNavLink
-                href='/products'
+                href='/products/rings/engagement-rings'
                 icon={
                   <Image
                     src='/icons/ring2.svg'
@@ -136,7 +136,7 @@ export default function MobileNavDrawer() {
               >
                 Engagement Rings
               </DrawerNavLink>
-              <DrawerNavLink
+              {/* <DrawerNavLink
                 href='/gifting'
                 icon={
                   <Image
@@ -148,7 +148,7 @@ export default function MobileNavDrawer() {
                 }
               >
                 Gifting Guide
-              </DrawerNavLink>
+              </DrawerNavLink> */}
               <DrawerNavLink
                 href='/custom-jewelry'
                 icon={
