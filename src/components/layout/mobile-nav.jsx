@@ -212,7 +212,7 @@ export default function MobileNavDrawer() {
         {/* BOTTOM SECTION */}
         <div className='bg-primary text-primary-foreground px-4 py-1.5'>
           <DrawerClose asChild>
-            <Link href='/sign-in'>
+            <Link href='/login'>
               <Button
                 variant='ghost'
                 className='w-full justify-start gap-2 text-white hover:bg-gray-800'
