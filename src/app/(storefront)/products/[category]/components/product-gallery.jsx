@@ -111,8 +111,11 @@ export function MobileGallery() {
           <div className='h-full w-full'>
             <video
               src="https://checkout.keyzarjewelry.com/cdn/shop/videos/c/vp/a23cfeccd86a4dd8bee5f19192ff2f55/a23cfeccd86a4dd8bee5f19192ff2f55.HD-1080p-7.2Mbps-33725443.mp4"
-              controls
               className='h-full w-full object-cover'
+              autoPlay
+              muted
+              loop
+              playsInline
             />
           </div>
         </TabsContent>
@@ -145,7 +148,7 @@ export function MobileGallery() {
 function DesktopGallery() {
   return (
     <div className='grid grid-cols-2 gap-4 overflow-hidden'>
-           <Jewelry360Viewer images={images360} className='col-span-1' />
+      <Jewelry360Viewer images={images360} className='col-span-1' />
       {images.map((image, index) => {
         const isFirst = index === 0;
         const isLast = index === images.length - 1;
