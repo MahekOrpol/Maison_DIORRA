@@ -153,7 +153,7 @@ export default function LoginPage() {
   return (
     <>
       <div className='bg-muted flex items-center justify-center border px-2 py-8 sm:px-4'>
-        <div className='flex w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-md md:h-[660px] md:max-w-5xl'>
+        <div className='flex w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-md h-fit md:max-w-5xl'>
           {/* Left Side Image */}
           <div className='hidden w-[40%] md:block'>
             <Image
@@ -167,7 +167,7 @@ export default function LoginPage() {
           {/* Right Side Form */}
           <div className='flex-1 pt-0 md:mb-8 md:px-6 md:pt-2 lg:px-10'>
             <Tabs value={tab} onValueChange={setTab} className='w-full'>
-              <TabsList className='mb-2 grid h-full w-full grid-cols-2 border-gray-500'>
+              <TabsList className='mb-2 grid h-fit w-full grid-cols-2 border-gray-500'>
                 <TabsTrigger
                   value='login'
                   className='data-[state=active]:bg-primary r data-[state=active]:text-primary-foreground bg-background h-full border-b border-b-transparent pt-2 pb-1 text-xl font-medium data-[state=active]:border-b-black data-[state=active]:text-2xl sm:border-b-2'
@@ -187,11 +187,11 @@ export default function LoginPage() {
                 value='login'
                 className='px-6 pb-6 text-center sm:pt-2 md:text-left lg:pt-3'
               >
-                <div className='ps-3 pt-3 md:pt-0'>
-                  <h2 className='mb-2 text-2xl leading-6 font-medium'>
+                <div className='pt-3 md:pt-0'>
+                  <h2 className='mb-2 text-xl sm:text-2xl leading-6 font-medium'>
                     Login using your Email and Password
                   </h2>
-                  <p className='text-sm leading-4 font-light'>
+                  <p className='text-xs sm:text-sm leading-4 font-light'>
                     For the purpose of industry registration, your details are
                     required and will be stored.
                   </p>
@@ -220,7 +220,7 @@ export default function LoginPage() {
                         Email
                       </label>
                       {loginErrors.email && (
-                        <p className='mt-1 text-xs text-red-500'>
+                        <p className='mt-1 text-xs text-red-500 text-left'>
                           {loginErrors.email.message}
                         </p>
                       )}
@@ -250,7 +250,7 @@ export default function LoginPage() {
                         Password
                       </label>
                       {loginErrors.password && (
-                        <p className='mt-1 text-xs text-red-500'>
+                        <p className='mt-1 text-xs text-red-500 text-left'>
                           {loginErrors.password.message}
                         </p>
                       )}
@@ -293,7 +293,7 @@ export default function LoginPage() {
                       </p>
                       <Button
                         size={'lg'}
-                        className='xs:w-2/3 mb-2 h-12 w-full text-lg'
+                        className='xs:w-2/3 mb-2 h-10 sm:h-12 w-full text-base sm:text-lg'
                         type='submit'
                         disabled={isSubmitting}
                       >
@@ -305,10 +305,10 @@ export default function LoginPage() {
                         <hr className='w-[48%] border-black' />
                       </div>
                       <button
-                        className='xs:w-2/3 mx-auto mb-3 flex h-12 w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-base'
+                        className='xs:w-2/3 mx-auto mb-3 flex h-9 sm:h-12 w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-sm sm:text-base'
                         type='button'
                       >
-                        <FcGoogle className='h-7 w-7' />
+                        <FcGoogle className='h-4 sm:h-7 w-7' />
                         Login with Google
                       </button>
 
@@ -333,10 +333,10 @@ export default function LoginPage() {
                 className='pb-6 text-center sm:pt-2 md:text-left lg:pt-3'
               >
                 <div className='px-6 pt-3 md:pt-0'>
-                  <h2 className='mb-2 text-2xl leading-6 font-medium'>
+                  <h2 className='mb-2 text-xl sm:text-2xl leading-6 font-medium'>
                     Don't have an Account?
                   </h2>
-                  <p className='text-sm leading-4 font-light'>
+                  <p className='text-xs sm:text-sm leading-4 font-light'>
                     For the purpose of industry registration, your details are
                     required and will be stored.
                   </p>
@@ -369,7 +369,7 @@ export default function LoginPage() {
                           Name
                         </label>
                         {registerErrors.name && (
-                          <p className='mt-1 text-xs text-red-500'>
+                          <p className='mt-1 text-xs text-red-500 text-left'>
                             {registerErrors.name.message}
                           </p>
                         )}
@@ -399,7 +399,7 @@ export default function LoginPage() {
                           Email
                         </label>
                         {registerErrors.email && (
-                          <p className='mt-1 text-xs text-red-500'>
+                          <p className='mt-1 text-xs text-red-500 text-left'>
                             {registerErrors.email.message}
                           </p>
                         )}
@@ -433,7 +433,7 @@ export default function LoginPage() {
                           Mobile Number
                         </label>
                         {registerErrors.mobile && (
-                          <p className='mt-1 text-xs text-red-500'>
+                          <p className='mt-1 text-xs text-red-500 text-left'>
                             {registerErrors.mobile.message}
                           </p>
                         )}
@@ -463,7 +463,7 @@ export default function LoginPage() {
                           Password
                         </label>
                         {registerErrors.password && (
-                          <p className='mt-1 text-xs text-red-500'>
+                          <p className='mt-1 text-xs text-red-500 text-left'>
                             {registerErrors.password.message}
                           </p>
                         )}
@@ -519,7 +519,7 @@ export default function LoginPage() {
                       </p>
                       <Button
                         size={'lg'}
-                        className='xs:w-2/3 mb-2 h-12 w-full text-lg'
+                        className='xs:w-2/3 mb-2 h-10 sm:h-12 w-full text-base sm:text-lg'
                         type='submit'
                         disabled={isSubmitting}
                       >
@@ -532,7 +532,7 @@ export default function LoginPage() {
                       </div>
 
                       <button
-                        className='xs:w-2/3 mx-auto mb-2 flex h-12 w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-base'
+                        className='xs:w-2/3 mx-auto mb-2 flex h-9 sm:h-12 w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-sm sm:text-base'
                         type='button'
                       >
                         <FcGoogle className='h-7 w-7' />

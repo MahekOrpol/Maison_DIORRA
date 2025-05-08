@@ -15,7 +15,7 @@ import Image from 'next/image';
 export function NotAllowedModal({ open, onOpenChange }) {
   const router = useRouter();
   const handleLoginClick = () => {
-    router.push('/sign-in');
+    router.push('/login');
     onOpenChange(false);
   };
   return (
