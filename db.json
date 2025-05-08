@@ -83,23 +83,44 @@
   ],
   "orders": [
     {
-      "id": 1,
+      "orderId": 1,
       "userId": 1,
       "date": "2025-05-06",
       "total": 2299.98,
       "status": "delivered",
       "items": [
         {
-          "productId": "1",
-          "name": "Diamond Solitaire Ring",
-          "price": 1299.99,
-          "quantity": 1
+          "id": "ORD123456",
+          "date": "March 20, 2025",
+          "total": "₹12,499",
+          "quantity": 1,
+          "status": "Delivered",
+          "image": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-WG_0.jpg?v=1695166735&width=1200&height=1200&crop=center",
+          "title": "Diamond Pendant Necklace"
         },
         {
-          "productId": "2",
-          "name": "14K White Gold Pendant",
-          "price": 999.99,
-          "quantity": 1
+          "id": "ORD123457",
+          "date": "March 15, 2025",
+          "total": "₹8,799",
+          "status": "Shipped",
+          "image": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-WG_0.jpg?v=1695166735&width=1200&height=1200&crop=center",
+          "title": "Gold Ring - 18k with Stone"
+        },
+        {
+          "id": "ORD123458",
+          "date": "March 10, 2025",
+          "total": "₹2,499",
+          "status": "Processing",
+          "image": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-WG_0.jpg?v=1695166735&width=1200&height=1200&crop=center",
+          "title": "Silver Bracelet"
+        },
+        {
+          "id": "ORD123459",
+          "date": "March 25, 2025",
+          "total": "₹8,799",
+          "status": "Shipped",
+          "image": "https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-WG_0.jpg?v=1695166735&width=1200&height=1200&crop=center",
+          "title": "Earring - 18k with Stone"
         }
       ]
     },

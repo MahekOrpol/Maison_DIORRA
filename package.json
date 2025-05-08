@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "mockapi": "json-server db.json --port 5000"
+    "mockapi": "json-server --watch db.json --host 192.168.1.7 --port 5000"
   },
   "type": "module",
   "dependencies": {

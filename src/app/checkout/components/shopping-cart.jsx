@@ -112,8 +112,9 @@ export function PricingDetails({
           <div key={index} className='flex justify-between'>
             <span className='text-sm'>{item.label}</span>
             <span
-              className={`text-sm font-medium ${item.isDiscount ? 'text-green-600' : ''
-                }`}
+              className={`text-sm font-medium ${
+                item.isDiscount ? 'text-green-600' : ''
+              }`}
             >
               {item.isDiscount && '-'}
               {currency}
@@ -160,7 +161,7 @@ function CartContainer({ cart, setCart }) {
       </div>
       {cart.length === 0 ? (
         <div className='mt-4 flex flex-col items-center justify-center gap-4 pt-4'>
-          <div className='rounded-full p-3 bg-gray-200'>
+          <div className='rounded-full bg-gray-200 p-3'>
             <BsHandbagFill size={20} />
           </div>
           <p className='text-muted-foreground text-lg'>Your cart is empty.</p>
@@ -173,7 +174,7 @@ function CartContainer({ cart, setCart }) {
             </Link>
             <Link
               href='/products'
-                  className='bg-primary text-primary-foreground inline-block rounded-md border border-black px-6 py-3 text-xs sm:px-9 sm:py-3 sm:text-lg'
+              className='bg-primary text-primary-foreground inline-block rounded-md border border-black px-6 py-3 text-xs sm:px-9 sm:py-3 sm:text-lg'
             >
               Add products to your cart
             </Link>

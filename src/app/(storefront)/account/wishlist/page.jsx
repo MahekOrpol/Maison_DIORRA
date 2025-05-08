@@ -1,10 +1,5 @@
 import React from 'react';
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { Heart, ShoppingCart } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
 import PreviewCard3 from '@/components/preview-card';
-import { BsHandbagFill } from 'react-icons/bs';
 import Link from 'next/link';
 
 const wishlist = [
@@ -59,12 +54,14 @@ export default function WishlistPage() {
   return (
     <div className='wrapper pt-4 pb-10'>
       {/* <h1 className='mb-4 text-3xl font-bold md:mb-6'>Your Wishlist</h1> */}
-      <div className='flex flex-col items-center justify-center h-[50vh]'>
+      <div className='flex h-[50vh] flex-col items-center justify-center'>
         <div className='w-[120px] sm:w-[170px]'>
           <img src={'/img/wishlist.jpg'} />
         </div>
-        <p className='text-muted-foreground text-sm sm:text-xl'>YOUR WISHLIST IS EMPTY.</p>
-        <div className='flex gap-1 sm:gap-4 pt-3'>
+        <p className='text-muted-foreground text-sm sm:text-xl'>
+          YOUR WISHLIST IS EMPTY.
+        </p>
+        <div className='flex gap-1 pt-3 sm:gap-4'>
           <Link
             href='/products'
             className='hover:bg-primary hover:text-primary-foreground inline-block rounded-md border border-black px-6 py-3 text-xs sm:px-9 sm:py-3 sm:text-lg'
