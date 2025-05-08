@@ -24,6 +24,7 @@ export function AccountDropdown({ isLoggedIn }) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
+  console.log(isLoggedIn);
   useEffect(() => {
     setOpen(false);
   }, [pathname]);
@@ -40,7 +41,7 @@ export function AccountDropdown({ isLoggedIn }) {
           <UserRound />
           <div className='text-left'>
             <p className='text-muted-foreground text-xs leading-2'>
-              {isLoggedIn ? 'Welcome back' : 'Sign In'}
+              {isLoggedIn ? 'Welcome back' : 'Login'}
             </p>
             <p className='hover:text-muted-foreground'>
               {isLoggedIn ? 'Jhon Doe' : 'Account'}

@@ -12,7 +12,11 @@ import { NotAllowedModal } from '../modals/na-wishlist';
 import { AddToCartNotAllowedModal } from '../modals/na-addtocart';
 import { cn } from '@/lib/utils';
 import { GiGemPendant } from 'react-icons/gi';
-
+const messages = [
+  'Welcome to our jewelry collection!',
+  'Enjoy 10% off on your first purchase!',
+  'THE ESSENTIALS | UP TO 40% OFF* Ends in April'
+];
 export default function Header() {
   const [showNotAllowed, setShowNotAllowed] = useState(false);
   const [showCartDialog, setShowCartDialog] = useState(false);
@@ -21,15 +25,13 @@ export default function Header() {
   const [activeMenu, setActiveMenu] = useState(null);
   const [index, setIndex] = useState(0);
 
+  // const router = useRouter();
   // const cookieStore = await cookies();
   // const token = cookieStore.get('token')?.value;
-
   // const isLoggedIn = !!token;
-  const messages = [
-    'Welcome to our jewelry collection!',
-    'Enjoy 10% off on your first purchase!',
-    'THE ESSENTIALS | UP TO 40% OFF* Ends in April'
-  ];
+
+  // const authUser = localStorage.getItem('authUser');
+  // const isLoggedIn = !!authUser;
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -58,8 +60,12 @@ export default function Header() {
   }, [lastScrollY]);
 
   const handleWishlistClick = () => {
-    // If not logged in
+    // Check if user is logged in or not
+    // if (authUser) {
+    //   router.push(`/account/wishlist`);
+    // } else {
     setShowNotAllowed(true);
+    // }
   };
   const handleAddToCart = () => {
     setShowCartDialog(true);
@@ -69,7 +75,7 @@ export default function Header() {
     { name: 'Princess', image: '/icons/shape-princess.svg' },
     { name: 'Round', image: '/icons/shape-round.svg' },
     { name: 'Emerald', image: '/icons/shape-emerlad.svg' },
-    { name: 'Pear', image: '/icons/shape-pear.svg' },
+    { name: 'Pear', image: '/icons/shape-pear.svg' }
   ];
 
   const ringStyless = [
@@ -77,13 +83,13 @@ export default function Header() {
     { name: 'Halo', image: '/img/ring-style-halo.svg' },
     { name: 'Pave', image: '/img/ring-style-pave.svg' },
     { name: 'Hidden Halo', image: '/img/ring-style-hidden.svg' },
-    { name: 'Stone', image: '/img/ring-style-stone.svg' },
+    { name: 'Stone', image: '/img/ring-style-stone.svg' }
   ];
 
   const metalOptions = [
     { name: 'White Gold', image: '/img/white-theme.png' },
     { name: 'Yellow Gold', image: '/img/gold-theme.png' },
-    { name: 'Rose Gold', image: '/img/rose-theme.png' },
+    { name: 'Rose Gold', image: '/img/rose-theme.png' }
   ];
 
   const menuItems = [
@@ -92,25 +98,30 @@ export default function Header() {
       label: 'Diamonds',
       icon: <IoDiamondOutline className='h-4 w-4' />,
       content: (
-        <div className="grid grid-cols-3 xl:grid-cols-4 gap-0 xl:gap-4">
+        <div className='grid grid-cols-3 gap-0 xl:grid-cols-4 xl:gap-4'>
           <div className='col-span-1 p-4 xl:p-6'>
             <h3 className='mb-4 font-semibold'>DIAMONDS BY SHAPE</h3>
-            <ul className='space-y-2 font-light border-r-2'>
+            <ul className='space-y-2 border-r-2 font-light'>
               {diamondShapes.map(({ name, image }) => (
-                <li key={name} className="flex items-center space-x-2">
+                <li key={name} className='flex items-center space-x-2'>
                   <Link
                     href={`/diamonds?shape=${name.toLowerCase()}`}
                     className='flex items-center space-x-2 hover:underline'
                   >
-                    <Image src={image} alt={name} width={24} height={24} className="object-contain" />
+                    <Image
+                      src={image}
+                      alt={name}
+                      width={24}
+                      height={24}
+                      className='object-contain'
+                    />
                     <span>{name}</span>
                   </Link>
                 </li>
               ))}
             </ul>
-
           </div>
-          <div className=' col-span-1 xl:col-span-2 p-4 xl:p-6'>
+          <div className='col-span-1 p-4 xl:col-span-2 xl:p-6'>
             <h3 className='mb-4 font-semibold'>DIAMONDS BY PRICE</h3>
             <ul className='space-y-2 font-light'>
               {[
@@ -130,7 +141,7 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div className='group h-[230px] w-[320px] xl:h-[300px] relative xl:w-[400px] overflow-hidden'>
+          <div className='group relative h-[230px] w-[320px] overflow-hidden xl:h-[300px] xl:w-[400px]'>
             <Image
               src='/img/ads/add4.png'
               alt='Ad Image'
@@ -146,10 +157,10 @@ export default function Header() {
       label: 'Fine Jewelry',
       icon: <GiGemPendant className='size-4.5 text-black' />,
       content: (
-        <div className='grid h-fit w-full grid-cols-4 xl:grid-cols-5 gap-2'>
+        <div className='grid h-fit w-full grid-cols-4 gap-2 xl:grid-cols-5'>
           <div className='col-span-1 p-4 xl:p-6'>
             <h3 className='mb-4 font-semibold'>RINGS</h3>
-            <ul className='space-y-2 font-light border-r-2 h-40'>
+            <ul className='h-40 space-y-2 border-r-2 font-light'>
               {[
                 'Wedding Bands',
                 'Berminy Rings',
@@ -170,7 +181,7 @@ export default function Header() {
           </div>
           <div className='col-span-1 p-4 xl:p-6'>
             <h3 className='mb-4 font-semibold'>EARRINGS</h3>
-            <ul className='space-y-2 font-light border-r-2 h-40'>
+            <ul className='h-40 space-y-2 border-r-2 font-light'>
               {[
                 'Diamond Earrings',
                 'Drop & Dangle',
@@ -191,7 +202,7 @@ export default function Header() {
           </div>
           <div className='col-span-1 p-4 xl:p-6'>
             <h3 className='mb-4 font-semibold'>NECKLACES</h3>
-            <ul className='space-y-2 font-light border-r-2 h-40'>
+            <ul className='h-40 space-y-2 border-r-2 font-light'>
               {[
                 'Diamond Pendants',
                 'Necklaces',
@@ -225,7 +236,7 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div className='group hidden xl:block h-[230px] w-[230px] xl:h-[300px] relative xl:w-[400px] overflow-hidden'>
+          <div className='group relative hidden h-[230px] w-[230px] overflow-hidden xl:block xl:h-[300px] xl:w-[400px]'>
             <Image
               src='/img/DiamondStuds.webp'
               alt='Ad Image'
@@ -244,14 +255,20 @@ export default function Header() {
         <div className='grid w-full grid-cols-4 gap-0 xl:gap-2'>
           <div className='col-span-1 p-3 xl:p-6'>
             <h3 className='mb-4 font-semibold'>ENGAGEMENT RINGS</h3>
-            <ul className='space-y-2 font-light border-r-2 h-40 overflow-y-auto'>
+            <ul className='h-40 space-y-2 overflow-y-auto border-r-2 font-light'>
               {ringStyless.map(({ name, image }) => (
-                <li key={name} className="flex items-center space-x-2">
+                <li key={name} className='flex items-center space-x-2'>
                   <Link
                     href={`/products/rings/engagement-rings?style=${name.toLowerCase().replace(/\s+/g, '-')}`}
                     className='flex items-center space-x-2 hover:underline'
                   >
-                    <Image src={image} alt={name} width={24} height={24} className="w-6 h-6 object-contain" />
+                    <Image
+                      src={image}
+                      alt={name}
+                      width={24}
+                      height={24}
+                      className='h-6 w-6 object-contain'
+                    />
                     <span>{name}</span>
                   </Link>
                 </li>
@@ -260,14 +277,20 @@ export default function Header() {
           </div>
           <div className='col-span-1 p-3 xl:p-6'>
             <h3 className='mb-4 font-semibold'>METAL TYPES</h3>
-            <ul className='space-y-2 font-light border-r-2 h-40 overflow-y-auto'>
+            <ul className='h-40 space-y-2 overflow-y-auto border-r-2 font-light'>
               {metalOptions.map(({ name, image }) => (
-                <li key={name} className="flex items-center space-x-2">
+                <li key={name} className='flex items-center space-x-2'>
                   <Link
                     href={`/products/rings/engagement-rings?metal=${name.toLowerCase().replace(/\s+/g, '-')}`}
                     className='flex items-center space-x-2 hover:underline'
                   >
-                    <Image src={image} alt={name} width={16} height={16} className="w-4 h-4 object-contain" />
+                    <Image
+                      src={image}
+                      alt={name}
+                      width={16}
+                      height={16}
+                      className='h-4 w-4 object-contain'
+                    />
                     <span>{name}</span>
                   </Link>
                 </li>
@@ -291,7 +314,7 @@ export default function Header() {
               )}
             </ul>
           </div>
-          <div className='group h-[230px] w-[250px] xl:h-[300px] relative xl:w-[400px] overflow-hidden'>
+          <div className='group relative h-[230px] w-[250px] overflow-hidden xl:h-[300px] xl:w-[400px]'>
             <Image
               src='/img/ads/add4.png'
               alt='Ad Image'
@@ -314,10 +337,10 @@ export default function Header() {
         />
       ),
       content: (
-        <div className="grid grid-cols-3 xl:grid-cols-4 gap-0 xl:gap-4">
+        <div className='grid grid-cols-3 gap-0 xl:grid-cols-4 xl:gap-4'>
           <div className='col-span-1 p-3 xl:p-6'>
             <h3 className='mb-4 font-semibold'>CUSTOM JEWELRY</h3>
-            <ul className='space-y-2 font-light border-r-2 h-40'>
+            <ul className='h-40 space-y-2 border-r-2 font-light'>
               {[
                 'Design Your Own Ring',
                 'Custom Engagement Rings',
@@ -336,7 +359,7 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div className='col-span-1 xl:col-span-2 p-3 xl:p-6'>
+          <div className='col-span-1 p-3 xl:col-span-2 xl:p-6'>
             <h3 className='mb-4 font-semibold'>THE PROCESS</h3>
             <ul className='space-y-2 font-light'>
               {[
@@ -357,7 +380,7 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div className='group h-[230px] w-[320px] xl:h-[300px] relative xl:w-[400px] overflow-hidden'>
+          <div className='group relative h-[230px] w-[320px] overflow-hidden xl:h-[300px] xl:w-[400px]'>
             <Image
               src='/img/DiamondStuds.webp'
               alt='Ad Image'
@@ -380,10 +403,10 @@ export default function Header() {
         />
       ),
       content: (
-        <div className="grid grid-cols-3 xl:grid-cols-4 gap-0 xl:gap-4">
+        <div className='grid grid-cols-3 gap-0 xl:grid-cols-4 xl:gap-4'>
           <div className='col-span-1 p-3 xl:p-6'>
             <h3 className='mb-4 font-semibold'>DIAMOND EDUCATION</h3>
-            <ul className='space-y-2 font-light  border-r-2 h-40'>
+            <ul className='h-40 space-y-2 border-r-2 font-light'>
               {[
                 'The 4 Cs',
                 'Diamond Shapes',
@@ -402,7 +425,7 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div className=' col-span-1 xl:col-span-2 p-3 xl:p-6'>
+          <div className='col-span-1 p-3 xl:col-span-2 xl:p-6'>
             <h3 className='mb-4 font-semibold'>JEWELRY CARE</h3>
             <ul className='space-y-2 font-light'>
               {[
@@ -423,7 +446,7 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div className='group h-[230px] w-[320px] xl:h-[300px] relative xl:w-[400px] overflow-hidden'>
+          <div className='group relative h-[230px] w-[320px] overflow-hidden xl:h-[300px] xl:w-[400px]'>
             <Image
               src='/img/ads/add4.png'
               alt='Ad Image'
@@ -441,7 +464,7 @@ export default function Header() {
       <div
         className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ease-in ${
           showHeader ? 'translate-y-0' : '-translate-y-full'
-          }`}
+        }`}
       >
         <header className='bg-background text-foreground shadow-xs'>
           {/* black banner */}

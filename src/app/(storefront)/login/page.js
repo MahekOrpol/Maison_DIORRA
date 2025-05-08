@@ -117,13 +117,13 @@ export default function LoginPage() {
     console.log(email, password);
     try {
       const response = await axios.post('/api/login', { email, password });
-      console.log(response);
+      console.log(response.data);
       if (response.status === 200) {
         toast.success('Login successful!');
         resetLoginForm();
         // Redirect or handle successful login
         // store in localStorage or context for now (simulate session)
-        localStorage.setItem('user', JSON.stringify(data));
+        localStorage.setItem('authUser', JSON.stringify(response.data));
         router.push('/account/orders');
         // show in header or wherever
       }

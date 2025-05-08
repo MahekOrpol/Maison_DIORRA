@@ -13,8 +13,10 @@ export async function POST(request) {
       return Response.json(
         {
           id: user.id,
+          userId: user.userId,
           name: user.name,
-          email: user.email
+          email: user.email,
+          token: 'mock-token'
         },
         { status: 200 }
       );
