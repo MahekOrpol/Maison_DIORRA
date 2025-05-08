@@ -1,6 +1,7 @@
 'use client';
 
 import CallToAction from '@/components/call-to-action';
+import { ScheduleCallDialog } from '@/components/modals/schedule-meeting-modal';
 import RelatedProducts from '@/components/related-products';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,6 +16,7 @@ import { BsHandbagFill } from 'react-icons/bs';
 
 const ShoppingCart = ({ onNext }) => {
   const { cart, setCart } = useCheckoutStore();
+  const [openMeeting, setOpenMeeting] = useState(false);
 
   const pricingItems = [
     { label: 'Subtotal', value: '40,000' },
@@ -43,7 +45,7 @@ const ShoppingCart = ({ onNext }) => {
                 close
               </p>
             </div>
-            <button className='bg-primary text-primary-foreground inline-flex items-center justify-center gap-2 rounded-md px-4 py-[6px] sm:py-2'>
+            <button className='bg-primary text-primary-foreground inline-flex items-center justify-center gap-2 rounded-md px-4 py-[6px] sm:py-2' onClick={() => setOpenMeeting(true)}>
               See it Live
               <BiVideoPlus className='h-6 w-6' strokeWidth={0.1} />
             </button>
@@ -51,6 +53,7 @@ const ShoppingCart = ({ onNext }) => {
           {/* Cart section */}
           <CartContainer cart={cart} setCart={setCart} />
         </div>
+        <ScheduleCallDialog open={openMeeting} setOpen={setOpenMeeting} />
         {/* order amount */}
         <div className='flex w-full flex-col gap-4 py-4 lg:max-w-sm lg:py-0'>
           <div className='bg-secondary flex items-center gap-4 rounded-lg px-4 py-2'>
@@ -63,12 +66,14 @@ const ShoppingCart = ({ onNext }) => {
               <MoveRight className='h-5 w-5' />
             </button>
           </div>
-          <PricingDetails
-            items={pricingItems}
-            total='40,000'
-            onCouponApply={handleCouponApply}
-            className='px-4'
-          />
+          {cart.length > 0 && (
+            <PricingDetails
+              items={pricingItems}
+              total='40,000'
+              onCouponApply={handleCouponApply}
+              className='px-4'
+            />
+          )}
           {/* Navigation Buttons */}
 
           <button
@@ -99,22 +104,21 @@ export function PricingDetails({
   return (
     <div
       className={cn(
-        'w-full rounded-lg border-[0.2px] border-black/60 p-6',
+        'w-full rounded-lg border-[0.2px] border-black/60 p-3 xs:p-6',
         className
       )}
     >
-      <h3 className='mb-4 text-lg font-semibold underline underline-offset-6'>
+      <h3 className='mb-4 text-lg lg:text-xl font-semibold underline underline-offset-6'>
         Pricing Details
       </h3>
 
       <div className='space-y-3'>
         {items.map((item, index) => (
           <div key={index} className='flex justify-between'>
-            <span className='text-sm'>{item.label}</span>
+            <span className='text-base'>{item.label}</span>
             <span
-              className={`text-sm font-medium ${
-                item.isDiscount ? 'text-green-600' : ''
-              }`}
+              className={`text-base font-medium ${item.isDiscount ? '' : ''
+                }`}
             >
               {item.isDiscount && '-'}
               {currency}
@@ -126,7 +130,7 @@ export function PricingDetails({
 
       <div className='my-4 border-t pt-4'>
         <div className='flex justify-between'>
-          <span className='font-medium'>Total Cost</span>
+          <span className='font-medium text-lg'>Total Cost</span>
           <span className='text-lg font-bold'>
             {currency}
             {total}
@@ -149,13 +153,15 @@ function CartContainer({ cart, setCart }) {
   };
   return (
     <div>
-      <div className='hidden justify-between border-b pb-2 text-sm sm:flex'>
-        <div className='w-[60%] pl-[118px]'>PRODUCTS</div>
-        <div className='grid w-[38%] grid-cols-3 gap-2'>
-          <p>QUANTITY</p>
-          <p className='col-span-2'>SUBTOTAL</p>
+      {cart.length > 0 && (
+        <div className='hidden justify-between border-b pb-2 xl:font-bold text-sm xl:text-lg sm:flex'>
+          <div className='w-[60%] pl-[118px]'>PRODUCTS</div>
+          <div className='grid w-[38%] grid-cols-3 gap-2'>
+            <p>QUANTITY</p>
+            <p className='col-span-2'>SUBTOTAL</p>
+          </div>
         </div>
-      </div>
+      )}
       <div className='mb-4 w-full text-center text-2xl font-semibold sm:hidden'>
         Cart Products
       </div>
@@ -181,11 +187,11 @@ function CartContainer({ cart, setCart }) {
           </div>
         </div>
       ) : (
-        <div className='space-y-4'>
+        <div className='space-y-4 border sm:border-none p-3'>
           {cart.map((item) => (
             <div
               key={item.id}
-              className='xs:p-3 flex flex-col justify-between rounded-md border p-3 sm:flex-row sm:p-4 md:items-center'
+              className='xs:p-2 flex flex-col justify-between rounded-md not-last:border-b sm:flex-row sm:p-4 md:items-center'
             >
               <div className='mb-2 flex gap-2 sm:w-[60%] md:gap-4'>
                 <Image
@@ -193,13 +199,13 @@ function CartContainer({ cart, setCart }) {
                   alt={item.name}
                   width={100}
                   height={100}
-                  className='h-20 w-20 rounded-md shadow-[0px_0px_3px_1px_rgba(0,_0,_0,_0.1)]'
+                  className='h-20 w-20 lg:h-24 lgw-24 rounded-md shadow-[0px_0px_3px_1px_rgba(0,_0,_0,_0.1)]'
                 />
                 <div className='flex flex-col justify-between'>
-                  <span className='text-muted-foreground text-sm font-medium'>
+                  <span className='text-muted-foreground text-sm md:text-base font-medium'>
                     {item.category}
                   </span>
-                  <p className='line-clamp-1 font-medium md:text-lg'>
+                  <p className='line-clamp-1 font-medium text-base md:text-xl'>
                     {item.name}
                   </p>
                   <span className=''>$ {item.price}</span>

@@ -33,7 +33,7 @@ export default function BlogCard({
       </div>
       {/* Content */}
       <div className='flex flex-1 flex-col p-2'>
-        <p className='text-xs leading-5 lg:text-sm lg:leading-6'>
+        <p className='text-xs leading-5 lg:text-sm lg:leading-6 font-medium'>
           22.DEC.2025 <span className='text-base leading-3'>•</span> BY FERONIA
         </p>
         <h3 className='text-xl font-medium lg:text-2xl'>

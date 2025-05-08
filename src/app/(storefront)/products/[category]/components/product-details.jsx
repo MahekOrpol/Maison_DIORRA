@@ -159,7 +159,7 @@ export default function ProductDetails({ className, data }) {
           <Badge
             variant='outline'
             className={cn(
-              'xs:text-xs rounded-full text-[10px] uppercase xl:text-sm translate-y-8 -translate-x-5.5 xs:-translate-x-0 xs:translate-y-0 absolute right-0',
+              'xs:text-xs rounded-full text-[10px] uppercase xl:text-sm absolute sm:relative right-0',
               data?.inStock
                 ? 'me-2 border border-green-400 bg-green-100 px-2.5 py-0.5 text-green-800'
                 : 'me-2 border border-gray-500 bg-gray-100 px-2.5 py-0.5 text-gray-800'

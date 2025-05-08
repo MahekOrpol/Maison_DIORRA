@@ -24,7 +24,7 @@ export function AccountDropdown({ isLoggedIn }) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
-  console.log(isLoggedIn);
+  // console.log(isLoggedIn);
   useEffect(() => {
     setOpen(false);
   }, [pathname]);

@@ -99,7 +99,7 @@ export default function DeliveryForm({ onNext }) {
         </div>
         {/* Address Form - SECOND on mobile, FIRST on desktop */}
         <div className='order-2 mt-4 flex-1 min-[1000px]:order-1 min-[1000px]:mt-0'>
-          <h2 className='mb-4 text-2xl font-semibold'>
+          <h2 className='mb-4 text-xl xl:text-3xl font-semibold'>
             Select Delivery Address
           </h2>
           <FormProvider {...methods}>
@@ -160,7 +160,7 @@ export default function DeliveryForm({ onNext }) {
                 {/* Submit */}
                 <Button
                   variant={'secondary'}
-                  className='h-10 w-full border border-gray-400 py-2 text-lg font-light'
+                  className='h-10 w-full lg:w-64 bg-secondary lg:bg-black text-black lg:text-white border border-gray-400 py-2 text-lg font-light'
                   type='submit'
                 >
                   Save Address
@@ -198,7 +198,7 @@ export default function DeliveryForm({ onNext }) {
           <Link
             href='tel:+911234567890'
             aria-label='PHONE'
-            className='bg-primary text-primary-foreground flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:scale-110'
+            className='bg-primary text-primary-foreground flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full transition-all duration-300 hover:scale-110'
           >
             <IoCall size={22} />
           </Link>
@@ -209,7 +209,7 @@ export default function DeliveryForm({ onNext }) {
             target='_blank'
             rel='noopener noreferrer'
             aria-label='WHATS APP'
-            className='bg-primary text-primary-foreground flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:scale-110'
+            className='bg-primary text-primary-foreground flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full transition-all duration-300 hover:scale-110'
           >
             <IoLogoWhatsapp size={22} />
           </Link>
@@ -218,7 +218,7 @@ export default function DeliveryForm({ onNext }) {
           <Link
             href='mailto:hello@example.com'
             aria-label='MESSAGE'
-            className='bg-primary text-primary-foreground flex h-10 w-10 items-center justify-center rounded-full transition-all duration-300 hover:scale-110'
+            className='bg-primary text-primary-foreground flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-full transition-all duration-300 hover:scale-110'
           >
             <IoMail size={22} />
           </Link>
