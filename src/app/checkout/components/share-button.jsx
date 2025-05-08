@@ -27,10 +27,6 @@ export default function ShareButton({ className, url, title, media }) {
         whatsapp: `https://wa.me/?text=${encodeURIComponent(`${title} ${url}`)}`
     };
 
-    const handleShareClick = () => {
-        setIsOpen(!isOpen);
-    };
-
     const handleNativeShare = async () => {
         try {
             await navigator.share({

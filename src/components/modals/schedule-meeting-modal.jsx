@@ -32,6 +32,34 @@ export function ScheduleCallDialog({ open, setOpen }) {
   const [time, setTime] = useState('10:00');
   const [language, setLanguage] = useState('english');
   const [country, setCountry] = useState({ code: '+1', name: 'US' });
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const [platform, setPlatform] = useState('');
+  const [notes, setNotes] = useState('');
+
+  const handleSubmit = () => {
+    if (!platform) {
+      alert('Please select a preferred platform.');
+      return;
+    }
+
+    const formData = {
+      date: format(date, 'yyyy-MM-dd'),
+      time,
+      phone: `${country.code} ${phone}`,
+      email,
+      language,
+      country: country.name,
+      platform,
+      notes
+    };
+
+    console.log('Form Data:', formData);
+    if(formData === true){
+      alert('thank you')
+    }
+  };
+
 
   const countryOptions = [
     { code: '+1', name: 'US' },
@@ -44,7 +72,7 @@ export function ScheduleCallDialog({ open, setOpen }) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className='p-0 sm:w-[90vw] md:max-w-2xl lg:max-w-4xl xl:max-w-5xl'>
+      <DialogContent className='p-0 sm:w-[90vw] md:max-w-2xl lg:max-w-4xl xl:max-w-5xl border-0'>
         <div className='flex'>
           {/* Left Side - Banner */}
           <div className='bg-primary hidden w-2/5 lg:block'>
@@ -179,7 +207,9 @@ export function ScheduleCallDialog({ open, setOpen }) {
                       type='tel'
                       placeholder='(123) 456-7890'
                       required
-                      className='w-full'
+                      pattern='[0-9]{10,15}'
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                     />
                   </div>
                 </div>
@@ -187,8 +217,13 @@ export function ScheduleCallDialog({ open, setOpen }) {
 
               {/* Email */}
               <div className='space-y-2'>
-                <label className='text-sm font-medium text-gray-700'>Email Address*</label>
-                <Input type='email' placeholder='your@email.com' required />
+                <Input
+                  type='email'
+                  placeholder='your@email.com'
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </div>
 
               {/* Fixed Language */}
@@ -205,7 +240,7 @@ export function ScheduleCallDialog({ open, setOpen }) {
                 <label className='text-sm font-medium text-gray-700'>
                   Preferred Platform
                 </label>
-                <Select>
+                <Select value={platform} onValueChange={setPlatform}>
                   <SelectTrigger className='w-full'>
                     <SelectValue placeholder='Select platform' />
                   </SelectTrigger>
@@ -216,6 +251,7 @@ export function ScheduleCallDialog({ open, setOpen }) {
                     <SelectItem value='phone'>Phone Call (No Video)</SelectItem>
                   </SelectContent>
                 </Select>
+
               </div>
 
               {/* Additional Notes */}
@@ -223,11 +259,18 @@ export function ScheduleCallDialog({ open, setOpen }) {
                 <label className='text-sm font-medium text-gray-700'>
                   Any specific designs you'd like to see? (Optional)
                 </label>
-                <Textarea placeholder='Mention product codes or styles...' />
+                <Textarea
+                  placeholder='Mention product codes or styles...'
+                  value={notes}
+                  onChange={(e) => setNotes(e.target.value)}
+                />
               </div>
 
               {/* Submit Button */}
-              <Button className='mt-4 w-full py-3 sm:py-6 text-sm sm:text-base font-medium'>
+              <Button className='mt-4 w-full py-3 sm:py-6 text-sm sm:text-base font-medium' onClick={(e) => {
+                e.preventDefault();
+                handleSubmit();
+              }}>
                 Confirm Video Call Appointment
               </Button>
             </div>

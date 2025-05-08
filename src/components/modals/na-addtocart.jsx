@@ -8,8 +8,9 @@ import {
   DialogFooter
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, LogIn, UserPlus, Image } from 'lucide-react';
+import { ShoppingCart, LogIn, UserPlus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 
 export function AddToCartNotAllowedModal({ open, onOpenChange }) {
   const router = useRouter();
@@ -19,8 +20,8 @@ export function AddToCartNotAllowedModal({ open, onOpenChange }) {
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className='overflow-hidden rounded-xl p-0 sm:max-w-4xl'>
+    <Dialog open={open} onOpenChange={onOpenChange} className='rounded-none'>
+      <DialogContent className='overflow-hidden rounded-xl p-0 sm:max-w-4xl border-0'>
         <DialogTitle className='sr-only'>
           Wishlist Access Denied Popup
         </DialogTitle>

@@ -88,7 +88,7 @@ export default function ProductDetails({ className, data }) {
     });
     const data = await res.json();
     if (!data.authenticated) {
-      return (window.location.href = '/sign-in');
+      return (window.location.href = '/login');
     }
     return (window.location.href = '/checkout');
   };
@@ -99,7 +99,7 @@ export default function ProductDetails({ className, data }) {
     });
     const data = await res.json();
     if (!data.authenticated) {
-      return (window.location.href = '/sign-in');
+      return (window.location.href = '/login');
     }
     return (window.location.href = '/account/wishlist');
   };
@@ -342,7 +342,6 @@ export default function ProductDetails({ className, data }) {
       <div className='xs:p-0 pt-3'>
         {/* See It Live Section */}
         <div
-          onClick={() => setOpenMeeting(true)}
           className='bg-secondary xs:pb-0 mb-6 flex items-center gap-2 rounded-lg p-1 pb-3 sm:gap-6 sm:p-4 md:items-start'
         >
           <Image
@@ -360,7 +359,7 @@ export default function ProductDetails({ className, data }) {
               Join live video call with our consultants to see the designs up
               close
             </p>
-            <Button className='h-[30px] w-[130px] rounded-full text-xs md:h-auto md:text-sm'>
+            <Button className='h-[30px] w-[130px] rounded-full text-xs md:h-auto md:text-sm' onClick={() => setOpenMeeting(true)}>
               See it Live <TbVideoPlus />
             </Button>
           </div>
@@ -407,9 +406,9 @@ export default function ProductDetails({ className, data }) {
             >
               <Heart className='h-4 w-4 md:h-5 md:w-5' strokeWidth={1.6} />
             </button>
-              <ShareButton
-                url={window.location.href}
-              />
+            <ShareButton
+              url={window.location.href}
+            />
           </div>
         </div>
       </div>

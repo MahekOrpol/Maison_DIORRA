@@ -2,20 +2,36 @@
 import { useCopyToClipboard } from '@/hooks/useCopyToClipboard';
 import { MoveRight } from 'lucide-react';
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IoCopy } from 'react-icons/io5';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious
 } from '@/components/ui/carousel';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function S1HeroSection() {
   const { copy } = useCopyToClipboard();
   const [showTooltip, setShowTooltip] = useState(false);
+  const [api, setApi] = React.useState(null);
+  const [current, setCurrent] = React.useState(0);
+
+  useEffect(() => {
+    if (!api) return;
+
+    const onSelect = () => {
+      setCurrent(api.selectedScrollSnap());
+    };
+
+    api.on("select", onSelect);
+
+    // Call once initially to sync current dot
+    onSelect();
+
+    return () => {
+      api.off("select", onSelect);
+    };
+  }, [api]);
 
   const handleCopy = () => {
     copy('FIRST20');
@@ -25,18 +41,12 @@ export default function S1HeroSection() {
 
   return (
     <section className='relative w-full'>
-      <Carousel className='w-full' opts={{ loop: true }}>
+      <Carousel className='w-full' opts={{ loop: true }} setApi={setApi}>
         <CarouselContent>
-          {[1, 2].map((_, index) => (
+          {[0,1, 2].map((_, index) => (
             <CarouselItem key={index}>
               <div
-                className='3xl:h-[65vh] h-[400px] w-full bg-[url("/img/home-hero2.jpg")] bg-cover bg-center bg-no-repeat sm:h-[450px] md:h-[500px] md:bg-left xl:h-[84vh]'
-                // style={{
-                //   backgroundImage: `url(${
-                //     index === 0 ? '/img/home-hero2.jpg' : '/img/home-hero2.jpg'
-                //   })`,
-                //   backgroundPosition: index === 0 ? 'right' : 'left'
-                // }}
+                className='3xl:h-[70vh] h-[400px] w-full bg-[url("/img/home-hero2.jpg")] bg-cover bg-center bg-no-repeat sm:h-[450px] md:h-[500px] md:bg-left xl:h-[84vh]'
               >
                 <div className='wrapper relative h-full bg-black/20'>
                   <div className='absolute inset-x-0 bottom-[14%] flex w-full flex-col items-center justify-end text-center text-white md:bottom-[25%] md:left-[12%] md:w-fit md:translate-x-[-15%]'>
@@ -46,7 +56,7 @@ export default function S1HeroSection() {
                     <h1 className='font-rozha hero-font mb-5 leading-[110%] font-medium tracking-wide'>
                       GET 20% OFF ON YOUR <div>FIRST ORDER</div>
                     </h1>
-                    <div className='relative mb-3 max-w-2xl sm:text-lg lg:mb-6'>
+                    <div className='relative mb-3 max-w-2xl text-sm xs:text-lg lg:mb-6'>
                       <p>
                         Use code{' '}
                         <button
@@ -60,7 +70,7 @@ export default function S1HeroSection() {
                     </div>
                     <Link
                       href='/products/rings'
-                      className='relative flex items-center rounded-full bg-black px-8 py-2.5 text-sm font-semibold text-white transition-all duration-300 before:absolute before:top-1 before:left-1 before:-z-10 before:h-full before:w-full before:rounded-full before:bg-white hover:before:opacity-0 md:py-3 md:text-base'
+                      className='relative flex items-center rounded-full bg-black py-2 px-3.5 text-xs xs:px-8 xs:py-2.5 xs:text-sm font-semibold text-white transition-all duration-300 before:absolute before:top-1 before:left-1 before:-z-10 before:h-full before:w-full before:rounded-full before:bg-white hover:before:opacity-0 md:py-3 md:text-base'
                     >
                       SHOP NOW <MoveRight className='ml-2 inline' />
                     </Link>
@@ -70,9 +80,18 @@ export default function S1HeroSection() {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className='absolute top-1/2 left-4 z-20 -translate-y-1/2 rounded-full bg-white p-2 text-black shadow-lg hover:bg-transparent hover:text-white dark:bg-white' />
 
-        <CarouselNext className='absolute top-1/2 right-4 z-20 -translate-y-1/2 rounded-full bg-white p-2 text-black shadow-lg hover:bg-transparent hover:text-white dark:bg-white' />
+        {/* Custom Pagination Dots */}
+        <div className="absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2">
+          {[0, 1, 2].map((_, index) => (
+            <button
+              key={index}
+              onClick={() => api?.scrollTo(index)}
+              className={`h-2 w-2 rounded-full transition-all duration-300 ${current === index ? 'bg-white w-6' : 'bg-white/50'}`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
       </Carousel>
 
       {showTooltip && (
