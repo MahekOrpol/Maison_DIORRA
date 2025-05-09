@@ -88,7 +88,7 @@ export default function PreviewCard({
         {/* Wishlist Button */}
         <button
           onClick={() => setLiked(!liked)}
-          className='hover:bg-primary/4 absolute top-1 right-1 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow shadow-gray-400 xl:top-3 xl:right-3'
+          className='hover:bg-primary/4 absolute top-2 right-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow shadow-gray-400 xl:top-3 xl:right-3'
         >
           <Heart
             className={cn(
@@ -190,7 +190,7 @@ export default function PreviewCard({
               <DrawerTitle className='wrapper absolute top-3 z-10 flex justify-between border-none'>
                 <button
                   onClick={() => setLiked(!liked)}
-                  className='group rounded-full transition-all hover:scale-110'
+                  className='group rounded-full transition-all hover:scale-110 hover:bg-secondary p-1 h-8 bg-white shadow shadow-gray-400'
                   aria-label='Add to wishlist'
                 >
                   <FaHeart

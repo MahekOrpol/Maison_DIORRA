@@ -22,7 +22,7 @@ export default function S7NewArrivals() {
             className='4xl:w-[13vw] absolute top-0 left-0 z-10 max-h-[430px] object-cover md:w-[160px] lg:w-[130px] xl:w-[190px] 2xl:w-[230px]'
           />
           <div className='wrapper relative h-full'>
-            <p className='absolute top-5 left-0 z-20 mb-2 w-full text-center text-[1.40rem] text-black underline decoration-[1.5px] underline-offset-4 md:text-3xl lg:top-[14%] lg:left-20 lg:w-fit lg:text-2xl lg:font-medium xl:left-30 xl:text-3xl 2xl:left-[9%] 2xl:text-4xl'>
+            <p className='absolute top-5 left-0 z-20 mb-2 w-full text-center text-[1.40rem] text-black underline decoration-[1.5px] underline-offset-4 md:text-4xl lg:top-[14%] lg:left-20 lg:w-fit lg:text-3xl lg:font-medium xl:left-30 xl:text-4xl 2xl:left-[9%] 2xl:text-5xl'>
               New Arrivals
             </p>
             <div

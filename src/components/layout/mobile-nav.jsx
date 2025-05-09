@@ -65,7 +65,7 @@ export default function MobileNavDrawer() {
       </DrawerTrigger>
       <DrawerClose ref={drawerCloseRef} className='hidden' />
 
-      <DrawerContent className='flex flex-col p-0 data-[vaul-drawer-direction=left]:w-[85%]'>
+      <DrawerContent className='flex flex-col p-0 data-[vaul-drawer-direction=left]:w-[85%] border-none'>
         <DrawerTitle className='sr-only'>Mobile side nav bar</DrawerTitle>
 
         {/* TOP SECTION */}

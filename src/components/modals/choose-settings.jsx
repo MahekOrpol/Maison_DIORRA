@@ -10,16 +10,19 @@ export default function ChooseSettingsModal({ open, onOpenChange }) {
   const handleSelect = (option) => {
     setSelectedOption(option);
     onOpenChange(false);
-  };
+  }; const shanks = [
+    { name: 'Solitare', imgUrl: '/img/shapes/shank1.png' },
+    { name: 'French Pave', imgUrl: '/img/shapes/shank2.png' }
+  ];
 
   const options = [
     {
-      label: 'Ring',
-      image: '/icons/ring-fv.svg'
+      label: 'Solitare',
+      image: '/img/shapes/shank1.png'
     },
     {
-      label: 'Pendant',
-      icon: <GiGemPendant className='size-12 text-black' />
+      label: 'French Pave',
+      image: '/img/shapes/shank2.png'
     }
   ];
 
@@ -30,12 +33,12 @@ export default function ChooseSettingsModal({ open, onOpenChange }) {
           Choose Your Setting
         </DialogTitle>
 
-        <div className='mt-6 grid grid-cols-2 gap-6 sm:gap-6 sm:px-4 sm:pb-4'>
+        <div className='mt-6 grid grid-cols-2 gap-6 sm:gap-6 sm:px-7 sm:pb-4'>
           {options.map((opt, index) => (
             <div
               key={index}
               onClick={() => handleSelect(opt.label)}
-              className='group bg-secondary cursor-pointer rounded-lg border border-gray-200 p-2 text-center transition hover:border-black'
+              className='group bg-secondary cursor-pointer rounded-lg border border-gray-200 p-1 xs:p-1.5 text-center transition hover:border-black'
             >
               <div className='mb-2 flex h-16 items-center justify-center'>
                 {opt.image ? (

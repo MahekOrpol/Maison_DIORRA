@@ -122,14 +122,14 @@ export default function ProductListingPage({ params }) {
           Find Your Statement Piece – Crafted to Elevate Your Style
         </p>
         {category === 'rings' && (
-          <div className='hidden justify-center gap-4 pt-2 lg:flex'>
+          <div className='hidden justify-center gap-4 pt-3 lg:flex'>
             {ringStyles.map((style) => {
               const isSelected = selectedStyle === style.styleType;
               return (
                 <button
                   key={style.styleType}
                   onClick={() => setSelectedStyle(style.styleType)}
-                  className={`inline-flex w-[100px] flex-col items-center rounded-lg border p-2 pt-4 text-xs transition-all ${isSelected ? 'bg-muted border-black' : 'border-transparent hover:border-gray-300'} `}
+                  className={`inline-flex w-[120px] flex-col items-center rounded-2xl border p-3 pt-4 text-xs transition-all ${isSelected ? 'bg-muted border-black' : 'border-secondary shadow-md hover:border-gray-300'} `}
                 >
                   <div className='mb-4 flex h-[30px] w-[70px] items-center justify-center 2xl:h-[35px]'>
                     <Image
@@ -223,6 +223,13 @@ export default function ProductListingPage({ params }) {
           );
         })}
       </div>
+      <div className="flex flex-col items-center justify-center min-h-[100px] p-4">
+        <p className="mb-4 text-gray-600">Showing 20 Out Of 100 </p>
+        <button className="group relative px-6 py-2 rounded-md text-black font-medium border-2 border-black transition-all duration-300 overflow-hidden">
+          <span className="absolute inset-0 scale-x-0 group-hover:scale-x-100 origin-left bg-black transition-transform duration-300 ease-out z-0"></span>
+          <span className="relative z-10 group-hover:text-white transition-colors duration-300">Load More</span>
+        </button>
+      </div>
     </div>
   );
 }
@@ -312,11 +319,10 @@ function ProductsFilter({ category, subCategory, className }) {
                       key={karat}
                       variant='outline'
                       onClick={() => setSelectedPurity(karat)}
-                      className={`bg-secondary rounded-md transition ${
-                        isSelected
-                          ? 'border-black'
-                          : 'border-transparent hover:border-black'
-                      }`}
+                      className={`bg-secondary rounded-md transition ${isSelected
+                        ? 'border-black'
+                        : 'border-transparent hover:border-black'
+                        }`}
                     >
                       {karat}
                     </Button>
@@ -338,11 +344,10 @@ function ProductsFilter({ category, subCategory, className }) {
                     <button
                       key={idx}
                       onClick={() => setSelectedStyle(style.styleType)}
-                      className={`bg-secondary flex h-full flex-col items-center rounded-md border px-2 pb-2 text-[10px] transition-all ${
-                        isSelected
-                          ? 'border-black'
-                          : 'border-transparent hover:border-black'
-                      }`}
+                      className={`bg-secondary flex h-full flex-col items-center rounded-md border px-2 pb-2 text-[10px] transition-all ${isSelected
+                        ? 'border-black'
+                        : 'border-transparent hover:border-black'
+                        }`}
                     >
                       <Image
                         src={style.imgUrl}

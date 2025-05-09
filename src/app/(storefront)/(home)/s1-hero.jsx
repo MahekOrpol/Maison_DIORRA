@@ -42,9 +42,9 @@ export default function S1HeroSection() {
   return (
     <section className='relative w-full'>
       <Carousel className='w-full' opts={{ loop: true }} setApi={setApi}>
-        <CarouselContent>
-          {[0,1, 2].map((_, index) => (
-            <CarouselItem key={index}>
+        <CarouselContent className='ml-0'>
+          {[0, 1, 2].map((_, index) => (
+            <CarouselItem key={index} className='pl-0'>
               <div
                 className='3xl:h-[70vh] h-[400px] w-full bg-[url("/img/home-hero2.jpg")] bg-cover bg-center bg-no-repeat sm:h-[450px] md:h-[500px] md:bg-left xl:h-[84vh]'
               >
