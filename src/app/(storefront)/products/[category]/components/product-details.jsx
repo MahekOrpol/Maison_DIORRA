@@ -64,12 +64,11 @@ export default function ProductDetails({
   className,
   data,
   category,
-  subcategory
+  subcategory,
+  selectedMetal,
+  setSelectedMetal
 }) {
   const [selectedSize, setSelectedSize] = useState();
-  const [selectedMetal, setSelectedMetal] = useState(
-    data?.selectedVariants?.metalType || ' '
-  );
   const [selectedShape, setSelectedShape] = useState(
     data?.selectedVariants?.diamondShape || ' '
   );
@@ -110,7 +109,6 @@ export default function ProductDetails({
     }
     router.push('/account/wishlist');
   };
-
   return (
     <section className={cn(className)}>
       <div>
@@ -288,6 +286,7 @@ export default function ProductDetails({
         </div>
         <hr />
       </div>
+
       {/* Diamond Shape */}
       {(isRing === true || isDiamondBased === true) &&
         Array.isArray(shapes) &&

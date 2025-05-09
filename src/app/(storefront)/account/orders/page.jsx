@@ -39,17 +39,17 @@ const orders = [
     title: 'Earring - 18k with Stone'
   }
 ];
-async function getOrders() {
-  const res = await fetch('http://localhost:5000/orders?userId=1');
-  if (!res.ok) {
-    throw new Error('Failed to fetch data');
-  }
-  return res.json();
-}
+// async function getOrders() {
+//   const res = await fetch('http://localhost:5000/orders?userId=1');
+//   if (!res.ok) {
+//     throw new Error('Failed to fetch data');
+//   }
+//   return res.json();
+// }
 
 export default async function MyOrdersPage() {
-  const orders = await getOrders();
-  console.log(orders);
+  // const orders = await getOrders();
+  // console.log(orders);
   return (
     <div className='mx-auto max-w-4xl px-4 py-10'>
       <h1 className='mb-6 text-3xl font-bold'>My Orders</h1>

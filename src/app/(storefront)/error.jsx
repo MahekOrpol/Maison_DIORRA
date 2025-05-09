@@ -1,25 +1,30 @@
 'use client';
 
-export default function Error({ reset }) {
+import { useEffect } from 'react';
+import { AlertTriangle } from 'lucide-react'; // optional icon
+import { Button } from '@/components/ui/button';
+
+export default function Error({ error, reset }) {
+  useEffect(() => {
+    console.error('Caught error:', error);
+  }, [error]);
+
   return (
-    <div className='mx-auto my-4 flex max-w-xl flex-col rounded-lg border border-neutral-200 bg-white p-8 md:p-12'>
-      <h2 className='text-xl font-bold'>
-        <span className='block text-center font-light text-red-500'>
-          Something went wrong
-        </span>
-        <br />
-        Oh no!{' '}
-      </h2>
-      <p className='my-2'>
-        There was an issue with our storefront. This could be a temporary issue,
-        please try your action again.
-      </p>
-      <button
-        className='bg-primary text-primary-foreground mx-auto mt-4 flex w-full items-center justify-center rounded-full p-4 tracking-wide hover:opacity-90'
-        onClick={() => reset()}
-      >
-        Try Again
-      </button>
+    <div className='mx-auto my-20 max-w-md rounded-xl border border-neutral-200 bg-white p-8 shadow-md'>
+      <div className='flex flex-col items-center text-center'>
+        <AlertTriangle className='mb-2 h-10 w-10' />
+        <h2 className='text-2xl font-semibold'>Something went wrong</h2>
+        <p className='mt-2 text-sm text-gray-500'>
+          An unexpected error occurred. Please try again.
+        </p>
+        <div className='mt-4 w-full rounded-md bg-red-50 p-4 text-left text-sm text-red-700'>
+          <strong className='mb-1 block'>Error Message :</strong>
+          <code className='break-words'>{error.message}</code>
+        </div>
+        <Button onClick={reset} className='mt-6 w-full rounded-full'>
+          Try Again
+        </Button>
+      </div>
     </div>
   );
 }

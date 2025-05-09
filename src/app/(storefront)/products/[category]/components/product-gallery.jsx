@@ -80,7 +80,7 @@ const ZoomableImage = ({ src, alt }) => {
   );
 };
 
-export default function ProductGallery({ className }) {
+export default function ProductGallery({ className, media }) {
   return (
     <>
       {/* Mobile View */}
@@ -94,7 +94,7 @@ export default function ProductGallery({ className }) {
           className
         )}
       >
-        <DesktopGallery />
+        <DesktopGallery media={media} />
       </div>
     </>
   );
@@ -171,34 +171,44 @@ export function MobileGallery() {
   );
 }
 
-function DesktopGallery() {
+function DesktopGallery({ media }) {
+  const imageMedia = media.filter((m) => m.mediaType === 'image');
+  const videoMedia = media.find((m) => m.mediaType === 'video');
+  const viewer360 = media.find((m) => m.mediaType === '360');
+
   return (
     <div className='grid grid-cols-2 gap-4 overflow-hidden'>
-      <Jewelry360Viewer images={images360} className='col-span-1' />
-      {images.map((image, index) => {
-        const isFirst = index === 0;
-        const isLast = index === images.length - 1;
-        return (
-          <div
-            key={index}
-            className={`flex items-center justify-center overflow-hidden border border-black/20 bg-gray-100`}
-          >
-            <ZoomableImage src={image} alt={`Product ${index}`} />
-          </div>
-        );
-      })}
-      <div className='col-span-1'>
-        <div className='h-full overflow-hidden border border-black/20 bg-gray-100'>
-          <video
-            src='https://checkout.keyzarjewelry.com/cdn/shop/videos/c/vp/a23cfeccd86a4dd8bee5f19192ff2f55/a23cfeccd86a4dd8bee5f19192ff2f55.HD-1080p-7.2Mbps-33725443.mp4'
-            className='h-full w-full object-cover'
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
+      {/* 360 Viewer First */}
+      {viewer360 && (
+        <Jewelry360Viewer images={images360} className='col-span-1' />
+      )}
+
+      {/* Images */}
+      {imageMedia.map((item, index) => (
+        <div
+          key={index}
+          className='flex items-center justify-center overflow-hidden border border-black/20 bg-gray-100'
+        >
+          <ZoomableImage src={item.mediaUrl} alt={`Product ${index}`} />
         </div>
-      </div>
+      ))}
+
+      {/* Video Last */}
+      {videoMedia && (
+        <div className='col-span-1'>
+          <div className='h-full overflow-hidden border border-black/20 bg-gray-100'>
+            <video
+              src={videoMedia.mediaUrl}
+              poster={videoMedia.thumbnailImg}
+              className='h-full w-full object-cover'
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 }

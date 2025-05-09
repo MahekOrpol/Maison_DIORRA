@@ -1,7 +1,6 @@
+'use client';
 import ProductGallery from '@/app/(storefront)/products/[category]/components/product-gallery';
 import ProductDetails from '@/app/(storefront)/products/[category]/components/product-details';
-import { MdStarRate, MdVerified } from 'react-icons/md';
-import { FaUserCircle } from 'react-icons/fa';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -13,7 +12,7 @@ import {
 import { AiOutlineColumnHeight } from 'react-icons/ai';
 import Image from 'next/image';
 import Link from 'next/link';
-import { cn } from '@/lib/utils';
+import { cn, getProductDetaisByCategory } from '@/lib/utils';
 import RelatedProducts from '@/components/related-products';
 import CustomTagWrapper from '@/components/custom-tag-wrapper';
 import { LiaBalanceScaleSolid } from 'react-icons/lia';
@@ -23,10 +22,18 @@ import { RiWeightLine } from 'react-icons/ri';
 import { PiDiamondsFour } from 'react-icons/pi';
 import ReviewModal from '@/components/modals/review-model';
 import { CustomerReviews } from './customer-reviews';
-export default async function ProductDetailsPage({ params }) {
-  const { category, subcategory } = params;
-  const data = await fetch('http://localhost:5000/productDetails/2');
-  const product = await data.json();
+import { use, useEffect, useState } from 'react';
+
+export default function ProductDetailsPage({ params }) {
+  const [selectedMetal, setSelectedMetal] = useState('white');
+
+  const { category, subcategory } = use(params);
+  // const data = await fetch('http://localhost:5000/productDetails/2');
+  // const product = await data.json();
+
+  const product = getProductDetaisByCategory(category);
+  // console.log(selectedMetal);
+
   return (
     <>
       <div className='wrapper'>
@@ -54,15 +61,20 @@ export default async function ProductDetailsPage({ params }) {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <CustomTagWrapper className='xs:my-[10px] 3xl:my-[10px] my-[8px] lg:my-[10px] lg:mb-[30px] xl:mb-[40px] 3xl:mb-[40px]' />
+        <CustomTagWrapper className='xs:my-[10px] 3xl:my-[10px] 3xl:mb-[40px] my-[8px] lg:my-[10px] lg:mb-[30px] xl:mb-[40px]' />
       </div>
       <div className='mx-auto mb-8 flex w-full max-w-[2100px] flex-col gap-3 md:gap-4 lg:flex-row xl:gap-6'>
-        <ProductGallery className='lg:sticky lg:top-10 lg:h-fit lg:w-[45%]' />
+        <ProductGallery
+          className='lg:sticky lg:top-10 lg:h-fit lg:w-[45%]'
+          media={product.media[selectedMetal]}
+        />
         <ProductDetails
           className='3xl:pr-14 4xl:pr-20 px-3 sm:px-6 lg:w-[55%] lg:pr-8 2xl:pr-12'
           data={product}
           category={category}
           subcategory={subcategory}
+          selectedMetal={selectedMetal}
+          setSelectedMetal={setSelectedMetal}
         />
       </div>
       <RingDetails className='wrapper' data={product.finalProductDetails} />

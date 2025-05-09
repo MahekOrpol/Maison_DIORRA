@@ -1,16 +1,20 @@
 import {
+  baraceletDetails,
   bracelet01,
   bracelet02,
   braceletData,
   earring01,
   earring02,
   earringData,
+  earringDetails,
   necklace01,
   necklace02,
   necklaceData,
+  necklaceDetails,
   ring01,
   ring02,
-  ringData
+  ringData,
+  ringDetails
 } from '@/constants/data';
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
@@ -50,4 +54,35 @@ export function repeatProductsV1(count) {
   }
 
   return result;
+}
+
+const productSources = {
+  rings: [ring01, ring02],
+  earrings: [earring01, earring02],
+  necklaces: [necklace01, necklace02],
+  bracelets: [bracelet01, bracelet02]
+};
+
+export function repeatProductsByCategory(category, count) {
+  const sources = productSources[category] || [];
+  if (sources.length === 0) {
+    throw new Error(`No products found for category: "${category}"`);
+  }
+
+  const result = [];
+  for (let i = 0; i < count; i++) {
+    result.push(sources[i % sources.length]);
+  }
+
+  return result;
+}
+
+export function getProductDetaisByCategory(category) {
+  const productDetails = {
+    rings: ringDetails,
+    earrings: earringDetails,
+    necklaces: necklaceDetails,
+    bracelets: baraceletDetails
+  };
+  return productDetails[category];
 }

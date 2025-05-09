@@ -18,7 +18,7 @@ import {
   DrawerClose,
   DrawerTitle
 } from '@/components/ui/drawer';
-import { cn } from '@/lib/utils';
+import { cn, repeatProductsByCategory } from '@/lib/utils';
 import CustomTagWrapper from '@/components/custom-tag-wrapper';
 import PreviewCard from '@/components/preview-card';
 
@@ -81,7 +81,6 @@ const ringStyles = [
     imgUrl: '/img/ring-style-stone.svg'
   }
 ];
-// const data = repeatProducts(80);
 
 export default function ProductListingPage({ params }) {
   const [selectedStyle, setSelectedStyle] = useState(null);
@@ -89,17 +88,17 @@ export default function ProductListingPage({ params }) {
   const { category, subcategory } = React.use(params);
 
   useEffect(() => {
-    (async function fetchData() {
-      try {
-        const data = await fetch(`http://localhost:5000/${category}`);
-        const products = await data.json();
-        setData(products);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
+    // (async function fetchData() {
+    //   try {
+    //     const data = await fetch(`http://localhost:5000/${category}`);
+    //     const products = await data.json();
+    //     setData(products);
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // })();
+    setData(repeatProductsByCategory(category, 80));
   }, []);
-
   return (
     <div className='wrapper'>
       {/* arrowed label */}
