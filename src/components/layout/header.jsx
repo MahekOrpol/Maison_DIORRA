@@ -529,7 +529,7 @@ export default function Header() {
                 <Link
                   href={item.href}
                   className={cn(
-                    'relative flex items-center gap-1 px-3.5 py-2',
+                    'relative flex items-center gap-1 px-4 py-2 font-light',
                     'after:absolute after:right-0 after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-center after:scale-x-0 after:content-[""]',
                     'after:bg-black after:transition-transform after:duration-300',
                     activeMenu === item.label && 'font-medium after:scale-x-95'

@@ -201,7 +201,7 @@ export default function PreviewCardMd({ product, className }) {
               <DrawerTitle className='wrapper absolute top-3 z-10 flex justify-between border-none'>
                 <button
                   onClick={() => setLiked(!liked)}
-                  className='group rounded-full transition-all hover:scale-110'
+                  className='group rounded-full transition-all hover:scale-110 hover:bg-secondary p-1 h-8 bg-white shadow shadow-gray-400'
                   aria-label='Add to wishlist'
                 >
                   <FaHeart
