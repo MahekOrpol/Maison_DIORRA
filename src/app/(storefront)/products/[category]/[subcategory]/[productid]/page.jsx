@@ -23,7 +23,8 @@ import { RiWeightLine } from 'react-icons/ri';
 import { PiDiamondsFour } from 'react-icons/pi';
 import ReviewModal from '@/components/modals/review-model';
 import { CustomerReviews } from './customer-reviews';
-export default async function ProductDetailsPage() {
+export default async function ProductDetailsPage({ params }) {
+  const { category, subcategory } = params;
   const data = await fetch('http://localhost:5000/productDetails/2');
   const product = await data.json();
   return (
@@ -42,13 +43,13 @@ export default async function ProductDetailsPage() {
                 href='/components'
                 className='3xl:text-lg lg:text-base'
               >
-                Components
+                {category}
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbPage className='3xl:text-lg lg:text-base'>
-                Breadcrumb
+                {subcategory}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
@@ -60,6 +61,8 @@ export default async function ProductDetailsPage() {
         <ProductDetails
           className='3xl:pr-14 4xl:pr-20 px-3 sm:px-6 lg:w-[55%] lg:pr-8 2xl:pr-12'
           data={product}
+          category={category}
+          subcategory={subcategory}
         />
       </div>
       <RingDetails className='wrapper' data={product.finalProductDetails} />
@@ -166,8 +169,9 @@ function RingDetails({ data, className }) {
               {items.map(({ icon, label, value, desc, fullWidth }, index) => (
                 <div
                   key={index}
-                  className={`flex min-h-[142px] flex-col gap-2 rounded-md bg-white p-2 md:p-4 ${fullWidth ? 'col-span-2' : ''
-                    }`}
+                  className={`flex min-h-[142px] flex-col gap-2 rounded-md bg-white p-2 md:p-4 ${
+                    fullWidth ? 'col-span-2' : ''
+                  }`}
                 >
                   <div className='inline-flex gap-2 text-xs font-light sm:text-sm'>
                     {icon}
@@ -186,7 +190,3 @@ function RingDetails({ data, className }) {
     </section>
   );
 }
-
-
-
-

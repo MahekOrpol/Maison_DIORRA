@@ -100,7 +100,6 @@ export default function ProductListingPage({ params }) {
     })();
   }, []);
 
-  console.log(category);
   return (
     <div className='wrapper'>
       {/* arrowed label */}

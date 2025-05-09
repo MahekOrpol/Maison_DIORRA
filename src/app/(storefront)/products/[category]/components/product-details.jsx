@@ -24,7 +24,48 @@ import { FaWhatsapp } from 'react-icons/fa';
 import { ScheduleCallDialog } from '@/components/modals/schedule-meeting-modal';
 import ShareButton from '@/app/checkout/components/share-button';
 
-export default function ProductDetails({ className, data }) {
+const metalTypes = [
+  { name: 'rose', url: '/img/rose-theme.png' },
+  { name: 'gold', url: '/img/gold-theme.png' },
+  { name: 'white', url: '/img/white-theme.png' }
+];
+const metalPurities = ['14K', '18K', '22K'];
+const ringSizes = [
+  { us: '3', mm: '44.2' },
+  { us: '4', mm: '45.0' },
+  { us: '5', mm: '45.8' },
+  { us: '6', mm: '46.5' },
+  { us: '7', mm: '47.3' },
+  { us: '8', mm: '48.1' },
+  { us: '9', mm: '48.9' },
+  { us: '10', mm: '49.7' },
+  { us: '11', mm: '50.5' },
+  { us: '12', mm: '51.3' },
+  { us: '13', mm: '52.1' },
+  { us: '14', mm: '52.9' },
+  { us: '15', mm: '53.7' }
+];
+const shapes = [
+  { name: 'round', imgUrl: '/icons/shape-round.svg' },
+  { name: 'pear', imgUrl: '/icons/shape-pear.svg' },
+  { name: 'emerald', imgUrl: '/icons/shape-emerlad.svg' },
+  { name: 'princess', imgUrl: '/icons/shape-princess.svg' }
+];
+const shanks = [
+  { name: 'solitare', imgUrl: '/img/shapes/shank1.png' },
+  { name: 'french pave', imgUrl: '/img/shapes/shank2.png' }
+];
+const icons = [
+  { src: '/icons/badge.svg', label: 'Lifetime Warranty' },
+  { src: '/icons/dollar-inhand.svg', label: '30 Days Free Return' },
+  { src: '/icons/certificate.svg', label: 'Certificate & Appraisal' }
+];
+export default function ProductDetails({
+  className,
+  data,
+  category,
+  subcategory
+}) {
   const [selectedSize, setSelectedSize] = useState();
   const [selectedMetal, setSelectedMetal] = useState(
     data?.selectedVariants?.metalType || ' '
@@ -42,42 +83,8 @@ export default function ProductDetails({ className, data }) {
 
   const router = useRouter();
 
-  const metalTypes = [
-    { name: 'rose', url: '/img/rose-theme.png' },
-    { name: 'gold', url: '/img/gold-theme.png' },
-    { name: 'white', url: '/img/white-theme.png' }
-  ];
-  const metalPurities = ['14K', '18K', '22K'];
-  const ringSizes = [
-    { us: '3', mm: '44.2' },
-    { us: '4', mm: '45.0' },
-    { us: '5', mm: '45.8' },
-    { us: '6', mm: '46.5' },
-    { us: '7', mm: '47.3' },
-    { us: '8', mm: '48.1' },
-    { us: '9', mm: '48.9' },
-    { us: '10', mm: '49.7' },
-    { us: '11', mm: '50.5' },
-    { us: '12', mm: '51.3' },
-    { us: '13', mm: '52.1' },
-    { us: '14', mm: '52.9' },
-    { us: '15', mm: '53.7' }
-  ];
-  const shapes = [
-    { name: 'round', imgUrl: '/icons/shape-round.svg' },
-    { name: 'pear', imgUrl: '/icons/shape-pear.svg' },
-    { name: 'emerald', imgUrl: '/icons/shape-emerlad.svg' },
-    { name: 'princess', imgUrl: '/icons/shape-princess.svg' }
-  ];
-  const shanks = [
-    { name: 'solitare', imgUrl: '/img/shapes/shank1.png' },
-    { name: 'french pave', imgUrl: '/img/shapes/shank2.png' }
-  ];
-  const icons = [
-    { src: '/icons/badge.svg', label: 'Lifetime Warranty' },
-    { src: '/icons/dollar-inhand.svg', label: '30 Days Free Return' },
-    { src: '/icons/certificate.svg', label: 'Certificate & Appraisal' }
-  ];
+  const isRing = category === 'rings';
+  const isDiamondBased = subcategory?.toLowerCase().includes('diamond');
 
   console.log(data);
 
@@ -88,9 +95,9 @@ export default function ProductDetails({ className, data }) {
     });
     const data = await res.json();
     if (!data.authenticated) {
-      return (window.location.href = '/login');
+      router.push('/login');
     }
-    return (window.location.href = '/checkout');
+    router.push('/checkout');
   };
   const handleAddToWishlist = async () => {
     const res = await fetch('/api/check-auth', {
@@ -99,10 +106,11 @@ export default function ProductDetails({ className, data }) {
     });
     const data = await res.json();
     if (!data.authenticated) {
-      return (window.location.href = '/login');
+      router.push('/login');
     }
-    return (window.location.href = '/account/wishlist');
+    router.push('/account/wishlist');
   };
+
   return (
     <section className={cn(className)}>
       <div>
@@ -141,7 +149,7 @@ export default function ProductDetails({ className, data }) {
               {!data?.reviews?.reviews?.length ? (
                 <button
                   className='underline underline-offset-2 hover:no-underline'
-                  onClick={() => { }}
+                  onClick={() => {}}
                 >
                   Add a review
                 </button>
@@ -159,7 +167,7 @@ export default function ProductDetails({ className, data }) {
           <Badge
             variant='outline'
             className={cn(
-              'xs:text-xs rounded-full text-[10px] uppercase xl:text-sm translate-y-8 -translate-x-5.5 xs:-translate-x-0 xs:translate-y-0 absolute right-0',
+              'xs:text-xs xs:-translate-x-0 xs:translate-y-0 absolute right-0 -translate-x-5.5 translate-y-8 rounded-full text-[10px] uppercase xl:text-sm',
               data?.inStock
                 ? 'me-2 border border-green-400 bg-green-100 px-2.5 py-0.5 text-green-800'
                 : 'me-2 border border-gray-500 bg-gray-100 px-2.5 py-0.5 text-gray-800'
@@ -281,63 +289,66 @@ export default function ProductDetails({ className, data }) {
         <hr />
       </div>
       {/* Diamond Shape */}
-      <div className='border-b pt-2 pb-4'>
-        <p className='text-lg font-medium'> Diamond Shape</p>
-        <div className='mt-2 flex gap-2 text-[0.8rem]'>
-          {shapes.map((shape) => (
-            <button
-              key={shape.name}
-              className={cn(
-                'bg-secondary flex aspect-square w-[80px] flex-col items-center justify-center rounded-md border border-transparent transition',
-                selectedShape === shape.name ? 'border-black' : ''
-              )}
-              onClick={() => setSelectedShape(shape.name)}
-            >
-              <Image
-                src={shape.imgUrl}
-                width={60}
-                height={60}
-                alt={shape.name}
-                className='h-3/4 w-3/4 object-contain'
-              />
-              <span className='mt-1'>
-                {shape.name
-                  ? shape.name.charAt(0).toUpperCase() + shape.name.slice(1)
-                  : ''}
-              </span>
-            </button>
-          ))}
-        </div>
-      </div>
+      {(isRing === true || isDiamondBased === true) &&
+        Array.isArray(shapes) &&
+        shapes.length > 0 && (
+          <div className='border-b pt-2 pb-4'>
+            <p className='text-lg font-medium'>Diamond Shape</p>
+            <div className='mt-2 flex gap-2 text-[0.8rem]'>
+              {shapes.map((shape) => (
+                <button
+                  key={shape.name}
+                  className={cn(
+                    'bg-secondary flex aspect-square w-[80px] flex-col items-center justify-center rounded-md border border-transparent transition',
+                    selectedShape === shape.name ? 'border-black' : ''
+                  )}
+                  onClick={() => setSelectedShape(shape.name)}
+                >
+                  <Image
+                    src={shape.imgUrl}
+                    width={60}
+                    height={60}
+                    alt={shape.name}
+                    className='h-3/4 w-3/4 object-contain'
+                  />
+                  <span className='mt-1 capitalize'>{shape.name}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+
       {/* Shank */}
-      <div className='pt-2 pb-6'>
-        <p className='text-lg font-medium'>Shank</p>
-        <div className='flex gap-2 text-[0.8rem]'>
-          {shanks.map((shank) => (
-            <button
-              key={shank.name}
-              className={cn(
-                'bg-secondary flex aspect-square w-[80px] flex-col items-center justify-center rounded-md border border-transparent transition',
-                selectedShank === shank.name ? 'border-black' : ''
-              )}
-              onClick={() => setSelectedShank(shank.name)}
-            >
-              <Image
-                src={shank.imgUrl}
-                width={30}
-                height={30}
-                alt={shank.name}
-                className='h-[30px] w-[30px] object-contain'
-              />
-              <span className='mt-1'>
-                {shank.name
-                  ? shank.name.charAt(0).toUpperCase() + shank.name.slice(1)
-                  : ''}
-              </span>
-            </button>
-          ))}
+      {isRing && (
+        <div className='pt-2 pb-6'>
+          <p className='text-lg font-medium'>Shank</p>
+          <div className='flex gap-2 text-[0.8rem]'>
+            {shanks.map((shank) => (
+              <button
+                key={shank.name}
+                className={cn(
+                  'bg-secondary flex aspect-square w-[80px] flex-col items-center justify-center rounded-md border border-transparent transition',
+                  selectedShank === shank.name ? 'border-black' : ''
+                )}
+                onClick={() => setSelectedShank(shank.name)}
+              >
+                <Image
+                  src={shank.imgUrl}
+                  width={30}
+                  height={30}
+                  alt={shank.name}
+                  className='h-[30px] w-[30px] object-contain'
+                />
+                <span className='mt-1'>
+                  {shank.name
+                    ? shank.name.charAt(0).toUpperCase() + shank.name.slice(1)
+                    : ''}
+                </span>
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
 
       <div className='xs:p-0 pt-3'>
         {/* See It Live Section */}
@@ -407,9 +418,7 @@ export default function ProductDetails({ className, data }) {
             >
               <Heart className='h-4 w-4 md:h-5 md:w-5' strokeWidth={1.6} />
             </button>
-              <ShareButton
-                url={window.location.href}
-              />
+            <ShareButton url={window.location.href} />
           </div>
         </div>
       </div>
