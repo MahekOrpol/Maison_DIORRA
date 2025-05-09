@@ -10,7 +10,7 @@ export const sampleCart = [
   {
     id: '2',
     name: '14K White Gold Pendant lorem lorem lorem lorem',
-    price: 894545459.99124545,
+    price: 8945.443,
     quantity: 1,
     image: '/img/preview/pendant.png',
     category: 'Pendant'

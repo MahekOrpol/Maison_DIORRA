@@ -167,7 +167,7 @@ export default function ProductDetails({
           <Badge
             variant='outline'
             className={cn(
-              'xs:text-xs xs:-translate-x-0 xs:translate-y-0 absolute right-0 -translate-x-5.5 translate-y-8 rounded-full text-[10px] uppercase xl:text-sm',
+              'xs:text-xs absolute right-0 rounded-full text-[10px] uppercase sm:relative xl:text-sm',
               data?.inStock
                 ? 'me-2 border border-green-400 bg-green-100 px-2.5 py-0.5 text-green-800'
                 : 'me-2 border border-gray-500 bg-gray-100 px-2.5 py-0.5 text-gray-800'
@@ -352,10 +352,7 @@ export default function ProductDetails({
 
       <div className='xs:p-0 pt-3'>
         {/* See It Live Section */}
-        <div
-          onClick={() => setOpenMeeting(true)}
-          className='bg-secondary xs:pb-0 mb-6 flex items-center gap-2 rounded-lg p-1 pb-3 sm:gap-6 sm:p-4 md:items-start'
-        >
+        <div className='bg-secondary xs:pb-0 mb-6 flex items-center gap-2 rounded-lg p-1 pb-3 sm:gap-6 sm:p-4 md:items-start'>
           <Image
             src='/img/live-consultation.png'
             alt='Live Consultant'
@@ -371,7 +368,10 @@ export default function ProductDetails({
               Join live video call with our consultants to see the designs up
               close
             </p>
-            <Button className='h-[30px] w-[130px] rounded-full text-xs md:h-auto md:text-sm'>
+            <Button
+              className='h-[30px] w-[130px] rounded-full text-xs md:h-auto md:text-sm'
+              onClick={() => setOpenMeeting(true)}
+            >
               See it Live <TbVideoPlus />
             </Button>
           </div>

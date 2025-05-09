@@ -470,7 +470,7 @@ export default function Header() {
           {/* black banner */}
           <div className='bg-primary relative h-9 overflow-hidden py-2 text-center tracking-wider text-white'>
             <div className='animate-fade absolute w-full opacity-100 transition-opacity duration-1000 ease-in-out'>
-              <p key={index} className='text-sm md:text-base'>
+              <p key={index} className='text-xs xs:text-sm md:text-base'>
                 {messages[index]}
               </p>
             </div>

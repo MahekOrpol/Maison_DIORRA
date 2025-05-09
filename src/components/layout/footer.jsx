@@ -95,10 +95,10 @@ export default function Footer() {
         {/* subscribe newsletter*/}
         <div className='mx-auto mb-4 hidden w-4/5 max-w-6xl justify-between gap-2 rounded-sm bg-[#FFFFFF42] p-6 text-center md:flex md:flex-col lg:mb-12 lg:flex-row lg:items-center lg:text-left'>
           <div className='flex-1'>
-            <p className='text-2xl font-medium lg:text-[28px]'>
+            <p className='text-2xl font-medium lg:text-[32px]'>
               Subscribe to get Updated
             </p>
-            <p className='mt-2 text-sm font-extralight'>
+            <p className='mt-2 text-sm md:text-base font-extralight'>
               Perks include $100 off your first order. <br /> Plus new product
               launches, store openings, and more!
             </p>

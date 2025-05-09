@@ -62,7 +62,7 @@ export default function PaymentForm({ onPrev }) {
         />
       </div>
       <div className='order-2 flex-1 lg:order-1'>
-        <h2 className='mb-4 text-xl font-semibold md:text-2xl'>
+        <h2 className='mb-4 text-xl font-semibold md:text-3xl'>
           Choose Payment Method
         </h2>
         <div className='w-full lg:max-w-4xl'>

@@ -30,7 +30,7 @@ export default async function ProductDetailsPage({ params }) {
   return (
     <>
       <div className='wrapper'>
-        <Breadcrumb className='pt-4 lg:pt-5'>
+        <Breadcrumb className='pt-4 lg:pt-8'>
           <BreadcrumbList>
             <BreadcrumbItem>
               <BreadcrumbLink href='/' className='3xl:text-lg lg:text-base'>
@@ -54,7 +54,7 @@ export default async function ProductDetailsPage({ params }) {
             </BreadcrumbItem>
           </BreadcrumbList>
         </Breadcrumb>
-        <CustomTagWrapper className='xs:my-[20px] 3xl:my-[60px] my-[15px] lg:my-[30px] xl:mb-[40px] 2xl:mb-[50px]' />
+        <CustomTagWrapper className='xs:my-[10px] 3xl:my-[10px] my-[8px] lg:my-[10px] lg:mb-[30px] xl:mb-[40px] 3xl:mb-[40px]' />
       </div>
       <div className='mx-auto mb-8 flex w-full max-w-[2100px] flex-col gap-3 md:gap-4 lg:flex-row xl:gap-6'>
         <ProductGallery className='lg:sticky lg:top-10 lg:h-fit lg:w-[45%]' />

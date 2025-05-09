@@ -20,17 +20,6 @@ export default function ShareButton({ className, url, title, media }) {
     };
   }, []);
 
-  const shareLinks = {
-    facebook: `https://www.facebook.com/sharer.php?u=${encodeURIComponent(url)}`,
-    twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
-    pinterest: `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(url)}&media=${encodeURIComponent(media)}&description=${encodeURIComponent(title)}`,
-    whatsapp: `https://wa.me/?text=${encodeURIComponent(`${title} ${url}`)}`
-  };
-
-  const handleShareClick = () => {
-    setIsOpen(!isOpen);
-  };
-
   const handleNativeShare = async () => {
     try {
       await navigator.share({

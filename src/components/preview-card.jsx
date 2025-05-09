@@ -88,7 +88,7 @@ export default function PreviewCard({
         {/* Wishlist Button */}
         <button
           onClick={() => setLiked(!liked)}
-          className='hover:bg-primary/4 absolute top-1 right-1 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow shadow-gray-400 xl:top-2 xl:right-2'
+          className='hover:bg-primary/4 absolute top-1 right-1 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow shadow-gray-400 xl:top-3 xl:right-3'
         >
           <Heart
             className={cn(

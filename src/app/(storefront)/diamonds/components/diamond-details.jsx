@@ -72,7 +72,7 @@ export default function DiamondDetails({ className }) {
     });
     const data = await res.json();
     if (!data.authenticated) {
-      return (window.location.href = '/sign-in');
+      return (window.location.href = '/login');
     }
     return (window.location.href = '/checkout');
   };
@@ -83,7 +83,7 @@ export default function DiamondDetails({ className }) {
     });
     const data = await res.json();
     if (!data.authenticated) {
-      return (window.location.href = '/sign-in');
+      return (window.location.href = '/login');
     }
     return (window.location.href = '/account/wishlist');
   };

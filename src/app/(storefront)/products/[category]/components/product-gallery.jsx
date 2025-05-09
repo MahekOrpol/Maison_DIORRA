@@ -62,7 +62,7 @@ const ZoomableImage = ({ src, alt }) => {
   };
 
   const handleMouseLeave = () => {
-    setBackgroundPos('80% 80%');
+    setBackgroundPos('100% 100%');
   };
 
   return (
