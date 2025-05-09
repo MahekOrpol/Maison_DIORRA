@@ -38,9 +38,13 @@ export function NotAllowedModal({ open, onOpenChange }) {
           {/* Right Section - Message & Actions */}
           <div className='mx-auto flex max-w-lg flex-col items-center justify-center rounded-2xl bg-white p-6 text-center sm:px-10 sm:py-14'>
             {/* Logo or Icon */}
-            <div className='mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-yellow-50 to-amber-100 shadow-md'>
+            {/* <div className='mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-yellow-50 to-amber-100 shadow-md'>
               <Heart className='h-8 w-8 fill-[#C5A880] text-[#C5A880]' />
+            </div> */}
+            <div className='mb-6 flex h-14 w-14 items-center justify-center rounded-full border-2 border-[#C5A880] bg-gradient-to-br from-yellow-50 to-amber-200 shadow-md transition-transform hover:scale-105 hover:shadow-lg'>
+              <Heart className='h-6 w-6 text-[#8B6F43] fill-[#D8B170] stroke-1' />
             </div>
+
 
             {/* Title */}
             <h2 className='text-2xl font-bold text-gray-900'>

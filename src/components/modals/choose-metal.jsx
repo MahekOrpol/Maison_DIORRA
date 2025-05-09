@@ -33,7 +33,7 @@ export default function ChooseMetalModal({ open, onOpenChange }) {
           Choose Your Metal
         </DialogTitle>
 
-        <div className='xs:gap-4 xs:px-2 mt-6 grid grid-cols-3 gap-3 sm:gap-6 sm:px-4 sm:pb-4'>
+        <div className='xs:gap-4 xs:px-2 mt-6 grid grid-cols-3 gap-3 sm:gap-6 sm:px-4'>
           {options.map((opt, index) => (
             <div
               key={index}

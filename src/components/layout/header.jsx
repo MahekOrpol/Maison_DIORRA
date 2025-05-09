@@ -451,7 +451,7 @@ export default function Header() {
               src='/img/ads/add4.png'
               alt='Ad Image'
               fill
-              className='object-contain'
+              className='object-cover'
             />
           </div>
         </div>
