@@ -2,11 +2,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { Share2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-
 export default function ShareButton({ className, url, title, media }) {
   const [isOpen, setIsOpen] = useState(false);
   const shareRef = useRef(null);
-
   // Close the share menu when clicking outside
   useEffect(() => {
     function handleClickOutside(event) {
@@ -19,7 +17,12 @@ export default function ShareButton({ className, url, title, media }) {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
-
+  const shareLinks = {
+    facebook: `https://www.facebook.com/sharer.php?u=${encodeURIComponent(url)}`,
+    twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
+    pinterest: `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(url)}&media=${encodeURIComponent(media)}&description=${encodeURIComponent(title)}`,
+    whatsapp: `https://wa.me/?text=${encodeURIComponent(`${title} ${url}`)}`
+  };
   const handleNativeShare = async () => {
     try {
       await navigator.share({
@@ -33,7 +36,6 @@ export default function ShareButton({ className, url, title, media }) {
       setIsOpen(!isOpen);
     }
   };
-
   return (
     <div ref={shareRef} className={cn('relative inline-block', className)}>
       <button
@@ -51,7 +53,6 @@ export default function ShareButton({ className, url, title, media }) {
           <Share2 className='h-5 w-5' strokeWidth={1.6} />
         )}
       </button>
-
       {/* Social share buttons */}
       <div
         className={cn(
@@ -65,7 +66,7 @@ export default function ShareButton({ className, url, title, media }) {
           href={shareLinks.facebook}
           target='_blank'
           rel='noopener noreferrer'
-          className='flex h-9 w-9 items-center justify-center rounded-full bg-[#3b5998] text-white transition hover:scale-110 hover:opacity-90'
+          className='flex h-9 w-9 items-center justify-center rounded-full bg-[#3B5998] text-white transition hover:scale-110 hover:opacity-90'
           title='Share on Facebook'
           aria-label='Facebook'
         >
@@ -86,7 +87,7 @@ export default function ShareButton({ className, url, title, media }) {
           href={shareLinks.twitter}
           target='_blank'
           rel='noopener noreferrer'
-          className='flex h-9 w-9 items-center justify-center rounded-full bg-[#55acee] text-white transition hover:scale-110 hover:opacity-90'
+          className='flex h-9 w-9 items-center justify-center rounded-full bg-[#55ACEE] text-white transition hover:scale-110 hover:opacity-90'
           title='Share on Twitter'
           aria-label='Twitter'
         >
@@ -103,7 +104,7 @@ export default function ShareButton({ className, url, title, media }) {
           href={shareLinks.pinterest}
           target='_blank'
           rel='noopener noreferrer'
-          className='flex h-9 w-9 items-center justify-center rounded-full bg-[#bd081c] text-white transition hover:scale-110 hover:opacity-90'
+          className='flex h-9 w-9 items-center justify-center rounded-full bg-[#BD081C] text-white transition hover:scale-110 hover:opacity-90'
           title='Share on Pinterest'
           aria-label='Pinterest'
         >

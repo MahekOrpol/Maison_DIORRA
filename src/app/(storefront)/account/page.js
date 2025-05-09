@@ -142,17 +142,17 @@ export default function Page() {
               />
             </div>
 
-            <div class='mb-4 flex items-center justify-start'>
+            <div className='mb-4 flex items-center justify-start'>
               <input
                 id='default-radio-1'
                 type='radio'
                 value=''
                 name='default-radio'
-                class='h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600'
+                className='h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600'
               />
               <label
                 for='default-radio-1'
-                class='ms-2 text-sm font-medium text-gray-900 dark:text-gray-300'
+                className='ms-2 text-sm font-medium text-gray-900 dark:text-gray-300'
               >
                 Default radio
               </label>
@@ -162,16 +162,16 @@ export default function Page() {
                 type='radio'
                 value=''
                 name='default-radio'
-                class='h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600'
+                className='h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600'
               />
               <label
                 for='default-radio-2'
-                class='ms-2 text-sm font-medium text-gray-900 dark:text-gray-300'
+                className='ms-2 text-sm font-medium text-gray-900 dark:text-gray-300'
               >
                 Checked state
               </label>
             </div>
-            <div class='flex items-center'></div>
+            <div className='flex items-center'></div>
 
             <div className='flex justify-end space-x-2 pt-4'>
               <Button
