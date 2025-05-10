@@ -31,7 +31,7 @@ export function NotAllowedModal({ open, onOpenChange }) {
               src='/img/ads/add4.png'
               alt='Ad Image'
               fill
-              className='object-contain'
+              className='object-fill'
             />
           </div>
 

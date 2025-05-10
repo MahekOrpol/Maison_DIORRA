@@ -8,6 +8,7 @@ import S7NewArrivals from './s7-new-arrivals';
 import S8TrendingCollections from './s8-trendings';
 import S9BlogsSection from './s9-blogs';
 import S10TestimonialSection from './s10-testimonials';
+import RingSection from './s2-custom-design(sample)';
 export const metadata = {
   description:
     'High-performance ecommerce store built with Next.js, Vercel, and Shopify.',
@@ -19,7 +20,8 @@ export default function HomePage() {
   return (
     <>
       <S1HeroSection />
-      <S2CustomDesign />
+      {/* <S2CustomDesign /> */}
+      <RingSection/>
       <S3CategorySection />
       <S4FavouriteSection />
       <S5GiftingCollections />

@@ -125,7 +125,7 @@ export default function UnderConstruction() {
             </div>
           </div>
 
-          <div>
+          <div className='mb-3'>
             <input
               type='email'
               placeholder='Email Address*'
@@ -136,16 +136,16 @@ export default function UnderConstruction() {
                   message: 'Enter a valid email'
                 }
               })}
-              className={`mb-3 w-full rounded border p-3 focus:outline-none focus:ring-0 ${errors.email ? 'border-red-500' : ''
+              className={`w-full rounded border p-3 focus:outline-none focus:ring-0 ${errors.email ? 'border-red-500' : ''
                 }`}
             />
             {errors.email && <p className='text-sm text-red-500'>{errors.email.message}</p>}
           </div>
 
-          <div>
+          <div className='mb-3'>
             <select
               {...register('type', { required: 'Type is required' })}
-              className={`mb-3 w-full rounded border p-3 focus:outline-none focus:ring-0 ${errors.type ? 'border-red-500' : ''
+              className={`w-full rounded border p-3 focus:outline-none focus:ring-0 ${errors.type ? 'border-red-500' : ''
                 }`}
             >
               <option value=''>Choose Type</option>
@@ -197,11 +197,11 @@ export default function UnderConstruction() {
             </p>
           </div>
 
-          <div>
+          <div className='mb-3'>
             <textarea
               placeholder='Please describe your idea for this Custom Project...'
               {...register('message', { required: 'Description is required' })}
-              className={`mb-3 w-full rounded border p-2 focus:outline-none focus:ring-0 ${errors.message ? 'border-red-500' : ''
+              className={`w-full rounded border p-2 focus:outline-none focus:ring-0 ${errors.message ? 'border-red-500' : ''
                 }`}
               rows={4}
             ></textarea>

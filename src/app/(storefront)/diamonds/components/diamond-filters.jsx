@@ -16,7 +16,7 @@ export default function DiamondFilters() {
       </h2>
       {/* shape */}
       <div className='my-4 flex justify-center gap-2'>
-        <button className='w-[80px] rounded-lg border border-transparent hover:bg-gray-100 hover:border-black'>
+        <button className='w-[95px] rounded-lg border border-secondary shadow-md hover:border-black/60 hover:bg-gray-100'>
           <div className='flex items-center justify-center'>
             <Image
               src='/icons/shape-round.svg'
@@ -28,7 +28,7 @@ export default function DiamondFilters() {
           </div>
           Round
         </button>
-        <button className='w-[80px] rounded-lg border border-transparent hover:bg-gray-100 hover:border-black'>
+        <button className='w-[95px] rounded-lg border border-secondary shadow-md hover:border-black/60 hover:bg-gray-100'>
           <div className='flex items-center justify-center'>
             <Image
               src='/icons/shape-pear.svg'
@@ -40,7 +40,7 @@ export default function DiamondFilters() {
           </div>
           Pear
         </button>
-        <button className='w-[80px] rounded-lg border border-transparent hover:bg-gray-100 hover:border-black'>
+        <button className='w-[95px] rounded-lg border border-secondary shadow-md hover:border-black/60 hover:bg-gray-100'>
           <div className='flex items-center justify-center'>
             <Image
               src='/icons/shape-emerlad.svg'
@@ -52,7 +52,7 @@ export default function DiamondFilters() {
           </div>
           Emerlad
         </button>
-        <button className='w-[80px] rounded-lg border border-transparent hover:bg-gray-100 hover:border-black'>
+        <button className='w-[95px] rounded-lg border border-secondary shadow-md hover:border-black/60 hover:bg-gray-100'>
           <div className='flex items-center justify-center'>
             <Image
               src='/icons/shape-princess.svg'

@@ -39,16 +39,24 @@ export default function S1HeroSection() {
     setTimeout(() => setShowTooltip(false), 4000);
   };
 
+  // Array of different hero images
+  const heroImages = [
+    '/img/home-hero2.jpg',
+    '/img/hero2.jpg',
+    '/img/hero3.jpg'
+  ];
+
   return (
     <section className='relative w-full'>
       <Carousel className='w-full' opts={{ loop: true }} setApi={setApi}>
         <CarouselContent className='ml-0'>
-          {[0, 1, 2].map((_, index) => (
+          {heroImages.map((image, index) => (
             <CarouselItem key={index} className='pl-0'>
               <div
-                className='3xl:h-[70vh] h-[400px] w-full bg-[url("/img/home-hero2.jpg")] bg-cover bg-center bg-no-repeat sm:h-[450px] md:h-[500px] md:bg-left xl:h-[84vh]'
+                className='3xl:h-[70vh] h-[400px] w-full bg-cover bg-center bg-no-repeat sm:h-[450px] md:h-[500px] md:bg-left xl:h-[84vh]'
+                style={{ backgroundImage: `url(${image})` }}
               >
-                <div className='wrapper relative h-full bg-black/20'>
+                <div className='wrapper relative h-full bg-black/30'>
                   <div className='absolute inset-x-0 bottom-[14%] flex w-full flex-col items-center justify-end text-center text-white md:bottom-[25%] md:left-[12%] md:w-fit md:translate-x-[-15%]'>
                     <p className='mb-4 text-base tracking-widest underline underline-offset-6 sm:mb-6 md:text-[21px]'>
                       VALENTINE'S DAY
