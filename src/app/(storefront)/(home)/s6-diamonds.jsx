@@ -28,7 +28,7 @@ const shapes = [
   { name: 'Round', url: '/img/shapes/round.png' }
 ];
 
-export default function S6DiamondSection() {
+export default function S6DiamondSection({ data }) {
   return (
     <section className='pt-6 md:pt-8 lg:pt-10'>
       <Heading

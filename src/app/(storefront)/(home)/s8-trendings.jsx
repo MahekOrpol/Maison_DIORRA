@@ -30,7 +30,7 @@ const categories = {
   earring: earring01
 };
 
-export default function S8TrendingCollections() {
+export default function S8TrendingCollections({data}) {
   const [selected, setSelected] = useState('ring');
   console.log('Selected category:', selected);
 

@@ -53,7 +53,7 @@ const giftingCollectionCards = [
     href: '/products/necklaces/diamond-custom-name'
   }
 ];
-export default function S5GiftingCollections() {
+export default function S5GiftingCollections({ data }) {
   const [coverflowConfig, setCoverflowConfig] = useState({
     depth: 450,
     scale: 0.9,

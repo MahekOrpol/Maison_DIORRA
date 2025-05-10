@@ -97,7 +97,7 @@ const blogPosts = [
   }
 ];
 
-export default function S9BlogsSection() {
+export default function S9BlogsSection({ data }) {
   const timer = useRef();
   const [isSliderReady, setIsSliderReady] = useState(false);
   const [sliderRef, slider] = useKeenSlider({

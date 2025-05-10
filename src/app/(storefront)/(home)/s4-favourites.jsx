@@ -8,7 +8,7 @@ import PreviewCard from '@/components/preview-card';
 
 const customersFavourite = repeatProductsV1(20);
 
-export default function S4FavouriteSection() {
+export default function S4FavouriteSection({ data }) {
   const timer = useRef();
   const [isSliderReady, setIsSliderReady] = useState(false);
   const [sliderRef, slider] = useKeenSlider({

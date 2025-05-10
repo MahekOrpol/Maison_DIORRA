@@ -5,7 +5,7 @@ import { useRef, useEffect, useState } from 'react';
 import Heading from '@/components/heading';
 import { Quote } from 'lucide-react';
 
-export default function S10TestimonialSection() {
+export default function S10TestimonialSection({ data }) {
   const timer = useRef();
   const [isSliderReady, setIsSliderReady] = useState(false);
   const [sliderRef, slider] = useKeenSlider({

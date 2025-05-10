@@ -3,7 +3,7 @@ import Header from '@/components/layout/header';
 import React from 'react';
 
 export default function MainLayout({ children }) {
-  console.log(process.env.NEXT_PUBLIC_LIVE_URL);
+  console.log(process.env.BACKEND_URL);
   return (
     <>
       <Header />

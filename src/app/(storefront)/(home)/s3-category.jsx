@@ -26,7 +26,7 @@ const categories = [
   }
 ];
 
-export default function S3CategorySection() {
+export default function S3CategorySection({ data }) {
   return (
     <section className='wrapper pt-6 md:pt-7 lg:pt-8 xl:pt-10'>
       <Heading

@@ -8,26 +8,22 @@ import S7NewArrivals from './s7-new-arrivals';
 import S8TrendingCollections from './s8-trendings';
 import S9BlogsSection from './s9-blogs';
 import S10TestimonialSection from './s10-testimonials';
-export const metadata = {
-  description:
-    'High-performance ecommerce store built with Next.js, Vercel, and Shopify.',
-  openGraph: {
-    type: 'website'
-  }
-};
-export default function HomePage() {
+import { getHomePageData } from '@/lib/api/home-page-api';
+export default async function HomePage() {
+  const data = await getHomePageData();
+
   return (
     <>
-      <S1HeroSection />
+      <S1HeroSection data={data.heroData} />
       <S2CustomDesign />
-      <S3CategorySection />
-      <S4FavouriteSection />
-      <S5GiftingCollections />
-      <S6DiamondSection />
-      <S7NewArrivals />
-      <S8TrendingCollections />
-      <S9BlogsSection />
-      <S10TestimonialSection />
+      <S3CategorySection data={data.categoryData} />
+      <S4FavouriteSection data={data.favourites} />
+      <S5GiftingCollections data={data.gifting} />
+      <S6DiamondSection data={data.diamonds} />
+      <S7NewArrivals data={data.newArrivals} />
+      <S8TrendingCollections data={data.trending} />
+      <S9BlogsSection data={data.blogs} />
+      <S10TestimonialSection data={data.testimonials} />
     </>
   );
 }
