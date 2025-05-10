@@ -43,11 +43,11 @@ export default function HeroSliderClient({ slides }) {
                 style={{ backgroundImage: `url(${slide.image})` }}
               >
                 <div className='wrapper relative h-full bg-black/20'>
-                  <div className='absolute inset-x-0 bottom-[14%] flex w-full flex-col items-center justify-end text-center text-white md:bottom-[25%] md:left-[12%] md:w-1/2 md:translate-x-[-15%]'>
+                  <div className='absolute inset-x-0 bottom-[14%] flex w-full flex-col items-center justify-end text-center text-white md:bottom-[25%] md:left-[12%] md:w-fit md:translate-x-[-15%] 2xl:left-[6%]'>
                     <p className='mb-4 text-base tracking-widest underline underline-offset-6 sm:mb-6 md:text-[21px]'>
                       {slide.subtitle}
                     </p>
-                    <h1 className='font-rozha hero-font mb-5 leading-[110%] font-medium tracking-wide'>
+                    <h1 className='font-rozha hero-font mb-5 w-3/4 leading-[110%] font-medium tracking-wide lg:w-2/3'>
                       {slide.title}
                     </h1>
                     <div className='xs:text-lg relative mb-3 max-w-2xl text-sm lg:mb-6'>
