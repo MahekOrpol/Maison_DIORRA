@@ -56,9 +56,8 @@ export default function RingSection() {
               ref={diamondRef}
               src="/img/diamondsec1.webp"
               alt="Diamond"
-              className="absolute left-1/2 h-14 w-14 top-[-2%] md:top-[1.5%] md:h-40 md:w-40 z-10 pointer-events-none"
+              className="absolute left-1/2 h-14 w-14 top-[-2%] md:top-[0%] md:h-40 md:w-40 z-10 pointer-events-none"
               style={{
-                // top: '1.5%',
                 willChange: 'transform', // Optimizes animation performance
               }}
             />
