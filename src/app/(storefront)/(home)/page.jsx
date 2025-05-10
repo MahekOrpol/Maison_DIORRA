@@ -20,7 +20,7 @@ export default async function HomePage() {
       <S3CategorySection data={data.categoryData} />
       <S4FavouriteSection data={data.favourites} />
       <S5GiftingCollections data={data.gifting} />
-      <S6DiamondSection data={data.diamonds} />
+      <S6DiamondSection />
       <S7NewArrivals data={data.newArrivals} />
       <S8TrendingCollections data={data.trending} />
       <S9BlogsSection data={data.blogs} />
