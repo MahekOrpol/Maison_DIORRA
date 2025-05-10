@@ -60,9 +60,8 @@ export default function RingSection() {
               ref={diamondRef}
               src='/img/diamondsec1.webp'
               alt='Diamond'
-              className='pointer-events-none absolute top-[-2%] left-1/2 z-10 h-14 w-14 md:top-[1.5%] md:h-40 md:w-40'
+              className='pointer-events-none absolute top-[-2%] left-1/2 z-10 h-14 w-14 md:top-[0%] md:h-40 md:w-40'
               style={{
-                // top: '1.5%',
                 willChange: 'transform' // Optimizes animation performance
               }}
             />
