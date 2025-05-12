@@ -46,32 +46,47 @@ const images2 = [
 ];
 
 const ZoomableImage = ({ src, alt }) => {
-  const [backgroundPos, setBackgroundPos] = useState('0% 0%');
+  const [backgroundPos, setBackgroundPos] = useState('50% 50%');
+  const [isZoomed, setIsZoomed] = useState(false);
   const containerRef = useRef(null);
 
   const handleMouseMove = (e) => {
-    const { left, top, width, height } =
-      containerRef.current.getBoundingClientRect();
+    if (!isZoomed) return;
+
+    const { left, top, width, height } = containerRef.current.getBoundingClientRect();
     const x = ((e.clientX - left) / width) * 100;
     const y = ((e.clientY - top) / height) * 100;
     setBackgroundPos(`${x}% ${y}%`);
   };
 
   const handleMouseLeave = () => {
-    setBackgroundPos('100% 100%');
+    if (isZoomed) {
+      setIsZoomed(false);
+      setBackgroundPos('100% 100%');
+    }
+  };
+
+  const handleClick = () => {
+    setIsZoomed(!isZoomed);
+    if (!isZoomed) {
+      setBackgroundPos('50% 50%');
+    }
   };
 
   return (
     <div
       ref={containerRef}
-      className='zoom-container relative h-full w-full cursor-zoom-in overflow-hidden'
+      className={`zoom-container relative h-full w-full cursor-zoom-in overflow-hidden ${isZoomed ? 'cursor-grab active:cursor-grabbing' : ''
+        }`}
+      onClick={handleClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
       <img
         src={src}
         alt={alt}
-        className='zoom-image h-full w-full object-cover transition-transform duration-300 hover:scale-150'
+        className={`zoom-image h-full w-full object-cover transition-transform duration-300 ${isZoomed ? 'scale-150' : 'scale-100'
+          }`}
         style={{
           transformOrigin: backgroundPos
         }}
