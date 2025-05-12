@@ -65,7 +65,7 @@ export default function S1HeroSection() {
                       <h1 className='font-rozha hero-font mb-5 leading-[110%] font-medium tracking-wide'>
                         GET 20% OFF ON YOUR <div>FIRST ORDER</div>
                       </h1>
-                      <div className='relative mb-3 max-w-2xl text-sm xs:text-sm lg:mb-6'>
+                      <div className='relative mb-3 max-w-2xl text-sm xs:text-xl lg:mb-6'>
                         <p>
                           Use code{' '}
                           <button
