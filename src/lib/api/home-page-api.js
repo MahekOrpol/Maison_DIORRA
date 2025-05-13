@@ -1,6 +1,7 @@
 // lib/api/home-sections.js
 
-const BASE_URL = process.env.BACKEND_URL || 'https://api.yoursite.com';
+const BASE_URL =
+  `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1` || 'https://api.yoursite.com';
 
 export async function fetchHeroSection() {
   //   const res = await fetch(`${BASE_URL}/home/hero`, {
@@ -11,9 +12,8 @@ export async function fetchHeroSection() {
 }
 
 export async function fetchCategories() {
-  //   const res = await fetch(`${BASE_URL}/categories`, {
-  const res = await fetch(`${BASE_URL}/test`, {
-    next: { revalidate: 3600 }
+  const res = await fetch(`${BASE_URL}/category/get`, {
+    // next: { revalidate: 3600 }
   });
   return res.json();
 }
@@ -76,35 +76,35 @@ export async function fetchTestimonials() {
 
 export async function getHomePageData() {
   const [
-    heroData,
-    categoryData,
-    favourites,
-    gifting,
-    diamonds,
-    newArrivals,
-    trending,
-    blogs,
-    testimonials
+    // heroData,
+    categoryData
+    // favourites,
+    // gifting,
+    // diamonds,
+    // newArrivals,
+    // trending,
+    // blogs,
+    // testimonials
   ] = await Promise.all([
-    fetchHeroSection(),
-    fetchCategories(),
-    fetchFavourites(),
-    fetchGiftingCollections(),
-    fetchDiamonds(),
-    fetchNewArrivals(),
-    fetchTrendingCollections(),
-    fetchBlogs(),
-    fetchTestimonials()
+    // fetchHeroSection(),
+    fetchCategories()
+    // fetchFavourites(),
+    // fetchGiftingCollections(),
+    // fetchDiamonds(),
+    // fetchNewArrivals(),
+    // fetchTrendingCollections(),
+    // fetchBlogs(),
+    // fetchTestimonials()
   ]);
   return {
-    heroData,
-    categoryData,
-    favourites,
-    gifting,
-    diamonds,
-    newArrivals,
-    trending,
-    blogs,
-    testimonials
+    // heroData,
+    categoryData
+    // favourites,
+    // gifting,
+    // diamonds,
+    // newArrivals,
+    // trending,
+    // blogs,
+    // testimonials
   };
 }
