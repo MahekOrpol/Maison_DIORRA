@@ -39,23 +39,14 @@ const orders = [
     title: 'Earring - 18k with Stone'
   }
 ];
-// async function getOrders() {
-//   const res = await fetch('http://localhost:5000/orders?userId=1');
-//   if (!res.ok) {
-//     throw new Error('Failed to fetch data');
-//   }
-//   return res.json();
-// }
 
 export default async function MyOrdersPage() {
-  // const orders = await getOrders();
-  // console.log(orders);
   return (
     <div className='mx-auto max-w-4xl px-4 py-10'>
       <h1 className='mb-6 text-3xl font-bold'>My Orders</h1>
 
       <div className='space-y-5'>
-        {orders[0].items.map((order) => (
+        {orders.map((order) => (
           <Card key={order.id} className='overflow-hidden'>
             <div className='flex flex-col gap-4 p-4 sm:flex-row'>
               {/* Image */}
@@ -105,19 +96,19 @@ export default async function MyOrdersPage() {
 
                 {/* Actions */}
                 <div className='mt-4 flex flex-wrap gap-2'>
-                  <Link href='/orders/track'>
-                    <Button size='sm' variant='outline'>
-                      Track Order
-                    </Button>
-                  </Link>
-                  <Link href='/orders/invoice'>
-                    <Button size='sm' variant='outline'>
-                      View Invoice
-                    </Button>
-                  </Link>
-                  <Link href='/products/product-id'>
-                    <Button size='sm'>Buy Again</Button>
-                  </Link>
+                  {/* <Link href={`/orders/track/${order.id}`}> */}
+                  <Button size='sm' variant='outline'>
+                    Track Order
+                  </Button>
+                  {/* </Link> */}
+                  {/* <Link href={`/orders/invoice/${order.id}`}> */}
+                  <Button size='sm' variant='outline'>
+                    View Invoice
+                  </Button>
+                  {/* </Link> */}
+                  {/* <Link href='/products/product-id'> */}
+                  <Button size='sm'>Buy Again</Button>
+                  {/* </Link> */}
                 </div>
               </div>
             </div>

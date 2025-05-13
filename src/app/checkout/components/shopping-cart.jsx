@@ -17,17 +17,39 @@ import { BsHandbagFill } from 'react-icons/bs';
 const ShoppingCart = ({ onNext }) => {
   const { cart, setCart } = useCheckoutStore();
   const [openMeeting, setOpenMeeting] = useState(false);
+  const [couponDiscount, setCouponDiscount] = useState(0);
+
+  // Calculate dynamic pricing
+  const calculatePricing = () => {
+    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const youSaved = subtotal * 0.2; 
+    const total = subtotal - youSaved - couponDiscount;
+    return {
+      subtotal: subtotal.toFixed(2),
+      youSaved: youSaved.toFixed(2),
+      total: Math.max(0, total).toFixed(2) 
+    };
+  };
+
+  const { subtotal, youSaved, total } = calculatePricing();
 
   const pricingItems = [
-    { label: 'Subtotal', value: '40,000' },
-    { label: 'You saved', value: '8,000', isDiscount: true },
-    { label: 'Coupon Discount', value: 'Apply Coupon', isEditable: true },
+    { label: 'Subtotal', value: subtotal },
+    { label: 'You saved', value: youSaved, isDiscount: true },
+    {
+      label: 'Coupon Discount',
+      value: couponDiscount > 0 ? `-$${couponDiscount.toFixed(2)}` : 'Apply Coupon',
+      isEditable: true
+    },
     { label: 'Shipping (Standard)', value: 'Free' }
   ];
 
   const handleCouponApply = (code) => {
-    console.log('Applying coupon:', code);
-    // Add your coupon logic here
+    if (code === 'SAVE10') {
+      setCouponDiscount(10); // $10 discount
+    } else if (code === 'SAVE20') {
+      setCouponDiscount(20); // $20 discount
+    }
   };
 
   return (
@@ -55,35 +77,34 @@ const ShoppingCart = ({ onNext }) => {
         </div>
         <ScheduleCallDialog open={openMeeting} setOpen={setOpenMeeting} />
         {/* order amount */}
-        <div className='flex w-full flex-col gap-4 py-4 lg:max-w-sm lg:py-0'>
-          <div className='bg-secondary flex items-center gap-4 rounded-lg px-4 py-2'>
-            <BadgePercent />
-            <p>Apply Coupon</p>
-            <button
-              type='button'
-              className='ml-auto rounded-full bg-black p-1.5 text-white'
-            >
-              <MoveRight className='h-5 w-5' />
-            </button>
-          </div>
-          {cart.length > 0 && (
+        {cart.length > 0 && (
+          <div className='flex w-full flex-col gap-4 py-4 lg:max-w-sm lg:py-0'>
+            <div className='bg-secondary flex items-center gap-4 rounded-lg px-4 py-2'>
+              <BadgePercent />
+              <p>Apply Coupon</p>
+              <button
+                type='button'
+                className='ml-auto rounded-full bg-black p-1.5 text-white'
+              >
+                <MoveRight className='h-5 w-5' />
+              </button>
+            </div>
             <PricingDetails
               items={pricingItems}
-              total='40,000'
+              total={total}
               onCouponApply={handleCouponApply}
               className='px-4'
             />
-          )}
-          {/* Navigation Buttons */}
-
-          <button
-            onClick={onNext}
-            disabled={cart.length === 0}
-            className='py-disabled:bg-gray-400 bg-primary text-primary-foreground w-full rounded-md px-6 py-2'
-          >
-            Select Address
-          </button>
-        </div>
+            {/* Navigation Buttons */}
+            <button
+              onClick={onNext}
+              disabled={cart.length === 0}
+              className='py-disabled:bg-gray-400 bg-primary text-primary-foreground w-full rounded-md px-6 py-2'
+            >
+              Select Address
+            </button>
+          </div>
+        )}
       </section>
       {/* other content */}
       <RelatedProducts className='mt-2 md:mt-6 xl:mt-8' />

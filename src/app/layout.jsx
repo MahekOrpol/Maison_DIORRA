@@ -85,8 +85,6 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  // This will render app/error.jsx
-
   return (
     <html lang='en' suppressHydrationWarning>
       <body

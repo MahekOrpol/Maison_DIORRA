@@ -21,6 +21,7 @@ import {
 import { cn, repeatProductsByCategory } from '@/lib/utils';
 import CustomTagWrapper from '@/components/custom-tag-wrapper';
 import PreviewCard from '@/components/preview-card';
+import { ProductListingSkeleton } from '@/components/skeleton';
 
 const advertisements = [
   {
@@ -85,20 +86,20 @@ const ringStyles = [
 export default function ProductListingPage({ params }) {
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { category, subcategory } = React.use(params);
 
   useEffect(() => {
-    // (async function fetchData() {
-    //   try {
-    //     const data = await fetch(`http://localhost:5000/${category}`);
-    //     const products = await data.json();
-    //     setData(products);
-    //   } catch (error) {
-    //     console.log(error);
-    //   }
-    // })();
-    setData(repeatProductsByCategory(category, 80));
+    setIsLoading(true);
+
+    const timer = setTimeout(() => {
+      setData(repeatProductsByCategory(category, 80));
+      setIsLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
   }, []);
+
   return (
     <div className='wrapper'>
       {/* arrowed label */}
@@ -157,78 +158,89 @@ export default function ProductListingPage({ params }) {
       />
       {/* listing components */}
       <div className='mt-8 mb-10 grid grid-cols-2 gap-2 md:mb-20 md:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-5 xl:gap-6'>
-        {data.map((product, index) => {
-          // Separate ad indices for different breakpoints
-          const mobileAdIndex = Math.floor(index / 2) % advertisements.length;
-          const mediumAdIndex = Math.floor(index / 6) % advertisements.length;
-          const largeAdIndex = Math.floor(index / 8) % advertisements.length;
+        {isLoading ? (
+          <ProductListingSkeleton count={8} />
+        ) : (
+          data.map((product, index) => {
+            // Separate ad indices for different breakpoints
+            const mobileAdIndex = Math.floor(index / 2) % advertisements.length;
+            const mediumAdIndex = Math.floor(index / 6) % advertisements.length;
+            const largeAdIndex = Math.floor(index / 8) % advertisements.length;
 
-          // Get the correct ad based on the breakpoint
-          const mobileAd = advertisements[mobileAdIndex];
-          const mediumAd = advertisements[mediumAdIndex];
-          const largeAd = advertisements[largeAdIndex];
+            // Get the correct ad based on the breakpoint
+            const mobileAd = advertisements[mobileAdIndex];
+            const mediumAd = advertisements[mediumAdIndex];
+            const largeAd = advertisements[largeAdIndex];
 
-          // Mobile: Ad appears after 4th, then 6th item, repeating
-          const adsAfterMobile = [];
-          let adPosition = 5;
-          for (let i = 0; i < 10; i++) {
-            adsAfterMobile.push(adPosition);
-            adPosition += i % 2 === 0 ? 6 : 4;
-          }
-          const showMobileAd = adsAfterMobile.includes(index + 1);
+            // Mobile: Ad appears after 4th, then 6th item, repeating
+            const adsAfterMobile = [];
+            let adPosition = 5;
+            for (let i = 0; i < 10; i++) {
+              adsAfterMobile.push(adPosition);
+              adPosition += i % 2 === 0 ? 6 : 4;
+            }
+            const showMobileAd = adsAfterMobile.includes(index + 1);
+            return (
+              <React.Fragment key={index}>
+                {/* Mobile View: Show ad after 4th, then 6th, then repeat */}
+                {showMobileAd && (
+                  <Advertisement
+                    title={mobileAd.title}
+                    subtitle={mobileAd.subtitle}
+                    buttonLabel={mobileAd.buttonLabel}
+                    buttonLink={mobileAd.buttonLink}
+                    backgroundImage={mobileAd.backgroundImage}
+                    align={mobileAd.align}
+                    className='col-span-2 md:hidden' // Visible only on mobile
+                  />
+                )}
 
-          return (
-            <React.Fragment key={index}>
-              {/* Mobile View: Show ad after 4th, then 6th, then repeat */}
-              {showMobileAd && (
-                <Advertisement
-                  title={mobileAd.title}
-                  subtitle={mobileAd.subtitle}
-                  buttonLabel={mobileAd.buttonLabel}
-                  buttonLink={mobileAd.buttonLink}
-                  backgroundImage={mobileAd.backgroundImage}
-                  align={mobileAd.align}
-                  className='col-span-2 md:hidden' // Visible only on mobile
-                />
-              )}
+                {/* Medium Screens: Show ad after every 6th item*/}
+                {index > 0 && index % 6 === 0 && (
+                  <Advertisement
+                    title={mediumAd.title}
+                    subtitle={mediumAd.subtitle}
+                    buttonLabel={mediumAd.buttonLabel}
+                    buttonLink={mediumAd.buttonLink}
+                    backgroundImage={mediumAd.backgroundImage}
+                    align={mediumAd.align}
+                    className='hidden md:col-span-3 md:block lg:hidden'
+                  />
+                )}
 
-              {/* Medium Screens: Show ad after every 6th item*/}
-              {index > 0 && index % 6 === 0 && (
-                <Advertisement
-                  title={mediumAd.title}
-                  subtitle={mediumAd.subtitle}
-                  buttonLabel={mediumAd.buttonLabel}
-                  buttonLink={mediumAd.buttonLink}
-                  backgroundImage={mediumAd.backgroundImage}
-                  align={mediumAd.align}
-                  className='hidden md:col-span-3 md:block lg:hidden'
-                />
-              )}
-
-              {/* Large Screens: Show ad after every 8th item */}
-              {index > 0 && index % 8 === 0 && (
-                <Advertisement
-                  title={largeAd.title}
-                  subtitle={largeAd.subtitle}
-                  buttonLabel={largeAd.buttonLabel}
-                  buttonLink={largeAd.buttonLink}
-                  backgroundImage={largeAd.backgroundImage}
-                  align={largeAd.align}
-                  className='col-span-2 hidden lg:block' // Visible only on large screens
-                />
-              )}
-              {/* Render Listing Item */}
-              <PreviewCard product={product} />
-            </React.Fragment>
-          );
-        })}
+                {/* Large Screens: Show ad after every 8th item */}
+                {index > 0 && index % 8 === 0 && (
+                  <Advertisement
+                    title={largeAd.title}
+                    subtitle={largeAd.subtitle}
+                    buttonLabel={largeAd.buttonLabel}
+                    buttonLink={largeAd.buttonLink}
+                    backgroundImage={largeAd.backgroundImage}
+                    align={largeAd.align}
+                    className='col-span-2 hidden lg:block' // Visible only on large screens
+                  />
+                )}
+                {/* Render Listing Item */}
+                <PreviewCard product={product} />
+              </React.Fragment>
+            );
+          })
+        )}
       </div>
+
+      {/* Load more button */}
       <div className="flex flex-col items-center justify-center min-h-[100px] p-4">
-        <p className="mb-4 text-gray-600">Showing 20 Out Of 100 </p>
-        <button className="group relative px-6 py-2 rounded-md text-black font-medium border-2 border-black transition-all duration-300 overflow-hidden">
-          <span className="absolute inset-0 scale-x-0 group-hover:scale-x-100 origin-left bg-black transition-transform duration-300 ease-out z-0"></span>
-          <span className="relative z-10 group-hover:text-white transition-colors duration-300">Load More</span>
-        </button>
+        {isLoading ? (
+          <div className="animate-pulse bg-gray-200 h-10 w-32 rounded-md"></div>
+        ) : (
+          <>
+            <p className="mb-4 text-gray-600">Showing {data.length} Out Of 100</p>
+            <button className="group relative px-6 py-2 rounded-md text-black font-medium border-2 border-black transition-all duration-300 overflow-hidden">
+              <span className="absolute inset-0 scale-x-0 group-hover:scale-x-100 origin-left bg-black transition-transform duration-300 ease-out z-0"></span>
+              <span className="relative z-10 group-hover:text-white transition-colors duration-300">Load More</span>
+            </button>
+          </>
+        )}
       </div>
     </div>
   );

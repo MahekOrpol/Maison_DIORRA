@@ -43,7 +43,7 @@ export default function RingSection() {
   }, []);
 
   return (
-    <div className='bg- px-4 pt-10 sm:px-6 lg:px-8'>
+    <section className='bg- px-4 pt-10 sm:px-6 lg:px-8'>
       <div className='mx-auto max-w-7xl'>
         <div className='grid grid-cols-1 items-center gap-8 md:grid-cols-2'>
           {/* Image Section */}
@@ -97,6 +97,6 @@ export default function RingSection() {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
