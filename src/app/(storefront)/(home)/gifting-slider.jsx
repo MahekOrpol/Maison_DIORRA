@@ -8,6 +8,7 @@ import Link from 'next/link';
 
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
+import { baseUrl } from '@/lib/utils';
 
 export default function GiftingSlider({ cards }) {
   const [config, setConfig] = useState({
@@ -105,19 +106,21 @@ export default function GiftingSlider({ cards }) {
         className='coverflow'
       >
         {cards.map((card, i) => (
-          <SwiperSlide key={i}>
+          <SwiperSlide key={card.id} id='gifting-slider'>
             <div className='relative aspect-[320/220] overflow-hidden rounded-2xl xl:aspect-[240/170]'>
               <Image
-                src={card.img}
-                fill
-                className='rounded-2xl object-cover'
-                alt={card.label}
+                src={baseUrl + card.image}
+                // fill
+                width={300}
+                height={600}
+                className='h-full w-full rounded-2xl object-cover'
+                alt={card.name}
               />
               <Link
-                href={card.href}
+                href={'#gifting-slider'}
                 className='absolute inset-x-0 bottom-0 mx-4 border-t border-white pt-1 pb-2 text-sm font-medium text-white transition-all duration-300 hover:border-t-2 hover:font-light min-[500px]:text-lg md:text-lg md:font-medium lg:pt-2 lg:pb-4 lg:text-xl'
               >
-                {card.label}
+                {card.name} ( {card.items} )
               </Link>
             </div>
           </SwiperSlide>

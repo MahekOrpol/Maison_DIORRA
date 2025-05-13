@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
-import { cn } from '@/lib/utils';
+import { baseUrl, cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 
 export default function S7NewArrivals({ data }) {
@@ -31,7 +31,7 @@ export default function S7NewArrivals({ data }) {
                 'absolute top-[45%] left-0 z-20 w-full -translate-y-1/2 lg:top-1/2 lg:right-0 lg:left-auto lg:w-[60%] xl:w-[60%]'
               )}
             >
-              <ArrivalSwiper className='h-full w-full' />
+              <ArrivalSwiper className='h-full w-full' slides={data} />
             </div>
 
             <div className='absolute bottom-[5%] left-0 z-20 w-full text-center lg:top-2/5 lg:left-20 lg:w-fit lg:text-left xl:left-30 2xl:left-[9%]'>
@@ -59,7 +59,7 @@ export default function S7NewArrivals({ data }) {
   );
 }
 
-export function ArrivalSwiper({ className }) {
+export function ArrivalSwiper({ className, slides }) {
   const [coverflowConfig, setCoverflowConfig] = useState({
     spaceBetween: 22,
     slidesPerView: 2.52
@@ -149,14 +149,18 @@ export function ArrivalSwiper({ className }) {
       {/* <div className='pointer-events-none absolute top-0 left-0 z-30 hidden h-full w-[2px] bg-gradient-to-r from-white to-transparent xl:block 2xl:-left-0.5 2xl:w-1' /> */}
       {/* <div className='pointer-events-none absolute top-0 right-0 z-30 hidden h-full w-[2px] bg-gradient-to-l from-white to-transparent xl:block 2xl:-right-0.5 2xl:w-1' /> */}
       <div className=''>
-        {Array.from({ length: 4 }).map((_, index) => (
+        {slides.map((slide, index) => (
           <SwiperSlide key={index}>
-            <div className='aspect-[325/500] w-full overflow-hidden rounded-md'>
+            <div className='aspect-[325/500] w-full'>
               <Image
-                src={`/img/arrival${index + 1}.png`}
-                alt='img'
+                src={
+                  slide?.image
+                    ? `${baseUrl}${slide.image}`
+                    : '/img/arrival1.png'
+                }
+                alt={'New arrival product'}
                 fill
-                className='object-cover'
+                className='rounded-2xl object-cover'
               />
             </div>
           </SwiperSlide>

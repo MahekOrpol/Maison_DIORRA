@@ -28,8 +28,8 @@ export async function fetchFavourites() {
 
 export async function fetchGiftingCollections() {
   //   const res = await fetch(`${BASE_URL}/collections/gifting`, {
-  const res = await fetch(`${BASE_URL}/test`, {
-    next: { revalidate: 1800 }
+  const res = await fetch(`${BASE_URL}/gifting-guide/get`, {
+    // next: { revalidate: 1800 }
   });
   return res.json();
 }
@@ -44,8 +44,8 @@ export async function fetchDiamonds() {
 
 export async function fetchNewArrivals() {
   //   const res = await fetch(`${BASE_URL}/products/new`, {
-  const res = await fetch(`${BASE_URL}/test`, {
-    next: { revalidate: 1800 }
+  const res = await fetch(`${BASE_URL}/new-arrivals/get`, {
+    // next: { revalidate: 1800 }
   });
   return res.json();
 }
@@ -60,8 +60,8 @@ export async function fetchTrendingCollections() {
 
 export async function fetchBlogs() {
   //   const res = await fetch(`${BASE_URL}/blogs`, {
-  const res = await fetch(`${BASE_URL}/test`, {
-    next: { revalidate: 3600 }
+  const res = await fetch(`${BASE_URL}/blog/get`, {
+    // next: { revalidate: 3600 }
   });
   return res.json();
 }
@@ -77,34 +77,34 @@ export async function fetchTestimonials() {
 export async function getHomePageData() {
   const [
     // heroData,
-    categoryData
+    categoryData,
     // favourites,
-    // gifting,
+    gifting,
     // diamonds,
-    // newArrivals,
+    newArrivals,
     // trending,
-    // blogs,
+    blogs
     // testimonials
   ] = await Promise.all([
     // fetchHeroSection(),
-    fetchCategories()
+    fetchCategories(),
     // fetchFavourites(),
-    // fetchGiftingCollections(),
+    fetchGiftingCollections(),
     // fetchDiamonds(),
-    // fetchNewArrivals(),
+    fetchNewArrivals(),
     // fetchTrendingCollections(),
-    // fetchBlogs(),
+    fetchBlogs()
     // fetchTestimonials()
   ]);
   return {
     // heroData,
-    categoryData
+    categoryData,
     // favourites,
-    // gifting,
+    gifting,
     // diamonds,
-    // newArrivals,
+    newArrivals,
     // trending,
-    // blogs,
+    blogs
     // testimonials
   };
 }
