@@ -57,7 +57,7 @@ export default function WishlistPage() {
   const isEmpty = wishlist.length === 0;
 
   return (
-    <div className='wrapper pt-4 pb-10'>
+    <div className='sm:wrapper pt-4 pb-10'>
       {/* <h1 className='mb-4 text-3xl font-bold md:mb-6'>Your Wishlist</h1> */}
       {isEmpty ? (
         <div className='flex h-[50vh] flex-col items-center justify-center'>
@@ -84,8 +84,8 @@ export default function WishlistPage() {
         </div>
       ) : (
         <>
-          <h1 className='mb-4 text-3xl font-bold md:mb-6'>Your Wishlist</h1>
-          <div className='grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-6'>
+          <h1 className='mb-4 text-2xl sm:text-3xl font-bold md:mb-6 underline'>Your Wishlist</h1>
+          <div className='grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 lg:gap-6'>
             {products.map((product, i) => (
               <div
                 key={i}
