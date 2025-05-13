@@ -11,18 +11,38 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
 
+const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
+
 export default function ContactPage() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     reset
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log('Form submitted:', data);
-    toast.success('Message sent successfully!');
-    reset();
+  const onSubmit = async (data) => {
+    try {
+      const response = await fetch(`${BASE_URL}/api/v1/contact-us/create`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+
+      const result = await response.json();
+      console.log('Form submission successful:', result);
+      toast.success('Message sent successfully!');
+      reset();
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      toast.error('Failed to send message. Please try again.');
+    }
   };
 
   return (
@@ -222,7 +242,11 @@ export default function ContactPage() {
                     id='phone'
                     className={`h-[42px] md:text-base ${errors.phone ? 'border-red-500 focus-visible:border-red-500' : ''}`}
                     {...register('phone', {
-                      required: 'Phone number is required'
+                      required: 'Phone number is required',
+                      pattern: {
+                        value: /^[0-9]{10}$/,
+                        message: 'Please enter a valid 10-digit phone number'
+                      }
                     })}
                   />
                   {errors.phone && (
@@ -256,8 +280,9 @@ export default function ContactPage() {
               <Button
                 type='submit'
                 className='h-12 w-full text-lg lg:max-w-[220px]'
+                disabled={isSubmitting}
               >
-                Submit Now
+                {isSubmitting ? 'Sending...' : 'Submit Now'}
               </Button>
             </form>
           </div>

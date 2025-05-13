@@ -1,41 +1,55 @@
-import { cn } from '@/lib/utils';
+import { baseUrl, cn } from '@/lib/utils';
 import Image from 'next/image';
 import React from 'react';
 
-export default function Page() {
-  return (
-    <>
-      <Banner imgUrl='/img/banner/banner1.png' heading='About Us' />
-      <section className='wrapper py-6 md:py-12'>
-        <AboutSection
-          image='/img/about1.png'
-          title='About Us'
-          paragraphs={[
-            'At Feronia, we create elegant, high-quality jewelry that celebrates your special moments. Our designs blend artistry and innovation, making every piece timeless and unique.',
-            'Each piece tells a story, blending beauty and meaning. Whether for a celebration or everyday elegance, our jewelry is designed to shine with you.'
-          ]}
-        />
-        {/*  quote */}
-        <div className='xs:w-[90%] mx-auto -mt-4 mb-6 w-full text-center text-lg font-medium sm:w-2/3 sm:text-[22px] md:my-8 lg:my-14 lg:w-1/2 lg:text-2xl xl:text-3xl'>
-          <hr className='mx-auto w-3/4 border-[1px] border-black/70' />
-          <blockquote className='my-4 leading-6 tracking-wide sm:leading-7 lg:my-5 lg:tracking-normal xl:leading-8'>
-            &quot;Jewelry is more than an accessory; it&apos;s a reflection of
-            artistry, emotion, and timeless elegance.&quot;
-          </blockquote>
-          <hr className='mx-auto mb-6 w-3/4 border-[1px] border-black/70' />
-        </div>
-        <AboutSection
-          image='/img/about2.png'
-          title='Our Goal'
-          paragraphs={[
-            'We create beautiful, high-quality jewelry that is elegant and unique. Our aim is to blend traditional craftsmanship with modern designs, making each piece special and meaningful. We want our jewelry to bring joy and celebrate life’s precious moments.',
-            'Each piece tells a story, blending beauty and meaning. Whether for a celebration or everyday elegance, our jewelry is designed to shine with you.'
-          ]}
-          reverse
-        />
-      </section>
-    </>
-  );
+const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
+
+export default async function Page() {
+  try {
+    // Fetch data from the API
+    const response = await fetch(`${BASE_URL}/api/v1/about-us/get`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch about data');
+    }
+    const aboutData = await response.json();
+    const data = aboutData[0];
+
+    return (
+      <>
+        <Banner imgUrl='/img/banner/banner1.png' heading='About Us' />
+        <section className='wrapper py-6 md:py-12'>
+          <AboutSection
+            src={data?.image ? `${baseUrl}${data.image}` : '/img/about1.png'}
+            title='About Us'
+            paragraphs={data.aboutDescription.split('\n\n')}
+          />
+
+          {/* quote */}
+          <div className='xs:w-[90%] mx-auto -mt-4 mb-6 w-full text-center text-lg font-medium sm:w-2/3 sm:text-[22px] md:my-8 lg:my-14 lg:w-1/2 lg:text-2xl xl:text-3xl'>
+            <hr className='mx-auto w-3/4 border-[1px] border-black/70' />
+            <blockquote className='my-4 leading-6 tracking-wide sm:leading-7 lg:my-5 lg:tracking-normal xl:leading-8'>
+              &quot;{data.tagline}&quot;
+            </blockquote>
+            <hr className='mx-auto mb-6 w-3/4 border-[1px] border-black/70' />
+          </div>
+
+          <AboutSection
+            image={baseUrl + data.goalImg}
+            title='Our Goal'
+            paragraphs={data.goalDescription.split('\n\n')}
+            reverse
+          />
+        </section>
+      </>
+    );
+  } catch (error) {
+    console.error('Error loading about page:', error);
+    return (
+      <div className='wrapper py-12 text-center'>
+        Error loading content. Please try again later.
+      </div>
+    );
+  }
 }
 
 export function Banner({ imgUrl, heading, className = '' }) {
@@ -61,7 +75,7 @@ export function AboutSection({ image, title, paragraphs, reverse = false }) {
           src={image}
           height={600}
           width={800}
-          alt='About Image'
+          alt={title}
           className='h-full w-full object-cover'
         />
       </div>
