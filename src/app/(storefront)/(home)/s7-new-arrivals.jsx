@@ -9,7 +9,7 @@ import 'swiper/css/pagination';
 import { cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 
-export default function S7NewArrivals() {
+export default function S7NewArrivals({ data }) {
   return (
     <section className='3xl:mt-[7vw] 3xl:mb-[5vw] pt-4 md:pt-10 lg:mt-[6%] lg:mb-[5%] xl:my-[5vw]'>
       <div className='relative flex w-full flex-col items-center justify-between lg:flex-row'>

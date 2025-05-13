@@ -58,11 +58,11 @@ export default function WishlistPage() {
 
   return (
     <div className='wrapper pt-4 pb-10'>
-         {/* <h1 className='mb-4 text-3xl font-bold md:mb-6'>Your Wishlist</h1> */}
+      {/* <h1 className='mb-4 text-3xl font-bold md:mb-6'>Your Wishlist</h1> */}
       {isEmpty ? (
         <div className='flex h-[50vh] flex-col items-center justify-center'>
           <div className='w-[120px] sm:w-[170px]'>
-          <img src={'/img/wishlist.jpg'} />
+            <img src={'/img/wishlist.jpg'} />
           </div>
           <p className='text-muted-foreground text-sm sm:text-xl'>
             YOUR WISHLIST IS EMPTY.

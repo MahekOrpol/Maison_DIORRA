@@ -96,19 +96,19 @@ export default async function MyOrdersPage() {
 
                 {/* Actions */}
                 <div className='mt-4 flex flex-wrap gap-2'>
-                  <Link href={`/orders/track/${order.id}`}>
-                    <Button size='sm' variant='outline'>
-                      Track Order
-                    </Button>
-                  </Link>
-                  <Link href={`/orders/invoice/${order.id}`}>
-                    <Button size='sm' variant='outline'>
-                      View Invoice
-                    </Button>
-                  </Link>
-                  <Link href='/products/product-id'>
-                    <Button size='sm'>Buy Again</Button>
-                  </Link>
+                  {/* <Link href={`/orders/track/${order.id}`}> */}
+                  <Button size='sm' variant='outline'>
+                    Track Order
+                  </Button>
+                  {/* </Link> */}
+                  {/* <Link href={`/orders/invoice/${order.id}`}> */}
+                  <Button size='sm' variant='outline'>
+                    View Invoice
+                  </Button>
+                  {/* </Link> */}
+                  {/* <Link href='/products/product-id'> */}
+                  <Button size='sm'>Buy Again</Button>
+                  {/* </Link> */}
                 </div>
               </div>
             </div>

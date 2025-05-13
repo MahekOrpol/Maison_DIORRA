@@ -24,15 +24,13 @@ export default function Page() {
       <Card className='mb-6 gap-1 pt-2 pb-4 md:gap-4 md:py-6'>
         <CardHeader className='flex flex-row items-center justify-between'>
           <CardTitle>Profile Details</CardTitle>
-          <Button variant='ghost' size='icon' aria-label='Edit Profile'>
-            <Button
-              variant='ghost'
-              size='icon'
-              aria-label='Edit Profile'
-              onClick={() => setIsEditModalOpen(true)}
-            >
-              <Pencil className='h-4 w-4' />
-            </Button>
+          <Button
+            variant='ghost'
+            size='icon'
+            aria-label='Edit Profile'
+            onClick={() => setIsEditModalOpen(true)}
+          >
+            <Pencil className='h-4 w-4' />
           </Button>
         </CardHeader>
         <hr />
