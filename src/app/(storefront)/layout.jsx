@@ -8,7 +8,6 @@ import { fetchCategories } from '@/lib/api/home-page-api';
 
 export default async function MainLayout({ children }) {
   const categories = await fetchCategories();
-  console.log(categories);
   return (
     <>
       <Header categories={categories} />

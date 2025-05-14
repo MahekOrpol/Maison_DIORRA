@@ -38,7 +38,7 @@ export default function S3CategorySection({ data }) {
         {data.map((item) => (
           <Link
             key={item.id}
-            href={'/products/rings/all'}
+            href={`/products/${item.categoryName}`}
             className='flex flex-col items-center text-center text-lg font-medium transition-all duration-200'
           >
             <div className='w-full overflow-hidden rounded-2xl 2xl:rounded-[20px]'>

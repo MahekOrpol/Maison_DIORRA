@@ -13,7 +13,7 @@ import {
   CarouselNext,
   CarouselPrevious
 } from '@/components/ui/carousel';
-import { cn } from '@/lib/utils';
+import { baseUrl, cn } from '@/lib/utils';
 import Link from 'next/link';
 import {
   Drawer,
@@ -34,16 +34,19 @@ export default function PreviewCard({
   className,
   isDraggable = true
 }) {
-  const [selectedMetal, setSelectedMetal] = useState(product?.variants?.[0]);
+  const [selectedMetal, setSelectedMetal] = useState(
+    product?.variations?.[0].metalVariations?.[0]
+  );
   const [isProductClicked, setIsProductClicked] = useState(false);
   const [isClientMobile, setIsClientMobile] = useState(false);
   const [liked, setLiked] = useState(false);
   const openModal = useModalStore((state) => state.openModal);
   const router = useRouter();
 
+  console.log(product);
   // Fix: Reset metal when product changes
   useEffect(() => {
-    setSelectedMetal(product?.variants?.[0]);
+    setSelectedMetal(product?.variations?.[0].metalVariations?.[0]);
   }, [product]);
 
   useEffect(() => {
@@ -93,6 +96,21 @@ export default function PreviewCard({
     setLiked(!liked);
   };
 
+  const getMetalColor = (metal) => {
+    if (!metal) return '#ccc';
+
+    const name = metal.toLowerCase();
+
+    if (name.includes('rose'))
+      return 'linear-gradient(135deg, #b76e79, #e5a3a3)';
+    if (name.includes('white'))
+      return 'linear-gradient(135deg, #e0e0e0, #f8f8f8)';
+    if (name.includes('gold'))
+      return 'linear-gradient(135deg, #d4af37, #f5d76e)';
+
+    return '#ccc'; // fallback gray
+  };
+
   return (
     <>
       <Card
@@ -114,7 +132,7 @@ export default function PreviewCard({
           />
         </button>
         <Carousel
-          key={selectedMetal.metalType}
+          key={selectedMetal.metal}
           opts={{
             align: 'start',
             loop: false,
@@ -123,15 +141,15 @@ export default function PreviewCard({
           className='relative w-full'
         >
           <CarouselContent className='ml-0 aspect-[1/1] w-full gap-0'>
-            {selectedMetal.media.map((image, index) => (
+            {selectedMetal.images.map((image, index) => (
               <CarouselItem
                 key={index}
                 onClick={handleProductClick}
                 className='h-full w-full basis-full cursor-pointer pl-[0.5px]'
               >
                 <Image
-                  src={image.mediaUrl}
-                  alt={selectedMetal.metalType}
+                  src={baseUrl + image}
+                  alt={'Product image'}
                   width={300}
                   height={300}
                   className='h-full w-full object-cover object-center'
@@ -148,28 +166,38 @@ export default function PreviewCard({
           <div className='flex items-center justify-between border-t pt-2 xl:pt-5'>
             <div className='flex gap-1 sm:gap-2'>
               <p className='3xl:text-2xl leading-1 font-medium sm:text-[22px] lg:text-xl'>
-                ${selectedMetal.price}
+                ${parseFloat(product.salePrice.$numberDecimal)}
               </p>
               <span className='text-xs leading-1 font-normal text-[#958F86] line-through sm:text-base xl:text-lg'>
-                ${selectedMetal.originalPrice}
+                ${parseFloat(product.regularPrice.$numberDecimal)}
               </span>
             </div>
             <div className='flex gap-0.5'>
-              {product.variants.map((variant) => {
-                const isSelected =
-                  variant.metalType === selectedMetal.metalType;
+              {product?.variations?.[0].metalVariations.map((variant) => {
+                const isSelected = variant.metal === selectedMetal.metal;
                 return (
+                  // <button
+                  //   key={variant.metal}
+                  //   onClick={() => setSelectedMetal(variant)}
+                  //   className={cn(
+                  //     'h-4.5 w-4.5 rounded-full border-2 border-white hover:outline hover:outline-offset-1 sm:h-5.25 sm:w-5.25 md:h-6 md:w-6',
+                  //     isSelected ? 'ring-primary/40 ring-offset-0.5 ring' : ''
+                  //   )}
+                  //   // style={{
+                  //   //   backgroundImage: `url('/img/preview/rose.png')`,
+                  //   //   backgroundSize: 'cover',
+                  //   //   backgroundPosition: 'center'
+                  //   // }}
+                  // />
                   <button
-                    key={variant.metalType}
+                    key={variant.metal}
                     onClick={() => setSelectedMetal(variant)}
                     className={cn(
                       'h-4.5 w-4.5 rounded-full border-2 border-white hover:outline hover:outline-offset-1 sm:h-5.25 sm:w-5.25 md:h-6 md:w-6',
                       isSelected ? 'ring-primary/40 ring-offset-0.5 ring' : ''
                     )}
                     style={{
-                      backgroundImage: `url('/img/preview/${variant.metalType}.png')`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center'
+                      background: getMetalColor(variant.metal)
                     }}
                   />
                 );
@@ -181,7 +209,7 @@ export default function PreviewCard({
               onClick={handleProductClick}
               className='!line-clamp-1 block w-full text-left'
             >
-              {product.name}
+              {product.productName}
             </button>
           </p>
           <Button

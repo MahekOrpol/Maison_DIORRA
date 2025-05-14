@@ -88,6 +88,7 @@ export default function ProductListingPage({ params }) {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const { category, subcategory } = React.use(params);
+  console.log(category, subcategory);
 
   useEffect(() => {
     setIsLoading(true);
