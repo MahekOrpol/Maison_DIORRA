@@ -59,7 +59,7 @@ export function repeatProductsV1(count) {
 const productSources = {
   rings: [ring01, ring02],
   earrings: [earring01, earring02],
-  necklaces: [necklace01, necklace02],
+  pendants: [necklace01, necklace02],
   bracelets: [bracelet01, bracelet02]
 };
 

@@ -4,11 +4,14 @@ import { WishlistNotAllowed } from '@/components/modals/wishlist-not-allowed';
 import ScrollToTop from '@/components/scroll-to-top';
 import CartItem from '../checkout/components/cart-item';
 import { CartNotAllowed } from '@/components/modals/cart-not-allowed';
+import { fetchCategories } from '@/lib/api/home-page-api';
 
-export default function MainLayout({ children }) {
+export default async function MainLayout({ children }) {
+  const categories = await fetchCategories();
+  console.log(categories);
   return (
     <>
-      <Header />
+      <Header categories={categories} />
       <main className='flex-1 pt-[85px] min-[1023px]:pt-[118px]'>
         {children}
       </main>

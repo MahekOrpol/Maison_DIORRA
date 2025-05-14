@@ -16,7 +16,8 @@ const messages = [
   'Enjoy 10% off on your first purchase!',
   'THE ESSENTIALS | UP TO 40% OFF* Ends in April'
 ];
-export default function Header() {
+
+export default function Header({ categories }) {
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [activeMenu, setActiveMenu] = useState(null);
@@ -156,85 +157,36 @@ export default function Header() {
       label: 'Fine Jewelry',
       icon: <GiGemPendant className='size-4.5 text-black' />,
       content: (
-        <div className='grid h-fit w-full grid-cols-4 gap-2 xl:grid-cols-5'>
-          <div className='col-span-1 p-4 xl:p-6'>
-            <h3 className='mb-4 font-semibold'>RINGS</h3>
-            <ul className='h-40 space-y-2 border-r-2 font-light'>
-              {[
-                'Wedding Bands',
-                'Berminy Rings',
-                'Anniversary Rings',
-                'Stackable Rings',
-                'Statement Rings'
-              ].map((item) => (
-                <li key={item}>
-                  <Link
-                    href={`/products/rings/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                    className='hover:underline'
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className='col-span-1 p-4 xl:p-6'>
-            <h3 className='mb-4 font-semibold'>EARRINGS</h3>
-            <ul className='h-40 space-y-2 border-r-2 font-light'>
-              {[
-                'Diamond Earrings',
-                'Drop & Dangle',
-                'Huggies & Hoops',
-                'Crawlers',
-                'Studs'
-              ].map((item) => (
-                <li key={item}>
-                  <Link
-                    href={`/products/earrings/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                    className='hover:underline'
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className='col-span-1 p-4 xl:p-6'>
-            <h3 className='mb-4 font-semibold'>NECKLACES</h3>
-            <ul className='h-40 space-y-2 border-r-2 font-light'>
-              {[
-                'Diamond Pendants',
-                'Necklaces',
-                'Chokers',
-                'Lockets',
-                'Statement Necklaces'
-              ].map((item) => (
-                <li key={item}>
-                  <Link
-                    href={`/products/necklaces/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                    className='hover:underline'
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div className='col-span-1 p-4 xl:p-6'>
-            <h3 className='mb-4 font-semibold'>BRACELETS</h3>
-            <ul className='space-y-2 font-light'>
-              {['Bracelets', 'Bangles'].map((item) => (
-                <li key={item}>
-                  <Link
-                    href={`/products/bracelets/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                    className='hover:underline'
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
+        <div className='grid w-full grid-cols-4 items-stretch gap-2 xl:grid-cols-5'>
+          {categories.map((category, index) => (
+            <div key={category.id} className='col-span-1 px-4 py-8 2xl:px-6'>
+              <div
+                className={`flex h-full flex-col ${
+                  index !== categories.length - 1 ? 'border-r-1' : ''
+                }`}
+              >
+                <h3 className='mb-4 font-semibold uppercase'>
+                  {category.categoryName}
+                </h3>
+                <ul className='flex-1 space-y-2 font-light'>
+                  {category.subcategories.map((sub) => (
+                    <li key={sub._id}>
+                      <Link
+                        href={`/products/${category.categoryName.toLowerCase()}/${sub.subcategoryName
+                          .toLowerCase()
+                          .replace(/\s+/g, '-')}`}
+                        className='decoration-1 underline-offset-3 hover:underline'
+                      >
+                        {sub.subcategoryName}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+
+          {/* Promotional Image */}
           <div className='group relative hidden h-[230px] w-[230px] overflow-hidden xl:block xl:h-[300px] xl:w-[400px]'>
             <Image
               src='/img/DiamondStuds.webp'

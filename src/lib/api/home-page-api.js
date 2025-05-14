@@ -1,7 +1,6 @@
 // lib/api/home-sections.js
 
-const BASE_URL =
-  `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1` || 'https://api.yoursite.com';
+const BASE_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1`;
 
 // export async function fetchHeroSection() {
 //   const res = await fetch(`${BASE_URL}/home/hero`, {
