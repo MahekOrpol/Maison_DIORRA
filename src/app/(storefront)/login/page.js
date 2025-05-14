@@ -1,6 +1,5 @@
 'use client';
-
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
@@ -19,6 +18,7 @@ import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { useRouter } from 'nextjs-toploader/app';
+import { ForgotPasswordDialog } from './forgotpassworddialog';
 
 // Mock API service
 const authService = {
@@ -111,24 +111,75 @@ export default function LoginPage() {
   //     setIsSubmitting(false);
   //   }
   // };
+
+  const detectLoginType = (loginId) => {
+    if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(loginId)) {
+      return 'email';
+    } else if (/^[0-9]{10}$/.test(loginId)) {
+      return 'phone';
+    } else if (/^[a-zA-Z ]{3,}$/.test(loginId)) {
+      return 'name';
+    }
+    return 'email'; // default fallback
+  };
+
   const onLogin = async (data) => {
     setIsSubmitting(true);
-    const { email, password } = data;
-    console.log(email, password);
+    const { loginId, password } = data;
+    const loginType = detectLoginType(loginId);
+
     try {
-      const response = await axios.post('/api/login', { email, password });
-      console.log(response.data);
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL || ''}/api/v1/register/login`,
+        {
+          loginType, // Add loginType to the request
+          [loginType]: loginId, // Dynamic property based on loginType
+          password
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
       if (response.status === 200) {
-        toast.success('Login successful!');
         resetLoginForm();
-        // Redirect or handle successful login
-        // store in localStorage or context for now (simulate session)
-        localStorage.setItem('authUser', JSON.stringify(response.data));
-        router.push('/account/orders');
-        // show in header or wherever
+        // Store tokens and user data
+        const { token, user } = response.data;
+        localStorage.setItem('accessToken', token.access.token);
+        localStorage.setItem('refreshToken', token.refresh.token);
+        localStorage.setItem('authUser', JSON.stringify(user));
+        localStorage.setItem(
+          'user',
+          JSON.stringify({
+            name: user.name,
+            email: user.email,
+            phone: user.phone
+          })
+        );
+        // Redirect to account page
+        window.location.href = '/';
       }
     } catch (error) {
-      toast.error('Login failed. Please try again.');
+      console.error('Login error:', error);
+
+      let errorMessage = 'Login failed. Please try again.';
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          if (error.response.data?.message) {
+            errorMessage = error.response.data.message;
+          } else if (error.response.status === 401) {
+            errorMessage = 'Invalid credentials';
+          } else if (error.response.status === 400) {
+            errorMessage = 'Validation error. Please check your inputs.';
+          }
+        } else if (error.request) {
+          errorMessage = 'Network error. Please check your connection.';
+        }
+      }
+
+      toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -137,14 +188,51 @@ export default function LoginPage() {
   const onRegister = async (data) => {
     setIsSubmitting(true);
     try {
-      const response = await authService.register(data);
-      if (response.success) {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL || ''}/api/v1/register/register`,
+        {
+          name: data.name,
+          email: data.email,
+          phone: data.mobile,
+          password: data.password,
+          ConfirmPassword: data.confirmPassword
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      if (response.status === 201) {
         toast.success('Registration successful! Please login.');
         resetRegisterForm();
         setTab('login');
+
+        return;
       }
+
+      throw new Error('Registration failed');
     } catch (error) {
-      toast.error('Registration failed. Please try again.');
+      console.error('Registration error:', error);
+
+      let errorMessage = 'Registration failed. Please try again.';
+
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          if (error.response.data?.message) {
+            errorMessage = error.response.data.message;
+          } else if (error.response.status === 400) {
+            errorMessage = 'Validation error. Please check your inputs.';
+          } else if (error.response.status === 409) {
+            errorMessage = 'Email or phone number already registered.';
+          }
+        } else if (error.request) {
+          errorMessage = 'Network error. Please check your connection.';
+        }
+      }
+
+      toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -153,7 +241,7 @@ export default function LoginPage() {
   return (
     <>
       <div className='bg-muted flex items-center justify-center border px-2 py-8 sm:px-4'>
-        <div className='flex w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-md h-fit md:max-w-5xl'>
+        <div className='flex h-fit w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-md md:max-w-5xl'>
           {/* Left Side Image */}
           <div className='hidden w-[40%] md:block'>
             <Image
@@ -188,53 +276,58 @@ export default function LoginPage() {
                 className='px-6 pb-6 text-center sm:pt-2 md:text-left lg:pt-3'
               >
                 <div className='pt-3 md:pt-0'>
-                  <h2 className='mb-2 text-xl sm:text-2xl leading-6 font-medium'>
+                  <h2 className='mb-2 text-xl leading-6 font-medium sm:text-2xl'>
                     Login using your Email and Password
                   </h2>
-                  <p className='text-xs sm:text-sm leading-4 font-light'>
+                  <p className='text-xs leading-4 font-light sm:text-sm'>
                     For the purpose of industry registration, your details are
                     required and will be stored.
                   </p>
                   <form onSubmit={handleLoginSubmit(onLogin)}>
-                    <div className='relative my-5 pt-2 lg:mt-6'>
+                    <div className='mb-4 pt-5'>
                       <input
-                        type='email'
-                        id='email'
+                        type='text'
+                        id='loginId'
                         className={cn(
-                          'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
-                          loginErrors.email ? 'border-red-500' : ''
+                          'block w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none',
+                          loginErrors.loginId ? 'border-red-500' : ''
                         )}
-                        placeholder='john@example.com'
-                        {...loginRegister('email', {
-                          required: 'Email is required',
-                          pattern: {
-                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                            message: 'Invalid email address'
+                        placeholder='Enter email, username, or phone'
+                        {...loginRegister('loginId', {
+                          required: 'This field is required',
+                          validate: {
+                            validInput: (value) => {
+                              const isEmail =
+                                /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
+                                  value
+                                );
+                              const isPhone = /^[0-9]{10}$/.test(value);
+                              const isName = /^[a-zA-Z ]{3,}$/.test(value);
+                              return (
+                                isEmail ||
+                                isPhone ||
+                                isName ||
+                                'Enter a valid email, username (3+ letters), or phone (10 digits)'
+                              );
+                            }
                           }
                         })}
                       />
-                      <label
-                        htmlFor='email'
-                        className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
-                      >
-                        Email
-                      </label>
-                      {loginErrors.email && (
-                        <p className='mt-1 text-xs text-red-500 text-left'>
-                          {loginErrors.email.message}
+                      {loginErrors.loginId && (
+                        <p className='mt-1 text-xs text-red-500'>
+                          {loginErrors.loginId.message}
                         </p>
                       )}
                     </div>
-
-                    <div className='relative'>
+                    <div className='mb-4'>
                       <input
                         type='password'
                         id='password'
                         className={cn(
-                          'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
+                          'block w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none',
                           loginErrors.password ? 'border-red-500' : ''
                         )}
-                        placeholder='123456'
+                        placeholder='Enter password'
                         {...loginRegister('password', {
                           required: 'Password is required',
                           minLength: {
@@ -243,18 +336,13 @@ export default function LoginPage() {
                           }
                         })}
                       />
-                      <label
-                        htmlFor='password'
-                        className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
-                      >
-                        Password
-                      </label>
                       {loginErrors.password && (
-                        <p className='mt-1 text-xs text-red-500 text-left'>
+                        <p className='mt-1 text-xs text-red-500'>
                           {loginErrors.password.message}
                         </p>
                       )}
                     </div>
+
                     <div className='mt-1 mb-5 flex items-center justify-between'>
                       <span className='inline-flex items-center gap-2'>
                         <Input
@@ -293,7 +381,7 @@ export default function LoginPage() {
                       </p>
                       <Button
                         size={'lg'}
-                        className='xs:w-2/3 mb-2 h-10 sm:h-12 w-full text-base sm:text-lg'
+                        className='xs:w-2/3 mb-2 h-10 w-full text-base sm:h-12 sm:text-lg'
                         type='submit'
                         disabled={isSubmitting}
                       >
@@ -305,10 +393,10 @@ export default function LoginPage() {
                         <hr className='w-[48%] border-black' />
                       </div>
                       <button
-                        className='xs:w-2/3 mx-auto mb-3 flex h-9 sm:h-12 w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-sm sm:text-base'
+                        className='xs:w-2/3 mx-auto mb-3 flex h-9 w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-sm sm:h-12 sm:text-base'
                         type='button'
                       >
-                        <FcGoogle className='h-4 sm:h-7 w-7' />
+                        <FcGoogle className='h-4 w-7 sm:h-7' />
                         Login with Google
                       </button>
 
@@ -333,10 +421,10 @@ export default function LoginPage() {
                 className='pb-6 text-center sm:pt-2 md:text-left lg:pt-3'
               >
                 <div className='px-6 pt-3 md:pt-0'>
-                  <h2 className='mb-2 text-xl sm:text-2xl leading-6 font-medium'>
+                  <h2 className='mb-2 text-xl leading-6 font-medium sm:text-2xl'>
                     Don't have an Account?
                   </h2>
-                  <p className='text-xs sm:text-sm leading-4 font-light'>
+                  <p className='text-xs leading-4 font-light sm:text-sm'>
                     For the purpose of industry registration, your details are
                     required and will be stored.
                   </p>
@@ -369,7 +457,7 @@ export default function LoginPage() {
                           Name
                         </label>
                         {registerErrors.name && (
-                          <p className='mt-1 text-xs text-red-500 text-left'>
+                          <p className='mt-1 text-left text-xs text-red-500'>
                             {registerErrors.name.message}
                           </p>
                         )}
@@ -399,7 +487,7 @@ export default function LoginPage() {
                           Email
                         </label>
                         {registerErrors.email && (
-                          <p className='mt-1 text-xs text-red-500 text-left'>
+                          <p className='mt-1 text-left text-xs text-red-500'>
                             {registerErrors.email.message}
                           </p>
                         )}
@@ -433,7 +521,7 @@ export default function LoginPage() {
                           Mobile Number
                         </label>
                         {registerErrors.mobile && (
-                          <p className='mt-1 text-xs text-red-500 text-left'>
+                          <p className='mt-1 text-left text-xs text-red-500'>
                             {registerErrors.mobile.message}
                           </p>
                         )}
@@ -451,8 +539,8 @@ export default function LoginPage() {
                           {...registerRegister('password', {
                             required: 'Password is required',
                             minLength: {
-                              value: 6,
-                              message: 'Password must be at least 6 characters'
+                              value: 8,
+                              message: 'Password must be at least 8 characters'
                             }
                           })}
                         />
@@ -463,7 +551,7 @@ export default function LoginPage() {
                           Password
                         </label>
                         {registerErrors.password && (
-                          <p className='mt-1 text-xs text-red-500 text-left'>
+                          <p className='mt-1 text-left text-xs text-red-500'>
                             {registerErrors.password.message}
                           </p>
                         )}
@@ -519,7 +607,7 @@ export default function LoginPage() {
                       </p>
                       <Button
                         size={'lg'}
-                        className='xs:w-2/3 mb-2 h-10 sm:h-12 w-full text-base sm:text-lg'
+                        className='xs:w-2/3 mb-2 h-10 w-full text-base sm:h-12 sm:text-lg'
                         type='submit'
                         disabled={isSubmitting}
                       >
@@ -532,7 +620,7 @@ export default function LoginPage() {
                       </div>
 
                       <button
-                        className='xs:w-2/3 mx-auto mb-2 flex h-9 sm:h-12 w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-sm sm:text-base'
+                        className='xs:w-2/3 mx-auto mb-2 flex h-9 w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-sm sm:h-12 sm:text-base'
                         type='button'
                       >
                         <FcGoogle className='h-7 w-7' />
@@ -560,289 +648,6 @@ export default function LoginPage() {
       <ForgotPasswordDialog
         open={openForgotPassword}
         setOpen={setOpenForgotPassword}
-      />
-    </>
-  );
-}
-
-export function ForgotPasswordDialog({ open = false, setOpen }) {
-  const [openOtpModal, setOpenOtpModal] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset
-  } = useForm();
-
-  const onSubmit = async (data) => {
-    setIsSubmitting(true);
-    try {
-      const response = await authService.forgotPassword(data.email);
-      if (response.success) {
-        toast.success('Reset link sent to your email!');
-        reset();
-        setOpen(false);
-        setOpenOtpModal(true);
-      }
-    } catch (error) {
-      toast.error('Failed to send reset link. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  return (
-    <>
-      <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className='rounded-xl px-6 py-8 sm:max-w-md'>
-          <DialogHeader>
-            <DialogTitle className='text-center text-xl font-semibold'>
-              Forgot Password
-            </DialogTitle>
-          </DialogHeader>
-
-          <form onSubmit={handleSubmit(onSubmit)} className='mt-4 space-y-4'>
-            <div className='grid gap-2'>
-              <div className='relative my-3 lg:mt-6'>
-                <input
-                  type='email'
-                  id='email'
-                  className={cn(
-                    'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
-                    errors.email ? 'border-red-500' : ''
-                  )}
-                  placeholder=''
-                  {...register('email', {
-                    required: 'Email is required',
-                    pattern: {
-                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                      message: 'Invalid email address'
-                    }
-                  })}
-                />
-                <label
-                  htmlFor='email'
-                  className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
-                >
-                  Email
-                </label>
-                {errors.email && (
-                  <p className='text-xs text-red-500'>{errors.email.message}</p>
-                )}
-              </div>
-            </div>
-
-            <DialogFooter className='pt-2'>
-              <Button
-                type='submit'
-                size={'lg'}
-                className='h-11 w-full text-base'
-                disabled={isSubmitting}
-              >
-                {isSubmitting ? 'Sending...' : 'Send Reset Link'}
-              </Button>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog>
-      <OTPDialog
-        open={openOtpModal}
-        onOpenChange={setOpenOtpModal}
-        onSubmit={(otp) => {
-          console.log('OTP submitted:', otp);
-          // Handle OTP verification
-        }}
-      />
-    </>
-  );
-}
-
-export function ResetPasswordDialog({ open = false, setOpen }) {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-    watch
-  } = useForm();
-
-  const onSubmit = async (data) => {
-    setIsSubmitting(true);
-    try {
-      const response = await authService.resetPassword(data);
-      if (response.success) {
-        toast.success('Password reset successfully!');
-        reset();
-        setOpen(false);
-      }
-    } catch (error) {
-      toast.error('Failed to reset password. Please try again.');
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
-
-  return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className='rounded-xl px-6 py-8 sm:max-w-sm'>
-        <DialogHeader>
-          <DialogTitle className='text-center text-xl font-semibold'>
-            Reset Password
-          </DialogTitle>
-        </DialogHeader>
-
-        <form onSubmit={handleSubmit(onSubmit)} className='mt-6 grid gap-5'>
-          {/* Password */}
-          <div className='relative'>
-            <input
-              type='password'
-              id='password'
-              placeholder=''
-              {...register('password', {
-                required: 'Password is required',
-                minLength: {
-                  value: 6,
-                  message: 'Password must be at least 6 characters'
-                }
-              })}
-              className={cn(
-                'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
-                errors.password ? 'border-red-500' : ''
-              )}
-            />
-            <label
-              htmlFor='password'
-              className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2'
-            >
-              Password
-            </label>
-            {errors.password && (
-              <p className='mt-1 text-xs text-red-500'>
-                {errors.password.message}
-              </p>
-            )}
-          </div>
-
-          {/* Confirm Password */}
-          <div className='relative'>
-            <input
-              type='password'
-              id='confirmPassword'
-              placeholder=''
-              {...register('confirmPassword', {
-                required: 'Please confirm your password',
-                validate: (value) =>
-                  value === watch('password') || "Passwords don't match"
-              })}
-              className={cn(
-                'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
-                errors.confirmPassword ? 'border-red-500' : ''
-              )}
-            />
-            <label
-              htmlFor='confirmPassword'
-              className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2'
-            >
-              Confirm Password
-            </label>
-            {errors.confirmPassword && (
-              <p className='mt-1 text-xs text-red-500'>
-                {errors.confirmPassword.message}
-              </p>
-            )}
-          </div>
-
-          <DialogFooter className='pt-2'>
-            <Button
-              type='submit'
-              size={'lg'}
-              className='h-11 w-full text-base'
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? 'Updating...' : 'Update Password'}
-            </Button>
-          </DialogFooter>
-        </form>
-      </DialogContent>
-    </Dialog>
-  );
-}
-
-export function OTPDialog({ open, onOpenChange, onSubmit }) {
-  const [otp, setOtp] = useState(new Array(6).fill(''));
-  const [openResetPassword, setOpenResetPassword] = useState(false);
-
-  const handleChange = (element, index) => {
-    const value = element.value.replace(/[^0-9]/g, '');
-    if (!value) return;
-
-    const newOtp = [...otp];
-    newOtp[index] = value;
-    setOtp(newOtp);
-
-    // Auto focus next input
-    if (element.nextSibling) {
-      element.nextSibling.focus();
-    }
-  };
-
-  const handleSubmit = () => {
-    const enteredOtp = otp.join('');
-    onSubmit?.(enteredOtp);
-    // If OTP is valid, open reset password dialog
-    if (enteredOtp.length === 6) {
-      setOpenResetPassword(true);
-      onOpenChange(false);
-    }
-  };
-
-  return (
-    <>
-      <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className='rounded-xl p-6 sm:max-w-md'>
-          <DialogHeader>
-            <DialogTitle className='mb-2 text-center text-xl font-semibold'>
-              Enter OTP
-            </DialogTitle>
-          </DialogHeader>
-
-          <div className='text-muted-foreground mb-4 text-center text-sm'>
-            Please enter the 6-digit code sent to your email address.
-          </div>
-
-          <div className='mb-6 flex justify-center gap-2'>
-            {otp.map((data, index) => (
-              <input
-                key={index}
-                type='text'
-                maxLength='1'
-                className='h-12 w-10 rounded-md border border-gray-300 text-center text-lg focus:border-black focus:outline-none'
-                value={data}
-                onChange={(e) => handleChange(e.target, index)}
-                onFocus={(e) => e.target.select()}
-              />
-            ))}
-          </div>
-
-          <DialogFooter>
-            <Button
-              className='h-11 w-full text-base'
-              onClick={handleSubmit}
-              disabled={otp.join('').length !== 6}
-            >
-              Verify OTP
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-
-      <ResetPasswordDialog
-        open={openResetPassword}
-        setOpen={setOpenResetPassword}
       />
     </>
   );

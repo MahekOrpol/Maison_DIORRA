@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -17,12 +16,13 @@ import { CiLogin } from 'react-icons/ci';
 import { CiLogout } from 'react-icons/ci';
 import { FaWpforms } from 'react-icons/fa6';
 import { MdOutlineAccountBox } from 'react-icons/md';
-import { AiOutlineUnorderedList } from 'react-icons/ai';
+import { toast } from 'sonner';
 
-export function AccountDropdown({ isLoggedIn }) {
+export function AccountDropdown({ user, setUser }) {
   const pathname = usePathname(); // Optional: closes dropdown on route change
   const [open, setOpen] = useState(false);
   const router = useRouter();
+  const isLoggedIn = !!user;
 
   // console.log(isLoggedIn);
   useEffect(() => {
@@ -30,8 +30,26 @@ export function AccountDropdown({ isLoggedIn }) {
   }, [pathname]);
 
   const handleLogout = async () => {
-    await logoutUser();
-    router.push('/');
+    try {
+      // Call your logout API
+      await logoutUser();
+
+      // Clear client-side storage
+      localStorage.removeItem('user');
+      localStorage.removeItem('accessToken');
+      localStorage.removeItem('refreshToken');
+      localStorage.removeItem('authUser');
+      // Update state
+      if (setUser) setUser(null);
+
+      // Redirect and refresh
+     window.location.href = '/';
+
+      toast.success('Logged out successfully');
+    } catch (error) {
+      console.error('Logout failed:', error);
+      toast.error('Logout failed. Please try again.');
+    }
   };
 
   return (
@@ -44,7 +62,7 @@ export function AccountDropdown({ isLoggedIn }) {
               {isLoggedIn ? 'Welcome back' : 'Login'}
             </p>
             <p className='hover:text-muted-foreground'>
-              {isLoggedIn ? 'Jhon Doe' : 'Account'}
+              {isLoggedIn ? user?.name : 'Account'}
             </p>
           </div>
         </button>
@@ -53,17 +71,10 @@ export function AccountDropdown({ isLoggedIn }) {
         {!isLoggedIn ? (
           <>
             <DropdownMenuItem asChild>
-              <Link href='/sign-in'>
+              <Link href='/login'>
                 {' '}
                 <CiLogin className='' />
                 Sign In
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href='/sign-up'>
-                {' '}
-                <FaWpforms />
-                Create Account
               </Link>
             </DropdownMenuItem>
           </>
@@ -71,23 +82,9 @@ export function AccountDropdown({ isLoggedIn }) {
           <>
             {/* for testing purpose */}
             <DropdownMenuItem asChild>
-              <Link href='/login'>
-                {' '}
-                <CiLogin className='' />
-                Sign In
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
               <Link href='/account'>
                 <MdOutlineAccountBox className='' />
-                My Profile
-              </Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem asChild>
-              <Link href='/account/orders'>
-                {' '}
-                <AiOutlineUnorderedList />
-                My Orders
+                My Account
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />

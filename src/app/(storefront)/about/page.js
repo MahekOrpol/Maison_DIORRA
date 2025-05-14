@@ -19,7 +19,7 @@ export default async function Page() {
         <Banner imgUrl='/img/banner/banner1.png' heading='About Us' />
         <section className='wrapper py-6 md:py-12'>
           <AboutSection
-            src={data?.image ? `${baseUrl}${data.image}` : '/img/about1.png'}
+            image={baseUrl + data.aboutImg}
             title='About Us'
             paragraphs={data.aboutDescription.split('\n\n')}
           />

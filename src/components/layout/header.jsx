@@ -23,6 +23,14 @@ export default function Header({ categories }) {
   const [activeMenu, setActiveMenu] = useState(null);
   const [index, setIndex] = useState(0);
   const openModal = useModalStore((state) => state.openModal);
+  const [user, setUser] = useState(null);
+
+    useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
 
   // const router = useRouter();
   // const cookieStore = await cookies();
@@ -413,9 +421,8 @@ export default function Header({ categories }) {
   return (
     <>
       <div
-        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ease-in ${
-          showHeader ? 'translate-y-0' : '-translate-y-full'
-        }`}
+        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ease-in ${showHeader ? 'translate-y-0' : '-translate-y-full'
+          }`}
       >
         <header className='bg-background text-foreground shadow-xs'>
           {/* black banner */}
@@ -446,7 +453,7 @@ export default function Header({ categories }) {
               </Link>
             </div>
             <div className='flex gap-0.5 min-[340px]:gap-1.5 md:gap-4'>
-              <AccountDropdown isLoggedIn={true} />
+              <AccountDropdown user={user} />
               {/* Wishlist Link */}
               <button
                 className='relative rounded-full p-1 transition-all duration-200 hover:scale-110 hover:bg-gray-100'
