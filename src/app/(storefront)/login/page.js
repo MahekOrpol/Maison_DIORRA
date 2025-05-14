@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
@@ -111,24 +111,75 @@ export default function LoginPage() {
   //     setIsSubmitting(false);
   //   }
   // };
+
+  const detectLoginType = (loginId) => {
+    if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(loginId)) {
+      return 'email';
+    } else if (/^[0-9]{10}$/.test(loginId)) {
+      return 'phone';
+    } else if (/^[a-zA-Z ]{3,}$/.test(loginId)) {
+      return 'name';
+    }
+    return 'email'; // default fallback
+  };
+
   const onLogin = async (data) => {
     setIsSubmitting(true);
-    const { email, password } = data;
-    console.log(email, password);
+    const { loginId, password } = data;
+    const loginType = detectLoginType(loginId);
+
     try {
-      const response = await axios.post('/api/login', { email, password });
-      console.log(response.data);
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL || ''}/api/v1/register/login`,
+        {
+          loginType, // Add loginType to the request
+          [loginType]: loginId, // Dynamic property based on loginType
+          password
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
       if (response.status === 200) {
-        toast.success('Login successful!');
         resetLoginForm();
-        // Redirect or handle successful login
-        // store in localStorage or context for now (simulate session)
-        localStorage.setItem('authUser', JSON.stringify(response.data));
-        router.push('/account/orders');
-        // show in header or wherever
+        // Store tokens and user data
+        const { token, user } = response.data;
+        localStorage.setItem('accessToken', token.access.token);
+        localStorage.setItem('refreshToken', token.refresh.token);
+        localStorage.setItem('authUser', JSON.stringify(user));
+        localStorage.setItem(
+          'user',
+          JSON.stringify({
+            name: user.name,
+            email: user.email,
+            phone: user.phone
+          })
+        );
+        // Redirect to account page
+        window.location.href = '/';
       }
     } catch (error) {
-      toast.error('Login failed. Please try again.');
+      console.error('Login error:', error);
+
+      let errorMessage = 'Login failed. Please try again.';
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          if (error.response.data?.message) {
+            errorMessage = error.response.data.message;
+          } else if (error.response.status === 401) {
+            errorMessage = 'Invalid credentials';
+          } else if (error.response.status === 400) {
+            errorMessage = 'Validation error. Please check your inputs.';
+          }
+        } else if (error.request) {
+          errorMessage = 'Network error. Please check your connection.';
+        }
+      }
+
+      toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -137,14 +188,51 @@ export default function LoginPage() {
   const onRegister = async (data) => {
     setIsSubmitting(true);
     try {
-      const response = await authService.register(data);
-      if (response.success) {
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL || ''}/api/v1/register/register`,
+        {
+          name: data.name,
+          email: data.email,
+          phone: data.mobile,
+          password: data.password,
+          ConfirmPassword: data.confirmPassword
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      if (response.status === 201) {
         toast.success('Registration successful! Please login.');
         resetRegisterForm();
         setTab('login');
+
+        return;
       }
+
+      throw new Error('Registration failed');
     } catch (error) {
-      toast.error('Registration failed. Please try again.');
+      console.error('Registration error:', error);
+
+      let errorMessage = 'Registration failed. Please try again.';
+
+      if (axios.isAxiosError(error)) {
+        if (error.response) {
+          if (error.response.data?.message) {
+            errorMessage = error.response.data.message;
+          } else if (error.response.status === 400) {
+            errorMessage = 'Validation error. Please check your inputs.';
+          } else if (error.response.status === 409) {
+            errorMessage = 'Email or phone number already registered.';
+          }
+        } else if (error.request) {
+          errorMessage = 'Network error. Please check your connection.';
+        }
+      }
+
+      toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -153,7 +241,7 @@ export default function LoginPage() {
   return (
     <>
       <div className='bg-muted flex items-center justify-center border px-2 py-8 sm:px-4'>
-        <div className='flex w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-md h-fit md:max-w-5xl'>
+        <div className='flex h-fit w-full max-w-lg overflow-hidden rounded-lg bg-white shadow-md md:max-w-5xl'>
           {/* Left Side Image */}
           <div className='hidden w-[40%] md:block'>
             <Image
@@ -188,44 +276,49 @@ export default function LoginPage() {
                 className='px-6 pb-6 text-center sm:pt-2 md:text-left lg:pt-3'
               >
                 <div className='pt-3 md:pt-0'>
-                  <h2 className='mb-2 text-xl sm:text-2xl leading-6 font-medium'>
+                  <h2 className='mb-2 text-xl leading-6 font-medium sm:text-2xl'>
                     Login using your Email and Password
                   </h2>
-                  <p className='text-xs sm:text-sm leading-4 font-light'>
+                  <p className='text-xs leading-4 font-light sm:text-sm'>
                     For the purpose of industry registration, your details are
                     required and will be stored.
                   </p>
                   <form onSubmit={handleLoginSubmit(onLogin)}>
-                    <div className='relative my-5 pt-2 lg:mt-6'>
+                    <div className='mb-4 pt-5'>
                       <input
-                        type='email'
-                        id='email'
+                        type='text'
+                        id='loginId'
                         className={cn(
-                          'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
-                          loginErrors.email ? 'border-red-500' : ''
+                          'block w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none',
+                          loginErrors.loginId ? 'border-red-500' : ''
                         )}
-                        placeholder='john@example.com'
-                        {...loginRegister('email', {
-                          required: 'Email is required',
-                          pattern: {
-                            value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                            message: 'Invalid email address'
+                        placeholder='Enter email, username, or phone'
+                        {...loginRegister('loginId', {
+                          required: 'This field is required',
+                          validate: {
+                            validInput: (value) => {
+                              const isEmail =
+                                /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(
+                                  value
+                                );
+                              const isPhone = /^[0-9]{10}$/.test(value);
+                              const isName = /^[a-zA-Z ]{3,}$/.test(value);
+                              return (
+                                isEmail ||
+                                isPhone ||
+                                isName ||
+                                'Enter a valid email, username (3+ letters), or phone (10 digits)'
+                              );
+                            }
                           }
                         })}
                       />
-                      <label
-                        htmlFor='email'
-                        className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
-                      >
-                        Email
-                      </label>
-                      {loginErrors.email && (
-                        <p className='mt-1 text-xs text-red-500 text-left'>
-                          {loginErrors.email.message}
+                      {loginErrors.loginId && (
+                        <p className='mt-1 text-xs text-red-500'>
+                          {loginErrors.loginId.message}
                         </p>
                       )}
                     </div>
-
                     <div className='relative'>
                       <input
                         type='password'
@@ -250,7 +343,7 @@ export default function LoginPage() {
                         Password
                       </label>
                       {loginErrors.password && (
-                        <p className='mt-1 text-xs text-red-500 text-left'>
+                        <p className='mt-1 text-left text-xs text-red-500'>
                           {loginErrors.password.message}
                         </p>
                       )}
@@ -293,7 +386,7 @@ export default function LoginPage() {
                       </p>
                       <Button
                         size={'lg'}
-                        className='xs:w-2/3 mb-2 h-10 sm:h-12 w-full text-base sm:text-lg'
+                        className='xs:w-2/3 mb-2 h-10 w-full text-base sm:h-12 sm:text-lg'
                         type='submit'
                         disabled={isSubmitting}
                       >
@@ -305,10 +398,10 @@ export default function LoginPage() {
                         <hr className='w-[48%] border-black' />
                       </div>
                       <button
-                        className='xs:w-2/3 mx-auto mb-3 flex h-9 sm:h-12 w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-sm sm:text-base'
+                        className='xs:w-2/3 mx-auto mb-3 flex h-9 w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-sm sm:h-12 sm:text-base'
                         type='button'
                       >
-                        <FcGoogle className='h-4 sm:h-7 w-7' />
+                        <FcGoogle className='h-4 w-7 sm:h-7' />
                         Login with Google
                       </button>
 
@@ -333,10 +426,10 @@ export default function LoginPage() {
                 className='pb-6 text-center sm:pt-2 md:text-left lg:pt-3'
               >
                 <div className='px-6 pt-3 md:pt-0'>
-                  <h2 className='mb-2 text-xl sm:text-2xl leading-6 font-medium'>
+                  <h2 className='mb-2 text-xl leading-6 font-medium sm:text-2xl'>
                     Don't have an Account?
                   </h2>
-                  <p className='text-xs sm:text-sm leading-4 font-light'>
+                  <p className='text-xs leading-4 font-light sm:text-sm'>
                     For the purpose of industry registration, your details are
                     required and will be stored.
                   </p>
@@ -369,7 +462,7 @@ export default function LoginPage() {
                           Name
                         </label>
                         {registerErrors.name && (
-                          <p className='mt-1 text-xs text-red-500 text-left'>
+                          <p className='mt-1 text-left text-xs text-red-500'>
                             {registerErrors.name.message}
                           </p>
                         )}
@@ -399,7 +492,7 @@ export default function LoginPage() {
                           Email
                         </label>
                         {registerErrors.email && (
-                          <p className='mt-1 text-xs text-red-500 text-left'>
+                          <p className='mt-1 text-left text-xs text-red-500'>
                             {registerErrors.email.message}
                           </p>
                         )}
@@ -433,7 +526,7 @@ export default function LoginPage() {
                           Mobile Number
                         </label>
                         {registerErrors.mobile && (
-                          <p className='mt-1 text-xs text-red-500 text-left'>
+                          <p className='mt-1 text-left text-xs text-red-500'>
                             {registerErrors.mobile.message}
                           </p>
                         )}
@@ -451,8 +544,8 @@ export default function LoginPage() {
                           {...registerRegister('password', {
                             required: 'Password is required',
                             minLength: {
-                              value: 6,
-                              message: 'Password must be at least 6 characters'
+                              value: 8,
+                              message: 'Password must be at least 8 characters'
                             }
                           })}
                         />
@@ -463,7 +556,7 @@ export default function LoginPage() {
                           Password
                         </label>
                         {registerErrors.password && (
-                          <p className='mt-1 text-xs text-red-500 text-left'>
+                          <p className='mt-1 text-left text-xs text-red-500'>
                             {registerErrors.password.message}
                           </p>
                         )}
@@ -519,7 +612,7 @@ export default function LoginPage() {
                       </p>
                       <Button
                         size={'lg'}
-                        className='xs:w-2/3 mb-2 h-10 sm:h-12 w-full text-base sm:text-lg'
+                        className='xs:w-2/3 mb-2 h-10 w-full text-base sm:h-12 sm:text-lg'
                         type='submit'
                         disabled={isSubmitting}
                       >
@@ -532,7 +625,7 @@ export default function LoginPage() {
                       </div>
 
                       <button
-                        className='xs:w-2/3 mx-auto mb-2 flex h-9 sm:h-12 w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-sm sm:text-base'
+                        className='xs:w-2/3 mx-auto mb-2 flex h-9 w-full items-center justify-center gap-2 rounded-md border px-4 py-1.5 text-sm sm:h-12 sm:text-base'
                         type='button'
                       >
                         <FcGoogle className='h-7 w-7' />
@@ -568,6 +661,7 @@ export default function LoginPage() {
 export function ForgotPasswordDialog({ open = false, setOpen }) {
   const [openOtpModal, setOpenOtpModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [email, setEmail] = useState('');
 
   const {
     register,
@@ -579,15 +673,38 @@ export function ForgotPasswordDialog({ open = false, setOpen }) {
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     try {
-      const response = await authService.forgotPassword(data.email);
-      if (response.success) {
-        toast.success('Reset link sent to your email!');
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL || ''}/api/v1/auth/send-otp`,
+        {
+          email: data.email
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      if (response.status === 200) {
+        toast.success(response.data.message);
+        setEmail(data.email);
         reset();
         setOpen(false);
         setOpenOtpModal(true);
       }
     } catch (error) {
-      toast.error('Failed to send reset link. Please try again.');
+      console.error('Error sending OTP:', error);
+      let errorMessage = 'Failed to send OTP. Please try again.';
+
+      if (axios.isAxiosError(error)) {
+        if (error.response?.data?.message) {
+          errorMessage = error.response.data.message;
+        } else if (error.response?.status === 404) {
+          errorMessage = 'Email not found';
+        }
+      }
+
+      toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -650,16 +767,13 @@ export function ForgotPasswordDialog({ open = false, setOpen }) {
       <OTPDialog
         open={openOtpModal}
         onOpenChange={setOpenOtpModal}
-        onSubmit={(otp) => {
-          console.log('OTP submitted:', otp);
-          // Handle OTP verification
-        }}
+        email={email}
       />
     </>
   );
 }
 
-export function ResetPasswordDialog({ open = false, setOpen }) {
+export function ResetPasswordDialog({ open = false, setOpen, email }) {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const {
@@ -667,20 +781,44 @@ export function ResetPasswordDialog({ open = false, setOpen }) {
     handleSubmit,
     formState: { errors },
     reset,
-    watch
+    watch,
+    setValue
   } = useForm();
+
+  // Set the email value when component mounts or email prop changes
+  useEffect(() => {
+    if (email) {
+      setValue('email', email);
+    }
+  }, [email, setValue]);
 
   const onSubmit = async (data) => {
     setIsSubmitting(true);
     try {
-      const response = await authService.resetPassword(data);
-      if (response.success) {
-        toast.success('Password reset successfully!');
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/forgot-password`,
+        {
+          email: data.email || email, // Use form email or prop email as fallback
+          password: data.password,
+          confirmPassword: data.confirmPassword
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      if (response.data.success) {
+        toast.success(response.data.message || 'Password reset successfully!');
         reset();
         setOpen(false);
       }
     } catch (error) {
-      toast.error('Failed to reset password. Please try again.');
+      const errorMessage =
+        error.response?.data?.message ||
+        'Failed to reset password. Please try again.';
+      toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
     }
@@ -772,31 +910,74 @@ export function ResetPasswordDialog({ open = false, setOpen }) {
   );
 }
 
-export function OTPDialog({ open, onOpenChange, onSubmit }) {
+export function OTPDialog({ open, onOpenChange, onSubmit, email }) {
   const [otp, setOtp] = useState(new Array(6).fill(''));
   const [openResetPassword, setOpenResetPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (element, index) => {
     const value = element.value.replace(/[^0-9]/g, '');
-    if (!value) return;
-
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
-
-    // Auto focus next input
-    if (element.nextSibling) {
+    // Auto-focus next input only if a digit was entered
+    if (value && element.nextSibling) {
       element.nextSibling.focus();
     }
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     const enteredOtp = otp.join('');
-    onSubmit?.(enteredOtp);
-    // If OTP is valid, open reset password dialog
-    if (enteredOtp.length === 6) {
+
+    if (enteredOtp.length !== 6) {
+      setError('Please enter a complete 6-digit OTP');
+      return;
+    }
+
+    setIsLoading(true);
+    setError('');
+
+    try {
+      // Make API call with Axios
+      const response = await axios.post(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/verify-otp`,
+        {
+          email: email, // Make sure this is not null/undefined
+          generateOTP: enteredOtp
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+
+      if(response.status == 200){
+        toast.success(response.data.message)
+      }
+
+      // Handle successful response
+      onSubmit?.(response.data);
       setOpenResetPassword(true);
       onOpenChange(false);
+    } catch (err) {
+      const errorMessage =
+        err.response?.data?.message || err.message || 'Verification failed';
+      setError(errorMessage);
+      setOtp(new Array(6).fill(''));
+
+      // Debugging: Log the exact request being sent
+      console.error('API Request Failed:', {
+        url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/verify-otp`,
+        payload: {
+          email: email,
+          generateOTP: enteredOtp
+        },
+        error: err.response?.data || err.message
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -832,6 +1013,7 @@ export function OTPDialog({ open, onOpenChange, onSubmit }) {
             <Button
               className='h-11 w-full text-base'
               onClick={handleSubmit}
+              email={email}
               disabled={otp.join('').length !== 6}
             >
               Verify OTP
@@ -843,6 +1025,7 @@ export function OTPDialog({ open, onOpenChange, onSubmit }) {
       <ResetPasswordDialog
         open={openResetPassword}
         setOpen={setOpenResetPassword}
+        email={email}
       />
     </>
   );
