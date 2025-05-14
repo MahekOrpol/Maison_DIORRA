@@ -130,7 +130,7 @@ export default function ProductListingPage({ params }) {
                 <button
                   key={style.styleType}
                   onClick={() => setSelectedStyle(style.styleType)}
-                  className={`inline-flex w-[120px] flex-col items-center rounded-2xl border p-3 pt-4 text-xs transition-all ${isSelected ? 'bg-muted border-black/60 hover:bg-gray-100 shadow-md' : 'border-secondary shadow-md hover:border-gray-300'} `}
+                  className={`inline-flex w-[120px] flex-col items-center rounded-2xl border p-3 pt-4 text-xs transition-all ${isSelected ? 'bg-muted border-black/60 shadow-md hover:bg-gray-100' : 'border-secondary shadow-md hover:border-gray-300'} `}
                 >
                   <div className='mb-4 flex h-[30px] w-[70px] items-center justify-center 2xl:h-[35px]'>
                     <Image
@@ -229,15 +229,19 @@ export default function ProductListingPage({ params }) {
       </div>
 
       {/* Load more button */}
-      <div className="flex flex-col items-center justify-center min-h-[100px] p-4">
+      <div className='flex min-h-[100px] flex-col items-center justify-center p-4'>
         {isLoading ? (
-          <div className="animate-pulse bg-gray-200 h-10 w-32 rounded-md"></div>
+          <div className='h-10 w-32 animate-pulse rounded-md bg-gray-200'></div>
         ) : (
           <>
-            <p className="mb-4 text-gray-600">Showing {data.length} Out Of 100</p>
-            <button className="group relative px-6 py-2 rounded-md text-black font-medium border-2 border-black transition-all duration-300 overflow-hidden">
-              <span className="absolute inset-0 scale-x-0 group-hover:scale-x-100 origin-left bg-black transition-transform duration-300 ease-out z-0"></span>
-              <span className="relative z-10 group-hover:text-white transition-colors duration-300">Load More</span>
+            <p className='mb-4 text-gray-600'>
+              Showing {data.length} Out Of 100
+            </p>
+            <button className='group relative overflow-hidden rounded-md border-2 border-black px-6 py-2 font-medium text-black transition-all duration-300'>
+              <span className='absolute inset-0 z-0 origin-left scale-x-0 bg-black transition-transform duration-300 ease-out group-hover:scale-x-100'></span>
+              <span className='relative z-10 transition-colors duration-300 group-hover:text-white'>
+                Load More
+              </span>
             </button>
           </>
         )}
@@ -260,8 +264,6 @@ function ProductsFilter({ category, subCategory, className }) {
     'bracelets',
     'earrings'
   ].includes(category);
-
-  // console.log(category, subCategory);
 
   return (
     <div className={cn(className)}>
@@ -331,10 +333,11 @@ function ProductsFilter({ category, subCategory, className }) {
                       key={karat}
                       variant='outline'
                       onClick={() => setSelectedPurity(karat)}
-                      className={`bg-secondary rounded-md transition ${isSelected
-                        ? 'border-black'
-                        : 'border-transparent hover:border-black'
-                        }`}
+                      className={`bg-secondary rounded-md transition ${
+                        isSelected
+                          ? 'border-black'
+                          : 'border-transparent hover:border-black'
+                      }`}
                     >
                       {karat}
                     </Button>
@@ -356,10 +359,11 @@ function ProductsFilter({ category, subCategory, className }) {
                     <button
                       key={idx}
                       onClick={() => setSelectedStyle(style.styleType)}
-                      className={`bg-secondary flex h-full flex-col items-center rounded-md border px-2 pb-2 text-[10px] transition-all ${isSelected
-                        ? 'border-black'
-                        : 'border-transparent hover:border-black'
-                        }`}
+                      className={`bg-secondary flex h-full flex-col items-center rounded-md border px-2 pb-2 text-[10px] transition-all ${
+                        isSelected
+                          ? 'border-black'
+                          : 'border-transparent hover:border-black'
+                      }`}
                     >
                       <Image
                         src={style.imgUrl}

@@ -31,7 +31,6 @@ export async function generateMetadata({ params }) {
 
 export default function Page({ params }) {
   const { category } = params;
-  console.log(category);
   const allowedCategories = ['rings', 'earrings', 'necklaces', 'bracelets'];
 
   if (allowedCategories.includes(category)) {

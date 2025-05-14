@@ -50,7 +50,6 @@ export function ProductSelectionStepsForDiamonds({ className }) {
   const [openSettings, setOpenSettings] = React.useState(false);
   const [openStone, setOpenStone] = React.useState(false);
   const [openProduct, setOpenProduct] = React.useState(false);
-  console.log(openSettings);
 
   return (
     <>

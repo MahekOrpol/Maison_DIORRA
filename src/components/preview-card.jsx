@@ -26,7 +26,8 @@ import {
 import ProductGallery, {
   MobileGallery
 } from '@/app/(storefront)/products/[category]/components/product-gallery';
-import { useRouter } from 'next/navigation';
+import { useRouter } from 'nextjs-toploader/app';
+import { useModalStore } from '@/store/modal-stote';
 
 export default function PreviewCard({
   product,
@@ -37,6 +38,7 @@ export default function PreviewCard({
   const [isProductClicked, setIsProductClicked] = useState(false);
   const [isClientMobile, setIsClientMobile] = useState(false);
   const [liked, setLiked] = useState(false);
+  const openModal = useModalStore((state) => state.openModal);
   const router = useRouter();
 
   // Fix: Reset metal when product changes
@@ -64,18 +66,32 @@ export default function PreviewCard({
   };
 
   const handleAddToCart = async () => {
-    const res = await fetch('/api/check-auth', {
-      method: 'GET',
-      cache: 'no-store'
-    });
-    const data = await res.json();
-    if (!data.authenticated) {
-      return (window.location.href = '/checkout');
+    // Check if user is logged in or not, if not then open modal
+    // const res = await fetch('/api/check-auth', {
+    //   method: 'GET',
+    //   cache: 'no-store'
+    // });
+    // const data = await res.json();
+    // if (!data.authenticated) {
+    //   return (window.location.href = '/checkout');
+    // }
+    // return (window.location.href = '/checkout');
+
+    const authUser = false;
+    if (authUser) {
+      router.push('/checkout');
+    } else {
+      openModal('cartNotAllowed');
     }
-    return (window.location.href = '/checkout');
   };
 
   if (!product || !selectedMetal) return null;
+
+  const handleFavoriteClick = () => {
+    //check if user is logged in add to wishlist else open modal
+    openModal('wishlistNotAllowed');
+    setLiked(!liked);
+  };
 
   return (
     <>
@@ -87,7 +103,7 @@ export default function PreviewCard({
       >
         {/* Wishlist Button */}
         <button
-          onClick={() => setLiked(!liked)}
+          onClick={handleFavoriteClick}
           className='hover:bg-primary/4 absolute top-2 right-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow shadow-gray-400 xl:top-3 xl:right-3'
         >
           <Heart
@@ -179,7 +195,7 @@ export default function PreviewCard({
       </Card>
 
       {/* Mobile Drawer */}
-     {isClientMobile && (
+      {isClientMobile && (
         <Drawer
           open={isProductClicked}
           onOpenChange={setIsProductClicked}
@@ -190,14 +206,15 @@ export default function PreviewCard({
               <DrawerTitle className='wrapper absolute top-3 z-10 flex justify-between border-none'>
                 <button
                   onClick={() => setLiked(!liked)}
-                  className='group rounded-full transition-all hover:scale-110 hover:bg-secondary p-1 h-8 bg-white shadow shadow-gray-400'
+                  className='group hover:bg-secondary h-8 rounded-full bg-white p-1 shadow shadow-gray-400 transition-all hover:scale-110'
                   aria-label='Add to wishlist'
                 >
                   <FaHeart
-                    className={`h-5 w-6 transition-colors duration-300 ${liked
+                    className={`h-5 w-6 transition-colors duration-300 ${
+                      liked
                         ? 'fill-primary stroke-[20] text-white'
                         : 'fill-white stroke-[30] text-black'
-                      }`}
+                    }`}
                   />
                 </button>
                 <DrawerClose className='flex h-7 w-7 items-center justify-center rounded-full bg-[#D9D9D9] transition focus:scale-105'>
@@ -261,7 +278,7 @@ export default function PreviewCard({
                     href='/products/rings/engagement-rings/1'
                     onClick={() => setIsProductClicked(true)}
                     className='relative inline-block h-[40px] overflow-hidden rounded-md border border-black bg-white px-4 py-2 text-base text-black transition-colors duration-400'
-                  > 
+                  >
                     More info
                   </Link>
                   <Button

@@ -3,13 +3,13 @@
 const BASE_URL =
   `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1` || 'https://api.yoursite.com';
 
-export async function fetchHeroSection() {
-  //   const res = await fetch(`${BASE_URL}/home/hero`, {
-  const res = await fetch(`${BASE_URL}/test`, {
-    next: { revalidate: 3600 } // cache for 1 hour
-  });
-  return res.json();
-}
+// export async function fetchHeroSection() {
+//   const res = await fetch(`${BASE_URL}/home/hero`, {
+// const res = await fetch(`${BASE_URL}/test`, {
+// next: { revalidate: 3600 } // cache for 1 hour
+//   });
+//   return res.json();
+// }
 
 export async function fetchCategories() {
   const res = await fetch(`${BASE_URL}/category/get`, {

@@ -32,7 +32,6 @@ export default function ProductDetailsPage({ params }) {
   // const product = await data.json();
 
   const product = getProductDetaisByCategory(category);
-  // console.log(selectedMetal);
 
   return (
     <>

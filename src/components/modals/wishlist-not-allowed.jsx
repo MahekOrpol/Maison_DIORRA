@@ -1,25 +1,30 @@
 'use client';
 
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { Heart, LogIn, UserPlus } from 'lucide-react';
+import { Heart, LogIn } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { useModalStore } from '@/store/modal-stote';
 
-export function NotAllowedModal({ open, onOpenChange }) {
+export function WishlistNotAllowed() {
+  const modalState = useModalStore((s) => s.modals['wishlistNotAllowed']);
+  const closeModal = useModalStore((s) => s.closeModal);
   const router = useRouter();
-  const handleLoginClick = () => {
-    router.push('/login');
-    onOpenChange(false);
+
+  const isOpen = modalState?.open || false;
+
+  const handleOpenChange = (open) => {
+    if (!open) closeModal('wishlistNotAllowed');
   };
+
+  const handleLoginClick = () => {
+    closeModal('wishlistNotAllowed');
+    router.push('/login');
+  };
+
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
+    <Dialog open={isOpen} onOpenChange={handleOpenChange}>
       <DialogContent className='overflow-hidden rounded-xl p-0 sm:max-w-4xl'>
         <DialogTitle className='sr-only'>
           Wishlist Access Denied Popup
@@ -42,9 +47,8 @@ export function NotAllowedModal({ open, onOpenChange }) {
               <Heart className='h-8 w-8 fill-[#C5A880] text-[#C5A880]' />
             </div> */}
             <div className='mb-6 flex h-14 w-14 items-center justify-center rounded-full border-2 border-[#C5A880] bg-gradient-to-br from-yellow-50 to-amber-200 shadow-md transition-transform hover:scale-105 hover:shadow-lg'>
-              <Heart className='h-6 w-6 text-[#8B6F43] fill-[#D8B170] stroke-1' />
+              <Heart className='h-6 w-6 fill-[#D8B170] stroke-1 text-[#8B6F43]' />
             </div>
-
 
             {/* Title */}
             <h2 className='text-2xl font-bold text-gray-900'>

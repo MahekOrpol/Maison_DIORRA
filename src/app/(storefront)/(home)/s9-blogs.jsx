@@ -130,7 +130,6 @@ export default function S9BlogsSection({ data }) {
       }
     }
   });
-  console.log(data);
   useEffect(() => {
     if (!slider.current) return;
 

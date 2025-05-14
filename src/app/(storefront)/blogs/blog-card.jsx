@@ -9,7 +9,6 @@ export default function BlogCard({ data }) {
   const handleClick = () => {
     router.push(`/blogs/${data.id}`);
   };
-  console.log(data);
   return (
     <Link
       href={`/blogs/${data.id}`}

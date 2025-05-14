@@ -5,7 +5,7 @@ import { ScheduleCallDialog } from '@/components/modals/schedule-meeting-modal';
 import RelatedProducts from '@/components/related-products';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { useCheckoutStore } from '@/lib/checkout-store';
+import { useCheckoutStore } from '@/store/checkout-store';
 import { cn } from '@/lib/utils';
 import { BadgePercent, MoveRight, Trash } from 'lucide-react';
 import Image from 'next/image';
@@ -21,13 +21,16 @@ const ShoppingCart = ({ onNext }) => {
 
   // Calculate dynamic pricing
   const calculatePricing = () => {
-    const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const youSaved = subtotal * 0.2; 
+    const subtotal = cart.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
+    const youSaved = subtotal * 0.2;
     const total = subtotal - youSaved - couponDiscount;
     return {
       subtotal: subtotal.toFixed(2),
       youSaved: youSaved.toFixed(2),
-      total: Math.max(0, total).toFixed(2) 
+      total: Math.max(0, total).toFixed(2)
     };
   };
 
@@ -38,7 +41,8 @@ const ShoppingCart = ({ onNext }) => {
     { label: 'You saved', value: youSaved, isDiscount: true },
     {
       label: 'Coupon Discount',
-      value: couponDiscount > 0 ? `-$${couponDiscount.toFixed(2)}` : 'Apply Coupon',
+      value:
+        couponDiscount > 0 ? `-$${couponDiscount.toFixed(2)}` : 'Apply Coupon',
       isEditable: true
     },
     { label: 'Shipping (Standard)', value: 'Free' }
@@ -67,7 +71,10 @@ const ShoppingCart = ({ onNext }) => {
                 close
               </p>
             </div>
-            <button className='bg-primary text-primary-foreground inline-flex items-center justify-center gap-2 rounded-md px-4 py-[6px] sm:py-2' onClick={() => setOpenMeeting(true)}>
+            <button
+              className='bg-primary text-primary-foreground inline-flex items-center justify-center gap-2 rounded-md px-4 py-[6px] sm:py-2'
+              onClick={() => setOpenMeeting(true)}
+            >
               See it Live
               <BiVideoPlus className='h-6 w-6' strokeWidth={0.1} />
             </button>
@@ -125,11 +132,11 @@ export function PricingDetails({
   return (
     <div
       className={cn(
-        'w-full rounded-lg border-[0.2px] border-black/60 p-3 xs:p-6',
+        'xs:p-6 w-full rounded-lg border-[0.2px] border-black/60 p-3',
         className
       )}
     >
-      <h3 className='mb-4 text-lg lg:text-xl font-semibold underline underline-offset-6'>
+      <h3 className='mb-4 text-lg font-semibold underline underline-offset-6 lg:text-xl'>
         Pricing Details
       </h3>
 
@@ -138,8 +145,7 @@ export function PricingDetails({
           <div key={index} className='flex justify-between'>
             <span className='text-base'>{item.label}</span>
             <span
-              className={`text-base font-medium ${item.isDiscount ? '' : ''
-                }`}
+              className={`text-base font-medium ${item.isDiscount ? '' : ''}`}
             >
               {item.isDiscount && '-'}
               {currency}
@@ -151,7 +157,7 @@ export function PricingDetails({
 
       <div className='my-4 border-t pt-4'>
         <div className='flex justify-between'>
-          <span className='font-medium text-lg'>Total Cost</span>
+          <span className='text-lg font-medium'>Total Cost</span>
           <span className='text-lg font-bold'>
             {currency}
             {total}
@@ -175,7 +181,7 @@ function CartContainer({ cart, setCart }) {
   return (
     <div>
       {cart.length > 0 && (
-        <div className='hidden justify-between border-b pb-2 xl:font-bold text-sm xl:text-lg sm:flex'>
+        <div className='hidden justify-between border-b pb-2 text-sm sm:flex xl:text-lg xl:font-bold'>
           <div className='w-[60%] pl-[118px]'>PRODUCTS</div>
           <div className='grid w-[38%] grid-cols-3 gap-2'>
             <p>QUANTITY</p>
@@ -208,7 +214,7 @@ function CartContainer({ cart, setCart }) {
           </div>
         </div>
       ) : (
-        <div className='space-y-4 border sm:border-none p-3'>
+        <div className='space-y-4 border p-3 sm:border-none'>
           {cart.map((item) => (
             <div
               key={item.id}
@@ -220,13 +226,13 @@ function CartContainer({ cart, setCart }) {
                   alt={item.name}
                   width={100}
                   height={100}
-                  className='h-20 w-20 lg:h-24 lgw-24 rounded-md shadow-[0px_0px_3px_1px_rgba(0,_0,_0,_0.1)]'
+                  className='lgw-24 h-20 w-20 rounded-md shadow-[0px_0px_3px_1px_rgba(0,_0,_0,_0.1)] lg:h-24'
                 />
                 <div className='flex flex-col justify-between'>
-                  <span className='text-muted-foreground text-sm md:text-base font-medium'>
+                  <span className='text-muted-foreground text-sm font-medium md:text-base'>
                     {item.category}
                   </span>
-                  <p className='line-clamp-1 font-medium text-base md:text-xl'>
+                  <p className='line-clamp-1 text-base font-medium md:text-xl'>
                     {item.name}
                   </p>
                   <span className=''>$ {item.price}</span>

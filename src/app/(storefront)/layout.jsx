@@ -1,6 +1,9 @@
 import Footer from '@/components/layout/footer';
 import Header from '@/components/layout/header';
+import { WishlistNotAllowed } from '@/components/modals/wishlist-not-allowed';
 import ScrollToTop from '@/components/scroll-to-top';
+import CartItem from '../checkout/components/cart-item';
+import { CartNotAllowed } from '@/components/modals/cart-not-allowed';
 
 export default function MainLayout({ children }) {
   return (
@@ -11,6 +14,8 @@ export default function MainLayout({ children }) {
       </main>
       <Footer />
       <ScrollToTop />
+      <WishlistNotAllowed />
+      <CartNotAllowed />
     </>
   );
 }

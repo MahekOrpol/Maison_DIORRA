@@ -8,22 +8,20 @@ import MobileNavDrawer from './mobile-nav';
 import { AccountDropdown } from './account-dropdown';
 import LocateAndSearch from './locate-search';
 import { useState, useEffect } from 'react';
-import { NotAllowedModal } from '../modals/na-wishlist';
-import { AddToCartNotAllowedModal } from '../modals/na-addtocart';
 import { cn } from '@/lib/utils';
 import { GiGemPendant } from 'react-icons/gi';
+import { useModalStore } from '@/store/modal-stote';
 const messages = [
   'Welcome to our jewelry collection!',
   'Enjoy 10% off on your first purchase!',
   'THE ESSENTIALS | UP TO 40% OFF* Ends in April'
 ];
 export default function Header() {
-  const [showNotAllowed, setShowNotAllowed] = useState(false);
-  const [showCartDialog, setShowCartDialog] = useState(false);
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [activeMenu, setActiveMenu] = useState(null);
   const [index, setIndex] = useState(0);
+  const openModal = useModalStore((state) => state.openModal);
 
   // const router = useRouter();
   // const cookieStore = await cookies();
@@ -64,11 +62,12 @@ export default function Header() {
     // if (authUser) {
     //   router.push(`/account/wishlist`);
     // } else {
-    setShowNotAllowed(true);
+    openModal('wishlistNotAllowed');
     // }
   };
   const handleAddToCart = () => {
-    setShowCartDialog(true);
+    // Check if user is logged in or not, if not then
+    openModal('cartNotAllowed');
   };
 
   const diamondShapes = [
@@ -470,7 +469,7 @@ export default function Header() {
           {/* black banner */}
           <div className='bg-primary relative h-9 overflow-hidden py-2 text-center tracking-wider text-white'>
             <div className='animate-fade absolute w-full opacity-100 transition-opacity duration-1000 ease-in-out'>
-              <p key={index} className='text-xs xs:text-sm md:text-base'>
+              <p key={index} className='xs:text-sm text-xs md:text-base'>
                 {messages[index]}
               </p>
             </div>
@@ -562,11 +561,6 @@ export default function Header() {
           onClick={() => setActiveMenu(null)} // Optional: close on click
         />
       )}
-      <NotAllowedModal open={showNotAllowed} onOpenChange={setShowNotAllowed} />
-      <AddToCartNotAllowedModal
-        open={showCartDialog}
-        onOpenChange={setShowCartDialog}
-      />
     </>
   );
 }

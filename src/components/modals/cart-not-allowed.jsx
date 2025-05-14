@@ -1,27 +1,29 @@
 'use client';
 
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogFooter
-} from '@/components/ui/dialog';
+import { Dialog, DialogContent, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
-import { ShoppingCart, LogIn, UserPlus } from 'lucide-react';
+import { ShoppingCart, LogIn } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
+import { useModalStore } from '@/store/modal-stote';
 
-export function AddToCartNotAllowedModal({ open, onOpenChange }) {
+export function CartNotAllowed() {
+  const modalState = useModalStore((s) => s.modals['cartNotAllowed']);
+  const closeModal = useModalStore((s) => s.closeModal);
+  const isOpen = modalState?.open || false;
   const router = useRouter();
+
+  const onOpenChange = (open) => {
+    if (!open) closeModal('cartNotAllowed');
+  };
   const handleLoginClick = () => {
+    closeModal('cartNotAllowed');
     router.push('/login');
-    onOpenChange(false);
   };
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange} className='rounded-none'>
-      <DialogContent className='overflow-hidden rounded-xl p-0 sm:max-w-4xl border-0'>
+    <Dialog open={isOpen} onOpenChange={onOpenChange} className='rounded-none'>
+      <DialogContent className='overflow-hidden rounded-xl border-0 p-0 sm:max-w-4xl'>
         <DialogTitle className='sr-only'>
           Wishlist Access Denied Popup
         </DialogTitle>
@@ -43,7 +45,7 @@ export function AddToCartNotAllowedModal({ open, onOpenChange }) {
               <ShoppingCart className='h-8 w-8 fill-[#C5A880] text-[#C5A880]' />
             </div> */}
             <div className='mb-6 flex h-16 w-16 items-center justify-center rounded-full border-2 border-[#C5A880] bg-gradient-to-br from-yellow-50 to-amber-100 shadow-md transition-transform hover:scale-105 hover:shadow-lg'>
-              <ShoppingCart className='h-8 w-8 text-[#8B6F43] fill-[#D8B170] stroke-1' />
+              <ShoppingCart className='h-8 w-8 fill-[#D8B170] stroke-1 text-[#8B6F43]' />
             </div>
             {/* Title */}
             <h2 className='text-2xl font-bold text-gray-900'>
