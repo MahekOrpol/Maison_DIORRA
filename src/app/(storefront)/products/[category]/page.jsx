@@ -75,7 +75,8 @@ export default async function ProductListingPage({ params }) {
   const { category, subcategory } = await params;
 
   const data = await fetchProductsByCategory(category);
-  console.log(data);
+
+  console.log(category);
 
   return (
     <div className='wrapper'>
@@ -84,7 +85,7 @@ export default async function ProductListingPage({ params }) {
       )}
       <ProductsFilter
         category={category}
-        subCategory={subcategory}
+        subCategory={''}
         className='mt-3 lg:mt-8 2xl:mt-10'
       />
       {/* listing components */}

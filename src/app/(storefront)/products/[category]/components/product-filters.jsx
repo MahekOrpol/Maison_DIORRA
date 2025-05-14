@@ -45,7 +45,7 @@ export default function ProductsFilter({ category, subCategory, className }) {
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [selectedPurity, setSelectedPurity] = useState('14 K');
 
-  const isRing = category === 'rings';
+  const isRing = category === 'Rings';
   const isDiamondBased = subCategory?.toLowerCase().includes('diamond');
   const showRingStyle = isRing;
   const showDiamondShapes = isDiamondBased || isRing;
@@ -74,7 +74,7 @@ export default function ProductsFilter({ category, subCategory, className }) {
         >
           Find Your Statement Piece – Crafted to Elevate Your Style
         </p>
-        {category === 'rings' && (
+        {category === 'Rings' && (
           <div className='hidden justify-center gap-4 pt-3 lg:flex'>
             {ringStyles.map((style) => {
               const isSelected = selectedStyle === style.styleType;
