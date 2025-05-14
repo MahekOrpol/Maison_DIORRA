@@ -10,7 +10,7 @@ export const ProductCardSkeleton = () => {
 
             {/* Text placeholders */}
             <div className="space-y-2">
-                <div className="bg-gray-200 h-4 rounded-md w-4/5"></div>
+                <div className="bg-gray-200 h-4 rounded-md w-20 md:w-40"></div>
                 <div className="bg-gray-200 h-4 rounded-md w-3/4"></div>
             </div>
             {/* Button placeholder */}

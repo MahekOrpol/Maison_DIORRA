@@ -130,7 +130,7 @@ export default function ProductListingPage({ params }) {
                 <button
                   key={style.styleType}
                   onClick={() => setSelectedStyle(style.styleType)}
-                  className={`inline-flex w-[120px] flex-col items-center rounded-2xl border p-3 pt-4 text-xs transition-all ${isSelected ? 'bg-muted border-black/60 shadow-md hover:bg-gray-100' : 'border-secondary shadow-md hover:border-gray-300'} `}
+                  className={`inline-flex w-[112px] flex-col items-center rounded-2xl border p-3 pt-4 text-xs transition-all ${isSelected ? 'border-secondary shadow-md' : 'border-secondary shadow-md hover:border-black/60 hover:bg-gray-100'} `}
                 >
                   <div className='mb-4 flex h-[30px] w-[70px] items-center justify-center 2xl:h-[35px]'>
                     <Image

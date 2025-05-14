@@ -7,39 +7,39 @@ import { baseUrl } from '@/lib/utils';
 export default function BlogCard({ data }) {
   const router = useRouter();
   const handleClick = () => {
-    router.push(`/blogs/${data.id}`);
+    router.push(`/blogs/${data?.id}`);
   };
   return (
     <Link
-      href={`/blogs/${data.id}`}
+      href={`/blogs/${data?.id}`}
       className='flex h-full flex-col overflow-hidden rounded-xl bg-white transition duration-300 ease-in-out'
     >
       {/* Image with fixed aspect ratio */}
       <div className='aspect-[5/3.25] w-full overflow-hidden rounded-lg'>
-        <Image
-          src={data?.imges ? `${baseUrl}${data.imges}` : ''}
+        <img
+          src={`${baseUrl}${data?.imges}`}
           alt='Blog Image'
           className='h-full w-full object-cover transition duration-300 ease-in-out hover:scale-108 hover:rotate-2'
-          width={380}
-          height={210}
+          // width={380}
+          // height={210}
         />
       </div>
       {/* Content */}
       <div className='flex flex-1 flex-col p-2'>
         <p className='text-xs leading-5 font-medium lg:text-sm lg:leading-6'>
-          {new Date(data.createdAt).toLocaleDateString('en-US', {
+          {new Date(data?.createdAt).toLocaleDateString('en-US', {
             month: 'short',
             day: '2-digit',
             year: 'numeric'
           })}
-          <span className='text-base leading-3'>•</span> {data.authorName}
+          <span className='text-base leading-3'>•</span> {data?.authorName}
         </p>
         <h3 className='line-clamp-1 overflow-hidden text-xl font-medium 2xl:text-2xl'>
-          {data.headline || 'Blog Post Title'}
+          {data?.headline || 'Blog Post Title'}
         </h3>
         <hr className='mb-2 border-black/50' />
         <p className='line-clamp-2 overflow-hidden text-sm font-light text-ellipsis lg:text-base 2xl:text-lg'>
-          {data.description}
+          {data?.description}
         </p>
         <button
           onClick={handleClick}
