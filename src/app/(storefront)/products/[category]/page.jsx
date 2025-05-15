@@ -84,7 +84,7 @@ export default async function ProductListingPage({ params }) {
         <CustomTagWrapper className='xs:mt-[25px] mt-[20px] sm:mt-[30px] lg:mt-[35px] xl:mt-[45px] 2xl:mt-[65px]' />
       )}
       <ProductsFilter
-        category={category}
+        category={category.toLowerCase()}
         subCategory={''}
         className='mt-3 lg:mt-8 2xl:mt-10'
       />

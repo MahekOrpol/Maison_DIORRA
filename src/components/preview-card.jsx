@@ -172,28 +172,15 @@ export default function PreviewCard({
                 ${parseFloat(product.regularPrice.$numberDecimal)}
               </span>
             </div>
-            <div className='flex gap-0.5'>
+            <div className='flex gap-0.5 lg:gap-1'>
               {product?.variations?.[0].metalVariations.map((variant) => {
                 const isSelected = variant.metal === selectedMetal.metal;
                 return (
-                  // <button
-                  //   key={variant.metal}
-                  //   onClick={() => setSelectedMetal(variant)}
-                  //   className={cn(
-                  //     'h-4.5 w-4.5 rounded-full border-2 border-white hover:outline hover:outline-offset-1 sm:h-5.25 sm:w-5.25 md:h-6 md:w-6',
-                  //     isSelected ? 'ring-primary/40 ring-offset-0.5 ring' : ''
-                  //   )}
-                  //   // style={{
-                  //   //   backgroundImage: `url('/img/preview/rose.png')`,
-                  //   //   backgroundSize: 'cover',
-                  //   //   backgroundPosition: 'center'
-                  //   // }}
-                  // />
                   <button
                     key={variant.metal}
                     onClick={() => setSelectedMetal(variant)}
                     className={cn(
-                      'h-4.5 w-4.5 rounded-full border-2 border-white hover:outline hover:outline-offset-1 sm:h-5.25 sm:w-5.25 md:h-6 md:w-6',
+                      'h-4.5 w-4.5 rounded-full border-2 border-white hover:outline hover:outline-offset-1 sm:h-5.25 sm:w-5.25',
                       isSelected ? 'ring-primary/40 ring-offset-0.5 ring' : ''
                     )}
                     style={{

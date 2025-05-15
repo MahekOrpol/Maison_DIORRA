@@ -87,6 +87,14 @@ input[type='number']::-webkit-inner-spin-button {
     @apply h-[500px] bg-red-100;
   }
 }
+.select-metal-value {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 .hero-font {
   font-size: clamp(1.5rem, 0.9474rem + 2.9474vw, 5rem);
 }

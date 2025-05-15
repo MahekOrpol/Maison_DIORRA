@@ -11,7 +11,7 @@ const nextConfig = {
       },
       {
         protocol: 'http',
-        hostname: '192.168.1.11', // for LAN testing
+        hostname: '192.168.1.5', // for LAN testing
         pathname: '/images/**'
       },
       {
