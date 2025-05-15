@@ -14,10 +14,13 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
+import { useFetch } from '@/hooks/useFetch';
 import { cn } from '@/lib/utils';
 import { useFilterStore } from '@/store/use-filter-store';
+import axios from 'axios';
 import { Funnel, RotateCcw, RotateCcwIcon, X } from 'lucide-react';
 import Image from 'next/image';
+import { useMemo } from 'react';
 
 const ringStyles = [
   {
@@ -74,8 +77,31 @@ export default function ProductsFilter({ category, subCategory, className }) {
     'bracelets',
     'earrings'
   ].includes(category.toLowerCase());
-
-  console.log(metalPurity, style, shape, sortByPrice);
+  // APIs Memoized fetchFn that uses latest filter values
+  const fetchProducts = useMemo(() => {
+    return () => {
+      return axios
+        .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product/get`, {
+          params: {
+            category,
+            subCategory,
+            metalPurity,
+            style,
+            shape,
+            sortByPrice
+          }
+        })
+        .then((res) => res.data);
+    };
+  }, [category, subCategory, metalPurity, style, shape, sortByPrice]);
+  const { data, isLoading, error } = useFetch(fetchProducts, [
+    category,
+    subCategory,
+    metalPurity,
+    style,
+    shape,
+    sortByPrice
+  ]);
   return (
     <>
       {/* heading + product styles  */}
@@ -101,7 +127,9 @@ export default function ProductsFilter({ category, subCategory, className }) {
               return (
                 <button
                   key={item.styleType}
-                  onClick={() => setStyle(item.styleType)}
+                  onClick={() =>
+                    setStyle(item.styleType.toLowerCase().replace(/\s+/g, '-'))
+                  }
                   className={`inline-flex w-[112px] flex-col items-center rounded-2xl border p-3 pt-4 text-xs transition-all ${isSelected ? 'border-secondary shadow-md' : 'border-secondary shadow-md hover:border-black/60 hover:bg-gray-100'} `}
                 >
                   <div className='mb-4 flex h-[30px] w-[70px] items-center justify-center 2xl:h-[35px]'>

@@ -2,12 +2,12 @@ import { useEffect, useState } from 'react';
 
 export function useFetch(fetchFn, deps = []) {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     let isCancelled = false;
-    setLoading(true);
+    setIsLoading(true);
     fetchFn()
       .then((res) => {
         if (!isCancelled) setData(res);
@@ -16,7 +16,7 @@ export function useFetch(fetchFn, deps = []) {
         if (!isCancelled) setError(err);
       })
       .finally(() => {
-        if (!isCancelled) setLoading(false);
+        if (!isCancelled) setIsLoading(false);
       });
 
     return () => {
@@ -24,5 +24,5 @@ export function useFetch(fetchFn, deps = []) {
     };
   }, deps);
 
-  return { data, loading, error };
+  return { data, isLoading, error };
 }

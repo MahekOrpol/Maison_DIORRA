@@ -73,10 +73,7 @@ const advertisements = [
 
 export default async function ProductListingPage({ params }) {
   const { category, subcategory } = await params;
-
   const data = await fetchProductsByCategory(category);
-
-  console.log(category);
 
   return (
     <div className='wrapper'>

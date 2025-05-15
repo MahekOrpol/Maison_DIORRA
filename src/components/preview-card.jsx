@@ -43,7 +43,6 @@ export default function PreviewCard({
   const openModal = useModalStore((state) => state.openModal);
   const router = useRouter();
 
-  console.log(product);
   // Fix: Reset metal when product changes
   useEffect(() => {
     setSelectedMetal(product?.variations?.[0].metalVariations?.[0]);
@@ -110,6 +109,8 @@ export default function PreviewCard({
 
     return '#ccc'; // fallback gray
   };
+
+  console.log(product._id);
 
   return (
     <>
