@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -28,7 +27,6 @@ import ProductGallery, {
 } from '@/app/(storefront)/products/[category]/components/product-gallery';
 import { useRouter } from 'next/navigation';
 import { useModalStore } from '@/store/modal-stote';
-
 export default function PreviewCardMd({ product, className }) {
   const [selectedMetal, setSelectedMetal] = useState(
     product?.variations?.[0].metalVariations?.[0]
@@ -38,13 +36,11 @@ export default function PreviewCardMd({ product, className }) {
   const [liked, setLiked] = useState(false);
   const openModal = useModalStore((state) => state.openModal);
   const router = useRouter();
-
   console.log(product);
   // Fix: Reset metal when product changes
   useEffect(() => {
     setSelectedMetal(product?.variations?.[0].metalVariations?.[0]);
   }, [product]);
-
   useEffect(() => {
     const handleResize = () => {
       setIsClientMobile(window.innerWidth < 1024);
@@ -53,7 +49,6 @@ export default function PreviewCardMd({ product, className }) {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
   const handleProductClick = () => {
     if (isClientMobile) {
       setIsProductClicked(true);
@@ -63,7 +58,6 @@ export default function PreviewCardMd({ product, className }) {
       );
     }
   };
-
   const handleAddToCart = async () => {
     // Check if user is logged in or not, if not then open modal
     // const res = await fetch('/api/check-auth', {
@@ -75,7 +69,6 @@ export default function PreviewCardMd({ product, className }) {
     //   return (window.location.href = '/checkout');
     // }
     // return (window.location.href = '/checkout');
-
     const authUser = false;
     if (authUser) {
       router.push('/checkout');
@@ -83,20 +76,15 @@ export default function PreviewCardMd({ product, className }) {
       openModal('cartNotAllowed');
     }
   };
-
   if (!product || !selectedMetal) return null;
-
   const handleFavoriteClick = () => {
     //check if user is logged in add to wishlist else open modal
     openModal('wishlistNotAllowed');
     setLiked(!liked);
   };
-
   const getMetalColor = (metal) => {
     if (!metal) return '#ccc';
-
     const name = metal.toLowerCase();
-
     if (name.includes('rose'))
       return 'linear-gradient(135deg, #b76e79, #e5a3a3)';
     if (name.includes('white'))
@@ -105,7 +93,6 @@ export default function PreviewCardMd({ product, className }) {
       return 'linear-gradient(135deg, #d4af37, #f5d76e)';
     return '#ccc'; // fallback gray
   };
-
   return (
     <>
       <Card
@@ -126,7 +113,6 @@ export default function PreviewCardMd({ product, className }) {
             )}
           />
         </button>
-
         <Carousel
           key={selectedMetal.metal}
           opts={{
@@ -173,7 +159,6 @@ export default function PreviewCardMd({ product, className }) {
             <CarouselNext className='h-7 w-7 -translate-x-4 rounded-full border-none bg-white/80 text-gray-600 transition hover:bg-white 2xl:h-8 2xl:w-8' />
           </div>
         </Carousel>
-
         <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2 md:space-y-1 xl:px-4'>
           <div className='flex items-center justify-between border-t pt-2 xl:pt-1'>
             <div className='flex gap-1 sm:gap-2'>
@@ -248,7 +233,6 @@ export default function PreviewCardMd({ product, className }) {
               </DrawerTitle>
               <MobileGallery />
             </DrawerHeader>
-
             <DrawerFooter className='pt-2'>
               <div className=''>
                 <div className='mb-1 flex justify-between text-lg font-medium'>
@@ -297,7 +281,6 @@ export default function PreviewCardMd({ product, className }) {
                     Solitaire
                   </button>
                 </div>
-
                 <div className='mt-4 mb-1 flex items-stretch gap-3'>
                   <Link
                     href='/products/productid'
@@ -314,7 +297,6 @@ export default function PreviewCardMd({ product, className }) {
                     Add to Cart <ShoppingBagIcon size={20} />
                   </Button>
                 </div>
-
                 <p className='text-center text-xs'>
                   Installments starting at ₹5,000 per month.{' '}
                   <Link href='#' className='font-medium underline'>

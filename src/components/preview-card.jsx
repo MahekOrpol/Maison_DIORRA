@@ -62,7 +62,7 @@ export default function PreviewCard({
       setIsProductClicked(true);
     } else {
       router.push(
-        `/products/${product.category}/${product?.subcategory ? product.subcategory : 'all'}/${product.id}`
+        `/products/${product?.categoryName}/${product?.subcategory ? product.subcategory : 'all'}/${product._id}?metal=${selectedMetal}&metalVariation=${selectedMetal._id}`
       );
     }
   };
@@ -109,8 +109,6 @@ export default function PreviewCard({
 
     return '#ccc'; // fallback gray
   };
-
-  console.log(product._id);
 
   return (
     <>
