@@ -19,8 +19,8 @@ export async function fetchCategories() {
 
 export async function fetchFavourites() {
   //   const res = await fetch(`${BASE_URL}/products/favourites`, {
-  const res = await fetch(`${BASE_URL}/test`, {
-    next: { revalidate: 1800 } // cache for 30 min
+  const res = await fetch(`${BASE_URL}/product/get-trending?limit=12`, {
+    // next: { revalidate: 1800 } // cache for 30 min
   });
   return res.json();
 }
@@ -49,10 +49,10 @@ export async function fetchNewArrivals() {
   return res.json();
 }
 
-export async function fetchTrendingCollections() {
+export async function fetchTrendingCollections(categoryName = 'Rings') {
   //   const res = await fetch(`${BASE_URL}/collections/trending`, {
-  const res = await fetch(`${BASE_URL}/test`, {
-    next: { revalidate: 1800 }
+  const res = await fetch(`${BASE_URL}/product/get-trending?categoryName=${categoryName}&limit=4`, {
+    // next: { revalidate: 1800 }
   });
   return res.json();
 }
@@ -77,32 +77,32 @@ export async function getHomePageData() {
   const [
     // heroData,
     categoryData,
-    // favourites,
+    favourites,
     gifting,
     // diamonds,
     newArrivals,
-    // trending,
+    trending,
     blogs
     // testimonials
   ] = await Promise.all([
     // fetchHeroSection(),
     fetchCategories(),
-    // fetchFavourites(),
+    fetchFavourites(),
     fetchGiftingCollections(),
     // fetchDiamonds(),
     fetchNewArrivals(),
-    // fetchTrendingCollections(),
+   fetchTrendingCollections('Rings'),
     fetchBlogs()
     // fetchTestimonials()
   ]);
   return {
     // heroData,
     categoryData,
-    // favourites,
+    favourites,
     gifting,
     // diamonds,
     newArrivals,
-    // trending,
+    trending,
     blogs
     // testimonials
   };

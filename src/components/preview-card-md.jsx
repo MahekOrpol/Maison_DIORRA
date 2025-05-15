@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -13,7 +12,7 @@ import {
   CarouselNext,
   CarouselPrevious
 } from '@/components/ui/carousel';
-import { cn } from '@/lib/utils';
+import { baseUrl, cn } from '@/lib/utils';
 import Link from 'next/link';
 import {
   Drawer,
@@ -27,19 +26,21 @@ import ProductGallery, {
   MobileGallery
 } from '@/app/(storefront)/products/[category]/components/product-gallery';
 import { useRouter } from 'next/navigation';
-
+import { useModalStore } from '@/store/modal-stote';
 export default function PreviewCardMd({ product, className }) {
-  const [selectedMetal, setSelectedMetal] = useState(product?.variants?.[0]);
+  const [selectedMetal, setSelectedMetal] = useState(
+    product?.variations?.[0].metalVariations?.[0]
+  );
   const [isProductClicked, setIsProductClicked] = useState(false);
   const [isClientMobile, setIsClientMobile] = useState(false);
   const [liked, setLiked] = useState(false);
+  const openModal = useModalStore((state) => state.openModal);
   const router = useRouter();
-
+  console.log(product);
   // Fix: Reset metal when product changes
   useEffect(() => {
-    setSelectedMetal(product?.variants?.[0]);
+    setSelectedMetal(product?.variations?.[0].metalVariations?.[0]);
   }, [product]);
-
   useEffect(() => {
     const handleResize = () => {
       setIsClientMobile(window.innerWidth < 1024);
@@ -48,31 +49,50 @@ export default function PreviewCardMd({ product, className }) {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
   const handleProductClick = () => {
     if (isClientMobile) {
       setIsProductClicked(true);
     } else {
       router.push(
-        `/products/${product?.category}/${product?.subcategory ? product.subcategory : 'all'}/${product.id}`
+        `/products/${product.category}/${product?.subcategory ? product.subcategory : 'all'}/${product.id}`
       );
     }
   };
-
   const handleAddToCart = async () => {
-    const res = await fetch('/api/check-auth', {
-      method: 'GET',
-      cache: 'no-store'
-    });
-    const data = await res.json();
-    if (!data.authenticated) {
-      return (window.location.href = '/checkout');
+    // Check if user is logged in or not, if not then open modal
+    // const res = await fetch('/api/check-auth', {
+    //   method: 'GET',
+    //   cache: 'no-store'
+    // });
+    // const data = await res.json();
+    // if (!data.authenticated) {
+    //   return (window.location.href = '/checkout');
+    // }
+    // return (window.location.href = '/checkout');
+    const authUser = false;
+    if (authUser) {
+      router.push('/checkout');
+    } else {
+      openModal('cartNotAllowed');
     }
-    return (window.location.href = '/checkout');
   };
-
   if (!product || !selectedMetal) return null;
-
+  const handleFavoriteClick = () => {
+    //check if user is logged in add to wishlist else open modal
+    openModal('wishlistNotAllowed');
+    setLiked(!liked);
+  };
+  const getMetalColor = (metal) => {
+    if (!metal) return '#ccc';
+    const name = metal.toLowerCase();
+    if (name.includes('rose'))
+      return 'linear-gradient(135deg, #b76e79, #e5a3a3)';
+    if (name.includes('white'))
+      return 'linear-gradient(135deg, #e0e0e0, #f8f8f8)';
+    if (name.includes('gold'))
+      return 'linear-gradient(135deg, #d4af37, #f5d76e)';
+    return '#ccc'; // fallback gray
+  };
   return (
     <>
       <Card
@@ -83,7 +103,7 @@ export default function PreviewCardMd({ product, className }) {
       >
         {/* Wishlist Button */}
         <button
-          onClick={() => setLiked(!liked)}
+          onClick={handleFavoriteClick}
           className='hover:bg-primary/4 absolute top-1 right-1 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow shadow-gray-400 xl:top-3 xl:right-3'
         >
           <Heart
@@ -93,8 +113,8 @@ export default function PreviewCardMd({ product, className }) {
             )}
           />
         </button>
-
         <Carousel
+          key={selectedMetal.metal}
           opts={{
             align: 'start',
             loop: false
@@ -102,15 +122,15 @@ export default function PreviewCardMd({ product, className }) {
           className='relative w-full'
         >
           <CarouselContent className='3xl:h-[283px] ml-0 w-full gap-0 lg:h-[200px] xl:h-[257px]'>
-            {selectedMetal.media.map((image, index) => (
+            {selectedMetal.images.map((image, index) => (
               <CarouselItem
                 key={index}
                 onClick={handleProductClick}
                 className='h-full w-full basis-full cursor-pointer pl-[0.5px]'
               >
                 <Image
-                  src={image.mediaUrl}
-                  alt={selectedMetal.metalType}
+                  src={baseUrl + image}
+                  alt={'Product image'}
                   width={300}
                   height={300}
                   className='max-h-full w-full object-fill object-center'
@@ -134,38 +154,34 @@ export default function PreviewCardMd({ product, className }) {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <div className='3xl:-bottom-[-7%] absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 2xl:bottom-4 xs:bottom-5'>
+          <div className='3xl:-bottom-[-7%] xs:bottom-5 absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 2xl:bottom-4'>
             <CarouselPrevious className='h-7 w-7 translate-x-4 rounded-full border-none bg-white/80 text-gray-600 transition hover:bg-white 2xl:h-8 2xl:w-8 2xl:translate-x-1' />
             <CarouselNext className='h-7 w-7 -translate-x-4 rounded-full border-none bg-white/80 text-gray-600 transition hover:bg-white 2xl:h-8 2xl:w-8' />
           </div>
         </Carousel>
-
         <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2 md:space-y-1 xl:px-4'>
           <div className='flex items-center justify-between border-t pt-2 xl:pt-1'>
             <div className='flex gap-1 sm:gap-2'>
               <p className='3xl:text-2xl leading-1 font-medium sm:text-[22px] lg:text-xl'>
-                ${selectedMetal.price}
+                ${parseFloat(product.salePrice.$numberDecimal)}
               </p>
               <span className='text-xs leading-1 font-normal text-[#958F86] line-through sm:text-base xl:text-lg'>
-                ${selectedMetal.originalPrice}
+                ${parseFloat(product.regularPrice.$numberDecimal)}
               </span>
             </div>
             <div className='flex gap-0.5'>
-              {product.variants.map((variant) => {
-                const isSelected =
-                  variant.metalType === selectedMetal.metalType;
+              {product?.variations?.[0].metalVariations.map((variant) => {
+                const isSelected = variant.metal === selectedMetal.metal;
                 return (
                   <button
-                    key={variant.metalType}
+                    key={variant.metal}
                     onClick={() => setSelectedMetal(variant)}
                     className={cn(
                       'h-4.5 w-4.5 rounded-full border-2 border-white hover:outline hover:outline-offset-1 sm:h-5.25 sm:w-5.25 md:h-6 md:w-6',
                       isSelected ? 'ring-primary/40 ring-offset-0.5 ring' : ''
                     )}
                     style={{
-                      backgroundImage: `url('/img/preview/${variant.metalType}.png')`,
-                      backgroundSize: 'cover',
-                      backgroundPosition: 'center'
+                      background: getMetalColor(variant.metal)
                     }}
                   />
                 );
@@ -177,7 +193,7 @@ export default function PreviewCardMd({ product, className }) {
               onClick={handleProductClick}
               className='!line-clamp-1 block w-full text-left'
             >
-              {product.name}
+              {product.productName}
             </button>
           </p>
           <Button
@@ -200,7 +216,7 @@ export default function PreviewCardMd({ product, className }) {
               <DrawerTitle className='wrapper absolute top-3 z-10 flex justify-between border-none'>
                 <button
                   onClick={() => setLiked(!liked)}
-                  className='group rounded-full transition-all hover:scale-110 hover:bg-secondary p-1 h-8 bg-white shadow shadow-gray-400'
+                  className='group hover:bg-secondary h-8 rounded-full bg-white p-1 shadow shadow-gray-400 transition-all hover:scale-110'
                   aria-label='Add to wishlist'
                 >
                   <FaHeart
@@ -217,7 +233,6 @@ export default function PreviewCardMd({ product, className }) {
               </DrawerTitle>
               <MobileGallery />
             </DrawerHeader>
-
             <DrawerFooter className='pt-2'>
               <div className=''>
                 <div className='mb-1 flex justify-between text-lg font-medium'>
@@ -266,7 +281,6 @@ export default function PreviewCardMd({ product, className }) {
                     Solitaire
                   </button>
                 </div>
-
                 <div className='mt-4 mb-1 flex items-stretch gap-3'>
                   <Link
                     href='/products/productid'
@@ -283,7 +297,6 @@ export default function PreviewCardMd({ product, className }) {
                     Add to Cart <ShoppingBagIcon size={20} />
                   </Button>
                 </div>
-
                 <p className='text-center text-xs'>
                   Installments starting at ₹5,000 per month.{' '}
                   <Link href='#' className='font-medium underline'>

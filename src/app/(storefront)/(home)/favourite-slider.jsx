@@ -73,9 +73,9 @@ export default function FavouriteSlider({ products }) {
       ref={sliderRef}
       className={`keen-slider transition-opacity duration-300 ${isSliderReady ? 'opacity-100' : 'opacity-0'}`}
     >
-      {products.map((product, i) => (
+      {products.products.map((products, i) => (
         <div key={i} className='keen-slider__slide overflow-hidden rounded-xl'>
-          <PreviewCard isDraggable={false} product={product} />
+          <PreviewCard isDraggable={false} product={products} />
         </div>
       ))}
     </div>
