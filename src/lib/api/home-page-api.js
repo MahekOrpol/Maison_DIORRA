@@ -49,10 +49,10 @@ export async function fetchNewArrivals() {
   return res.json();
 }
 
-export async function fetchTrendingCollections() {
+export async function fetchTrendingCollections(categoryName = 'Rings') {
   //   const res = await fetch(`${BASE_URL}/collections/trending`, {
-  const res = await fetch(`${BASE_URL}/test`, {
-    next: { revalidate: 1800 }
+  const res = await fetch(`${BASE_URL}/product/get-trending?categoryName=${categoryName}&limit=4`, {
+    // next: { revalidate: 1800 }
   });
   return res.json();
 }
@@ -81,7 +81,7 @@ export async function getHomePageData() {
     gifting,
     // diamonds,
     newArrivals,
-    // trending,
+    trending,
     blogs
     // testimonials
   ] = await Promise.all([
@@ -91,7 +91,7 @@ export async function getHomePageData() {
     fetchGiftingCollections(),
     // fetchDiamonds(),
     fetchNewArrivals(),
-    // fetchTrendingCollections(),
+   fetchTrendingCollections('Rings'),
     fetchBlogs()
     // fetchTestimonials()
   ]);
@@ -102,7 +102,7 @@ export async function getHomePageData() {
     gifting,
     // diamonds,
     newArrivals,
-    // trending,
+    trending,
     blogs
     // testimonials
   };
