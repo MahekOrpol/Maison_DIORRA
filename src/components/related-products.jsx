@@ -5,12 +5,16 @@ import { useRef, useEffect, useState } from 'react';
 import Heading from '@/components/heading';
 import PreviewCard from '@/components/preview-card';
 import { cn, repeatProducts, repeatProductsV1 } from '@/lib/utils';
+import axios from 'axios';
 
-const products = repeatProductsV1(20);
-
-export default function RelatedProducts({ className }) {
+// const products = repeatProductsV1(20);
+const BASE_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1`;
+export default function RelatedProducts({ className, cart }) {
   const timer = useRef();
   const [isSliderReady, setIsSliderReady] = useState(false);
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [trendingProducts, setTrendingProducts] = useState([]);
   const [sliderRef, slider] = useKeenSlider({
     loop: true,
     mode: 'snap',
@@ -42,6 +46,35 @@ export default function RelatedProducts({ className }) {
       }
     }
   });
+  // console.log('cart :>> ', cart);
+  // console.log('cart :>> ', cart[0].category);
+
+  useEffect(() => {
+    const fetchTrendingProducts = async () => {
+      try {
+        setLoading(true);
+        const response = await axios.get(
+          `${BASE_URL}/product/get-trending`,
+          {
+            params: {
+              limit: 10,
+              categoryName: "Rings"
+            }
+          }
+        );
+        setTrendingProducts(response.data);
+        console.log('trending :>> ', response.data);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching trending products:', err);
+        setError(err.response?.data?.message || err.message || 'Failed to fetch trending products');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchTrendingProducts();
+  }, []);
+
   useEffect(() => {
     if (!slider.current) return;
 
@@ -95,11 +128,10 @@ export default function RelatedProducts({ className }) {
       />
       <div
         ref={sliderRef}
-        className={`keen-slider transition-opacity duration-300 ${
-          isSliderReady ? 'opacity-100' : 'opacity-0'
-        }`}
+        className={`keen-slider transition-opacity duration-300 ${isSliderReady ? 'opacity-100' : 'opacity-0'
+          }`}
       >
-        {products.map((product, i) => (
+        {trendingProducts.products?.map((product, i) => (
           <div
             key={i}
             className='keen-slider__slide overflow-hidden rounded-xl'
