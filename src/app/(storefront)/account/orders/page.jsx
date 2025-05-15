@@ -40,7 +40,7 @@ const orders = [
   }
 ];
 
-export default function MyOrdersPage() {
+export default async function MyOrdersPage() {
   return (
     <div className='mx-auto max-w-4xl px-4 py-10'>
       <h1 className='mb-6 text-3xl font-bold'>My Orders</h1>
@@ -96,19 +96,19 @@ export default function MyOrdersPage() {
 
                 {/* Actions */}
                 <div className='mt-4 flex flex-wrap gap-2'>
-                  <Link href='/orders/track'>
-                    <Button size='sm' variant='outline'>
-                      Track Order
-                    </Button>
-                  </Link>
-                  <Link href='/orders/invoice'>
-                    <Button size='sm' variant='outline'>
-                      View Invoice
-                    </Button>
-                  </Link>
-                  <Link href='/products/product-id'>
-                    <Button size='sm'>Buy Again</Button>
-                  </Link>
+                  {/* <Link href={`/orders/track/${order.id}`}> */}
+                  <Button size='sm' variant='outline'>
+                    Track Order
+                  </Button>
+                  {/* </Link> */}
+                  {/* <Link href={`/orders/invoice/${order.id}`}> */}
+                  <Button size='sm' variant='outline'>
+                    View Invoice
+                  </Button>
+                  {/* </Link> */}
+                  {/* <Link href='/products/product-id'> */}
+                  <Button size='sm'>Buy Again</Button>
+                  {/* </Link> */}
                 </div>
               </div>
             </div>

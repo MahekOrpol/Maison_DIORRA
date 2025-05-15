@@ -24,6 +24,8 @@ import { GiBigDiamondRing } from 'react-icons/gi';
 import Link from 'next/link';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
+import { ScheduleCallDialog } from '@/components/modals/schedule-meeting-modal';
+import ShareButton from '@/app/checkout/components/share-button';
 
 export default function DiamondDetails({ className }) {
   const [selectedSize, setSelectedSize] = useState();
@@ -31,6 +33,7 @@ export default function DiamondDetails({ className }) {
   const [selectedShape, setSelectedShape] = useState('Round');
   const [selectedPurity, setSelectedPurity] = useState('22K');
   const [selectedShank, setSelectedShank] = useState('Solitare');
+  const [openMeeting, setOpenMeeting] = useState(false);
 
   const router = useRouter();
 
@@ -72,7 +75,7 @@ export default function DiamondDetails({ className }) {
     });
     const data = await res.json();
     if (!data.authenticated) {
-      return (window.location.href = '/sign-in');
+      return (window.location.href = '/login');
     }
     return (window.location.href = '/checkout');
   };
@@ -83,7 +86,7 @@ export default function DiamondDetails({ className }) {
     });
     const data = await res.json();
     if (!data.authenticated) {
-      return (window.location.href = '/sign-in');
+      return (window.location.href = '/login');
     }
     return (window.location.href = '/account/wishlist');
   };
@@ -91,7 +94,7 @@ export default function DiamondDetails({ className }) {
     <section className={cn(className)}>
       <div>
         {/* Product Title */}
-        <h1 className='mb-2 text-xl leading-6 font-medium sm:text-2xl sm:leading-8 md:text-3xl md:leading-10'>
+        <h1 className='mb-2 text-lg xs:text-xl leading-6 font-medium sm:text-2xl sm:leading-8 md:text-3xl md:leading-10'>
           0.5 Carat I IF Emerald Natural Diamond <br /> $ 420
         </h1>
         <div className='bg-secondary grid grid-cols-5 py-2'>
@@ -143,19 +146,20 @@ export default function DiamondDetails({ className }) {
             className='h-[80px] w-[120px] rounded-sm md:h-[120px] md:w-[180px]'
           />
           <div className='flex-1'>
-          <h3 className='text-base font-medium xl:text-2xl'>
+            <h3 className='text-base font-medium xl:text-2xl'>
               See it before you Buy it
             </h3>
             <p className='mb-2 text-sm font-light sm:mb-3 md:text-sm xl:text-lg'>
               Join live video call with our consultants to see the designs up
               close
             </p>
-            <Button className='h-[30px] w-[130px] rounded-full text-xs md:h-auto md:text-sm'>
+            <Button className='h-[30px] w-[130px] rounded-full text-xs md:h-auto md:text-sm' onClick={() => setOpenMeeting(true)}>
               See it Live <TbVideoPlus />
             </Button>
           </div>
           <hr />
         </div>
+        <ScheduleCallDialog open={openMeeting} setOpen={setOpenMeeting} />
         <div className='xs:gap-2 mb-4 flex w-full items-center gap-1 md:w-1/2 lg:w-full'>
           <Button
             className='h-10 flex-1 gap-4 rounded-lg text-base lg:h-12 lg:text-lg'
@@ -171,14 +175,17 @@ export default function DiamondDetails({ className }) {
           >
             <Heart className='h-4 w-4 md:h-5 md:w-5' strokeWidth={1.6} />
           </button>
+          <ShareButton
+            url={window.location.href}
+          />
 
           {/* Share */}
-          <button
+          {/* <button
             onClick={handleAddToWishlist}
             className='hover:bg-muted flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 bg-white transition md:h-10 md:w-10'
           >
             <Share2 className='h-4 w-4 md:h-5 md:w-5' strokeWidth={1.6} />
-          </button>
+          </button> */}
         </div>
       </div>
       <div className='bg-secondary grid grid-cols-3 rounded-md p-2 text-sm sm:p-4 md:gap-4 md:text-lg'>

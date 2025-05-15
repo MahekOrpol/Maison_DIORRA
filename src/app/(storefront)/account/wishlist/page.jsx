@@ -1,142 +1,159 @@
-import React from 'react';
-import Image from 'next/image';
-import { Button } from '@/components/ui/button';
-import { Heart, ShoppingCart } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
-import PreviewCard3 from '@/components/preview-card';
-import { BsHandbagFill } from 'react-icons/bs';
+'use client'
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
-
-const wishlist = [
-  {
-    id: 'ORD123456',
-    image: '/img/category/pendant.png',
-    title: 'Diamond Pendant Necklace',
-    price: 12499,
-    originalPrice: 14999,
-    offer: 'Save ₹2500',
-    tag: 'Bestseller'
-  },
-  {
-    id: 'ORD123457',
-    image: '/img/category/rings.png',
-    title: 'Gold Ring - 18k with Stone',
-    price: 8799,
-    originalPrice: 10499,
-    offer: 'Limited Stock!',
-    tag: 'Limited Stock'
-  },
-  {
-    id: 'ORD123458',
-    image: '/img/category/bracelet.png',
-    title: 'Silver Bracelet',
-    price: 2499,
-    originalPrice: 2999,
-    offer: 'New Arrival',
-    tag: 'New'
-  },
-  {
-    id: 'ORD123459',
-    image: '/img/category/earrings.png',
-    title: 'Earring - 18k with Stone',
-    price: 8799,
-    originalPrice: 10299,
-    offer: 'Save ₹1500',
-    tag: 'Hot Deal'
-  },
-  {
-    id: 'ORD123459',
-    image: '/img/category/earrings.png',
-    title: 'Earring - 18k with Stone',
-    price: 8799,
-    originalPrice: 10299,
-    offer: 'Save ₹1500',
-    tag: 'Hot Deal'
-  }
-];
+import PreviewCard from '@/components/preview-card';
+import axios from 'axios';
+import { toast } from 'sonner';
 
 export default function WishlistPage() {
+  const [wishlistItems, setWishlistItems] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchWishlist = async () => {
+      try {
+        const token = localStorage.getItem('accessToken');
+        if (!token) {
+          toast.error('Please login to view your wishlist');
+          setWishlistItems([]);
+          return;
+        }
+
+        const response = await axios.get(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/wishlist/68222813af0c3e6e042a5b06`,
+          {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'application/json'
+            }
+          }
+        );
+
+        setWishlistItems(response.data?.data || []);
+        console.log(response.data.data)
+      } catch (error) {
+        console.error('Error fetching wishlist:', error);
+        toast.error(error.response?.data?.message || 'Failed to load wishlist. Please try again.');
+        setWishlistItems([]);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchWishlist();
+  }, []);
+
+  const transformProductData = (item) => {
+    // Find the matching variation based on selected metal and size
+    const matchingVariation = item.product?.variations?.[0]?.metalVariations?.find(
+      metalVar => metalVar.metal === item.selectedMetal
+    );
+    
+    const matchingSize = matchingVariation?.ringSizes?.find(
+      size => size.productSize === item.selectedSize
+    );
+
+    return {
+      id: item._id,
+      productId: item.product?._id,
+      image: item.product?.thumbnail || '/img/default-product.jpg',
+      title: item.product?.productName || 'Unknown Product',
+      price: item.price?.$numberDecimal || matchingSize?.salePrice?.$numberDecimal || '0',
+      originalPrice: matchingSize?.regularPrice?.$numberDecimal || '0',
+      offer: item.product?.discount ? `${item.product.discount.$numberDecimal}% off` : 'No offer',
+      tag: 'In Wishlist',
+      selectedMetal: item.selectedMetal,
+      selectedSize: item.selectedSize,
+      selectedDiamondShape: item.selectedDiamondShape?.name,
+      selectedShank: item.selectedShank?.name,
+      productData: item
+    };
+  };
+
+  const removeFromWishlist = async (itemId) => {
+    try {
+      const token = localStorage.getItem('accessToken');
+      await axios.delete(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/wishlist/${itemId}`,
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+      setWishlistItems(prev => prev.filter(item => item._id !== itemId));
+      toast.success('Item removed from wishlist');
+    } catch (error) {
+      console.error('Error removing item:', error);
+      toast.error('Failed to remove item from wishlist');
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="sm:wrapper pt-4 pb-10">
+        <div className="flex h-[50vh] items-center justify-center">
+          <p>Loading your wishlist...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className='wrapper pt-4 pb-10'>
-      {/* <h1 className='mb-4 text-3xl font-bold md:mb-6'>Your Wishlist</h1> */}
-      <div className='flex flex-col items-center justify-center h-[50vh]'>
-        <div className='w-[120px] sm:w-[150px]'>
-          <img src={'/img/wishlist.jpg'} />
+    <div className='sm:wrapper pt-4 pb-10'>
+      {wishlistItems.length === 0 ? (
+        <div className='flex h-[50vh] flex-col items-center justify-center'>
+          <div className='w-[120px] sm:w-[170px]'>
+            <img src={'/img/wishlist.jpg'} alt="Empty wishlist" />
+          </div>
+          <p className='text-muted-foreground text-sm sm:text-xl'>
+            YOUR WISHLIST IS EMPTY.
+          </p>
+          <div className='flex gap-1 pt-3 sm:gap-4'>
+            <Link
+              href='/products/rings'
+              className='hover:bg-primary hover:text-primary-foreground inline-block rounded-md border border-black px-6 py-3 text-xs sm:px-9 sm:py-3 sm:text-lg'
+            >
+              Continue Shopping
+            </Link>
+            <Link
+              href='/products/rings'
+              className='bg-primary text-primary-foreground inline-block rounded-md border border-black px-6 py-3 text-xs sm:px-9 sm:py-3 sm:text-lg'
+            >
+              Add products to your cart
+            </Link>
+          </div>
         </div>
-        <p className='text-muted-foreground text-sm sm:text-lg'>YOUR CART IS EMPTY.</p>
-        <div className='flex gap-1 sm:gap-4 pt-3'>
-          <Link
-            href='/products'
-            className='hover:bg-primary hover:text-primary-foreground inline-block rounded-md border border-black px-6 py-3 text-xs sm:px-9 sm:py-3 sm:text-lg'
-          >
-            Continue Shopping
-          </Link>
-          <Link
-            href='/products'
-            className='bg-primary text-primary-foreground inline-block rounded-md border border-black px-6 py-3 text-xs sm:px-9 sm:py-3 sm:text-lg'
-          >
-            Add products to your cart
-          </Link>
-        </div>
-      </div>
-
-      <div className='grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-4 lg:gap-6'>
-        {wishlist.map((item, i) => (
-          // <div
-          //   key={item.id}
-          //   className='relative flex flex-col gap-4 rounded-xl border bg-white p-4 shadow-sm transition hover:shadow-md sm:flex-row'
-          // >
-          //   {/* Badge */}
-          //   <Badge className='absolute top-3 right-3 z-10 rounded-full text-xs'>
-          //     {item.tag}
-          //   </Badge>
-
-          //   {/* Image */}
-          //   <div className='shrink-0'>
-          //     <Image
-          //       src={item.image}
-          //       alt={item.title}
-          //       width={100}
-          //       height={100}
-          //       className='rounded-md object-cover'
-          //     />
-          //   </div>
-
-          //   {/* Details */}
-          //   <div className='flex flex-1 flex-col justify-between'>
-          //     <div>
-          //       <h2 className='mb-1 text-lg font-semibold'>{item.title}</h2>
-          //       <div className='flex items-center gap-2'>
-          //         <span className='text-xl font-semibold'>
-          //           ₹{item.price.toLocaleString()}
-          //         </span>
-          //         <span className='text-muted-foreground text-sm line-through'>
-          //           ₹{item.originalPrice.toLocaleString()}
-          //         </span>
-          //       </div>
-          //       <p className='text-sm text-green-600'>{item.offer}</p>
-          //     </div>
-
-          //     {/* Actions */}
-          //     <div className='mt-4 flex gap-2'>
-          //       <Button
-          //         size='sm'
-          //         variant='outline'
-          //         className='gap-1 text-red-600'
-          //       >
-          //         <Heart className='h-4 w-4' />
-          //         Remove
-          //       </Button>
-          //       <Button size='sm' className='gap-1'>
-          //         <ShoppingCart className='h-4 w-4' />
-          //         Move to Cart
-          //       </Button>
-          //     </div>
-          //   </div>
-          // </div>
-          <PreviewCard3 key={i} />
-        ))}
-      </div>
+      ) : (
+        <>
+          <h1 className='mb-4 text-2xl sm:text-3xl font-bold md:mb-6 underline'>Your Wishlist</h1>
+          <div className='grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 lg:gap-6'>
+            {wishlistItems.map((item) => {
+              const product = transformProductData(item);
+              return (
+                <div
+                  key={item._id}
+                  className='keen-slider__slide overflow-hidden rounded-xl'
+                >
+                  <PreviewCard 
+                    isDraggable={false} 
+                    product={product} 
+                    isWishlistItem={true}
+                    onRemoveFromWishlist={() => removeFromWishlist(item._id)}
+                    customFields={[
+                      { label: 'Metal', value: product.selectedMetal },
+                      { label: 'Size', value: product.selectedSize },
+                      { label: 'Diamond Shape', value: product.selectedDiamondShape },
+                      { label: 'Shank', value: product.selectedShank }
+                    ]}
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </>
+      )}
     </div>
   );
 }

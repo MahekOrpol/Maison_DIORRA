@@ -65,7 +65,7 @@ export default function MobileNavDrawer() {
       </DrawerTrigger>
       <DrawerClose ref={drawerCloseRef} className='hidden' />
 
-      <DrawerContent className='flex flex-col p-0 data-[vaul-drawer-direction=left]:w-[85%]'>
+      <DrawerContent className='flex flex-col p-0 data-[vaul-drawer-direction=left]:w-[85%] border-none'>
         <DrawerTitle className='sr-only'>Mobile side nav bar</DrawerTitle>
 
         {/* TOP SECTION */}
@@ -118,13 +118,13 @@ export default function MobileNavDrawer() {
                 Diamonds
               </DrawerNavLink>
               <DrawerNavLink
-                href='/products'
+                href='/products/rings/all'
                 icon={<GiGemPendant className='size-4.5' strokeWidth={1} />}
               >
                 Fine Jewelry
               </DrawerNavLink>
               <DrawerNavLink
-                href='/products'
+                href='/products/rings/engagement-rings'
                 icon={
                   <Image
                     src='/icons/ring2.svg'
@@ -136,7 +136,7 @@ export default function MobileNavDrawer() {
               >
                 Engagement Rings
               </DrawerNavLink>
-              <DrawerNavLink
+              {/* <DrawerNavLink
                 href='/gifting'
                 icon={
                   <Image
@@ -148,7 +148,7 @@ export default function MobileNavDrawer() {
                 }
               >
                 Gifting Guide
-              </DrawerNavLink>
+              </DrawerNavLink> */}
               <DrawerNavLink
                 href='/custom-jewelry'
                 icon={
@@ -212,7 +212,7 @@ export default function MobileNavDrawer() {
         {/* BOTTOM SECTION */}
         <div className='bg-primary text-primary-foreground px-4 py-1.5'>
           <DrawerClose asChild>
-            <Link href='/sign-in'>
+            <Link href='/login'>
               <Button
                 variant='ghost'
                 className='w-full justify-start gap-2 text-white hover:bg-gray-800'

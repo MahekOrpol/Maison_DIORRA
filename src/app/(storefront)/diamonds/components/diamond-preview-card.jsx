@@ -23,8 +23,8 @@ export default function DiamondPreviewCard({ href }) {
       </div>
       <div className='xs:p-2 space-y-2 p-1 md:p-4'>
         <div className='flex justify-between md:text-xl'>
-          <span className='md:text-2xl text-base'>Emerlad</span>
-          <span className='text-muted-foreground'>$ 5000</span>
+          <span className='sm:text-xl xl:text-2xl text-base'>Emerlad</span>
+          <span className='text-muted-foreground sm:text-xl xl:text-2xl text-base'>$ 5000</span>
         </div>
         <div className='grid grid-cols-4'>
           {/* MAP DETAILS HERE */}

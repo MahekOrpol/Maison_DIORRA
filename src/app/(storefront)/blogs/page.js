@@ -3,69 +3,25 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { BlogsBanner } from './blogs-banner';
 
-export const blogPosts = [
-  {
-    image: '/img/blogs/blog1.png',
-    title: 'Crafting Beauty from Nature',
-    href: '/blogs/1',
-    date: '12.FEB.2025',
-    author: 'BY TEAM FERONIA',
-    excerpt:
-      'Discover how our artisans blend nature and art to create timeless pieces...'
-  },
-  {
-    image: '/img/blogs/blog2.png',
-    title: 'Sustainable Jewelry Practices',
-    href: '/blogs/2'
-  },
-  {
-    image: '/img/blogs/blog3.png',
-    title: 'Sustainable Jewelry Practices',
-    href: '/blogs/2'
-  },
-  {
-    image: '/img/blogs/blog4.png',
-    title: 'Sustainable Jewelry Practices',
-    href: '/blogs/2'
-  },
-  {
-    image: '/img/blogs/blog5.png',
-    title: 'Sustainable Jewelry Practices',
-    href: '/blogs/2'
-  },
-  {
-    image: '/img/blogs/blog6.png',
-    title: 'Sustainable Jewelry Practices',
-    href: '/blogs/2'
-  },
-  {
-    image: '/img/blogs/blog7.png',
-    title: 'Sustainable Jewelry Practices',
-    href: '/blogs/2'
-  },
-  {
-    image: '/img/blogs/blog8.png',
-    title: 'Sustainable Jewelry Practices',
-    href: '/blogs/2'
-  },
-  {
-    image: '/img/blogs/blog9.png',
-    title: 'Sustainable Jewelry Practices',
-    href: '/blogs/2'
-  },
-  {
-    image: '/img/blogs/blog1.png',
-    title: 'Sustainable Jewelry Practices',
-    href: '/blogs/2'
-  },
-  {
-    image: '/img/blogs/blog2.png',
-    title: 'Sustainable Jewelry Practices',
-    href: '/blogs/2'
-  }
-];
+const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
 
-export default function BlogsPage() {
+async function getBlogPosts() {
+  try {
+    const response = await fetch(`${BASE_URL}/api/v1/blog/get`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch blog posts');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching blog posts:', error);
+    return []; // Return empty array if there's an error
+  }
+}
+
+export default async function BlogsPage() {
+  const blogPosts = await getBlogPosts();
+
   return (
     <div>
       <BlogsBanner
@@ -77,7 +33,7 @@ export default function BlogsPage() {
         {/* Blog posts container - takes full width on mobile, 2/3 on desktop */}
         <div className='grid grid-cols-1 gap-6 md:grid-cols-2 xl:w-[66%]'>
           {blogPosts.map((post, index) => (
-            <BlogCard key={index} {...post} />
+            <BlogCard key={post.id || index} data={post} />
           ))}
         </div>
 

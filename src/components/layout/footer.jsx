@@ -1,4 +1,5 @@
-import React from 'react';
+'use client'
+import React, { useState } from 'react';
 import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { MoveRight, User } from 'lucide-react';
@@ -11,6 +12,13 @@ import {
   FaTiktok
 } from 'react-icons/fa6';
 import { AiOutlineYoutube } from 'react-icons/ai';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 
 const socialLinks = [
   {
@@ -74,21 +82,31 @@ const footerLinks = [
   }
 ];
 export default function Footer() {
+  const [open, setOpen] = useState(false);
+
+  const handleSubscribe = (e) => {
+    e.preventDefault();
+    setOpen(true);
+  }
+
   return (
     <footer>
       <div className='relative z-10 bg-black pt-4 text-white lg:pt-12'>
         {/* subscribe newsletter*/}
         <div className='mx-auto mb-4 hidden w-4/5 max-w-6xl justify-between gap-2 rounded-sm bg-[#FFFFFF42] p-6 text-center md:flex md:flex-col lg:mb-12 lg:flex-row lg:items-center lg:text-left'>
           <div className='flex-1'>
-            <p className='text-2xl font-medium lg:text-[28px]'>
+            <p className='text-2xl font-medium lg:text-[32px]'>
               Subscribe to get Updated
             </p>
-            <p className='mt-2 text-sm font-extralight'>
+            <p className='mt-2 text-sm md:text-base font-extralight'>
               Perks include $100 off your first order. <br /> Plus new product
               launches, store openings, and more!
             </p>
           </div>
-          <form className='mx-auto mt-2 flex w-full max-w-lg items-center rounded bg-white p-1 text-black lg:mt-0 lg:max-w-sm'>
+          <form
+            onSubmit={handleSubscribe}
+            className='mx-auto mt-2 flex w-full max-w-lg items-center rounded bg-white p-1 text-black lg:mt-0 lg:max-w-sm'
+          >
             <Input
               placeholder='Enter your email'
               required
@@ -247,6 +265,22 @@ export default function Footer() {
           />
         </div>
       </div>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className='rounded-md bg-white p-6 text-center shadow-lg max-w-[90vw] sm:max-w-md'>
+          <DialogHeader className='text-left'>
+            <DialogTitle className='text-lg font-normal text-gray-800 pt-4'>
+              Thank you for signing up for our exclusive offers.
+            </DialogTitle>
+          </DialogHeader>
+          <button
+            onClick={() => setOpen(false)}
+            className='mt-8 w-full rounded bg-black text-white h-10'
+          >
+            CLOSE
+          </button>
+        </DialogContent>
+      </Dialog>
+
     </footer>
   );
 }

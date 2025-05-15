@@ -1,6 +1,6 @@
 'use client';
 
-import { useCheckoutStore } from '@/lib/checkout-store';
+import { useCheckoutStore } from '@/store/checkout-store';
 import ProgressBar from './components/progress-bar';
 import ShoppingCart from './components/shopping-cart';
 import DeliveryForm from './components/delivery-form';

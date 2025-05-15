@@ -3,46 +3,43 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { MoveRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-
-export default function BlogCard({
-  href = '/blogs/slug',
-  image,
-  title,
-  date = '22.DEC.2025',
-  author = 'BY FERONIA',
-  excerpt = 'A short description of the blog post goes here. It provides a quick overview to the reader...'
-}) {
+import { baseUrl } from '@/lib/utils';
+export default function BlogCard({ data }) {
   const router = useRouter();
   const handleClick = () => {
-    router.push('/blogs/slug');
+    router.push(`/blogs/${data?.id}`);
   };
   return (
     <Link
-      href={href}
+      href={`/blogs/${data?.id}`}
       className='flex h-full flex-col overflow-hidden rounded-xl bg-white transition duration-300 ease-in-out'
     >
       {/* Image with fixed aspect ratio */}
       <div className='aspect-[5/3.25] w-full overflow-hidden rounded-lg'>
-        <Image
-          src={image}
+        <img
+          src={`${baseUrl}${data?.imges}`}
           alt='Blog Image'
           className='h-full w-full object-cover transition duration-300 ease-in-out hover:scale-108 hover:rotate-2'
-          width={380}
-          height={210}
+          // width={380}
+          // height={210}
         />
       </div>
       {/* Content */}
       <div className='flex flex-1 flex-col p-2'>
-        <p className='text-xs leading-5 lg:text-sm lg:leading-6'>
-          22.DEC.2025 <span className='text-base leading-3'>•</span> BY FERONIA
+        <p className='text-xs leading-5 font-medium lg:text-sm lg:leading-6'>
+          {new Date(data?.createdAt).toLocaleDateString('en-US', {
+            month: 'short',
+            day: '2-digit',
+            year: 'numeric'
+          })}
+          <span className='text-base leading-3'>•</span> {data?.authorName}
         </p>
-        <h3 className='text-xl font-medium lg:text-2xl'>
-          {title || 'Blog Post Title'}
+        <h3 className='line-clamp-1 overflow-hidden text-xl font-medium 2xl:text-2xl'>
+          {data?.headline || 'Blog Post Title'}
         </h3>
         <hr className='mb-2 border-black/50' />
-        <p className='flex-1 text-sm font-light lg:text-base 2xl:text-lg'>
-          A short description of the blog post goes here. It provides a quick
-          overview to the reader...
+        <p className='line-clamp-2 overflow-hidden text-sm font-light text-ellipsis lg:text-base 2xl:text-lg'>
+          {data?.description}
         </p>
         <button
           onClick={handleClick}

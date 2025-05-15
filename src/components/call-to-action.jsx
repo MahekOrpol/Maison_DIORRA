@@ -50,7 +50,7 @@ export default function CallToAction({ className }) {
         have something for everyone. Choose your metals, stones, and styles to
         create a piece that is uniquely yours.
       </p>
-      <form className='mx-auto mt-2 flex w-full max-w-lg items-center rounded-md border bg-white p-1 text-black shadow-[0_1px_8px_rgba(0,0,0,0.15)] lg:mt-0'>
+      <form className='mx-auto mt-2 flex w-full max-w-lg items-center rounded-sm border bg-white p-1 text-black shadow-[0_1px_8px_rgba(0,0,0,0.15)] lg:mt-0'>
         <Input
           placeholder='Enter Your Email'
           required
@@ -59,7 +59,7 @@ export default function CallToAction({ className }) {
         />
         <button
           type='submit'
-          className='ml-2 flex w-[120px] justify-center rounded bg-black px-4 py-1 text-white'
+          className='ml-2 flex w-[120px] justify-center rounded-sm bg-black px-4 xs:px-8 py-1 text-white'
         >
           Subscribe
         </button>
@@ -73,12 +73,12 @@ export default function CallToAction({ className }) {
             <Image
               src={card.iconUrl}
               alt={card.title}
-              width={35}
+              width={39}
               height={35}
               className='block h-[35px]'
             />
             <div>
-              <h3 className='mb-1 pr-2 text-lg leading-5 sm:mb-2 md:mb-2 lg:text-2xl'>
+              <h3 className='mb-1 pr-2 text-lg leading-5 font-medium sm:mb-2 md:mb-2 lg:text-2xl'>
                 {card.title}
               </h3>
               <p className='text-xs leading-4 lg:text-sm lg:leading-5 xl:text-base'>

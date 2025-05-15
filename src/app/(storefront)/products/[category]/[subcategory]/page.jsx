@@ -18,9 +18,10 @@ import {
   DrawerClose,
   DrawerTitle
 } from '@/components/ui/drawer';
-import { cn, repeatProducts } from '@/lib/utils';
+import { cn, repeatProductsByCategory } from '@/lib/utils';
 import CustomTagWrapper from '@/components/custom-tag-wrapper';
 import PreviewCard from '@/components/preview-card';
+import { ProductListingSkeleton } from '@/components/skeleton';
 
 const advertisements = [
   {
@@ -81,140 +82,192 @@ const ringStyles = [
     imgUrl: '/img/ring-style-stone.svg'
   }
 ];
-// const data = repeatProducts(80);
 
 export default function ProductListingPage({ params }) {
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const { category, subcategory } = React.use(params);
-  // const data = await fetch('http://localhost:5000/rings');
-  // const products = await data.json();
+  console.log(category, subcategory);
+
   useEffect(() => {
-    (async function fetchData() {
-      try {
-        const data = await fetch(`http://localhost:5000/${category}`);
-        const products = await data.json();
-        setData(products);
-      } catch (error) {
-        console.log(error);
-      }
-    })();
+    setIsLoading(true);
+
+    const timer = setTimeout(() => {
+      setData(repeatProductsByCategory(category, 80));
+      setIsLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
   }, []);
+
   return (
     <div className='wrapper'>
       {/* arrowed label */}
-      <CustomTagWrapper className='xs:my-[25px] my-[20px] sm:my-[30px] lg:my-[35px] xl:mt-[50px] xl:mb-[45px] 2xl:mt-[65px] 2xl:mb-[60px]' />
-      {/* select ring style */}
-      <div className='hidden text-center md:block'>
-        <h2 className='3xl:text-5xl mb-3 font-medium sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl'>
-          Choose Perfect Ring Style for You
+      {category === 'rings' && (
+        <CustomTagWrapper className='xs:mt-[25px] mt-[20px] sm:mt-[30px] lg:mt-[35px] xl:mt-[45px] 2xl:mt-[65px]' />
+      )}
+      {/* select styles */}
+      <div className='mt-[16px] text-center sm:mt-[25px] md:block lg:mt-[30px] xl:mt-[35px] 2xl:mt-[50px]'>
+        <h2 className='3xl:text-5xl xs mb-1 text-lg font-medium sm:text-2xl lg:text-3xl xl:text-4xl'>
+          Choose Perfect{' '}
+          {category &&
+            `${category.charAt(0).toUpperCase() + category.slice(1, -1)}`}{' '}
+          Style for You
         </h2>
-        <div className='my-4 flex justify-center gap-4'>
-          {ringStyles.map((style) => {
-            const isSelected = selectedStyle === style.styleType;
-            return (
-              <button
-                key={style.styleType}
-                onClick={() => setSelectedStyle(style.styleType)}
-                className={`inline-flex w-[100px] flex-col items-center rounded-lg border p-2 pt-4 text-xs transition-all ${isSelected ? 'bg-muted border-black' : 'border-transparent hover:border-gray-300'} `}
-              >
-                <div className='mb-4 flex h-[30px] w-[70px] items-center justify-center 2xl:h-[35px]'>
-                  <Image
-                    src={style.imgUrl}
-                    height={30}
-                    width={70}
-                    alt={style.styleType}
-                    className='h-full w-full object-contain'
-                  />
-                </div>
-                <p className='3xl:text-lg mt-auto text-[15px] leading-4 text-nowrap xl:text-base'>
-                  {style.styleType}
-                </p>
-              </button>
-            );
-          })}
-        </div>
+        <p
+          className={cn(
+            'text-muted-foreground 3xl:text-2xl text-xs sm:text-base 2xl:text-lg',
+            category === 'rings' && 'lg:hidden'
+          )}
+        >
+          Find Your Statement Piece – Crafted to Elevate Your Style
+        </p>
+        {category === 'rings' && (
+          <div className='hidden justify-center gap-4 pt-3 lg:flex'>
+            {ringStyles.map((style) => {
+              const isSelected = selectedStyle === style.styleType;
+              return (
+                <button
+                  key={style.styleType}
+                  onClick={() => setSelectedStyle(style.styleType)}
+                  className={`inline-flex w-[112px] flex-col items-center rounded-2xl border p-3 pt-4 text-xs transition-all ${isSelected ? 'border-secondary shadow-md' : 'border-secondary shadow-md hover:border-black/60 hover:bg-gray-100'} `}
+                >
+                  <div className='mb-4 flex h-[30px] w-[70px] items-center justify-center 2xl:h-[35px]'>
+                    <Image
+                      src={style.imgUrl}
+                      height={30}
+                      width={70}
+                      alt={style.styleType}
+                      className='h-full w-full object-contain'
+                    />
+                  </div>
+                  <p className='3xl:text-lg mt-auto text-[15px] leading-4 text-nowrap xl:text-base'>
+                    {style.styleType}
+                  </p>
+                </button>
+              );
+            })}
+          </div>
+        )}
       </div>
-      {/* filters */}
-      <ProductsFilter />
+      {/* product filters */}
+      <ProductsFilter
+        category={category}
+        subCategory={subcategory}
+        className='mt-3 lg:mt-8 2xl:mt-10'
+      />
       {/* listing components */}
       <div className='mt-8 mb-10 grid grid-cols-2 gap-2 md:mb-20 md:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-5 xl:gap-6'>
-        {data.map((product, index) => {
-          // Separate ad indices for different breakpoints
-          const mobileAdIndex = Math.floor(index / 2) % advertisements.length;
-          const mediumAdIndex = Math.floor(index / 6) % advertisements.length;
-          const largeAdIndex = Math.floor(index / 8) % advertisements.length;
-          console.log('index ', index, ' largeAdIndex ', largeAdIndex);
+        {isLoading ? (
+          <ProductListingSkeleton count={8} />
+        ) : (
+          data.map((product, index) => {
+            // Separate ad indices for different breakpoints
+            const mobileAdIndex = Math.floor(index / 2) % advertisements.length;
+            const mediumAdIndex = Math.floor(index / 6) % advertisements.length;
+            const largeAdIndex = Math.floor(index / 8) % advertisements.length;
 
-          // Get the correct ad based on the breakpoint
-          const mobileAd = advertisements[mobileAdIndex];
-          const mediumAd = advertisements[mediumAdIndex];
-          const largeAd = advertisements[largeAdIndex];
+            // Get the correct ad based on the breakpoint
+            const mobileAd = advertisements[mobileAdIndex];
+            const mediumAd = advertisements[mediumAdIndex];
+            const largeAd = advertisements[largeAdIndex];
 
-          // Mobile: Ad appears after 4th, then 6th item, repeating
-          const adsAfterMobile = [];
-          let adPosition = 5;
-          for (let i = 0; i < 10; i++) {
-            adsAfterMobile.push(adPosition);
-            adPosition += i % 2 === 0 ? 6 : 4;
-          }
-          const showMobileAd = adsAfterMobile.includes(index + 1);
+            // Mobile: Ad appears after 4th, then 6th item, repeating
+            const adsAfterMobile = [];
+            let adPosition = 5;
+            for (let i = 0; i < 10; i++) {
+              adsAfterMobile.push(adPosition);
+              adPosition += i % 2 === 0 ? 6 : 4;
+            }
+            const showMobileAd = adsAfterMobile.includes(index + 1);
+            return (
+              <React.Fragment key={index}>
+                {/* Mobile View: Show ad after 4th, then 6th, then repeat */}
+                {showMobileAd && (
+                  <Advertisement
+                    title={mobileAd.title}
+                    subtitle={mobileAd.subtitle}
+                    buttonLabel={mobileAd.buttonLabel}
+                    buttonLink={mobileAd.buttonLink}
+                    backgroundImage={mobileAd.backgroundImage}
+                    align={mobileAd.align}
+                    className='col-span-2 md:hidden' // Visible only on mobile
+                  />
+                )}
 
-          return (
-            <React.Fragment key={index}>
-              {/* Mobile View: Show ad after 4th, then 6th, then repeat */}
-              {showMobileAd && (
-                <Advertisement
-                  title={mobileAd.title}
-                  subtitle={mobileAd.subtitle}
-                  buttonLabel={mobileAd.buttonLabel}
-                  buttonLink={mobileAd.buttonLink}
-                  backgroundImage={mobileAd.backgroundImage}
-                  align={mobileAd.align}
-                  className='col-span-2 md:hidden' // Visible only on mobile
-                />
-              )}
+                {/* Medium Screens: Show ad after every 6th item*/}
+                {index > 0 && index % 6 === 0 && (
+                  <Advertisement
+                    title={mediumAd.title}
+                    subtitle={mediumAd.subtitle}
+                    buttonLabel={mediumAd.buttonLabel}
+                    buttonLink={mediumAd.buttonLink}
+                    backgroundImage={mediumAd.backgroundImage}
+                    align={mediumAd.align}
+                    className='hidden md:col-span-3 md:block lg:hidden'
+                  />
+                )}
 
-              {/* Medium Screens: Show ad after every 6th item*/}
-              {index > 0 && index % 6 === 0 && (
-                <Advertisement
-                  title={mediumAd.title}
-                  subtitle={mediumAd.subtitle}
-                  buttonLabel={mediumAd.buttonLabel}
-                  buttonLink={mediumAd.buttonLink}
-                  backgroundImage={mediumAd.backgroundImage}
-                  align={mediumAd.align}
-                  className='hidden md:col-span-3 md:block lg:hidden'
-                />
-              )}
+                {/* Large Screens: Show ad after every 8th item */}
+                {index > 0 && index % 8 === 0 && (
+                  <Advertisement
+                    title={largeAd.title}
+                    subtitle={largeAd.subtitle}
+                    buttonLabel={largeAd.buttonLabel}
+                    buttonLink={largeAd.buttonLink}
+                    backgroundImage={largeAd.backgroundImage}
+                    align={largeAd.align}
+                    className='col-span-2 hidden lg:block' // Visible only on large screens
+                  />
+                )}
+                {/* Render Listing Item */}
+                <PreviewCard product={product} />
+              </React.Fragment>
+            );
+          })
+        )}
+      </div>
 
-              {/* Large Screens: Show ad after every 8th item */}
-              {index > 0 && index % 8 === 0 && (
-                <Advertisement
-                  title={largeAd.title}
-                  subtitle={largeAd.subtitle}
-                  buttonLabel={largeAd.buttonLabel}
-                  buttonLink={largeAd.buttonLink}
-                  backgroundImage={largeAd.backgroundImage}
-                  align={largeAd.align}
-                  className='col-span-2 hidden lg:block' // Visible only on large screens
-                />
-              )}
-              {/* Render Listing Item */}
-              <PreviewCard product={product} />
-            </React.Fragment>
-          );
-        })}
+      {/* Load more button */}
+      <div className='flex min-h-[100px] flex-col items-center justify-center p-4'>
+        {isLoading ? (
+          <div className='h-10 w-32 animate-pulse rounded-md bg-gray-200'></div>
+        ) : (
+          <>
+            <p className='mb-4 text-gray-600'>
+              Showing {data.length} Out Of 100
+            </p>
+            <button className='group relative overflow-hidden rounded-md border-2 border-black px-6 py-2 font-medium text-black transition-all duration-300'>
+              <span className='absolute inset-0 z-0 origin-left scale-x-0 bg-black transition-transform duration-300 ease-out group-hover:scale-x-100'></span>
+              <span className='relative z-10 transition-colors duration-300 group-hover:text-white'>
+                Load More
+              </span>
+            </button>
+          </>
+        )}
       </div>
     </div>
   );
 }
 
-function ProductsFilter() {
+function ProductsFilter({ category, subCategory, className }) {
   const [selectedStyle, setSelectedStyle] = useState(null);
   const [selectedPurity, setSelectedPurity] = useState('14 K');
+
+  const isRing = category === 'rings';
+  const isDiamondBased = subCategory?.toLowerCase().includes('diamond');
+  const showRingStyle = isRing;
+  const showDiamondShapes = isDiamondBased || isRing;
+  const showCommonFilters = [
+    'rings',
+    'necklaces',
+    'bracelets',
+    'earrings'
+  ].includes(category);
+
   return (
-    <div>
+    <div className={cn(className)}>
       {/* mobile */}
       <Drawer>
         <DrawerTrigger
@@ -222,7 +275,6 @@ function ProductsFilter() {
           className='flex items-center rounded-xs border border-black px-2 py-[4px] shadow-none lg:hidden'
         >
           <button>
-            {' '}
             <Funnel className='mr-1 h-4 w-4' /> Filter
           </button>
         </DrawerTrigger>
@@ -355,144 +407,167 @@ function ProductsFilter() {
         </DrawerContent>
       </Drawer>
       {/* desktop - unchanged */}
-      <div className='mt-8 hidden gap-4 lg:flex'>
-        <Select>
-          <SelectTrigger className='data-[placeholder]:text-foreground w-[150px] border-black'>
-            <SelectValue placeholder='Select Metal' />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value='gold' className='py-2'>
-              <Image
-                src='/img/gold-theme.png'
-                width={18}
-                height={18}
-                alt='metal'
-              />
-              Gold
-            </SelectItem>
-            <SelectItem value='rose' className='py-2'>
-              <Image
-                src='/img/rose-theme.png'
-                width={18}
-                height={18}
-                alt='metal'
-              />
-              Rose Gold
-            </SelectItem>
-            <SelectItem value='white' className='py-2'>
-              <Image
-                src='/img/white-theme.png'
-                width={18}
-                height={18}
-                alt='metal'
-              />
-              White Gold
-            </SelectItem>
-          </SelectContent>
-        </Select>
-        <Select>
-          <SelectTrigger className='data-[placeholder]:text-foreground w-[120px] border-black'>
-            <SelectValue placeholder='Purity' />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value='14k' className='py-2'>
-              14K Pure
-            </SelectItem>
-            <SelectItem value='18k' className='py-2'>
-              18K Pure
-            </SelectItem>
-            <SelectItem value='20k' className='py-2'>
-              20K Pure
-            </SelectItem>
-          </SelectContent>
-        </Select>
-        <Select>
-          <SelectTrigger className='data-[placeholder]:text-foreground w-[170px] border-black'>
-            <SelectValue placeholder='Ring Style' />
-          </SelectTrigger>
-          <SelectContent className=''>
-            <SelectItem value='solitare' className='py-2'>
-              <Image
-                src='/img/ring-style-solitaire.svg'
-                width={35}
-                height={30}
-                alt='metal'
-              />
-              Solitare
-            </SelectItem>
-            <SelectItem value='pave' className='py-2'>
-              <Image
-                src='/img/ring-style-pave.svg'
-                width={35}
-                height={30}
-                alt='metal'
-              />
-              Pave
-            </SelectItem>
-            <SelectItem value='halo' className='py-2'>
-              <Image
-                src='/img/ring-style-halo.svg'
-                width={35}
-                height={30}
-                alt='metal'
-              />
-              Halo
-            </SelectItem>
-            <SelectItem value='hidden-halo' className='py-2'>
-              <Image
-                src='/img/ring-style-hidden.svg'
-                width={25}
-                height={18}
-                alt='metal'
-                className='h-[18px] w-[25px] object-contain'
-              />
-              Hidden Halo
-            </SelectItem>
-          </SelectContent>
-        </Select>
-        <Select>
-          <SelectTrigger className='data-[placeholder]:text-foreground w-[150px] border-black'>
-            <SelectValue placeholder='Diamond Shape' />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value='round'>
-              <Image
-                src='/icons/shape-round.svg'
-                width={26}
-                height={26}
-                alt='metal'
-              />
-              Round
-            </SelectItem>
-            <SelectItem value='pear'>
-              <Image
-                src='/icons/shape-pear.svg'
-                width={26}
-                height={26}
-                alt='metal'
-              />
-              Pear
-            </SelectItem>
-            <SelectItem value='emerlad'>
-              <Image
-                src='/icons/shape-emerlad.svg'
-                width={26}
-                height={26}
-                alt='metal'
-              />
-              Emerlad
-            </SelectItem>
-            <SelectItem value='princess'>
-              <Image
-                src='/icons/shape-princess.svg'
-                width={26}
-                height={26}
-                alt='metal'
-              />
-              Princess
-            </SelectItem>
-          </SelectContent>
-        </Select>
+      <div className='hidden gap-4 lg:flex'>
+        {showCommonFilters && (
+          <Select>
+            <SelectTrigger className='data-[placeholder]:text-foreground w-[150px] border-black'>
+              <SelectValue placeholder='Select Metal' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value='gold' className='py-2'>
+                <Image
+                  src='/img/gold-theme.png'
+                  width={18}
+                  height={18}
+                  alt='metal'
+                />
+                Gold
+              </SelectItem>
+              <SelectItem value='rose' className='py-2'>
+                <Image
+                  src='/img/rose-theme.png'
+                  width={18}
+                  height={18}
+                  alt='metal'
+                />
+                Rose Gold
+              </SelectItem>
+              <SelectItem value='white' className='py-2'>
+                <Image
+                  src='/img/white-theme.png'
+                  width={18}
+                  height={18}
+                  alt='metal'
+                />
+                White Gold
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        )}
+        {showCommonFilters && (
+          <Select>
+            <SelectTrigger className='data-[placeholder]:text-foreground w-[120px] border-black'>
+              <SelectValue placeholder='Purity' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value='14k' className='py-2'>
+                14K Pure
+              </SelectItem>
+              <SelectItem value='18k' className='py-2'>
+                18K Pure
+              </SelectItem>
+              <SelectItem value='22k' className='py-2'>
+                22K Pure
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        )}
+        {showCommonFilters && (
+          <Select>
+            <SelectTrigger className='data-[placeholder]:text-foreground w-[120px] border-black'>
+              <SelectValue placeholder='Price' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value='14k' className='py-2'>
+                Price low to high
+              </SelectItem>
+              <SelectItem value='18k' className='py-2'>
+                Price high to low
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        )}
+        {showRingStyle && (
+          <Select>
+            <SelectTrigger className='data-[placeholder]:text-foreground w-[170px] border-black'>
+              <SelectValue placeholder='Ring Style' />
+            </SelectTrigger>
+            <SelectContent className=''>
+              <SelectItem value='solitare' className='py-2'>
+                <Image
+                  src='/img/ring-style-solitaire.svg'
+                  width={35}
+                  height={30}
+                  alt='metal'
+                />
+                Solitare
+              </SelectItem>
+              <SelectItem value='pave' className='py-2'>
+                <Image
+                  src='/img/ring-style-pave.svg'
+                  width={35}
+                  height={30}
+                  alt='metal'
+                />
+                Pave
+              </SelectItem>
+              <SelectItem value='halo' className='py-2'>
+                <Image
+                  src='/img/ring-style-halo.svg'
+                  width={35}
+                  height={30}
+                  alt='metal'
+                />
+                Halo
+              </SelectItem>
+              <SelectItem value='hidden-halo' className='py-2'>
+                <Image
+                  src='/img/ring-style-hidden.svg'
+                  width={25}
+                  height={18}
+                  alt='metal'
+                  className='h-[18px] w-[25px] object-contain'
+                />
+                Hidden Halo
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        )}
+        {showDiamondShapes && (
+          <Select>
+            <SelectTrigger className='data-[placeholder]:text-foreground w-[150px] border-black'>
+              <SelectValue placeholder='Diamond Shape' />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value='round'>
+                <Image
+                  src='/icons/shape-round.svg'
+                  width={26}
+                  height={26}
+                  alt='metal'
+                />
+                Round
+              </SelectItem>
+              <SelectItem value='pear'>
+                <Image
+                  src='/icons/shape-pear.svg'
+                  width={26}
+                  height={26}
+                  alt='metal'
+                />
+                Pear
+              </SelectItem>
+              <SelectItem value='emerlad'>
+                <Image
+                  src='/icons/shape-emerlad.svg'
+                  width={26}
+                  height={26}
+                  alt='metal'
+                />
+                Emerlad
+              </SelectItem>
+              <SelectItem value='princess'>
+                <Image
+                  src='/icons/shape-princess.svg'
+                  width={26}
+                  height={26}
+                  alt='metal'
+                />
+                Princess
+              </SelectItem>
+            </SelectContent>
+          </Select>
+        )}
         <Button variant='outline' className='border-black font-normal'>
           <RotateCcw />
           Reset Filters

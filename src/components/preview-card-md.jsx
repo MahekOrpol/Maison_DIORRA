@@ -84,7 +84,7 @@ export default function PreviewCardMd({ product, className }) {
         {/* Wishlist Button */}
         <button
           onClick={() => setLiked(!liked)}
-          className='hover:bg-primary/10 absolute top-1 right-1 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white'
+          className='hover:bg-primary/4 absolute top-1 right-1 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow shadow-gray-400 xl:top-3 xl:right-3'
         >
           <Heart
             className={cn(
@@ -101,34 +101,49 @@ export default function PreviewCardMd({ product, className }) {
           }}
           className='relative w-full'
         >
-          <CarouselContent className='3xl:h-[250px] ml-0 w-full gap-0 lg:h-[200px] xl:h-[230px]'>
+          <CarouselContent className='3xl:h-[283px] ml-0 w-full gap-0 lg:h-[200px] xl:h-[257px]'>
             {selectedMetal.media.map((image, index) => (
               <CarouselItem
                 key={index}
                 onClick={handleProductClick}
-                className='m-0 h-full w-full basis-full p-0'
+                className='h-full w-full basis-full cursor-pointer pl-[0.5px]'
               >
                 <Image
                   src={image.mediaUrl}
                   alt={selectedMetal.metalType}
                   width={300}
                   height={300}
-                  className='h-full w-full object-cover object-center'
+                  className='max-h-full w-full object-fill object-center'
                 />
+                {/* <Image
+                  src={image.mediaUrl}
+                  alt={selectedMetal.metalType}
+                  width={300}
+                  height={300}
+                  className='max-h-full max-w-full object-contain'
+                /> */}
+                {/* <div className='flex h-full w-full items-center justify-center p-1'>
+                  <Image
+                    src={image.mediaUrl}
+                    alt={selectedMetal.metalType}
+                    width={300}
+                    height={300}
+                    className='max-h-full max-w-full object-contain'
+                  />
+                </div> */}
               </CarouselItem>
             ))}
           </CarouselContent>
-
-          <div className='3xl:-bottom-3 absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 2xl:bottom-4'>
+          <div className='3xl:-bottom-[-7%] absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 2xl:bottom-4 xs:bottom-5'>
             <CarouselPrevious className='h-7 w-7 translate-x-4 rounded-full border-none bg-white/80 text-gray-600 transition hover:bg-white 2xl:h-8 2xl:w-8 2xl:translate-x-1' />
             <CarouselNext className='h-7 w-7 -translate-x-4 rounded-full border-none bg-white/80 text-gray-600 transition hover:bg-white 2xl:h-8 2xl:w-8' />
           </div>
         </Carousel>
 
-        <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2 xl:px-4 xl:pb-1'>
-          <div className='flex items-center justify-between border-t pt-2'>
+        <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2 md:space-y-1 xl:px-4'>
+          <div className='flex items-center justify-between border-t pt-2 xl:pt-1'>
             <div className='flex gap-1 sm:gap-2'>
-              <p className='leading-1 font-medium sm:text-[22px] lg:text-xl xl:text-2xl'>
+              <p className='3xl:text-2xl leading-1 font-medium sm:text-[22px] lg:text-xl'>
                 ${selectedMetal.price}
               </p>
               <span className='text-xs leading-1 font-normal text-[#958F86] line-through sm:text-base xl:text-lg'>
@@ -157,10 +172,10 @@ export default function PreviewCardMd({ product, className }) {
               })}
             </div>
           </div>
-          <p className='xs:text-base 4xl:text-xl line-clamp-2 block min-h-[2.2em] text-left text-sm leading-4 font-light text-gray-900 sm:text-base xl:font-normal'>
+          <p className='xs:text-base 3xl:text-xl mb-1 block text-left text-sm font-light text-gray-900 sm:text-lg xl:font-normal'>
             <button
               onClick={handleProductClick}
-              className='block w-full text-left'
+              className='!line-clamp-1 block w-full text-left'
             >
               {product.name}
             </button>
@@ -174,7 +189,7 @@ export default function PreviewCardMd({ product, className }) {
         </CardContent>
       </Card>
       {/* Mobile Drawer */}
-      {/* {isClientMobile && (
+      {isClientMobile && (
         <Drawer
           open={isProductClicked}
           onOpenChange={setIsProductClicked}
@@ -185,7 +200,7 @@ export default function PreviewCardMd({ product, className }) {
               <DrawerTitle className='wrapper absolute top-3 z-10 flex justify-between border-none'>
                 <button
                   onClick={() => setLiked(!liked)}
-                  className='group rounded-full transition-all hover:scale-110'
+                  className='group rounded-full transition-all hover:scale-110 hover:bg-secondary p-1 h-8 bg-white shadow shadow-gray-400'
                   aria-label='Add to wishlist'
                 >
                   <FaHeart
@@ -279,7 +294,7 @@ export default function PreviewCardMd({ product, className }) {
             </DrawerFooter>
           </DrawerContent>
         </Drawer>
-      )} */}
+      )}
     </>
   );
 }

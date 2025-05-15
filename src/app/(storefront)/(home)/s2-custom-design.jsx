@@ -1,4 +1,3 @@
-import CustomTag from '@/components/custom-tag';
 import CustomTagWrapper from '@/components/custom-tag-wrapper';
 import Heading from '@/components/heading';
 import Image from 'next/image';

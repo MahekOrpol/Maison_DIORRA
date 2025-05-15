@@ -97,7 +97,7 @@ const blogPosts = [
   }
 ];
 
-export default function S9BlogsSection() {
+export default function S9BlogsSection({ data }) {
   const timer = useRef();
   const [isSliderReady, setIsSliderReady] = useState(false);
   const [sliderRef, slider] = useKeenSlider({
@@ -130,7 +130,6 @@ export default function S9BlogsSection() {
       }
     }
   });
-
   useEffect(() => {
     if (!slider.current) return;
 
@@ -187,9 +186,9 @@ export default function S9BlogsSection() {
           isSliderReady ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        {blogPosts.map((post, index) => (
+        {data.map((post, index) => (
           <div key={index} className='keen-slider__slide'>
-            <BlogCard {...post} />
+            <BlogCard data={post} />
           </div>
         ))}
       </div>

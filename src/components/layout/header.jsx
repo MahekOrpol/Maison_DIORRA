@@ -8,23 +8,45 @@ import MobileNavDrawer from './mobile-nav';
 import { AccountDropdown } from './account-dropdown';
 import LocateAndSearch from './locate-search';
 import { useState, useEffect } from 'react';
-import { NotAllowedModal } from '../modals/na-wishlist';
-import { AddToCartNotAllowedModal } from '../modals/na-addtocart';
-import { usePathname } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { GiGemPendant } from 'react-icons/gi';
+import { useModalStore } from '@/store/modal-stote';
+const messages = [
+  'Welcome to our jewelry collection!',
+  'Enjoy 10% off on your first purchase!',
+  'THE ESSENTIALS | UP TO 40% OFF* Ends in April'
+];
 
-export default function Header() {
-  const [showNotAllowed, setShowNotAllowed] = useState(false);
-  const [showCartDialog, setShowCartDialog] = useState(false);
+export default function Header({ categories }) {
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [activeMenu, setActiveMenu] = useState(null);
+  const [index, setIndex] = useState(0);
+  const openModal = useModalStore((state) => state.openModal);
+  const [user, setUser] = useState(null);
+
+    useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
+  // const router = useRouter();
   // const cookieStore = await cookies();
   // const token = cookieStore.get('token')?.value;
-
   // const isLoggedIn = !!token;
-  const pathname = usePathname();
+
+  // const authUser = localStorage.getItem('authUser');
+  // const isLoggedIn = !!authUser;
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % messages.length);
+    }, 4000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -45,54 +67,76 @@ export default function Header() {
   }, [lastScrollY]);
 
   const handleWishlistClick = () => {
-    // If not logged in
-    setShowNotAllowed(true);
+    // Check if user is logged in or not
+    // if (authUser) {
+    //   router.push(`/account/wishlist`);
+    // } else {
+    openModal('wishlistNotAllowed');
+    // }
   };
   const handleAddToCart = () => {
-    setShowCartDialog(true);
+    // Check if user is logged in or not, if not then
+    openModal('cartNotAllowed');
   };
+
+  const diamondShapes = [
+    { name: 'Princess', image: '/icons/shape-princess.svg' },
+    { name: 'Round', image: '/icons/shape-round.svg' },
+    { name: 'Emerald', image: '/icons/shape-emerlad.svg' },
+    { name: 'Pear', image: '/icons/shape-pear.svg' }
+  ];
+
+  const ringStyless = [
+    { name: 'Solitaire', image: '/img/ring-style-solitaire.svg' },
+    { name: 'Halo', image: '/img/ring-style-halo.svg' },
+    { name: 'Pave', image: '/img/ring-style-pave.svg' },
+    { name: 'Hidden Halo', image: '/img/ring-style-hidden.svg' },
+    { name: 'Stone', image: '/img/ring-style-stone.svg' }
+  ];
+
+  const metalOptions = [
+    { name: 'White Gold', image: '/img/white-theme.png' },
+    { name: 'Yellow Gold', image: '/img/gold-theme.png' },
+    { name: 'Rose Gold', image: '/img/rose-theme.png' }
+  ];
+
   const menuItems = [
     {
       href: '/diamonds',
       label: 'Diamonds',
       icon: <IoDiamondOutline className='h-4 w-4' />,
       content: (
-        <div className='grid w-full max-w-6xl grid-cols-2 gap-8 p-6'>
-          <div className='col-span-1'>
+        <div className='grid grid-cols-3 gap-0 xl:grid-cols-4 xl:gap-4'>
+          <div className='col-span-1 p-4 xl:p-6'>
             <h3 className='mb-4 font-semibold'>DIAMONDS BY SHAPE</h3>
-            <ul className='space-y-2 font-light'>
-              {[
-                'Round',
-                'Princess',
-                'Cushion',
-                'Emerald',
-                'Oval',
-                'Pear',
-                'Marquise',
-                'Radiant',
-                'Asscher',
-                'Heart'
-              ].map((shape) => (
-                <li key={shape}>
+            <ul className='space-y-2 border-r-2 font-light'>
+              {diamondShapes.map(({ name, image }) => (
+                <li key={name} className='flex items-center space-x-2'>
                   <Link
-                    href={`/diamonds/${shape.toLowerCase()}`}
-                    className='hover:underline'
+                    href={`/diamonds?shape=${name.toLowerCase()}`}
+                    className='flex items-center space-x-2 hover:underline'
                   >
-                    {shape}
+                    <Image
+                      src={image}
+                      alt={name}
+                      width={24}
+                      height={24}
+                      className='object-contain'
+                    />
+                    <span>{name}</span>
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-          <div className='col-span-1'>
+          <div className='col-span-1 p-4 xl:col-span-2 xl:p-6'>
             <h3 className='mb-4 font-semibold'>DIAMONDS BY PRICE</h3>
             <ul className='space-y-2 font-light'>
               {[
                 'Under $1,000',
                 '$1,000 - $2,500',
                 '$2,500 - $5,000',
-                '$5,000 - $10,000',
-                'Over $10,000'
+                'Over $5,000'
               ].map((price) => (
                 <li key={price}>
                   <Link
@@ -105,6 +149,14 @@ export default function Header() {
               ))}
             </ul>
           </div>
+          <div className='group relative h-[230px] w-[320px] overflow-hidden xl:h-[300px] xl:w-[400px]'>
+            <Image
+              src='/img/ads/add4.png'
+              alt='Ad Image'
+              fill
+              className='h-fill w-full object-fill'
+            />
+          </div>
         </div>
       )
     },
@@ -113,69 +165,43 @@ export default function Header() {
       label: 'Fine Jewelry',
       icon: <GiGemPendant className='size-4.5 text-black' />,
       content: (
-        <div className='grid w-full max-w-6xl grid-cols-3 gap-8 p-6'>
-          <div>
-            <h3 className='mb-4 font-semibold'>RINGS</h3>
-            <ul className='space-y-2 font-light'>
-              {[
-                'Wedding Bands',
-                'Berminy Rings',
-                'Anniversary Rings',
-                'Stackable Rings',
-                'Statement Rings'
-              ].map((item) => (
-                <li key={item}>
-                  <Link
-                    href={`/products/rings/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                    className='hover:underline'
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className='mb-4 font-semibold'>EARRINGS</h3>
-            <ul className='space-y-2 font-light'>
-              {[
-                'Diamond Earrings',
-                'Drop & Dangle',
-                'Huggies & Hoops',
-                'Crawlers',
-                'Studs'
-              ].map((item) => (
-                <li key={item}>
-                  <Link
-                    href={`/products/earrings/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                    className='hover:underline'
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h3 className='mb-4 font-semibold'>NECKLACES</h3>
-            <ul className='space-y-2 font-light'>
-              {[
-                'Diamond Pendants',
-                'Necklaces',
-                'Chokers',
-                'Lockets',
-                'Statement Necklaces'
-              ].map((item) => (
-                <li key={item}>
-                  <Link
-                    href={`/products/necklaces/${item.toLowerCase().replace(/\s+/g, '-')}`}
-                    className='hover:underline'
-                  >
-                    {item}
-                  </Link>
-                </li>
-              ))}
-            </ul>
+        <div className='grid w-full grid-cols-4 items-stretch gap-2 xl:grid-cols-5'>
+          {categories.map((category, index) => (
+            <div key={category.id} className='col-span-1 px-4 py-8 2xl:px-6'>
+              <div
+                className={`flex h-full flex-col ${
+                  index !== categories.length - 1 ? 'border-r-1' : ''
+                }`}
+              >
+                <h3 className='mb-4 font-semibold uppercase'>
+                  {category.categoryName}
+                </h3>
+                <ul className='flex-1 space-y-2 font-light'>
+                  {category.subcategories.map((sub) => (
+                    <li key={sub._id}>
+                      <Link
+                        href={`/products/${category.categoryName.toLowerCase()}/${sub.subcategoryName
+                          .toLowerCase()
+                          .replace(/\s+/g, '-')}`}
+                        className='decoration-1 underline-offset-3 hover:underline'
+                      >
+                        {sub.subcategoryName}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
+
+          {/* Promotional Image */}
+          <div className='group relative hidden h-[230px] w-[230px] overflow-hidden xl:block xl:h-[300px] xl:w-[400px]'>
+            <Image
+              src='/img/DiamondStuds.webp'
+              alt='Ad Image'
+              fill
+              className='h-fill w-full object-fill'
+            />
           </div>
         </div>
       )
@@ -185,70 +211,75 @@ export default function Header() {
       label: 'Engagement Rings',
       icon: <Image src='/icons/ring2.svg' alt='ring2' width={16} height={16} />,
       content: (
-        <div className='grid w-full max-w-6xl grid-cols-3 gap-8 p-6'>
-          <div>
+        <div className='grid w-full grid-cols-4 gap-0 xl:gap-2'>
+          <div className='col-span-1 p-3 xl:p-6'>
             <h3 className='mb-4 font-semibold'>ENGAGEMENT RINGS</h3>
-            <ul className='space-y-2 font-light'>
-              {[
-                'Solitaire',
-                'Halo',
-                'Three-Stone',
-                'Vintage',
-                'Modern',
-                'Custom Design'
-              ].map((style) => (
-                <li key={style}>
+            <ul className='h-40 space-y-2 overflow-y-auto border-r-2 font-light'>
+              {ringStyless.map(({ name, image }) => (
+                <li key={name} className='flex items-center space-x-2'>
                   <Link
-                    href={`/products/rings/engagement-rings?style=${style.toLowerCase().replace(/\s+/g, '-')}`}
-                    className='hover:underline'
+                    href={`/products/rings/engagement-rings?style=${name.toLowerCase().replace(/\s+/g, '-')}`}
+                    className='flex items-center space-x-2 hover:underline'
                   >
-                    {style}
+                    <Image
+                      src={image}
+                      alt={name}
+                      width={24}
+                      height={24}
+                      className='h-6 w-6 object-contain'
+                    />
+                    <span>{name}</span>
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-          <div>
+          <div className='col-span-1 p-3 xl:p-6'>
             <h3 className='mb-4 font-semibold'>METAL TYPES</h3>
-            <ul className='space-y-2 font-light'>
-              {[
-                'Platinum',
-                'White Gold',
-                'Yellow Gold',
-                'Rose Gold',
-                'Two-Tone'
-              ].map((metal) => (
-                <li key={metal}>
+            <ul className='h-40 space-y-2 overflow-y-auto border-r-2 font-light'>
+              {metalOptions.map(({ name, image }) => (
+                <li key={name} className='flex items-center space-x-2'>
                   <Link
-                    href={`/products/rings/engagement-rings?metal=${metal.toLowerCase().replace(/\s+/g, '-')}`}
-                    className='hover:underline'
+                    href={`/products/rings/engagement-rings?metal=${name.toLowerCase().replace(/\s+/g, '-')}`}
+                    className='flex items-center space-x-2 hover:underline'
                   >
-                    {metal}
+                    <Image
+                      src={image}
+                      alt={name}
+                      width={16}
+                      height={16}
+                      className='h-4 w-4 object-contain'
+                    />
+                    <span>{name}</span>
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
-          <div>
+          <div className='col-span-1 p-3 xl:p-6'>
             <h3 className='mb-4 font-semibold'>SHOP BY COLLECTION</h3>
             <ul className='space-y-2 font-light'>
-              {[
-                'Classic',
-                'Bridal',
-                'Art Deco',
-                'Nature Inspired',
-                'Minimalist'
-              ].map((collection) => (
-                <li key={collection}>
-                  <Link
-                    href={`/products/rings/engagement-rings/collections/${collection.toLowerCase().replace(/\s+/g, '-')}`}
-                    className='hover:underline'
-                  >
-                    {collection}
-                  </Link>
-                </li>
-              ))}
+              {['Classic', 'Bridal', 'Nature Inspired', 'Minimalist'].map(
+                (collection) => (
+                  <li key={collection}>
+                    <Link
+                      href={`/products/rings/engagement-rings/collections/${collection.toLowerCase().replace(/\s+/g, '-')}`}
+                      className='hover:underline'
+                    >
+                      {collection}
+                    </Link>
+                  </li>
+                )
+              )}
             </ul>
+          </div>
+          <div className='group relative h-[230px] w-[250px] overflow-hidden xl:h-[300px] xl:w-[400px]'>
+            <Image
+              src='/img/ads/add4.png'
+              alt='Ad Image'
+              fill
+              className='h-full w-full object-fill'
+            />
           </div>
         </div>
       )
@@ -265,10 +296,10 @@ export default function Header() {
         />
       ),
       content: (
-        <div className='grid w-full max-w-6xl grid-cols-2 gap-8 p-6'>
-          <div>
+        <div className='grid grid-cols-3 gap-0 xl:grid-cols-4 xl:gap-4'>
+          <div className='col-span-1 p-3 xl:p-6'>
             <h3 className='mb-4 font-semibold'>CUSTOM JEWELRY</h3>
-            <ul className='space-y-2 font-light'>
+            <ul className='h-40 space-y-2 border-r-2 font-light'>
               {[
                 'Design Your Own Ring',
                 'Custom Engagement Rings',
@@ -287,15 +318,15 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div>
+          <div className='col-span-1 p-3 xl:col-span-2 xl:p-6'>
             <h3 className='mb-4 font-semibold'>THE PROCESS</h3>
             <ul className='space-y-2 font-light'>
               {[
-                'Consultation',
-                'Design',
-                '3D Rendering',
-                'Production',
-                'Final Approval'
+                '1. Consultation',
+                '2. Design',
+                '3. 3D Rendering',
+                '4. Production',
+                '5. Final Approval'
               ].map((step) => (
                 <li key={step}>
                   <Link
@@ -307,6 +338,14 @@ export default function Header() {
                 </li>
               ))}
             </ul>
+          </div>
+          <div className='group relative h-[230px] w-[320px] overflow-hidden xl:h-[300px] xl:w-[400px]'>
+            <Image
+              src='/img/DiamondStuds.webp'
+              alt='Ad Image'
+              fill
+              className='h-full w-full object-fill'
+            />
           </div>
         </div>
       )
@@ -323,10 +362,10 @@ export default function Header() {
         />
       ),
       content: (
-        <div className='grid w-full max-w-6xl grid-cols-2 gap-8 p-6'>
-          <div>
+        <div className='grid grid-cols-3 gap-0 xl:grid-cols-4 xl:gap-4'>
+          <div className='col-span-1 p-3 xl:p-6'>
             <h3 className='mb-4 font-semibold'>DIAMOND EDUCATION</h3>
-            <ul className='space-y-2 font-light'>
+            <ul className='h-40 space-y-2 border-r-2 font-light'>
               {[
                 'The 4 Cs',
                 'Diamond Shapes',
@@ -345,7 +384,7 @@ export default function Header() {
               ))}
             </ul>
           </div>
-          <div>
+          <div className='col-span-1 p-3 xl:col-span-2 xl:p-6'>
             <h3 className='mb-4 font-semibold'>JEWELRY CARE</h3>
             <ul className='space-y-2 font-light'>
               {[
@@ -366,6 +405,14 @@ export default function Header() {
               ))}
             </ul>
           </div>
+          <div className='group relative h-[230px] w-[320px] overflow-hidden xl:h-[300px] xl:w-[400px]'>
+            <Image
+              src='/img/ads/add4.png'
+              alt='Ad Image'
+              fill
+              className='object-cover'
+            />
+          </div>
         </div>
       )
     }
@@ -374,23 +421,17 @@ export default function Header() {
   return (
     <>
       <div
-        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ease-in ${
-          showHeader ? 'translate-y-0' : '-translate-y-full'
-        }`}
+        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ease-in ${showHeader ? 'translate-y-0' : '-translate-y-full'
+          }`}
       >
         <header className='bg-background text-foreground shadow-xs'>
-          {/* banner */}
-          <div className='bg-primary py-2 text-center tracking-wider text-white md:py-1'>
-            {/* <p className='wrapper text-sm leading-4 md:hidden'>
-          Shop Gold and Diamond Jewellery
-        </p> */}
-            <p className='text-xs leading-4 md:text-sm'>
-              THE ESSENSTIALS |{' '}
-              <span className='font-semibold md:text-base'>
-                UPTO 40% OFF<sup>* </sup>
-              </span>
-              Ends in April
-            </p>
+          {/* black banner */}
+          <div className='bg-primary relative h-9 overflow-hidden py-2 text-center tracking-wider text-white'>
+            <div className='animate-fade absolute w-full opacity-100 transition-opacity duration-1000 ease-in-out'>
+              <p key={index} className='xs:text-sm text-xs md:text-base'>
+                {messages[index]}
+              </p>
+            </div>
           </div>
           {/* header */}
           <div className='header-wrapper relative flex items-center justify-between py-2'>
@@ -412,7 +453,7 @@ export default function Header() {
               </Link>
             </div>
             <div className='flex gap-0.5 min-[340px]:gap-1.5 md:gap-4'>
-              <AccountDropdown isLoggedIn={true} />
+              <AccountDropdown user={user} />
               {/* Wishlist Link */}
               <button
                 className='relative rounded-full p-1 transition-all duration-200 hover:scale-110 hover:bg-gray-100'
@@ -435,7 +476,7 @@ export default function Header() {
             </div>
           </div>
           {/* desktop nav */}
-          <nav className='wrapper hidden justify-center border-t border-gray-100 font-light lg:flex'>
+          <nav className='wrapper 3xl:text-base hidden justify-center border-t border-gray-100 text-sm uppercase lg:flex'>
             {menuItems.map((item, index) => (
               <div
                 key={index}
@@ -446,10 +487,10 @@ export default function Header() {
                 <Link
                   href={item.href}
                   className={cn(
-                    'relative flex items-center gap-0.5 px-2 py-1',
+                    'relative flex items-center gap-1 px-4 py-2 font-light',
                     'after:absolute after:right-0 after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-center after:scale-x-0 after:content-[""]',
                     'after:bg-black after:transition-transform after:duration-300',
-                    activeMenu === item.label && 'font-normal after:scale-x-95'
+                    activeMenu === item.label && 'font-medium after:scale-x-95'
                   )}
                 >
                   {item.icon}
@@ -466,18 +507,19 @@ export default function Header() {
               onMouseEnter={() => setActiveMenu(activeMenu)}
               onMouseLeave={() => setActiveMenu(null)}
             >
-              <div className='container mx-auto'>
+              <div className='mx-auto max-w-4xl xl:max-w-5xl 2xl:max-w-7xl'>
                 {menuItems.find((item) => item.label === activeMenu)?.content}
               </div>
             </div>
           )}
         </header>
       </div>
-      <NotAllowedModal open={showNotAllowed} onOpenChange={setShowNotAllowed} />
-      <AddToCartNotAllowedModal
-        open={showCartDialog}
-        onOpenChange={setShowCartDialog}
-      />
+      {activeMenu && (
+        <div
+          className='fixed inset-0 z-30 bg-black/40 backdrop-blur-xs'
+          onClick={() => setActiveMenu(null)} // Optional: close on click
+        />
+      )}
     </>
   );
 }

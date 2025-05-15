@@ -85,7 +85,6 @@ export default function CoverflowSlider() {
   //       slider.update();
   //     }
   //   }, [slider]);
-  console.log(process.env.NEXT_PUBLIC_HELP);
 
   return (
     <section className='px-8 py-10'>

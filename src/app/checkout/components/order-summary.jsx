@@ -103,7 +103,7 @@ export function OrderSummary({
       {/* Payment Button */}
       {onProceedToPay && (
         <Button
-          className='my-2 w-full text-base'
+          className='my-2 w-full text-base hidden lg:flex'
           size='lg'
           onClick={onProceedToPay}
         >

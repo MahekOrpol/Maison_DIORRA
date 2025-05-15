@@ -12,13 +12,13 @@ import Image from 'next/image';
 import { Md360 } from 'react-icons/md';
 import { IoImageOutline, IoVideocamOutline } from 'react-icons/io5';
 import Jewelry360Viewer from '@/components/product360viewer';
+import { useRef, useState } from 'react';
 
 const images = [
-  '/img/preview/ring1.png',
-  '/img/preview/ring2.png',
-  '/img/preview/ring3.png',
-  '/img/preview/gold1.png',
-  '/img/preview/gold2.png'
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-YG_0_6ed69b33-41f1-45a6-a66a-4b959b6fb034.jpg?v=1695166772&width=1200&height=1200&crop=center',
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/files/0139cda002df913152089c957a4774f6.jpg?v=1693933865&width=800&height=800&crop=center',
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C1-YG-DIA-2Ks_0.jpg?v=1695166754&width=800&height=800&crop=center',
+  'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C125-YG-DIA-2ks_0.jpg?v=1695166754&width=800&height=800&crop=center'
 ];
 const images360 = Array.from(
   { length: 75 },
@@ -44,7 +44,58 @@ const images2 = [
   // videos
   'https://checkout.keyzarjewelry.com/cdn/shop/videos/c/vp/a23cfeccd86a4dd8bee5f19192ff2f55/a23cfeccd86a4dd8bee5f19192ff2f55.HD-1080p-7.2Mbps-33725443.mp4'
 ];
-export default function ProductGallery({ className }) {
+
+const ZoomableImage = ({ src, alt }) => {
+  const [backgroundPos, setBackgroundPos] = useState('50% 50%');
+  const [isZoomed, setIsZoomed] = useState(false);
+  const containerRef = useRef(null);
+
+  const handleMouseMove = (e) => {
+    if (!isZoomed) return;
+
+    const { left, top, width, height } = containerRef.current.getBoundingClientRect();
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
+    setBackgroundPos(`${x}% ${y}%`);
+  };
+
+  const handleMouseLeave = () => {
+    if (isZoomed) {
+      setIsZoomed(false);
+      setBackgroundPos('100% 100%');
+    }
+  };
+
+  const handleClick = () => {
+    setIsZoomed(!isZoomed);
+    if (!isZoomed) {
+      setBackgroundPos('50% 50%');
+    }
+  };
+
+  return (
+    <div
+      ref={containerRef}
+      className={`zoom-container relative h-full w-full cursor-zoom-in overflow-hidden ${isZoomed ? 'cursor-grab active:cursor-grabbing' : ''
+        }`}
+      onClick={handleClick}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+    >
+      <img
+        src={src}
+        alt={alt}
+        className={`zoom-image h-full w-full object-cover transition-transform duration-300 ${isZoomed ? 'scale-150' : 'scale-100'
+          }`}
+        style={{
+          transformOrigin: backgroundPos
+        }}
+      />
+    </div>
+  );
+};
+
+export default function ProductGallery({ className, media }) {
   return (
     <>
       {/* Mobile View */}
@@ -58,7 +109,7 @@ export default function ProductGallery({ className }) {
           className
         )}
       >
-        <DesktopGallery />
+        <DesktopGallery media={media} />
       </div>
     </>
   );
@@ -67,11 +118,11 @@ export default function ProductGallery({ className }) {
 export function MobileGallery() {
   return (
     <div className=''>
-      <Tabs defaultValue='360' className='aspect-[9.5/10] sm:aspect-[5/4]'>
+      <Tabs defaultValue='360' className='aspect-[9.7/10] sm:aspect-[5/4]'>
         {/* 360 View */}
         <TabsContent
           value='360'
-          className='flex h-full w-full items-center justify-center overflow-hidden rounded-md p-4'
+          className='flex h-full w-full items-center justify-center overflow-hidden rounded-md'
         >
           {/* <Image
             src='/img/dummy/360view.gif'
@@ -88,13 +139,7 @@ export function MobileGallery() {
             <CarouselContent className='ml-0 !h-full'>
               {images.map((img, i) => (
                 <CarouselItem key={i} className='h-full p-0'>
-                  <Image
-                    src={img}
-                    alt={`Dummy ${i}`}
-                    width={400}
-                    height={400}
-                    className='h-full w-full object-cover'
-                  />
+                  <ZoomableImage src={img} alt={`Dummy ${i}`} />
                 </CarouselItem>
               ))}
             </CarouselContent>
@@ -106,9 +151,12 @@ export function MobileGallery() {
         <TabsContent value='video' className='h-full w-full overflow-hidden'>
           <div className='h-full w-full'>
             <video
-              src='/img/dummy/video.mp4'
-              controls
+              src='https://checkout.keyzarjewelry.com/cdn/shop/videos/c/vp/a23cfeccd86a4dd8bee5f19192ff2f55/a23cfeccd86a4dd8bee5f19192ff2f55.HD-1080p-7.2Mbps-33725443.mp4'
               className='h-full w-full object-cover'
+              autoPlay
+              muted
+              loop
+              playsInline
             />
           </div>
         </TabsContent>
@@ -138,30 +186,44 @@ export function MobileGallery() {
   );
 }
 
-function DesktopGallery() {
+function DesktopGallery({ media }) {
+  const imageMedia = media.filter((m) => m.mediaType === 'image');
+  const videoMedia = media.find((m) => m.mediaType === 'video');
+  const viewer360 = media.find((m) => m.mediaType === '360');
+
   return (
     <div className='grid grid-cols-2 gap-4 overflow-hidden'>
-      {images.map((image, index) => {
-        const isFirst = index === 0;
-        const isLast = index === images.length - 1;
-        return (
-          <div
-            key={index}
-            className={`flex items-center justify-center overflow-hidden border border-black/20 bg-gray-100`}
-            // ${
-            //   isFirst ? 'rounded-tl-[60px]' : ''
-            // } ${isLast ? 'rounded-br-[60px]' : ''}
-          >
-            <img
-              src={image}
-              alt={`Product ${index}`}
+      {/* 360 Viewer First */}
+      {viewer360 && (
+        <Jewelry360Viewer images={images360} className='col-span-1' />
+      )}
+
+      {/* Images */}
+      {imageMedia.map((item, index) => (
+        <div
+          key={index}
+          className='flex items-center justify-center overflow-hidden border border-black/20 bg-gray-100'
+        >
+          <ZoomableImage src={item.mediaUrl} alt={`Product ${index}`} />
+        </div>
+      ))}
+
+      {/* Video Last */}
+      {videoMedia && (
+        <div className='col-span-1'>
+          <div className='h-full overflow-hidden border border-black/20 bg-gray-100'>
+            <video
+              src={videoMedia.mediaUrl}
+              poster={videoMedia.thumbnailImg}
               className='h-full w-full object-cover'
+              autoPlay
+              muted
+              loop
+              playsInline
             />
           </div>
-        );
-      })}
-
-      <Jewelry360Viewer images={images360} className='col-span-1' />
+        </div>
+      )}
     </div>
   );
 }

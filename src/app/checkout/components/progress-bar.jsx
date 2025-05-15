@@ -1,5 +1,5 @@
 'use client';
-import { useCheckoutStore } from '@/lib/checkout-store';
+import { useCheckoutStore } from '@/store/checkout-store';
 import { CreditCard, MapPin } from 'lucide-react';
 import React from 'react';
 import { BsHandbag } from 'react-icons/bs';

@@ -6,9 +6,17 @@ import { ReviewForm } from '../review-form';
 import Link from 'next/link';
 import { ArrowRight, ChevronLeft, ChevronRight, MoveRight } from 'lucide-react';
 import { ImQuotesLeft, ImQuotesRight } from 'react-icons/im';
+import { baseUrl } from '@/lib/utils';
 
 export default async function Page({ params }) {
-  const { slug } = await params;
+  const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
+
+  const { slug } = params;
+  const res = await fetch(`${BASE_URL}/api/v1/blog/get/${slug}`, {
+    cache: 'no-store'
+  });
+  const data = await res.json();
+
   return (
     <div className='mb-8 md:mb-10'>
       <BlogsBanner
@@ -24,7 +32,11 @@ export default async function Page({ params }) {
           <div className='mb-3 border-b-2 pb-2'>
             <div>
               <Image
-                src='/img/blogs/blog-details.png'
+                src={
+                  data?.image
+                    ? `${baseUrl}${data.image}`
+                    : '/img/blogs/blog-details.png'
+                }
                 width={800}
                 height={400}
                 alt='Blog header w-full'
@@ -32,57 +44,46 @@ export default async function Page({ params }) {
               />
             </div>
             <p className='my-1 text-sm font-light md:my-2 lg:text-base'>
-              Posted by Feronia - Mar 09 2024
+              Posted by Feronia -{' '}
+              {new Date(data.createdAt).toLocaleDateString('en-US', {
+                month: 'short',
+                day: '2-digit',
+                year: 'numeric'
+              })}
             </p>
             <h2 className='text-2xl leading-6 font-semibold md:text-3xl lg:text-4xl'>
-              The North Earings Bronze
+              {data.headline}
             </h2>
           </div>
 
           {/* blog content */}
           <div className='space-y-4 text-sm md:text-base'>
             {/* Your existing blog content sections */}
-            {[...Array(2)].map((_, sectionIndex) => (
-              <div key={sectionIndex} className='space-y-4'>
-                <p className='text-justify'>
-                  Explore the history behind vintage pieces, how to style them,
-                  and tips for caring for them. Share stories of famous vintage
-                  pieces and their significance. Offer a guide on selecting an
-                  engagement ring that reflects personal style. Discuss
-                  different styles, settings, and stones, and include tips for
-                  budget considerations. Provide tips on how to successfully
-                  layer necklaces for a trendy look.
-                </p>
+            <div key={data.id} className='space-y-4'>
+              <p className='text-justify'>{data.description}</p>
+              <div>
                 <div>
-                  <div>
-                    <ImQuotesLeft className='h-10 w-10' />
-                    <blockquote className='mx-auto w-4/5'>
-                      &quot;Learn how to keep your jewelry shining bright! From
-                      cleaning techniques to storage solutions, our blog offers
-                      expert advice. Each item is handcrafted with love and
-                      precision, using ethically sourced materials to ensure
-                      beauty that you feel good about. Learn how to keep your
-                      jewelry shining bright! From cleaning techniques to
-                      storage solutions, our blog offers expert advice.&quot;
-                    </blockquote>
-                    <ImQuotesRight className='ml-auto h-10 w-10' />
-                  </div>
-                  <p className='font-medium'>- Jasmin Rosie</p>
+                  <ImQuotesLeft className='h-10 w-10' />
+                  <blockquote className='mx-auto w-4/5'>
+                    &quot;{data.articleBody}&quot;
+                  </blockquote>
+                  <ImQuotesRight className='ml-auto h-10 w-10' />
                 </div>
-                <div>
-                  <h3 className='text-2xl font-medium'>
-                    Trends to Watch in the Jewelry World
-                  </h3>
-                  <ul className='ml-10'>
-                    {Array.from({ length: 8 }).map((item, i) => (
-                      <li className='list-disc' key={i}>
-                        Jewellery Care 101: Keeping Your Pieces Sparkling
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <p className='font-medium'>- {data.authorName}</p>
               </div>
-            ))}
+              <div>
+                <h3 className='text-2xl font-medium'>
+                  Trends to Watch in the Jewelry World
+                </h3>
+                <ul className='ml-10'>
+                  {data.trend?.map((item, index) => (
+                    <li className='list-disc' key={index}>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
           </div>
         </article>
 
