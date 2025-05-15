@@ -148,7 +148,6 @@ export default function LoginPage() {
         // Store tokens and user data
         const { token, user } = response.data;
         localStorage.setItem('accessToken', token.access.token);
-        localStorage.setItem('refreshToken', token.refresh.token);
         localStorage.setItem('authUser', JSON.stringify(user));
         localStorage.setItem(
           'user',

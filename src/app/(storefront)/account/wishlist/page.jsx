@@ -16,11 +16,12 @@ export default function WishlistPage() {
         if (!token) {
           toast.error('Please login to view your wishlist');
           setWishlistItems([]);
+          setIsLoading(false);
           return;
         }
 
         const response = await axios.get(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/wishlist/68222813af0c3e6e042a5b06`,
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/wishlist`,
           {
             headers: {
               'Authorization': `Bearer ${token}`,
@@ -29,12 +30,14 @@ export default function WishlistPage() {
           }
         );
 
-        setWishlistItems(response.data?.data || []);
-        console.log(response.data.data)
+        // Make sure we're working with an array
+        const items = response.data?.data || response.data || [];
+        setWishlistItems(items);
+        console.log(items)
+
       } catch (error) {
         console.error('Error fetching wishlist:', error);
         toast.error(error.response?.data?.message || 'Failed to load wishlist. Please try again.');
-        setWishlistItems([]);
       } finally {
         setIsLoading(false);
       }
@@ -42,53 +45,6 @@ export default function WishlistPage() {
 
     fetchWishlist();
   }, []);
-
-  const transformProductData = (item) => {
-    // Find the matching variation based on selected metal and size
-    const matchingVariation = item.product?.variations?.[0]?.metalVariations?.find(
-      metalVar => metalVar.metal === item.selectedMetal
-    );
-    
-    const matchingSize = matchingVariation?.ringSizes?.find(
-      size => size.productSize === item.selectedSize
-    );
-
-    return {
-      id: item._id,
-      productId: item.product?._id,
-      image: item.product?.thumbnail || '/img/default-product.jpg',
-      title: item.product?.productName || 'Unknown Product',
-      price: item.price?.$numberDecimal || matchingSize?.salePrice?.$numberDecimal || '0',
-      originalPrice: matchingSize?.regularPrice?.$numberDecimal || '0',
-      offer: item.product?.discount ? `${item.product.discount.$numberDecimal}% off` : 'No offer',
-      tag: 'In Wishlist',
-      selectedMetal: item.selectedMetal,
-      selectedSize: item.selectedSize,
-      selectedDiamondShape: item.selectedDiamondShape?.name,
-      selectedShank: item.selectedShank?.name,
-      productData: item
-    };
-  };
-
-  const removeFromWishlist = async (itemId) => {
-    try {
-      const token = localStorage.getItem('accessToken');
-      await axios.delete(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/wishlist/${itemId}`,
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-      setWishlistItems(prev => prev.filter(item => item._id !== itemId));
-      toast.success('Item removed from wishlist');
-    } catch (error) {
-      console.error('Error removing item:', error);
-      toast.error('Failed to remove item from wishlist');
-    }
-  };
 
   if (isLoading) {
     return (
@@ -101,9 +57,9 @@ export default function WishlistPage() {
   }
 
   return (
-    <div className='sm:wrapper pt-4 pb-10'>
-      {wishlistItems.length === 0 ? (
-        <div className='flex h-[50vh] flex-col items-center justify-center'>
+    <div className='sm:wrapper min-h-[60vh] pt-4 pb-10'>
+      {wishlistItems?.length == 0 ? (
+        <div className='flex flex-col items-center justify-center'>
           <div className='w-[120px] sm:w-[170px]'>
             <img src={'/img/wishlist.jpg'} alt="Empty wishlist" />
           </div>
@@ -126,34 +82,13 @@ export default function WishlistPage() {
           </div>
         </div>
       ) : (
-        <>
+        <div>
           <h1 className='mb-4 text-2xl sm:text-3xl font-bold md:mb-6 underline'>Your Wishlist</h1>
           <div className='grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 lg:gap-6'>
-            {wishlistItems.map((item) => {
-              const product = transformProductData(item);
-              return (
-                <div
-                  key={item._id}
-                  className='keen-slider__slide overflow-hidden rounded-xl'
-                >
-                  <PreviewCard 
-                    isDraggable={false} 
-                    product={product} 
-                    isWishlistItem={true}
-                    onRemoveFromWishlist={() => removeFromWishlist(item._id)}
-                    customFields={[
-                      { label: 'Metal', value: product.selectedMetal },
-                      { label: 'Size', value: product.selectedSize },
-                      { label: 'Diamond Shape', value: product.selectedDiamondShape },
-                      { label: 'Shank', value: product.selectedShank }
-                    ]}
-                  />
-                </div>
-              );
-            })}
+            {wishlistItems.map((item) =>  <PreviewCard key={item._id}  product={item.product} />)}
           </div>
-        </>
-      )}
+        </div>
+     )}
     </div>
   );
 }
