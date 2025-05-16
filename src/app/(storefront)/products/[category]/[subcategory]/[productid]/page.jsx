@@ -36,8 +36,7 @@ export default function ProductDetailsPage({ params }) {
   console.log(metal, metalVariation);
 
   const { data, isLoading, error } = useFetch(
-    `${baseUrl}/api/v1/product/get-product-id/${productid}`,
-    { id: 'jdf' }
+    `${baseUrl}/api/v1/product/get-product-id/${productid}`
   );
 
   console.log('data :>> ', data);

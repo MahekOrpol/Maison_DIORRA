@@ -36,7 +36,7 @@ export default function PreviewCardMd({ product, className }) {
   const [liked, setLiked] = useState(false);
   const openModal = useModalStore((state) => state.openModal);
   const router = useRouter();
-  console.log(product);
+  // console.log("Product >>",product);
   // Fix: Reset metal when product changes
   useEffect(() => {
     setSelectedMetal(product?.variations?.[0].metalVariations?.[0]);
