@@ -124,34 +124,6 @@ export default function PreviewCard({
     }
   };
 
-  useEffect(() => {
-    const checkWishlistStatus = async () => {
-      const accessToken = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
-      const authUser = typeof window !== 'undefined' ? JSON.parse(localStorage.getItem('authUser')) : null;
-
-      if (!accessToken || !authUser || !product?._id) return;
-
-      try {
-        const response = await fetch(
-          `${BASE_URL}/api/v1/wishlist/check?productId=${product._id}&metal=${selectedMetal.metal}`,
-          {
-            headers: {
-              'Authorization': `Bearer ${accessToken}`
-            }
-          }
-        );
-        if (response.ok) {
-          const data = await response.json();
-          setLiked(data.isInWishlist);
-        }
-      } catch (error) {
-        console.error('Error checking wishlist:', error);
-      }
-    };
-
-    checkWishlistStatus();
-  }, [product?._id, selectedMetal.metal]);
-
   const getMetalColor = (metal) => {
     if (!metal) return '#ccc';
 
