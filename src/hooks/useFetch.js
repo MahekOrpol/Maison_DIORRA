@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-export function useFetch(fetchFn, deps = []) {
+export function useFetch(url, params = {}, deps = []) {
   const [data, setData] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -8,9 +9,11 @@ export function useFetch(fetchFn, deps = []) {
   useEffect(() => {
     let isCancelled = false;
     setIsLoading(true);
-    fetchFn()
+
+    axios
+      .get(url, { params })
       .then((res) => {
-        if (!isCancelled) setData(res);
+        if (!isCancelled) setData(res.data);
       })
       .catch((err) => {
         if (!isCancelled) setError(err);
@@ -22,7 +25,7 @@ export function useFetch(fetchFn, deps = []) {
     return () => {
       isCancelled = true;
     };
-  }, deps);
+  }, [url, JSON.stringify(params), ...deps]);
 
   return { data, isLoading, error };
 }

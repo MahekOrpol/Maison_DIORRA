@@ -4,17 +4,14 @@ import { useKeenSlider } from 'keen-slider/react';
 import { useRef, useEffect, useState } from 'react';
 import Heading from '@/components/heading';
 import PreviewCard from '@/components/preview-card';
-import { cn, repeatProducts, repeatProductsV1 } from '@/lib/utils';
-import axios from 'axios';
+import { cn } from '@/lib/utils';
+import { useFetch } from '@/hooks/useFetch';
 
 // const products = repeatProductsV1(20);
 const BASE_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1`;
-export default function RelatedProducts({ className, cart }) {
+export default function RelatedProducts({ className, cart, categoryName }) {
   const timer = useRef();
   const [isSliderReady, setIsSliderReady] = useState(false);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [trendingProducts, setTrendingProducts] = useState([]);
   const [sliderRef, slider] = useKeenSlider({
     loop: true,
     mode: 'snap',
@@ -46,34 +43,17 @@ export default function RelatedProducts({ className, cart }) {
       }
     }
   });
-  // console.log('cart :>> ', cart);
-  // console.log('cart :>> ', cart[0].category);
 
-  useEffect(() => {
-    const fetchTrendingProducts = async () => {
-      try {
-        setLoading(true);
-        const response = await axios.get(
-          `${BASE_URL}/product/get-trending`,
-          {
-            params: {
-              limit: 10,
-              categoryName: "Rings"
-            }
-          }
-        );
-        setTrendingProducts(response.data);
-        console.log('trending :>> ', response.data);
-        setError(null);
-      } catch (err) {
-        console.error('Error fetching trending products:', err);
-        setError(err.response?.data?.message || err.message || 'Failed to fetch trending products');
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchTrendingProducts();
-  }, []);
+  const {
+    data: trendingProducts,
+    isLoading,
+    error
+  } = useFetch(`${BASE_URL}/product/get-trending`, {
+    limit: 10,
+    categoryName: categoryName
+  });
+
+  console.log('trending :>>', trendingProducts);
 
   useEffect(() => {
     if (!slider.current) return;
@@ -126,20 +106,33 @@ export default function RelatedProducts({ className, cart }) {
         subtitle='You might also like to buy'
         className='mb-3 sm:mb-4 md:mb-5'
       />
-      <div
-        ref={sliderRef}
-        className={`keen-slider transition-opacity duration-300 ${isSliderReady ? 'opacity-100' : 'opacity-0'
+
+      {isLoading && (
+        <div className='py-8 text-center text-gray-500'>Loading...</div>
+      )}
+
+      {error && (
+        <div className='py-8 text-center text-red-500'>
+          Failed to load products. Please try again later.
+        </div>
+      )}
+      {!isLoading && !error && trendingProducts?.products?.length > 0 && (
+        <div
+          ref={sliderRef}
+          className={`keen-slider transition-opacity duration-300 ${
+            isSliderReady ? 'opacity-100' : 'opacity-0'
           }`}
-      >
-        {trendingProducts.products?.map((product, i) => (
-          <div
-            key={i}
-            className='keen-slider__slide overflow-hidden rounded-xl'
-          >
-            <PreviewCard isDraggable={false} product={product} />
-          </div>
-        ))}
-      </div>
+        >
+          {trendingProducts.products.map((product, i) => (
+            <div
+              key={i}
+              className='keen-slider__slide overflow-hidden rounded-xl'
+            >
+              <PreviewCard isDraggable={false} product={product} />
+            </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 }

@@ -21,10 +21,10 @@ import { RiWeightLine } from 'react-icons/ri';
 import { PiDiamondsFour } from 'react-icons/pi';
 import { CustomerReviews } from './customer-reviews';
 import { use, useEffect, useState } from 'react';
-import { useFetch } from '@/hooks/useFetch';
 import axios from 'axios';
 import FinalDetails from './final-details';
 import { useSearchParams } from 'next/navigation';
+import { useFetch } from '@/hooks/useFetch';
 
 export default function ProductDetailsPage({ params }) {
   const [selectedMetal, setSelectedMetal] = useState('');
@@ -35,12 +35,12 @@ export default function ProductDetailsPage({ params }) {
 
   console.log(metal, metalVariation);
 
-  const { data, isLoading, error } = useFetch(() =>
-    axios.get(`${baseUrl}/api/v1/product/get-product-id/${productid}`, {
-      params: { metal: selectedMetal }
-    })
+  const { data, isLoading, error } = useFetch(
+    `${baseUrl}/api/v1/product/get-product-id/${productid}`,
+    { id: 'jdf' }
   );
-  console.log(data);
+
+  console.log('data :>> ', data);
 
   return (
     <>
