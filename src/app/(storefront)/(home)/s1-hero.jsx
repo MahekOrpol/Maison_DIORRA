@@ -56,7 +56,7 @@ export default function S1HeroSection({ data }) {
   const heroImages = [
     '/img/home-hero2.jpg',
     '/img/hero2.jpg',
-    '/img/hero3.jpg'
+    // '/img/hero3.jpg'
   ];
   return (
     <section className='relative w-full'>
@@ -68,7 +68,7 @@ export default function S1HeroSection({ data }) {
                 className='3xl:h-[70vh] h-[530px] w-full bg-cover bg-center bg-no-repeat sm:h-[450px] md:h-[500px] md:bg-left xl:h-[84vh]'
                 style={{ backgroundImage: `url(${image})` }}
               >
-                <div className='wrapper relative h-full bg-black/30'>
+                <div className='wrapper relative h-full'>
                   {index === 0 && (
                     <div className='absolute inset-x-0 bottom-[6%] flex w-full flex-col items-center justify-end text-center text-white md:bottom-[25%] md:left-[12%] md:w-fit md:translate-x-[-15%]'>
                       <p className='mb-4 text-base tracking-widest underline underline-offset-6 sm:mb-6 md:text-[21px]'>
@@ -113,26 +113,26 @@ export default function S1HeroSection({ data }) {
                       </Link>
                     </div>
                   )}
-                  {index === 2 && (
-                    <div className='absolute top-23 left-0 w-full px-4 text-left text-white sm:top-50 sm:left-10 sm:px-0'>
-                      <h1 className='mb-2 font-sans text-lg leading-snug font-bold sm:mb-3 sm:text-2xl md:text-4xl'>
+                  {/* {index === 2 && (
+                    <div className='absolute top-23 left-0 w-full px-4 text-left text-black sm:top-50 sm:left-10 sm:px-0'>
+                      <h1 className='mb-2 font-sans text-lg leading-snug font-bold sm:mb-3 sm:text-2xl md:text-5xl'>
                         For the Moments That Matter Most
                       </h1>
-                      <h2 className='mb-4 max-w-sm font-sans text-sm leading-snug font-medium sm:mb-5 sm:text-xl md:text-2xl'>
+                      <h2 className='mb-4 max-w-sm font-sans text-sm leading-snug font-medium sm:mb-5 sm:text-xl md:text-3xl'>
                         Timeless Jewelry for Your Forever
                       </h2>
                       {/* Optional paragraph can be re-enabled here if needed */}
                       {/* <p className="mb-4 text-xs sm:text-base md:text-lg max-w-md">
       Graceful pieces to complete your wedding story.
     </p> */}
-                      <Link
+                      {/* <Link
                         href='/collections/bridal'
-                        className='inline-block rounded-full border border-white px-5 py-2 font-sans text-sm font-medium transition hover:bg-white hover:text-black sm:px-6 sm:py-2.5 sm:text-base md:px-8 md:py-3'
+                        className='inline-block rounded-full border border-black bg-black text-white px-5 py-2 font-sans text-sm font-medium transition hover:bg-white hover:text-black sm:px-6 sm:py-2.5 sm:text-base md:px-8 md:py-3'
                       >
                         View Collection
                       </Link>
                     </div>
-                  )}
+                  )}  */}
                 </div>
               </div>
             </CarouselItem>
@@ -141,7 +141,7 @@ export default function S1HeroSection({ data }) {
 
         {/* Custom Pagination Dots */}
         <div className='absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2'>
-          {[0, 1, 2].map((_, index) => (
+          {[0, 1].map((_, index) => (
             <button
               key={index}
               onClick={() => api?.scrollTo(index)}

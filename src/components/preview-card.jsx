@@ -28,6 +28,7 @@ import ProductGallery, {
 } from '@/app/(storefront)/products/[category]/components/product-gallery';
 import { useRouter } from 'nextjs-toploader/app';
 import { useModalStore } from '@/store/modal-stote';
+import { toast } from 'sonner';
 
 export default function PreviewCard({
   product,
@@ -43,8 +44,9 @@ export default function PreviewCard({
   const [liked, setLiked] = useState(false);
   const openModal = useModalStore((state) => state.openModal);
   const router = useRouter();
+  const [isWishlistLoading, setIsWishlistLoading] = useState(false);
+  const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
 
-  // console.log(product);
   // Fix: Reset metal when product changes
   useEffect(() => {
     setSelectedMetal(product?.variations?.[0].metalVariations?.[0]);
@@ -70,19 +72,11 @@ export default function PreviewCard({
   };
 
   const handleAddToCart = async () => {
-    // Check if user is logged in or not, if not then open modal
-    // const res = await fetch('/api/check-auth', {
-    //   method: 'GET',
-    //   cache: 'no-store'
-    // });
-    // const data = await res.json();
-    // if (!data.authenticated) {
-    //   return (window.location.href = '/checkout');
-    // }
-    // return (window.location.href = '/checkout');
-
-    const authUser = false;
-    if (authUser) {
+    const accessToken =
+      typeof window !== 'undefined'
+        ? localStorage.getItem('accessToken')
+        : null;
+    if (accessToken) {
       router.push('/checkout');
     } else {
       openModal('cartNotAllowed');
@@ -91,10 +85,53 @@ export default function PreviewCard({
 
   if (!product || !selectedMetal) return null;
 
-  const handleFavoriteClick = () => {
-    //check if user is logged in add to wishlist else open modal
-    openModal('wishlistNotAllowed');
-    setLiked(!liked);
+  const handleFavoriteClick = async () => {
+    const accessToken =
+      typeof window !== 'undefined'
+        ? localStorage.getItem('accessToken')
+        : null;
+    const authUser =
+      typeof window !== 'undefined'
+        ? JSON.parse(localStorage.getItem('authUser'))
+        : null;
+
+    if (!accessToken || !authUser) {
+      openModal('wishlistNotAllowed');
+      return;
+    }
+
+    setIsWishlistLoading(true);
+    try {
+      const response = await fetch(`${BASE_URL}/api/v1/wishlist`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${accessToken}`
+        },
+        body: JSON.stringify({
+          userId: authUser.id,
+          productId: product._id,
+          selectedMetal: selectedMetal.metal
+        })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        if (response.status === 409) {
+          console.log(errorData.message);
+        } else {
+          throw new Error(errorData.message || 'Failed to update wishlist');
+        }
+      } else {
+        setLiked(!liked);
+        // Show success toast when status is 200
+        toast.success(response.data.message);
+      }
+    } catch (error) {
+      console.error('Wishlist error:', error);
+    } finally {
+      setIsWishlistLoading(false);
+    }
   };
 
   const getMetalColor = (metal) => {
@@ -123,6 +160,7 @@ export default function PreviewCard({
         {/* Wishlist Button */}
         <button
           onClick={handleFavoriteClick}
+          disabled={isWishlistLoading}
           className='hover:bg-primary/4 absolute top-2 right-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow shadow-gray-400 xl:top-3 xl:right-3'
         >
           <Heart

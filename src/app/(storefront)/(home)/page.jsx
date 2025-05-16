@@ -16,7 +16,7 @@ export default async function HomePage() {
   return (
     <>
       <S1HeroSection data={data.heroData} />
-      <RingSection />
+      {/* <RingSection /> */}
       <S2CustomDesign />
       <S3CategorySection data={data.categoryData} />
       <S4FavouriteSection data={data.favourites} />

@@ -11,6 +11,7 @@ import { useState, useEffect } from 'react';
 import { cn } from '@/lib/utils';
 import { GiGemPendant } from 'react-icons/gi';
 import { useModalStore } from '@/store/modal-stote';
+import { useRouter } from 'next/navigation';
 const messages = [
   'Welcome to our jewelry collection!',
   'Enjoy 10% off on your first purchase!',
@@ -24,8 +25,9 @@ export default function Header({ categories }) {
   const [index, setIndex] = useState(0);
   const openModal = useModalStore((state) => state.openModal);
   const [user, setUser] = useState(null);
+    const router = useRouter(); 
 
-    useEffect(() => {
+  useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (storedUser) {
       setUser(JSON.parse(storedUser));
@@ -67,16 +69,21 @@ export default function Header({ categories }) {
   }, [lastScrollY]);
 
   const handleWishlistClick = () => {
-    // Check if user is logged in or not
-    // if (authUser) {
-    //   router.push(`/account/wishlist`);
-    // } else {
-    openModal('wishlistNotAllowed');
-    // }
+    const accessToken = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+    if (accessToken) {
+      router.push('/account/wishlist');
+    } else {
+      openModal('wishlistNotAllowed');
+    }
   };
+
   const handleAddToCart = () => {
-    // Check if user is logged in or not, if not then
-    openModal('cartNotAllowed');
+    const accessToken = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+    if (accessToken) {
+        router.push('/checkout');
+    } else {
+      openModal('cartNotAllowed');
+    }
   };
 
   const diamondShapes = [
@@ -169,9 +176,8 @@ export default function Header({ categories }) {
           {categories.map((category, index) => (
             <div key={category.id} className='col-span-1 px-4 py-8 2xl:px-6'>
               <div
-                className={`flex h-full flex-col ${
-                  index !== categories.length - 1 ? 'border-r-1' : ''
-                }`}
+                className={`flex h-full flex-col ${index !== categories.length - 1 ? 'border-r-1' : ''
+                  }`}
               >
                 <h3 className='mb-4 font-semibold uppercase'>
                   {category.categoryName}

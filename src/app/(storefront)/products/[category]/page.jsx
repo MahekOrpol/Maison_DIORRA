@@ -75,8 +75,6 @@ export default async function ProductListingPage({ params }) {
   const { category } = await params;
   console.log('category :>> ', category);
   const data = await fetchProductsByCategory(category);
-  // console.log('data :>> ', data);
-
   return (
     <div className='wrapper'>
       {category === 'rings' && (
