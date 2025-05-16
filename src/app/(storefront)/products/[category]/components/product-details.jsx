@@ -85,7 +85,7 @@ export default function ProductDetails({
   const isRing = category === 'rings';
   const isDiamondBased = subcategory?.toLowerCase().includes('diamond');
 
-  // console.log(data);
+  console.log(data);
 
   const handleAddToCart = async () => {
     const res = await fetch('/api/check-auth', {

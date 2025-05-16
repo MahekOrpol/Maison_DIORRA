@@ -66,7 +66,7 @@ export default function PreviewCard({
       setIsProductClicked(true);
     } else {
       router.push(
-        `/products/${product?.categoryName}/${product?.subcategory ? product.subcategory : 'all'}/${product._id}?metal=${selectedMetal}&metalVariation=${selectedMetal._id}`
+        `/products/${product?.categoryName}/${product._id}?metal=${selectedMetal}&metalVariation=${selectedMetal._id}`
       );
     }
   };

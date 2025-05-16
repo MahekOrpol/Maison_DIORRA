@@ -25,7 +25,7 @@ export default function Header({ categories }) {
   const [index, setIndex] = useState(0);
   const openModal = useModalStore((state) => state.openModal);
   const [user, setUser] = useState(null);
-    const router = useRouter(); 
+  const router = useRouter();
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -69,7 +69,10 @@ export default function Header({ categories }) {
   }, [lastScrollY]);
 
   const handleWishlistClick = () => {
-    const accessToken = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+    const accessToken =
+      typeof window !== 'undefined'
+        ? localStorage.getItem('accessToken')
+        : null;
     if (accessToken) {
       router.push('/account/wishlist');
     } else {
@@ -78,9 +81,12 @@ export default function Header({ categories }) {
   };
 
   const handleAddToCart = () => {
-    const accessToken = typeof window !== 'undefined' ? localStorage.getItem('accessToken') : null;
+    const accessToken =
+      typeof window !== 'undefined'
+        ? localStorage.getItem('accessToken')
+        : null;
     if (accessToken) {
-        router.push('/checkout');
+      router.push('/checkout');
     } else {
       openModal('cartNotAllowed');
     }
@@ -176,8 +182,9 @@ export default function Header({ categories }) {
           {categories.map((category, index) => (
             <div key={category.id} className='col-span-1 px-4 py-8 2xl:px-6'>
               <div
-                className={`flex h-full flex-col ${index !== categories.length - 1 ? 'border-r-1' : ''
-                  }`}
+                className={`flex h-full flex-col ${
+                  index !== categories.length - 1 ? 'border-r-1' : ''
+                }`}
               >
                 <h3 className='mb-4 font-semibold uppercase'>
                   {category.categoryName}
@@ -186,7 +193,7 @@ export default function Header({ categories }) {
                   {category.subcategories.map((sub) => (
                     <li key={sub._id}>
                       <Link
-                        href={`/products/${category.categoryName.toLowerCase()}/${sub.subcategoryName
+                        href={`/products/${sub.subcategoryName
                           .toLowerCase()
                           .replace(/\s+/g, '-')}`}
                         className='decoration-1 underline-offset-3 hover:underline'
@@ -427,8 +434,9 @@ export default function Header({ categories }) {
   return (
     <>
       <div
-        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ease-in ${showHeader ? 'translate-y-0' : '-translate-y-full'
-          }`}
+        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ease-in ${
+          showHeader ? 'translate-y-0' : '-translate-y-full'
+        }`}
       >
         <header className='bg-background text-foreground shadow-xs'>
           {/* black banner */}

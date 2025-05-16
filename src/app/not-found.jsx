@@ -7,67 +7,77 @@ export default function NotFound() {
   return (
     <>
       <Header />
-      <div className="flex flex-col lg:flex-row items-center justify-center pt-[120px] 3xl:pt-0">
-        <div className="lg:w-1/2 wrapper text-center place-items-center md:text-left space-y-6">
+      <div className='3xl:pt-0 flex flex-col items-center justify-center pt-[120px] lg:flex-row'>
+        <div className='wrapper place-items-center space-y-6 text-center md:text-left lg:w-1/2'>
           {/* <h1 className='font-bold text-4xl'>404 NOT FOUND</h1> */}
-          <Image src='/img/4041.png' width={150} height={200} className="grayscale contrast-125 brightness-90 lg:hidden"/>
-          <h1 className="text-2xl xl:text-4xl font-light uppercase font-sans">
-            You've found a link that's <br className='hidden xl:flex'/>broken or doesn't exist
+          <Image
+            src='/img/4041.png'
+            width={150}
+            alt='404 image'
+            height={200}
+            className='brightness-90 contrast-125 grayscale lg:hidden'
+          />
+          <h1 className='font-sans text-2xl font-light uppercase xl:text-4xl'>
+            You've found a link that's <br className='hidden xl:flex' />
+            broken or doesn't exist
           </h1>
-          <h1 className="hidden lg:flex text-2xl xl:text-3xl font-semibold uppercase xl:text-center">
+          <h1 className='hidden text-2xl font-semibold uppercase lg:flex xl:text-center xl:text-3xl'>
             The sparkle you're looking for isn't here
           </h1>
-          <p className="font-medium text-lg mb-2"> But these gems might catch your eye:</p>
+          <p className='mb-2 text-lg font-medium'>
+            {' '}
+            But these gems might catch your eye:
+          </p>
 
-          <div className="grid grid-cols-2 gap-4 w-full xl:w-xl xl:max-w-lg mx-auto md:mx-0">
+          <div className='mx-auto grid w-full grid-cols-2 gap-4 md:mx-0 xl:w-xl xl:max-w-lg'>
             <Link
-              href="/engagement-rings"
-              className="bg-black text-white py-3 px-3.5 text-xs xl:text-base font-semibold flex items-center justify-center space-x-2 hover:bg-gray-800 transition rounded"
+              href='/engagement-rings'
+              className='flex items-center justify-center space-x-2 rounded bg-black px-3.5 py-3 text-xs font-semibold text-white transition hover:bg-gray-800 xl:text-base'
             >
               💍 <span>Engagement Rings</span>
             </Link>
             <Link
-              href="/diamonds"
-              className="bg-black text-white py-3 px-3.5 text-xs md:text-base font-semibold flex items-center justify-center space-x-2 hover:bg-gray-800 transition rounded"
+              href='/diamonds'
+              className='flex items-center justify-center space-x-2 rounded bg-black px-3.5 py-3 text-xs font-semibold text-white transition hover:bg-gray-800 md:text-base'
             >
               💎 <span>Diamonds</span>
             </Link>
             <Link
-              href="/wedding-rings"
-              className="bg-black text-white py-3 px-3.5 text-xs md:text-base font-semibold flex items-center justify-center space-x-2 hover:bg-gray-800 transition rounded"
+              href='/wedding-rings'
+              className='flex items-center justify-center space-x-2 rounded bg-black px-3.5 py-3 text-xs font-semibold text-white transition hover:bg-gray-800 md:text-base'
             >
               👰 <span>Wedding Rings</span>
             </Link>
             <Link
-              href="/custom-jewelry"
-              className="bg-black text-white py-3 px-3.5 text-xs md:text-base font-semibold flex items-center justify-center space-x-2 hover:bg-gray-800 transition rounded"
+              href='/custom-jewelry'
+              className='flex items-center justify-center space-x-2 rounded bg-black px-3.5 py-3 text-xs font-semibold text-white transition hover:bg-gray-800 md:text-base'
             >
               ✨<span>Custom jewel</span>
             </Link>
           </div>
 
-          <p className="text-base mb-1.5 pt-1">
+          <p className='mb-1.5 pt-1 text-base'>
             or{' '}
-            <Link href="/" className='underline'>
+            <Link href='/' className='underline'>
               click here
             </Link>{' '}
             to return to the previous page
           </p>
-          <p className="text-base">
+          <p className='text-base'>
             Still need help?{' '}
-            <Link href="/contact" className='underline'>
+            <Link href='/contact' className='underline'>
               Contact Customer Service
             </Link>
           </p>
         </div>
 
-        <div className="md:w-1/2 hidden lg:flex justify-center">
+        <div className='hidden justify-center md:w-1/2 lg:flex'>
           <Image
-            src="/img/addcart.png"
-            alt="Diamond rings"
+            src='/img/addcart.png'
+            alt='Diamond rings'
             width={600}
             height={500}
-            className="object-fill h-full w-full"
+            className='h-full w-full object-fill'
           />
         </div>
       </div>

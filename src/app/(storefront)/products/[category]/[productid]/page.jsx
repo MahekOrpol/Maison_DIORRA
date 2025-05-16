@@ -22,24 +22,31 @@ import { PiDiamondsFour } from 'react-icons/pi';
 import { CustomerReviews } from './customer-reviews';
 import { use, useEffect, useState } from 'react';
 import axios from 'axios';
-import FinalDetails from './final-details';
 import { useSearchParams } from 'next/navigation';
 import { useFetch } from '@/hooks/useFetch';
 
 export default function ProductDetailsPage({ params }) {
-  const [selectedMetal, setSelectedMetal] = useState('');
-  const { category, subcategory, productid } = use(params);
+  const { category, productid } = use(params);
   const searchParams = useSearchParams();
   const metal = searchParams.get('metal');
   const metalVariation = searchParams.get('metalVariation');
 
   console.log(metal, metalVariation);
 
-  const { data, isLoading, error } = useFetch(
-    `${baseUrl}/api/v1/product/get-product-id/${productid}`
+  const {
+    data: product,
+    isLoading,
+    error
+    // } = useFetch(`${baseUrl}/api/v1/product/get-product-id/${productid}`, {
+  } = useFetch(
+    `${baseUrl}/api/v1/product/get-product-id/68270f15dfb489aef4b062b8`,
+    {
+      metal: metal,
+      metalVariation: metalVariation
+    }
   );
 
-  console.log('data :>> ', data);
+  console.log('product data :>> ', product);
 
   return (
     <>
@@ -53,17 +60,17 @@ export default function ProductDetailsPage({ params }) {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink
-                href='/components'
-                className='3xl:text-lg lg:text-base'
-              >
-                {category}
+              <BreadcrumbLink href='#' className='3xl:text-lg lg:text-base'>
+                {category
+                  .split('-')
+                  .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+                  .join(' ')}
               </BreadcrumbLink>
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
               <BreadcrumbPage className='3xl:text-lg lg:text-base'>
-                {subcategory}
+                {product?.productName}
               </BreadcrumbPage>
             </BreadcrumbItem>
           </BreadcrumbList>
@@ -75,14 +82,14 @@ export default function ProductDetailsPage({ params }) {
           className='lg:sticky lg:top-10 lg:h-fit lg:w-[45%]'
           media={product.media[selectedMetal]}
         /> */}
-        {/* <ProductDetails
+        <ProductDetails
           className='3xl:pr-14 4xl:pr-20 px-3 sm:px-6 lg:w-[55%] lg:pr-8 2xl:pr-12'
           data={product}
           category={category}
-          subcategory={subcategory}
-          selectedMetal={selectedMetal}
-          setSelectedMetal={setSelectedMetal}
-        /> */}
+          // subcategory={subcategory}
+          // selectedMetal={selectedMetal}
+          // setSelectedMetal={setSelectedMetal}
+        />
       </div>
       {/* <FinalDetails className='wrapper' data={product.finalProductDetails} /> */}
       {/* <CustomerReviews

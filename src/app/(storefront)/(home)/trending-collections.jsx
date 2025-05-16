@@ -15,21 +15,21 @@ export default function TrendingCollections({ data }) {
   const [selectedCategory, setSelectedCategory] = useState('Rings');
   const products = data?.products || [];
 
-  console.log('Selected Category:', selectedCategory);
-  console.log('All Products:', products);
-  console.log('Filtered Products:', products.filter(p => p.categoryName === selectedCategory));
-  
+  // console.log('Selected Category:', selectedCategory);
+  // console.log('All Products:', products);
+  // console.log('Filtered Products:', products.filter(p => p.categoryName === selectedCategory));
+
   const displayProducts = useMemo(() => {
     // First try to get 4 products from selected category
     let mainProducts = products
-      .filter(p => p.categoryName === selectedCategory)
+      .filter((p) => p.categoryName === selectedCategory)
       .slice(0, 4);
 
     // If not enough, fill with other products
     if (mainProducts.length < 4) {
       const remaining = 4 - mainProducts.length;
       const otherProducts = products
-        .filter(p => p.categoryName !== selectedCategory)
+        .filter((p) => p.categoryName !== selectedCategory)
         .slice(0, remaining);
       mainProducts = [...mainProducts, ...otherProducts];
     }
@@ -62,10 +62,16 @@ export default function TrendingCollections({ data }) {
       {/* Left cards - first 2 products */}
       <div className='xl:grid-row-2 grid grid-cols-2 gap-4 sm:gap-4 lg:w-[22%] lg:grid-cols-1 2xl:gap-6'>
         {displayProducts[0] && (
-          <PreviewCardMd key={displayProducts[0]._id} product={displayProducts[0]} />
+          <PreviewCardMd
+            key={displayProducts[0]._id}
+            product={displayProducts[0]}
+          />
         )}
         {displayProducts[1] && (
-          <PreviewCardMd key={displayProducts[1]._id} product={displayProducts[1]} />
+          <PreviewCardMd
+            key={displayProducts[1]._id}
+            product={displayProducts[1]}
+          />
         )}
       </div>
 
@@ -104,10 +110,16 @@ export default function TrendingCollections({ data }) {
       {/* Right cards - next 2 products */}
       <div className='xl:grid-row-2 grid grid-cols-2 gap-4 sm:gap-4 lg:w-[22%] lg:grid-cols-1 2xl:gap-6'>
         {displayProducts[2] && (
-          <PreviewCardMd key={displayProducts[2]._id} product={displayProducts[2]} />
+          <PreviewCardMd
+            key={displayProducts[2]._id}
+            product={displayProducts[2]}
+          />
         )}
         {displayProducts[3] && (
-          <PreviewCardMd key={displayProducts[3]._id} product={displayProducts[3]} />
+          <PreviewCardMd
+            key={displayProducts[3]._id}
+            product={displayProducts[3]}
+          />
         )}
       </div>
     </div>
@@ -117,7 +129,8 @@ export default function TrendingCollections({ data }) {
 function MarkerButton({ onClick, tooltipContent, className }) {
   const firstVariation = tooltipContent.variations?.[0]?.metalVariations?.[0];
   const firstImage = firstVariation?.images?.[0];
-  const productName = tooltipContent.productName || firstVariation?.metal || 'Product';
+  const productName =
+    tooltipContent.productName || firstVariation?.metal || 'Product';
   const salePrice = tooltipContent.salePrice?.$numberDecimal || '1000';
   const regularPrice = tooltipContent.regularPrice?.$numberDecimal || '1500';
 
@@ -130,9 +143,7 @@ function MarkerButton({ onClick, tooltipContent, className }) {
         onClick={onClick}
         className={`group ${className} flex h-5.5 w-5.5 cursor-pointer items-center justify-center rounded-full border border-white sm:h-7 sm:w-7 md:border-2 xl:h-8 xl:w-8`}
       >
-        <Tooltip
-          onOpenChange={(open) => setIsTooltipOpen(open)}
-        >
+        <Tooltip onOpenChange={(open) => setIsTooltipOpen(open)}>
           <TooltipTrigger
             className='h-4 w-4 rounded-full bg-white hover:bg-white/90 sm:h-5 sm:w-5 xl:h-6 xl:w-6'
             onClick={(e) => {

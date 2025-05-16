@@ -14,13 +14,10 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
-import { useFetch } from '@/hooks/useFetch';
 import { cn } from '@/lib/utils';
 import { useFilterStore } from '@/store/use-filter-store';
-import axios from 'axios';
 import { Funnel, RotateCcw, RotateCcwIcon, X } from 'lucide-react';
 import Image from 'next/image';
-import { useMemo } from 'react';
 
 const ringStyles = [
   {
@@ -54,7 +51,7 @@ const metalPurityOptions = [
   { label: '18K White Gold', swatch: '#e0e0e0' }
 ];
 
-export default function ProductsFilter({ category, subCategory, className }) {
+export default function ProductFilters({ category, subCategory, className }) {
   const {
     metalPurity,
     style,
@@ -77,39 +74,17 @@ export default function ProductsFilter({ category, subCategory, className }) {
     'bracelets',
     'earrings'
   ].includes(category.toLowerCase());
-  // APIs Memoized fetchFn that uses latest filter values
-  const fetchProducts = useMemo(() => {
-    return () => {
-      return axios
-        .get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product/get`, {
-          params: {
-            category,
-            subCategory,
-            metalPurity,
-            style,
-            shape,
-            sortByPrice
-          }
-        })
-        .then((res) => res.data);
-    };
-  }, [category, subCategory, metalPurity, style, shape, sortByPrice]);
-  const { data, isLoading, error } = useFetch(fetchProducts, [
-    category,
-    subCategory,
-    metalPurity,
-    style,
-    shape,
-    sortByPrice
-  ]);
+
   return (
     <>
       {/* heading + product styles  */}
       <div className='mt-[16px] text-center sm:mt-[25px] md:block lg:mt-[30px] xl:mt-[35px] 2xl:mt-[50px]'>
         <h2 className='3xl:text-5xl xs mb-1 text-lg font-medium sm:text-2xl lg:text-3xl xl:text-4xl'>
           Choose Perfect{' '}
-          {category &&
-            `${category.charAt(0).toUpperCase() + category.slice(1, -1)}`}{' '}
+          {category
+            .split('-')
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(' ')}{' '}
           Style for You
         </h2>
         <p
