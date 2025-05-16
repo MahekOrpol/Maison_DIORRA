@@ -36,7 +36,7 @@ export default function WishlistPage() {
         console.log(items)
 
       } catch (error) {
-        console.error('Error fetching wishlist:', error);
+        // console.error('Error fetching wishlist:', error);
         toast.error(error.response?.data?.message || 'Failed to load wishlist. Please try again.');
       } finally {
         setIsLoading(false);
