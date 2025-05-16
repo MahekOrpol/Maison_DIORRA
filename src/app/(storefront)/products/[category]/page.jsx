@@ -72,7 +72,7 @@ const advertisements = [
 // }
 
 export default async function ProductListingPage({ params }) {
-  const { category, subcategory } = await params;
+  const { category } = await params;
   const data = await fetchProductsByCategory(category);
 
   return (

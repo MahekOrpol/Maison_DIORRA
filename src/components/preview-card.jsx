@@ -34,6 +34,7 @@ export default function PreviewCard({
   className,
   isDraggable = true
 }) {
+  // console.log('products.... :>> ', product);
   const [selectedMetal, setSelectedMetal] = useState(
     product?.variations?.[0].metalVariations?.[0]
   );
@@ -43,6 +44,7 @@ export default function PreviewCard({
   const openModal = useModalStore((state) => state.openModal);
   const router = useRouter();
 
+  // console.log(product);
   // Fix: Reset metal when product changes
   useEffect(() => {
     setSelectedMetal(product?.variations?.[0].metalVariations?.[0]);

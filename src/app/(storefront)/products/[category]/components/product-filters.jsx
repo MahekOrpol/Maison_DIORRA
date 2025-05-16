@@ -354,7 +354,7 @@ export default function ProductsFilter({ category, subCategory, className }) {
               </SelectContent>
             </Select>
           )}
-          {showRingStyle && (
+          {/* {showRingStyle && (
             <Select value={style} onValueChange={setStyle}>
               <SelectTrigger className='data-[placeholder]:text-foreground w-[170px] border-black'>
                 <SelectValue placeholder='Ring Style' />
@@ -399,7 +399,7 @@ export default function ProductsFilter({ category, subCategory, className }) {
                 </SelectItem>
               </SelectContent>
             </Select>
-          )}
+          )} */}
           {showDiamondShapes && (
             <Select value={shape} onValueChange={setShape}>
               <SelectTrigger className='data-[placeholder]:text-foreground w-[150px] border-black'>
