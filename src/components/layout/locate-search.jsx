@@ -29,8 +29,8 @@ export default function LocateAndSearch() {
   const handleSearch = (e) => {
     if (e.key === 'Enter') {
       console.log('Search:', searchValue);
-      // router.push('/search?query=' + searchValue);
-      router.push('/products?query=' + searchValue);
+      router.push('/search?query=' + searchValue);
+      // router.push('/products?query=' + searchValue);
       // You can also trigger an API call here
     }
   };

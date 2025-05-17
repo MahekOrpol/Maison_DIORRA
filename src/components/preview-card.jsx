@@ -182,21 +182,23 @@ export default function PreviewCard({
           className='relative w-full'
         >
           <CarouselContent className='ml-0 aspect-[1/1] w-full gap-0'>
-            {selectedMetal.images.map((image, index) => (
-              <CarouselItem
-                key={index}
-                onClick={handleProductClick}
-                className='h-full w-full basis-full cursor-pointer pl-[0.5px]'
-              >
-                <Image
-                  src={baseUrl + image}
-                  alt={'Product image'}
-                  width={300}
-                  height={300}
-                  className='h-full w-full object-cover object-center'
-                />
-              </CarouselItem>
-            ))}
+            {selectedMetal.images
+              .filter((img) => !img.match(/\.(mp4|webm|mov)$/i)) // exclude video files
+              .map((image, index) => (
+                <CarouselItem
+                  key={index}
+                  onClick={handleProductClick}
+                  className='h-full w-full basis-full cursor-pointer pl-[0.5px]'
+                >
+                  <Image
+                    src={baseUrl + image}
+                    alt={'Product image'}
+                    width={300}
+                    height={300}
+                    className='h-full w-full object-cover object-center'
+                  />
+                </CarouselItem>
+              ))}
           </CarouselContent>
           <div className='3xl:-bottom-[-4.9%] absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 2xl:bottom-4'>
             <CarouselPrevious className='h-7 w-7 translate-x-4 rounded-full border-none bg-white/80 text-gray-600 transition hover:bg-white 2xl:h-8 2xl:w-8 2xl:translate-x-1' />

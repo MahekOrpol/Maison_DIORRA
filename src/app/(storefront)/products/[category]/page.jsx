@@ -74,7 +74,6 @@ const advertisements = [
 
 export default function ProductListingPage({ params }) {
   const { category } = use(params);
-  console.log('category :>> ', category);
   // const data = await fetchProductsByCategory(category);
   const { metalPurity, style, shape, sortByPrice } = useFilterStore();
 

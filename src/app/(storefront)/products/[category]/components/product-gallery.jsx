@@ -99,7 +99,7 @@ const ZoomableImage = ({ src, alt }) => {
 };
 
 export default function ProductGallery({ className, media }) {
-  console.log(media);
+  // console.log(media);
   return (
     <>
       {/* Mobile View */}
@@ -190,8 +190,14 @@ export function MobileGallery() {
   );
 }
 
-function DesktopGallery({ media }) {
-  console.log(media);
+function DesktopGallery({ media = [] }) {
+  const isVideo = (file) =>
+    file.toLowerCase().endsWith('.mp4') ||
+    file.toLowerCase().endsWith('.webm') ||
+    file.toLowerCase().endsWith('.mov');
+
+  const imageMedia = media.filter((item) => !isVideo(item));
+  const videoMedia = media.find((item) => isVideo(item)); // Only one video expected
 
   return (
     <div className='grid grid-cols-2 gap-4 overflow-hidden'>
@@ -200,31 +206,31 @@ function DesktopGallery({ media }) {
         <Jewelry360Viewer images={images360} className='col-span-1' />
       )} */}
 
-      {/* Images */}
-      {media?.map((item, index) => (
+      {/* Render all images */}
+      {imageMedia.slice(0, 4).map((item, index) => (
         <div
           key={index}
-          className='flex items-center justify-center overflow-hidden border border-black/20 bg-gray-100'
+          className='flex aspect-square items-center justify-center overflow-hidden border border-black/20 bg-gray-100'
         >
           <ZoomableImage src={baseUrl + item} alt={`Product ${index}`} />
         </div>
       ))}
 
-      {/* Video Last */}
-
-      {/* <div className='col-span-1'>
-        <div className='h-full overflow-hidden border border-black/20 bg-gray-100'>
-          <video
-            src={baseUrl + item}
-            // poster={videoMedia.thumbnailImg}
-            className='h-full w-full object-cover'
-            autoPlay
-            muted
-            loop
-            playsInline
-          />
+      {/* Render video if available */}
+      {videoMedia && (
+        <div className='col-span-1'>
+          <div className='aspect-square h-full overflow-hidden border border-black/20 bg-gray-100'>
+            <video
+              src={baseUrl + videoMedia}
+              className='h-full w-full object-cover'
+              autoPlay
+              muted
+              loop
+              playsInline
+            />
+          </div>
         </div>
-      </div> */}
+      )}
     </div>
   );
 }

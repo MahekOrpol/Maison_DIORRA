@@ -1,0 +1,216 @@
+[
+  {
+    "metalVariations": [
+      {
+        "metal": "14K Gold",
+        "quantity": "10",
+        "diamondShape": [
+          {
+            "name": "Round",
+            "image": "/icons/shape-round.svg"
+          },
+          {
+            "name": "Princess",
+            "image": "/icons/shape-princess.svg"
+          },
+          {
+            "name": "Emerald",
+            "image": "/icons/shape-emerlad.svg"
+          },
+          {
+            "name": "Pear",
+            "image": "/icons/shape-pear.svg"
+          }
+        ],
+        "shank": [
+          {
+            "name": "Solitare",
+            "image": "/img/shapes/shank1.png"
+          },
+          {
+            "name": "French pave",
+            "image": "/img/shapes/shank2.png"
+          }
+        ],
+        "ringSizes": [
+          {
+            "productSize": "4",
+            "regularPrice": 1500,
+            "salePrice": 1140,
+            "quantity": 1
+          },
+          {
+            "productSize": "5",
+            "regularPrice": 1500,
+            "salePrice": 1150,
+            "quantity": 12
+          },
+          {
+            "productSize": "6",
+            "regularPrice": 1500,
+            "salePrice": 1160,
+            "quantity": 13
+          },
+          {
+            "productSize": "7",
+            "regularPrice": 1500,
+            "salePrice": 1170,
+            "quantity": 12
+          },
+          {
+            "productSize": "8",
+            "regularPrice": 1500,
+            "salePrice": 1180,
+            "quantity": 10
+          },
+          {
+            "productSize": "9",
+            "regularPrice": 1500,
+            "salePrice": 1190,
+            "quantity": 10
+          }
+        ]
+      },
+      {
+        "metal": "14K Rose Gold",
+        "quantity": "10",
+        "diamondShape": [
+          {
+            "name": "Round",
+            "image": "/icons/shape-round.svg"
+          },
+          {
+            "name": "Princess",
+            "image": "/icons/shape-princess.svg"
+          },
+          {
+            "name": "Emerald",
+            "image": "/icons/shape-emerlad.svg"
+          },
+          {
+            "name": "Pear",
+            "image": "/icons/shape-pear.svg"
+          }
+        ],
+        "shank": [
+          {
+            "name": "Solitare",
+            "image": "/img/shapes/shank1.png"
+          },
+          {
+            "name": "French pave",
+            "image": "/img/shapes/shank2.png"
+          }
+        ],
+        "ringSizes": [
+          {
+            "productSize": "4",
+            "regularPrice": 1500,
+            "salePrice": 1140,
+            "quantity": 1
+          },
+          {
+            "productSize": "5",
+            "regularPrice": 1500,
+            "salePrice": 1150,
+            "quantity": 12
+          },
+          {
+            "productSize": "6",
+            "regularPrice": 1500,
+            "salePrice": 1160,
+            "quantity": 13
+          },
+          {
+            "productSize": "7",
+            "regularPrice": 1500,
+            "salePrice": 1170,
+            "quantity": 12
+          },
+          {
+            "productSize": "8",
+            "regularPrice": 1500,
+            "salePrice": 1180,
+            "quantity": 10
+          },
+          {
+            "productSize": "9",
+            "regularPrice": 1500,
+            "salePrice": 1190,
+            "quantity": 10
+          }
+        ]
+      },
+      {
+        "metal": "14K White Gold",
+        "quantity": "10",
+        "diamondShape": [
+          {
+            "name": "Round",
+            "image": "/icons/shape-round.svg"
+          },
+          {
+            "name": "Princess",
+            "image": "/icons/shape-princess.svg"
+          },
+          {
+            "name": "Emerald",
+            "image": "/icons/shape-emerlad.svg"
+          },
+          {
+            "name": "Pear",
+            "image": "/icons/shape-pear.svg"
+          }
+        ],
+        "shank": [
+          {
+            "name": "Solitare",
+            "image": "/img/shapes/shank1.png"
+          },
+          {
+            "name": "French pave",
+            "image": "/img/shapes/shank2.png"
+          }
+        ],
+        "ringSizes": [
+          {
+            "productSize": "4",
+            "regularPrice": 1500,
+            "salePrice": 1140,
+            "quantity": 1
+          },
+          {
+            "productSize": "5",
+            "regularPrice": 1500,
+            "salePrice": 1150,
+            "quantity": 12
+          },
+          {
+            "productSize": "6",
+            "regularPrice": 1500,
+            "salePrice": 1160,
+            "quantity": 13
+          },
+          {
+            "productSize": "7",
+            "regularPrice": 1500,
+            "salePrice": 1170,
+            "quantity": 12
+          },
+          {
+            "productSize": "8",
+            "regularPrice": 1500,
+            "salePrice": 1180,
+            "quantity": 10
+          },
+          {
+            "productSize": "9",
+            "regularPrice": 1500,
+            "salePrice": 1190,
+            "quantity": 10
+          }
+        ]
+      }
+    ]
+  }
+]

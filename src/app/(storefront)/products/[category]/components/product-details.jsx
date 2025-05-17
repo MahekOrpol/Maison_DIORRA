@@ -8,81 +8,54 @@ import {
   SelectValue
 } from '@/components/ui/select';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-
 import { IoStarSharp } from 'react-icons/io5';
 import { Badge } from '@/components/ui/badge';
-import { Heart, Share2, ShoppingBag, Star } from 'lucide-react';
+import { Heart, ShoppingBag } from 'lucide-react';
 import { useState } from 'react';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { TbVideoPlus } from 'react-icons/tb';
-import { GiBigDiamondRing } from 'react-icons/gi';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { useRouter } from 'next/navigation';
 import { FaWhatsapp } from 'react-icons/fa';
 import { ScheduleCallDialog } from '@/components/modals/schedule-meeting-modal';
 import ShareButton from '@/app/checkout/components/share-button';
 
-const metalTypes = [
-  { name: 'rose', url: '/img/rose-theme.png' },
-  { name: 'gold', url: '/img/gold-theme.png' },
-  { name: 'white', url: '/img/white-theme.png' }
-];
-const metalPurities = ['14K', '18K', '22K'];
-const ringSizes = [
-  { us: '3', mm: '44.2' },
-  { us: '4', mm: '45.0' },
-  { us: '5', mm: '45.8' },
-  { us: '6', mm: '46.5' },
-  { us: '7', mm: '47.3' },
-  { us: '8', mm: '48.1' },
-  { us: '9', mm: '48.9' },
-  { us: '10', mm: '49.7' },
-  { us: '11', mm: '50.5' },
-  { us: '12', mm: '51.3' },
-  { us: '13', mm: '52.1' },
-  { us: '14', mm: '52.9' },
-  { us: '15', mm: '53.7' }
-];
 const shapes = [
-  { name: 'round', imgUrl: '/icons/shape-round.svg' },
-  { name: 'pear', imgUrl: '/icons/shape-pear.svg' },
-  { name: 'emerald', imgUrl: '/icons/shape-emerlad.svg' },
-  { name: 'princess', imgUrl: '/icons/shape-princess.svg' }
+  { name: 'Round', imgUrl: '/icons/shape-round.svg' },
+  { name: 'Pear', imgUrl: '/icons/shape-pear.svg' },
+  { name: 'Emerald', imgUrl: '/icons/shape-emerlad.svg' },
+  { name: 'Princess', imgUrl: '/icons/shape-princess.svg' }
 ];
 const shanks = [
-  { name: 'solitare', imgUrl: '/img/shapes/shank1.png' },
-  { name: 'french pave', imgUrl: '/img/shapes/shank2.png' }
+  { name: 'Solitare', imgUrl: '/img/shapes/shank1.png' },
+  { name: 'French pave', imgUrl: '/img/shapes/shank2.png' }
 ];
 const icons = [
   { src: '/icons/badge.svg', label: 'Lifetime Warranty' },
   { src: '/icons/dollar-inhand.svg', label: '30 Days Free Return' },
   { src: '/icons/certificate.svg', label: 'Certificate & Appraisal' }
 ];
-
 const metalPurityOptions = [
-  { label: '14K Yellow Gold', swatch: '#d4af37' },
-  { label: '18K Yellow Gold', swatch: '#d4af37' },
-  { label: '14K Rose Gold', swatch: '#e4a0a1' },
-  { label: '18K Rose Gold', swatch: '#e4a0a1' },
   { label: '14K White Gold', swatch: '#e0e0e0' },
-  { label: '18K White Gold', swatch: '#e0e0e0' }
+  { label: '14K Gold', swatch: '#d4af37' },
+  { label: '14K Rose Gold', swatch: '#e4a0a1' },
+  { label: '18K White Gold', swatch: '#e0e0e0' },
+  { label: '18K Gold', swatch: '#d4af37' },
+  { label: '18K Rose Gold', swatch: '#e4a0a1' }
 ];
 export default function ProductDetails({
   className,
   data,
   category,
-  subcategory,
-  selectedMetal,
-  setSelectedMetal
+  subcategory
 }) {
   const [selectedSize, setSelectedSize] = useState();
   const [selectedShape, setSelectedShape] = useState(
     data?.selectedVariants?.diamondShape || ' '
   );
-  const [selectedPurity, setSelectedPurity] = useState(
-    data?.selectedVariants?.purity || ' '
+  const [selectedMetal, setSelectedMetal] = useState(
+    data?.variations[0].metalVariations[0].metal
   );
   const [selectedShank, setSelectedShank] = useState(
     data?.selectedVariants?.shank || ' '
@@ -93,7 +66,33 @@ export default function ProductDetails({
 
   const isRing = category === 'rings';
   const isDiamondBased = subcategory?.toLowerCase().includes('diamond');
+  const availableRingSizes =
+    data?.variations[0].metalVariations[0].ringSizes || [];
+  // const availableMetalPurities =
+  //   data?.variations[0].metalVariations[0].metal || [];
+  const availableMetals = data?.availableMetals || [];
+  const availableMetalPurities = metalPurityOptions.filter((option) =>
+    availableMetals.includes(option.label)
+  );
+  const availableShapes2 =
+    data?.variations[0].metalVariations[0].diamondShape || [];
+  const availableDiamondShapes = availableShapes2.map((shape) => {
+    const match = shapes.find((s) => s.name === shape.name);
+    return {
+      ...shape,
+      image: match ? match.imgUrl : shape.image // fallback to original if not found
+    };
+  });
+  const availableShanks2 = data?.variations[0].metalVariations[0].shank || [];
+  const availableShanks = availableShanks2.map((shank) => {
+    const match = shanks.find((s) => s.name === shank.name);
+    return {
+      ...shank,
+      image: match ? match.imgUrl : shank.image // fallback to original if not found
+    };
+  });
 
+  console.log(availableShanks);
   console.log('product data >>', data);
 
   const handleAddToCart = async () => {
@@ -233,67 +232,46 @@ export default function ProductDetails({
               <SelectValue placeholder='Select Ring Size' />
             </SelectTrigger>
             <SelectContent>
-              {ringSizes.map((size) => (
-                <SelectItem key={size.us} value={size.us}>
-                  US {size.us} - {size.mm}mm
+              {availableRingSizes.map((size) => (
+                <SelectItem key={size._id} value={size.productSize}>
+                  {size.productSize}
                 </SelectItem>
               ))}
             </SelectContent>
           </Select>
         </div>
-
-        {/* Metal Type
-        <div className='flex items-center'>
-          <label className='inline-block w-[140px] text-lg font-medium'>
-            Metal Type :
-          </label>
-          <div className='inline-flex items-center gap-2'>
-            {metalTypes.map((metal) => (
-              <button
-                key={metal.name}
-                type='button'
-                onClick={() => setSelectedMetal(metal.name)}
-                className={cn(
-                  'inline-flex items-center justify-center rounded-full border transition-all', // Base styles
-                  selectedMetal === metal.name
-                    ? 'border-gray-400'
-                    : 'border-transparent' // Hide border when not selected
-                )}
-              >
-                <Image
-                  src={metal.url}
-                  alt={metal.name}
-                  width={20}
-                  height={20}
-                  className='m-1 h-[20px] w-[20px] rounded-full'
-                />
-              </button>
-            ))}
-          </div>
-        </div> */}
-
-        {/* Metal purity */}
-        {/* <div className='flex items-center'>
-          <label className='inline-block w-[140px] text-lg font-medium'>
-            Metal Purity :
-          </label>
-          <div className='flex gap-2'>
-            {metalPurities.map((purity) => (
-              <button
-                key={purity}
-                onClick={() => setSelectedPurity(purity)}
-                className={cn(
-                  selectedPurity === purity ? 'border-black' : '',
-                  'rounded-sm border px-4 py-1 text-base'
-                )}
-              >
-                {purity}
-              </button>
-            ))}
-          </div>
-        </div> */}
-
         <hr />
+      </div>
+      {/* metal purity */}
+      <div>
+        <p className='text-lg font-medium'>Metal & Purity</p>
+        <div className='xxs:grid-cols-3 xxs:max-w-[345px] mt-2 grid w-full grid-cols-2 gap-2'>
+          {availableMetalPurities.map((item) => {
+            const [purity, ...metalName] = item.label.split(' ');
+            const isSelected = selectedMetal === item.label;
+
+            return (
+              <button
+                key={item.label}
+                onClick={() => setSelectedMetal(item.label)}
+                className={`bg-secondary flex items-center gap-2 rounded-md border px-3 py-3 text-left transition ${
+                  isSelected
+                    ? 'border-black'
+                    : 'border-transparent hover:border-black'
+                }`}
+              >
+                <div
+                  className='h-4 w-4 shrink-0 rounded-full border border-gray-300'
+                  style={{ backgroundColor: item.swatch }}
+                />
+                <div className='flex flex-col text-[11px] leading-tight'>
+                  <span className='font-semibold'>{purity}</span>
+                  <span className=''>{metalName.join(' ')}</span>
+                </div>
+              </button>
+            );
+          })}
+        </div>
       </div>
 
       {/* Diamond Shape */}
@@ -303,17 +281,17 @@ export default function ProductDetails({
           <div className='border-b pt-2 pb-4'>
             <p className='text-lg font-medium'>Diamond Shape</p>
             <div className='mt-2 flex gap-2 text-[0.8rem]'>
-              {shapes.map((shape) => (
+              {availableDiamondShapes.map((shape) => (
                 <button
                   key={shape.name}
                   className={cn(
                     'bg-secondary flex aspect-square w-[80px] flex-col items-center justify-center rounded-md border border-transparent transition',
-                    selectedShape === shape.name ? 'border-black' : ''
+                    selectedShape.name === shape.name ? 'border-black' : ''
                   )}
-                  onClick={() => setSelectedShape(shape.name)}
+                  onClick={() => setSelectedShape(shape)}
                 >
                   <Image
-                    src={shape.imgUrl}
+                    src={shape.image}
                     width={60}
                     height={60}
                     alt={shape.name}
@@ -325,26 +303,25 @@ export default function ProductDetails({
             </div>
           </div>
         )}
-
       {/* Shank */}
       {isRing && (
         <div className='pt-2 pb-6'>
           <p className='text-lg font-medium'>Shank</p>
           <div className='flex gap-2 text-[0.8rem]'>
-            {shanks.map((shank) => (
+            {availableShanks.map((shank) => (
               <button
                 key={shank.name}
                 className={cn(
                   'bg-secondary flex aspect-square w-[80px] flex-col items-center justify-center rounded-md border border-transparent transition',
                   selectedShank === shank.name ? 'border-black' : ''
                 )}
-                onClick={() => setSelectedShank(shank.name)}
+                onClick={() => setSelectedShank(shank)}
               >
                 <Image
-                  src={shank.imgUrl}
+                  src={shank.image}
                   width={30}
                   height={30}
-                  alt={shank.name}
+                  alt={shank.name || 'Shank Image'}
                   className='h-[30px] w-[30px] object-contain'
                 />
                 <span className='mt-1'>
