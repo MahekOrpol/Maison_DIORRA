@@ -32,21 +32,18 @@ export default function ProductDetailsPage({ params }) {
   const metalVariation = searchParams.get('metalVariation');
 
   console.log(metal, metalVariation);
-
   const {
     data: product,
     isLoading,
     error
-    // } = useFetch(`${baseUrl}/api/v1/product/get-product-id/${productid}`, {
-  } = useFetch(
-    `${baseUrl}/api/v1/product/get-product-id/68270f15dfb489aef4b062b8`,
-    {
-      metal: metal,
-      metalVariation: metalVariation
-    }
-  );
+  } = useFetch(`${baseUrl}/api/v1/product/get-product-id/${productid}`, {
+    // } = useFetch(
+    //   `${baseUrl}/api/v1/product/get-product-id/68270f15dfb489aef4b062b8`
+    metal: metal,
+    metalVariation: metalVariation
+  });
 
-  console.log('product data :>> ', product);
+  // console.log('product data :>> ', product);
 
   return (
     <>
@@ -78,10 +75,10 @@ export default function ProductDetailsPage({ params }) {
         <CustomTagWrapper className='xs:my-[10px] 3xl:my-[10px] 3xl:mb-[40px] my-[8px] lg:my-[10px] lg:mb-[30px] xl:mb-[40px]' />
       </div>
       <div className='mx-auto mb-8 flex w-full max-w-[2100px] flex-col gap-3 md:gap-4 lg:flex-row xl:gap-6'>
-        {/* <ProductGallery
+        <ProductGallery
           className='lg:sticky lg:top-10 lg:h-fit lg:w-[45%]'
-          media={product.media[selectedMetal]}
-        /> */}
+          media={product?.variations[0].metalVariations[0].images}
+        />
         <ProductDetails
           className='3xl:pr-14 4xl:pr-20 px-3 sm:px-6 lg:w-[55%] lg:pr-8 2xl:pr-12'
           data={product}

@@ -6,7 +6,7 @@ import {
   CarouselNext,
   CarouselPrevious
 } from '@/components/ui/carousel';
-import { cn } from '@/lib/utils';
+import { baseUrl, cn } from '@/lib/utils';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import Image from 'next/image';
 import { Md360 } from 'react-icons/md';
@@ -53,7 +53,8 @@ const ZoomableImage = ({ src, alt }) => {
   const handleMouseMove = (e) => {
     if (!isZoomed) return;
 
-    const { left, top, width, height } = containerRef.current.getBoundingClientRect();
+    const { left, top, width, height } =
+      containerRef.current.getBoundingClientRect();
     const x = ((e.clientX - left) / width) * 100;
     const y = ((e.clientY - top) / height) * 100;
     setBackgroundPos(`${x}% ${y}%`);
@@ -76,8 +77,9 @@ const ZoomableImage = ({ src, alt }) => {
   return (
     <div
       ref={containerRef}
-      className={`zoom-container relative h-full w-full cursor-zoom-in overflow-hidden ${isZoomed ? 'cursor-grab active:cursor-grabbing' : ''
-        }`}
+      className={`zoom-container relative h-full w-full cursor-zoom-in overflow-hidden ${
+        isZoomed ? 'cursor-grab active:cursor-grabbing' : ''
+      }`}
       onClick={handleClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -85,8 +87,9 @@ const ZoomableImage = ({ src, alt }) => {
       <img
         src={src}
         alt={alt}
-        className={`zoom-image h-full w-full object-cover transition-transform duration-300 ${isZoomed ? 'scale-150' : 'scale-100'
-          }`}
+        className={`zoom-image h-full w-full object-cover transition-transform duration-300 ${
+          isZoomed ? 'scale-150' : 'scale-100'
+        }`}
         style={{
           transformOrigin: backgroundPos
         }}
@@ -96,6 +99,7 @@ const ZoomableImage = ({ src, alt }) => {
 };
 
 export default function ProductGallery({ className, media }) {
+  console.log(media);
   return (
     <>
       {/* Mobile View */}
@@ -187,43 +191,40 @@ export function MobileGallery() {
 }
 
 function DesktopGallery({ media }) {
-  const imageMedia = media.filter((m) => m.mediaType === 'image');
-  const videoMedia = media.find((m) => m.mediaType === 'video');
-  const viewer360 = media.find((m) => m.mediaType === '360');
+  console.log(media);
 
   return (
     <div className='grid grid-cols-2 gap-4 overflow-hidden'>
       {/* 360 Viewer First */}
-      {viewer360 && (
+      {/* {viewer360 && (
         <Jewelry360Viewer images={images360} className='col-span-1' />
-      )}
+      )} */}
 
       {/* Images */}
-      {imageMedia.map((item, index) => (
+      {media?.map((item, index) => (
         <div
           key={index}
           className='flex items-center justify-center overflow-hidden border border-black/20 bg-gray-100'
         >
-          <ZoomableImage src={item.mediaUrl} alt={`Product ${index}`} />
+          <ZoomableImage src={baseUrl + item} alt={`Product ${index}`} />
         </div>
       ))}
 
       {/* Video Last */}
-      {videoMedia && (
-        <div className='col-span-1'>
-          <div className='h-full overflow-hidden border border-black/20 bg-gray-100'>
-            <video
-              src={videoMedia.mediaUrl}
-              poster={videoMedia.thumbnailImg}
-              className='h-full w-full object-cover'
-              autoPlay
-              muted
-              loop
-              playsInline
-            />
-          </div>
+
+      {/* <div className='col-span-1'>
+        <div className='h-full overflow-hidden border border-black/20 bg-gray-100'>
+          <video
+            src={baseUrl + item}
+            // poster={videoMedia.thumbnailImg}
+            className='h-full w-full object-cover'
+            autoPlay
+            muted
+            loop
+            playsInline
+          />
         </div>
-      )}
+      </div> */}
     </div>
   );
 }

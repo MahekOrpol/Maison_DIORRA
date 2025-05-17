@@ -53,7 +53,7 @@ export default function RelatedProducts({ className, cart, categoryName }) {
     categoryName: categoryName
   });
 
-  console.log('trending :>>', trendingProducts);
+  // console.log('trending :>>', trendingProducts);
 
   useEffect(() => {
     if (!slider.current) return;

@@ -65,8 +65,10 @@ export default function PreviewCard({
     if (isClientMobile) {
       setIsProductClicked(true);
     } else {
+      console.log(selectedMetal);
       router.push(
-        `/products/${product?.categoryName}/${product._id}?metal=${selectedMetal}&metalVariation=${selectedMetal._id}`
+        `/products/${product?.categoryName}/${product._id}?metal=${selectedMetal.metal}&metalVariation=${selectedMetal._id}`
+        // `/products/${product?.categoryName}/${product._id}`
       );
     }
   };

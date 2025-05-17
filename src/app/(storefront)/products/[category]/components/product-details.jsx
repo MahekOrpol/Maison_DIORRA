@@ -60,6 +60,15 @@ const icons = [
   { src: '/icons/dollar-inhand.svg', label: '30 Days Free Return' },
   { src: '/icons/certificate.svg', label: 'Certificate & Appraisal' }
 ];
+
+const metalPurityOptions = [
+  { label: '14K Yellow Gold', swatch: '#d4af37' },
+  { label: '18K Yellow Gold', swatch: '#d4af37' },
+  { label: '14K Rose Gold', swatch: '#e4a0a1' },
+  { label: '18K Rose Gold', swatch: '#e4a0a1' },
+  { label: '14K White Gold', swatch: '#e0e0e0' },
+  { label: '18K White Gold', swatch: '#e0e0e0' }
+];
 export default function ProductDetails({
   className,
   data,
@@ -85,7 +94,7 @@ export default function ProductDetails({
   const isRing = category === 'rings';
   const isDiamondBased = subcategory?.toLowerCase().includes('diamond');
 
-  console.log(data);
+  console.log('product data >>', data);
 
   const handleAddToCart = async () => {
     const res = await fetch('/api/check-auth', {
@@ -119,7 +128,7 @@ export default function ProductDetails({
         {/* Product Title */}
         <div className='xs:pt-0 mb-2 flex gap-4 pt-2 md:mb-3'>
           <h1 className='mb-2 flex-1 text-xl leading-6 font-medium sm:text-2xl sm:leading-8 md:text-3xl md:leading-10'>
-            {data?.name || 'Product name'}
+            {data?.productName || 'Product name'}
           </h1>
           <Image src='/icons/hand.svg' alt='hand icon' height={40} width={40} />
           {/* <GiBigDiamondRing className='h-5 w-5 sm:h-7 sm:w-7 lg:h-14 lg:w-14' /> */}
@@ -134,9 +143,7 @@ export default function ProductDetails({
                   key={i}
                   className={cn(
                     'h-4 w-4 xl:h-5 xl:w-5',
-                    i < Math.ceil(data?.reviews?.avgRating || 0)
-                      ? 'fill-yellow-400'
-                      : 'fill-gray-300'
+                    i < Math.ceil(4) ? 'fill-yellow-400' : 'fill-gray-300'
                   )}
                 />
               ))}
@@ -144,7 +151,7 @@ export default function ProductDetails({
 
             {/* Review Count or Add Review Button */}
             <span className='xs:ml-2 ml-1 md:text-base xl:text-lg'>
-              {!data?.reviews?.reviews?.length ? (
+              {/* {!data?.reviews?.reviews?.length ? (
                 <button
                   className='underline underline-offset-2 hover:no-underline'
                   onClick={() => {}}
@@ -154,9 +161,9 @@ export default function ProductDetails({
               ) : (
                 <span>
                   {data?.reviews?.avgRating || 0}/5
-                  {/* {data?.reviews?.reviews?.length} Reviews */}
                 </span>
-              )}
+              )} */}
+              4 / 5
             </span>
           </span>
           <span className='xs:text-sm md:text-base xl:text-lg'>
@@ -166,27 +173,28 @@ export default function ProductDetails({
             variant='outline'
             className={cn(
               'xs:text-xs absolute right-0 rounded-full text-[10px] uppercase sm:relative xl:text-sm',
-              data?.inStock
+              data?.stock
                 ? 'me-2 border border-green-400 bg-green-100 px-2.5 py-0.5 text-green-800'
                 : 'me-2 border border-red-600 bg-red-100 px-2.5 py-0.5 text-red-800'
             )}
           >
-            {data?.inStock ? 'In Stock' : 'Out of Stock'}
+            {/* {data?.inStock ? 'In Stock' : 'Out of Stock'} */}
+            {data?.stock}
           </Badge>
         </div>
 
         {/* Pricing */}
         <div className='mb-1 md:mb-2'>
           <span className='text-2xl font-semibold text-gray-900 lg:text-3xl'>
-            $ {data?.price}
+            $ {parseFloat(data?.salePrice.$numberDecimal)}
           </span>
           <span className='text-muted-foreground ml-2 text-xl line-through'>
-            $ {data?.originalPrice}
+            $ {parseFloat(data?.regularPrice.$numberDecimal)}
           </span>
         </div>
         {/* Product Description */}
-        <p className='xs:p-0 mb-3 pt-3 text-justify text-xs text-gray-700 md:mb-6 md:text-sm lg:text-base'>
-          {data?.description}
+        <p className='xs:p-0 mb-3 pt-3 text-justify text-xs text-gray-700 sm:text-sm md:mb-6 lg:text-base'>
+          {data?.productsDescription}
         </p>
       </div>
 
@@ -234,7 +242,7 @@ export default function ProductDetails({
           </Select>
         </div>
 
-        {/* Metal Type */}
+        {/* Metal Type
         <div className='flex items-center'>
           <label className='inline-block w-[140px] text-lg font-medium'>
             Metal Type :
@@ -262,10 +270,10 @@ export default function ProductDetails({
               </button>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Metal purity */}
-        <div className='flex items-center'>
+        {/* <div className='flex items-center'>
           <label className='inline-block w-[140px] text-lg font-medium'>
             Metal Purity :
           </label>
@@ -283,7 +291,8 @@ export default function ProductDetails({
               </button>
             ))}
           </div>
-        </div>
+        </div> */}
+
         <hr />
       </div>
 
