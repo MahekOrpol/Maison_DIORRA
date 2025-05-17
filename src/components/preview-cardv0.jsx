@@ -29,7 +29,7 @@ import {
   DrawerHeader,
   DrawerTitle
 } from './ui/drawer';
-import ProductGallery from '@/app/(storefront)/products/[category]/components/product-gallery';
+import ProductGallery from '@/app/(storefront)/products/[category]/[productid]/product-gallery';
 import { useRouter } from 'next/navigation';
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
@@ -222,7 +222,7 @@ export default function PreviewCardV0({ className }) {
               <DrawerTitle className='wrapper absolute top-3 z-10 flex justify-between border-none'>
                 <button
                   onClick={() => setLiked(!liked)}
-                  className='group rounded-full transition-all hover:scale-110 hover:bg-secondary p-1 h-8 bg-white shadow shadow-gray-400'
+                  className='group hover:bg-secondary h-8 rounded-full bg-white p-1 shadow shadow-gray-400 transition-all hover:scale-110'
                   aria-label='Add to wishlist'
                 >
                   <FaHeart

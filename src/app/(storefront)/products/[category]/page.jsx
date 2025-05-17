@@ -1,10 +1,10 @@
 'use client';
 import CustomTagWrapper from '@/components/custom-tag-wrapper';
-import ProductGrid from './components/product-grid';
 import { use } from 'react';
-import ProductFilters from './components/product-filters';
 import { useFilterStore } from '@/store/use-filter-store';
 import { useFetch } from '@/hooks/useFetch';
+import ProductFilters from './product-filters';
+import ProductGrid from './product-grid';
 
 const advertisements = [
   {

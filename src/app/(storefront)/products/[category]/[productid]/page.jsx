@@ -1,6 +1,6 @@
 'use client';
-import ProductGallery from '@/app/(storefront)/products/[category]/components/product-gallery';
-import ProductDetails from '@/app/(storefront)/products/[category]/components/product-details';
+import ProductGallery from '@/app/(storefront)/products/[category]/[productid]/product-gallery';
+import ProductDetails from '@/app/(storefront)/products/[category]/[productid]/product-details';
 import {
   Breadcrumb,
   BreadcrumbItem,

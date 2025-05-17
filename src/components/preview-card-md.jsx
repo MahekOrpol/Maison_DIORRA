@@ -24,7 +24,7 @@ import {
 } from './ui/drawer';
 import ProductGallery, {
   MobileGallery
-} from '@/app/(storefront)/products/[category]/components/product-gallery';
+} from '@/app/(storefront)/products/[category]/[productid]/product-gallery';
 import { useRouter } from 'next/navigation';
 import { useModalStore } from '@/store/modal-stote';
 export default function PreviewCardMd({ product, className }) {

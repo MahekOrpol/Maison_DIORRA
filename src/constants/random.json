@@ -1,216 +1,829 @@
-[
-  {
-    "metalVariations": [
+{
+  "_id": "6828593394c2ae1254b157f6",
+  "best_selling": "1",
+  "salePrice": {
+    "$numberDecimal": "1100"
+  },
+  "regularPrice": {
+    "$numberDecimal": "1200"
+  },
+  "discount": {
+    "$numberDecimal": "9"
+  },
+  "gender": "Unisex",
+  "hasVariations": true,
+  "variations": [
+    {
+      "_id": "6828593394c2ae1254b157f7",
+      "productId": "6828593394c2ae1254b157f6",
+      "metalVariations": [
+        {
+          "images": [
+            "/images/1747483287.png",
+            "/images/1747480177.png",
+            "/images/1747477551.png",
+            "/images/1747479602.mp4"
+          ],
+          "combineImages": [],
+          "reviewCount": 0,
+          "_id": "6828593394c2ae1254b157f8",
+          "metal": "14K Gold",
+          "quantity": "10",
+          "diamondShape": [
+            {
+              "_id": "6828593394c2ae1254b157f9",
+              "name": "Round",
+              "image": "/icons/shape-round.svg"
+            },
+            {
+              "_id": "6828593394c2ae1254b157fa",
+              "name": "Princess",
+              "image": "/icons/shape-princess.svg"
+            },
+            {
+              "_id": "6828593394c2ae1254b157fb",
+              "name": "Emerald",
+              "image": "/icons/shape-emerlad.svg"
+            },
+            {
+              "_id": "6828593394c2ae1254b157fc",
+              "name": "Pear",
+              "image": "/icons/shape-pear.svg"
+            }
+          ],
+          "shank": [
+            {
+              "_id": "6828593394c2ae1254b157fd",
+              "name": "Solitare",
+              "image": "/img/shapes/shank1.png"
+            },
+            {
+              "_id": "6828593394c2ae1254b157fe",
+              "name": "French pave",
+              "image": "/img/shapes/shank2.png"
+            }
+          ],
+          "ringSizes": [
+            {
+              "_id": "6828593394c2ae1254b157ff",
+              "productSize": "4",
+              "regularPrice": {
+                "$numberDecimal": "1500"
+              },
+              "salePrice": {
+                "$numberDecimal": "1140"
+              },
+              "quantity": 1
+            },
+            {
+              "_id": "6828593394c2ae1254b15800",
+              "productSize": "5",
+              "regularPrice": {
+                "$numberDecimal": "1500"
+              },
+              "salePrice": {
+                "$numberDecimal": "1150"
+              },
+              "quantity": 12
+            },
+            {
+              "_id": "6828593394c2ae1254b15801",
+              "productSize": "6",
+              "regularPrice": {
+                "$numberDecimal": "1500"
+              },
+              "salePrice": {
+                "$numberDecimal": "1160"
+              },
+              "quantity": 13
+            },
+            {
+              "_id": "6828593394c2ae1254b15802",
+              "productSize": "7",
+              "regularPrice": {
+                "$numberDecimal": "1500"
+              },
+              "salePrice": {
+                "$numberDecimal": "1170"
+              },
+              "quantity": 12
+            },
+            {
+              "_id": "6828593394c2ae1254b15803",
+              "productSize": "8",
+              "regularPrice": {
+                "$numberDecimal": "1500"
+              },
+              "salePrice": {
+                "$numberDecimal": "1180"
+              },
+              "quantity": 10
+            },
+            {
+              "_id": "6828593394c2ae1254b15804",
+              "productSize": "9",
+              "regularPrice": {
+                "$numberDecimal": "1500"
+              },
+              "salePrice": {
+                "$numberDecimal": "1190"
+              },
+              "quantity": 10
+            }
+          ]
+        },
+        {
+          "images": [
+            "/images/1747477494.png",
+            "/images/1747481976.png",
+            "/images/1747479458.png",
+            "/images/1747483164.mp4"
+          ],
+          "combineImages": [],
+          "reviewCount": 0,
+          "_id": "6828593394c2ae1254b15805",
+          "metal": "14K Rose Gold",
+          "quantity": "10",
+          "diamondShape": [
+            {
+              "_id": "6828593394c2ae1254b15806",
+              "name": "Round",
+              "image": "/icons/shape-round.svg"
+            },
+            {
+              "_id": "6828593394c2ae1254b15807",
+              "name": "Princess",
+              "image": "/icons/shape-princess.svg"
+            },
+            {
+              "_id": "6828593394c2ae1254b15808",
+              "name": "Emerald",
+              "image": "/icons/shape-emerlad.svg"
+            },
+            {
+              "_id": "6828593394c2ae1254b15809",
+              "name": "Pear",
+              "image": "/icons/shape-pear.svg"
+            }
+          ],
+          "shank": [
+            {
+              "_id": "6828593394c2ae1254b1580a",
+              "name": "Solitare",
+              "image": "/img/shapes/shank1.png"
+            },
+            {
+              "_id": "6828593394c2ae1254b1580b",
+              "name": "French pave",
+              "image": "/img/shapes/shank2.png"
+            }
+          ],
+          "ringSizes": [
+            {
+              "_id": "6828593394c2ae1254b1580c",
+              "productSize": "4",
+              "regularPrice": {
+                "$numberDecimal": "1500"
+              },
+              "salePrice": {
+                "$numberDecimal": "1140"
+              },
+              "quantity": 1
+            },
+            {
+              "_id": "6828593394c2ae1254b1580d",
+              "productSize": "5",
+              "regularPrice": {
+                "$numberDecimal": "1500"
+              },
+              "salePrice": {
+                "$numberDecimal": "1150"
+              },
+              "quantity": 12
+            },
+            {
+              "_id": "6828593394c2ae1254b1580e",
+              "productSize": "6",
+              "regularPrice": {
+                "$numberDecimal": "1500"
+              },
+              "salePrice": {
+                "$numberDecimal": "1160"
+              },
+              "quantity": 13
+            },
+            {
+              "_id": "6828593394c2ae1254b1580f",
+              "productSize": "7",
+              "regularPrice": {
+                "$numberDecimal": "1500"
+              },
+              "salePrice": {
+                "$numberDecimal": "1170"
+              },
+              "quantity": 12
+            },
+            {
+              "_id": "6828593394c2ae1254b15810",
+              "productSize": "8",
+              "regularPrice": {
+                "$numberDecimal": "1500"
+              },
+              "salePrice": {
+                "$numberDecimal": "1180"
+              },
+              "quantity": 10
+            },
+            {
+              "_id": "6828593394c2ae1254b15811",
+              "productSize": "9",
+              "regularPrice": {
+                "$numberDecimal": "1500"
+              },
+              "salePrice": {
+                "$numberDecimal": "1190"
+              },
+              "quantity": 10
+            }
+          ]
+        },
+        {
+          "images": [
+            "/images/1747480486.png",
+            "/images/1747476324.png",
+            "/images/1747484232.png",
+            "/images/1747479639.mp4"
+          ],
+          "combineImages": [],
+          "reviewCount": 0,
+          "_id": "6828593394c2ae1254b15812",
+          "metal": "14K White Gold",
+          "quantity": "10",
+          "diamondShape": [
+            {
+              "_id": "6828593394c2ae1254b15813",
+              "name": "Round",
+              "image": "/icons/shape-round.svg"
+            },
+            {
+              "_id": "6828593394c2ae1254b15814",
+              "name": "Princess",
+              "image": "/icons/shape-princess.svg"
+            },
+            {
+              "_id": "6828593394c2ae1254b15815",
+              "name": "Emerald",
+              "image": "/icons/shape-emerlad.svg"
+            },
+            {
+              "_id": "6828593394c2ae1254b15816",
+              "name": "Pear",
+              "image": "/icons/shape-pear.svg"
+            }
+          ],
+          "shank": [
+            {
+              "_id": "6828593394c2ae1254b15817",
+              "name": "Solitare",
+              "image": "/img/shapes/shank1.png"
+            },
+            {
+              "_id": "6828593394c2ae1254b15818",
+              "name": "French pave",
+              "image": "/img/shapes/shank2.png"
+            }
+          ],
+          "ringSizes": [
+            {
+              "_id": "6828593394c2ae1254b15819",
+              "productSize": "4",
+              "regularPrice": {
+                "$numberDecimal": "1500"
+              },
+              "salePrice": {
+                "$numberDecimal": "1140"
+              },
+              "quantity": 1
+            },
+            {
+              "_id": "6828593394c2ae1254b1581a",
+              "productSize": "5",
+              "regularPrice": {
+                "$numberDecimal": "1500"
+              },
+              "salePrice": {
+                "$numberDecimal": "1150"
+              },
+              "quantity": 12
+            },
+            {
+              "_id": "6828593394c2ae1254b1581b",
+              "productSize": "6",
+              "regularPrice": {
+                "$numberDecimal": "1500"
+              },
+              "salePrice": {
+                "$numberDecimal": "1160"
+              },
+              "quantity": 13
+            },
+            {
+              "_id": "6828593394c2ae1254b1581c",
+              "productSize": "7",
+              "regularPrice": {
+                "$numberDecimal": "1500"
+              },
+              "salePrice": {
+                "$numberDecimal": "1170"
+              },
+              "quantity": 12
+            },
+            {
+              "_id": "6828593394c2ae1254b1581d",
+              "productSize": "8",
+              "regularPrice": {
+                "$numberDecimal": "1500"
+              },
+              "salePrice": {
+                "$numberDecimal": "1180"
+              },
+              "quantity": 10
+            },
+            {
+              "_id": "6828593394c2ae1254b1581e",
+              "productSize": "9",
+              "regularPrice": {
+                "$numberDecimal": "1500"
+              },
+              "salePrice": {
+                "$numberDecimal": "1190"
+              },
+              "quantity": 10
+            }
+          ]
+        }
+      ],
+      "__v": 0,
+      "createdAt": "2025-05-17T09:38:59.844Z",
+      "updatedAt": "2025-05-17T09:38:59.844Z"
+    }
+  ],
+  "productName": "The Ring R001",
+  "productsDescription": "Modest yet magnificent, The Ashley engagement ring has a slender 1.5mm band that amplifies the size and sparkle of the center stone, turning it into a major showpiece. Four delicate claw prongs secure the gem in place and emphasize its low-profile silhouette. The clean lines, striking details, and modest geometry of this spectacular solitaire are both classic and oh-so modern.",
+  "categoryName": "rings",
+  "stock": "In Stock",
+  "sku": "SKU-R001-PS1",
+  "createdAt": "2025-05-17T09:38:59.890Z",
+  "updatedAt": "2025-05-17T09:38:59.890Z",
+  "__v": 0,
+  "availableMetals": ["14K Gold", "14K Rose Gold", "14K White Gold"],
+  "availableRingSizes": ["4", "5", "6", "7", "8", "9"],
+  "availableDiamondShapes": [
+    [
       {
-        "metal": "14K Gold",
-        "quantity": "10",
-        "diamondShape": [
-          {
-            "name": "Round",
-            "image": "/icons/shape-round.svg"
-          },
-          {
-            "name": "Princess",
-            "image": "/icons/shape-princess.svg"
-          },
-          {
-            "name": "Emerald",
-            "image": "/icons/shape-emerlad.svg"
-          },
-          {
-            "name": "Pear",
-            "image": "/icons/shape-pear.svg"
-          }
-        ],
-        "shank": [
-          {
-            "name": "Solitare",
-            "image": "/img/shapes/shank1.png"
-          },
-          {
-            "name": "French pave",
-            "image": "/img/shapes/shank2.png"
-          }
-        ],
-        "ringSizes": [
-          {
-            "productSize": "4",
-            "regularPrice": 1500,
-            "salePrice": 1140,
-            "quantity": 1
-          },
-          {
-            "productSize": "5",
-            "regularPrice": 1500,
-            "salePrice": 1150,
-            "quantity": 12
-          },
-          {
-            "productSize": "6",
-            "regularPrice": 1500,
-            "salePrice": 1160,
-            "quantity": 13
-          },
-          {
-            "productSize": "7",
-            "regularPrice": 1500,
-            "salePrice": 1170,
-            "quantity": 12
-          },
-          {
-            "productSize": "8",
-            "regularPrice": 1500,
-            "salePrice": 1180,
-            "quantity": 10
-          },
-          {
-            "productSize": "9",
-            "regularPrice": 1500,
-            "salePrice": 1190,
-            "quantity": 10
-          }
-        ]
+        "_id": "6828593394c2ae1254b157f9",
+        "name": "Round",
+        "image": "/icons/shape-round.svg"
       },
       {
-        "metal": "14K Rose Gold",
-        "quantity": "10",
-        "diamondShape": [
-          {
-            "name": "Round",
-            "image": "/icons/shape-round.svg"
-          },
-          {
-            "name": "Princess",
-            "image": "/icons/shape-princess.svg"
-          },
-          {
-            "name": "Emerald",
-            "image": "/icons/shape-emerlad.svg"
-          },
-          {
-            "name": "Pear",
-            "image": "/icons/shape-pear.svg"
-          }
-        ],
-        "shank": [
-          {
-            "name": "Solitare",
-            "image": "/img/shapes/shank1.png"
-          },
-          {
-            "name": "French pave",
-            "image": "/img/shapes/shank2.png"
-          }
-        ],
-        "ringSizes": [
-          {
-            "productSize": "4",
-            "regularPrice": 1500,
-            "salePrice": 1140,
-            "quantity": 1
-          },
-          {
-            "productSize": "5",
-            "regularPrice": 1500,
-            "salePrice": 1150,
-            "quantity": 12
-          },
-          {
-            "productSize": "6",
-            "regularPrice": 1500,
-            "salePrice": 1160,
-            "quantity": 13
-          },
-          {
-            "productSize": "7",
-            "regularPrice": 1500,
-            "salePrice": 1170,
-            "quantity": 12
-          },
-          {
-            "productSize": "8",
-            "regularPrice": 1500,
-            "salePrice": 1180,
-            "quantity": 10
-          },
-          {
-            "productSize": "9",
-            "regularPrice": 1500,
-            "salePrice": 1190,
-            "quantity": 10
-          }
-        ]
+        "_id": "6828593394c2ae1254b157fa",
+        "name": "Princess",
+        "image": "/icons/shape-princess.svg"
       },
       {
-        "metal": "14K White Gold",
-        "quantity": "10",
-        "diamondShape": [
-          {
-            "name": "Round",
-            "image": "/icons/shape-round.svg"
-          },
-          {
-            "name": "Princess",
-            "image": "/icons/shape-princess.svg"
-          },
-          {
-            "name": "Emerald",
-            "image": "/icons/shape-emerlad.svg"
-          },
-          {
-            "name": "Pear",
-            "image": "/icons/shape-pear.svg"
-          }
-        ],
-        "shank": [
-          {
-            "name": "Solitare",
-            "image": "/img/shapes/shank1.png"
-          },
-          {
-            "name": "French pave",
-            "image": "/img/shapes/shank2.png"
-          }
-        ],
-        "ringSizes": [
-          {
-            "productSize": "4",
-            "regularPrice": 1500,
-            "salePrice": 1140,
-            "quantity": 1
-          },
-          {
-            "productSize": "5",
-            "regularPrice": 1500,
-            "salePrice": 1150,
-            "quantity": 12
-          },
-          {
-            "productSize": "6",
-            "regularPrice": 1500,
-            "salePrice": 1160,
-            "quantity": 13
-          },
-          {
-            "productSize": "7",
-            "regularPrice": 1500,
-            "salePrice": 1170,
-            "quantity": 12
-          },
-          {
-            "productSize": "8",
-            "regularPrice": 1500,
-            "salePrice": 1180,
-            "quantity": 10
-          },
-          {
-            "productSize": "9",
-            "regularPrice": 1500,
-            "salePrice": 1190,
-            "quantity": 10
-          }
-        ]
+        "_id": "6828593394c2ae1254b157fb",
+        "name": "Emerald",
+        "image": "/icons/shape-emerlad.svg"
+      },
+      {
+        "_id": "6828593394c2ae1254b157fc",
+        "name": "Pear",
+        "image": "/icons/shape-pear.svg"
+      }
+    ],
+    [
+      {
+        "_id": "6828593394c2ae1254b15806",
+        "name": "Round",
+        "image": "/icons/shape-round.svg"
+      },
+      {
+        "_id": "6828593394c2ae1254b15807",
+        "name": "Princess",
+        "image": "/icons/shape-princess.svg"
+      },
+      {
+        "_id": "6828593394c2ae1254b15808",
+        "name": "Emerald",
+        "image": "/icons/shape-emerlad.svg"
+      },
+      {
+        "_id": "6828593394c2ae1254b15809",
+        "name": "Pear",
+        "image": "/icons/shape-pear.svg"
+      }
+    ],
+    [
+      {
+        "_id": "6828593394c2ae1254b15813",
+        "name": "Round",
+        "image": "/icons/shape-round.svg"
+      },
+      {
+        "_id": "6828593394c2ae1254b15814",
+        "name": "Princess",
+        "image": "/icons/shape-princess.svg"
+      },
+      {
+        "_id": "6828593394c2ae1254b15815",
+        "name": "Emerald",
+        "image": "/icons/shape-emerlad.svg"
+      },
+      {
+        "_id": "6828593394c2ae1254b15816",
+        "name": "Pear",
+        "image": "/icons/shape-pear.svg"
       }
     ]
+  ],
+  "availableShankTypes": [
+    [
+      {
+        "_id": "6828593394c2ae1254b157fd",
+        "name": "Solitare",
+        "image": "/img/shapes/shank1.png"
+      },
+      {
+        "_id": "6828593394c2ae1254b157fe",
+        "name": "French pave",
+        "image": "/img/shapes/shank2.png"
+      }
+    ],
+    [
+      {
+        "_id": "6828593394c2ae1254b1580a",
+        "name": "Solitare",
+        "image": "/img/shapes/shank1.png"
+      },
+      {
+        "_id": "6828593394c2ae1254b1580b",
+        "name": "French pave",
+        "image": "/img/shapes/shank2.png"
+      }
+    ],
+    [
+      {
+        "_id": "6828593394c2ae1254b15817",
+        "name": "Solitare",
+        "image": "/img/shapes/shank1.png"
+      },
+      {
+        "_id": "6828593394c2ae1254b15818",
+        "name": "French pave",
+        "image": "/img/shapes/shank2.png"
+      }
+    ]
+  ],
+  "priceRange": {
+    "min": 1140,
+    "max": 1190
+  },
+  "metalVariations": {
+    "14K Gold": {
+      "metal": "14K Gold",
+      "quantity": "10",
+      "images": [
+        "/images/1747483287.png",
+        "/images/1747480177.png",
+        "/images/1747477551.png",
+        "/images/1747479602.mp4"
+      ],
+      "diamondShape": [
+        {
+          "_id": "6828593394c2ae1254b157f9",
+          "name": "Round",
+          "image": "/icons/shape-round.svg"
+        },
+        {
+          "_id": "6828593394c2ae1254b157fa",
+          "name": "Princess",
+          "image": "/icons/shape-princess.svg"
+        },
+        {
+          "_id": "6828593394c2ae1254b157fb",
+          "name": "Emerald",
+          "image": "/icons/shape-emerlad.svg"
+        },
+        {
+          "_id": "6828593394c2ae1254b157fc",
+          "name": "Pear",
+          "image": "/icons/shape-pear.svg"
+        }
+      ],
+      "shank": [
+        {
+          "_id": "6828593394c2ae1254b157fd",
+          "name": "Solitare",
+          "image": "/img/shapes/shank1.png"
+        },
+        {
+          "_id": "6828593394c2ae1254b157fe",
+          "name": "French pave",
+          "image": "/img/shapes/shank2.png"
+        }
+      ],
+      "ringSizes": [
+        {
+          "_id": "6828593394c2ae1254b157ff",
+          "productSize": "4",
+          "regularPrice": {
+            "$numberDecimal": "1500"
+          },
+          "salePrice": {
+            "$numberDecimal": "1140"
+          },
+          "quantity": 1
+        },
+        {
+          "_id": "6828593394c2ae1254b15800",
+          "productSize": "5",
+          "regularPrice": {
+            "$numberDecimal": "1500"
+          },
+          "salePrice": {
+            "$numberDecimal": "1150"
+          },
+          "quantity": 12
+        },
+        {
+          "_id": "6828593394c2ae1254b15801",
+          "productSize": "6",
+          "regularPrice": {
+            "$numberDecimal": "1500"
+          },
+          "salePrice": {
+            "$numberDecimal": "1160"
+          },
+          "quantity": 13
+        },
+        {
+          "_id": "6828593394c2ae1254b15802",
+          "productSize": "7",
+          "regularPrice": {
+            "$numberDecimal": "1500"
+          },
+          "salePrice": {
+            "$numberDecimal": "1170"
+          },
+          "quantity": 12
+        },
+        {
+          "_id": "6828593394c2ae1254b15803",
+          "productSize": "8",
+          "regularPrice": {
+            "$numberDecimal": "1500"
+          },
+          "salePrice": {
+            "$numberDecimal": "1180"
+          },
+          "quantity": 10
+        },
+        {
+          "_id": "6828593394c2ae1254b15804",
+          "productSize": "9",
+          "regularPrice": {
+            "$numberDecimal": "1500"
+          },
+          "salePrice": {
+            "$numberDecimal": "1190"
+          },
+          "quantity": 10
+        }
+      ]
+    },
+    "14K Rose Gold": {
+      "metal": "14K Rose Gold",
+      "quantity": "10",
+      "images": [
+        "/images/1747477494.png",
+        "/images/1747481976.png",
+        "/images/1747479458.png",
+        "/images/1747483164.mp4"
+      ],
+      "diamondShape": [
+        {
+          "_id": "6828593394c2ae1254b15806",
+          "name": "Round",
+          "image": "/icons/shape-round.svg"
+        },
+        {
+          "_id": "6828593394c2ae1254b15807",
+          "name": "Princess",
+          "image": "/icons/shape-princess.svg"
+        },
+        {
+          "_id": "6828593394c2ae1254b15808",
+          "name": "Emerald",
+          "image": "/icons/shape-emerlad.svg"
+        },
+        {
+          "_id": "6828593394c2ae1254b15809",
+          "name": "Pear",
+          "image": "/icons/shape-pear.svg"
+        }
+      ],
+      "shank": [
+        {
+          "_id": "6828593394c2ae1254b1580a",
+          "name": "Solitare",
+          "image": "/img/shapes/shank1.png"
+        },
+        {
+          "_id": "6828593394c2ae1254b1580b",
+          "name": "French pave",
+          "image": "/img/shapes/shank2.png"
+        }
+      ],
+      "ringSizes": [
+        {
+          "_id": "6828593394c2ae1254b1580c",
+          "productSize": "4",
+          "regularPrice": {
+            "$numberDecimal": "1500"
+          },
+          "salePrice": {
+            "$numberDecimal": "1140"
+          },
+          "quantity": 1
+        },
+        {
+          "_id": "6828593394c2ae1254b1580d",
+          "productSize": "5",
+          "regularPrice": {
+            "$numberDecimal": "1500"
+          },
+          "salePrice": {
+            "$numberDecimal": "1150"
+          },
+          "quantity": 12
+        },
+        {
+          "_id": "6828593394c2ae1254b1580e",
+          "productSize": "6",
+          "regularPrice": {
+            "$numberDecimal": "1500"
+          },
+          "salePrice": {
+            "$numberDecimal": "1160"
+          },
+          "quantity": 13
+        },
+        {
+          "_id": "6828593394c2ae1254b1580f",
+          "productSize": "7",
+          "regularPrice": {
+            "$numberDecimal": "1500"
+          },
+          "salePrice": {
+            "$numberDecimal": "1170"
+          },
+          "quantity": 12
+        },
+        {
+          "_id": "6828593394c2ae1254b15810",
+          "productSize": "8",
+          "regularPrice": {
+            "$numberDecimal": "1500"
+          },
+          "salePrice": {
+            "$numberDecimal": "1180"
+          },
+          "quantity": 10
+        },
+        {
+          "_id": "6828593394c2ae1254b15811",
+          "productSize": "9",
+          "regularPrice": {
+            "$numberDecimal": "1500"
+          },
+          "salePrice": {
+            "$numberDecimal": "1190"
+          },
+          "quantity": 10
+        }
+      ]
+    },
+    "14K White Gold": {
+      "metal": "14K White Gold",
+      "quantity": "10",
+      "images": [
+        "/images/1747480486.png",
+        "/images/1747476324.png",
+        "/images/1747484232.png",
+        "/images/1747479639.mp4"
+      ],
+      "diamondShape": [
+        {
+          "_id": "6828593394c2ae1254b15813",
+          "name": "Round",
+          "image": "/icons/shape-round.svg"
+        },
+        {
+          "_id": "6828593394c2ae1254b15814",
+          "name": "Princess",
+          "image": "/icons/shape-princess.svg"
+        },
+        {
+          "_id": "6828593394c2ae1254b15815",
+          "name": "Emerald",
+          "image": "/icons/shape-emerlad.svg"
+        },
+        {
+          "_id": "6828593394c2ae1254b15816",
+          "name": "Pear",
+          "image": "/icons/shape-pear.svg"
+        }
+      ],
+      "shank": [
+        {
+          "_id": "6828593394c2ae1254b15817",
+          "name": "Solitare",
+          "image": "/img/shapes/shank1.png"
+        },
+        {
+          "_id": "6828593394c2ae1254b15818",
+          "name": "French pave",
+          "image": "/img/shapes/shank2.png"
+        }
+      ],
+      "ringSizes": [
+        {
+          "_id": "6828593394c2ae1254b15819",
+          "productSize": "4",
+          "regularPrice": {
+            "$numberDecimal": "1500"
+          },
+          "salePrice": {
+            "$numberDecimal": "1140"
+          },
+          "quantity": 1
+        },
+        {
+          "_id": "6828593394c2ae1254b1581a",
+          "productSize": "5",
+          "regularPrice": {
+            "$numberDecimal": "1500"
+          },
+          "salePrice": {
+            "$numberDecimal": "1150"
+          },
+          "quantity": 12
+        },
+        {
+          "_id": "6828593394c2ae1254b1581b",
+          "productSize": "6",
+          "regularPrice": {
+            "$numberDecimal": "1500"
+          },
+          "salePrice": {
+            "$numberDecimal": "1160"
+          },
+          "quantity": 13
+        },
+        {
+          "_id": "6828593394c2ae1254b1581c",
+          "productSize": "7",
+          "regularPrice": {
+            "$numberDecimal": "1500"
+          },
+          "salePrice": {
+            "$numberDecimal": "1170"
+          },
+          "quantity": 12
+        },
+        {
+          "_id": "6828593394c2ae1254b1581d",
+          "productSize": "8",
+          "regularPrice": {
+            "$numberDecimal": "1500"
+          },
+          "salePrice": {
+            "$numberDecimal": "1180"
+          },
+          "quantity": 10
+        },
+        {
+          "_id": "6828593394c2ae1254b1581e",
+          "productSize": "9",
+          "regularPrice": {
+            "$numberDecimal": "1500"
+          },
+          "salePrice": {
+            "$numberDecimal": "1190"
+          },
+          "quantity": 10
+        }
+      ]
+    }
   }
-]
+}

@@ -1,7 +1,7 @@
 import CustomTagWrapper, {
   ProductSelectionStepsForDiamonds
 } from '@/components/custom-tag-wrapper';
-import ProductGallery from '@/app/(storefront)/products/[category]/components/product-gallery';
+import ProductGallery from '@/app/(storefront)/products/[category]/[productid]/product-gallery';
 import DiamondDetails from '../components/diamond-details';
 
 export default function Page() {

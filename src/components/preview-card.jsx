@@ -25,7 +25,7 @@ import {
 } from './ui/drawer';
 import ProductGallery, {
   MobileGallery
-} from '@/app/(storefront)/products/[category]/components/product-gallery';
+} from '@/app/(storefront)/products/[category]/[productid]/product-gallery';
 import { useRouter } from 'nextjs-toploader/app';
 import { useModalStore } from '@/store/modal-stote';
 import { toast } from 'sonner';
