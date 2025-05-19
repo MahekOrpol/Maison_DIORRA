@@ -29,6 +29,7 @@ import ProductGallery, {
 import { useRouter } from 'nextjs-toploader/app';
 import { useModalStore } from '@/store/modal-stote';
 import { toast } from 'sonner';
+import { useWishlistStore } from '../store/wishlist-store';
 
 export default function PreviewCard({
   product,
@@ -41,7 +42,9 @@ export default function PreviewCard({
   );
   const [isProductClicked, setIsProductClicked] = useState(false);
   const [isClientMobile, setIsClientMobile] = useState(false);
-  const [liked, setLiked] = useState(false);
+  const wishlist = useWishlistStore((state) => state.wishlist);
+  const toggleWishlist = useWishlistStore((state) => state.toggleWishlist);
+  const isLiked = wishlist?.includes(product._id);
   const openModal = useModalStore((state) => state.openModal);
   const router = useRouter();
   const [isWishlistLoading, setIsWishlistLoading] = useState(false);
@@ -88,14 +91,8 @@ export default function PreviewCard({
   if (!product || !selectedMetal) return null;
 
   const handleFavoriteClick = async () => {
-    const accessToken =
-      typeof window !== 'undefined'
-        ? localStorage.getItem('accessToken')
-        : null;
-    const authUser =
-      typeof window !== 'undefined'
-        ? JSON.parse(localStorage.getItem('authUser'))
-        : null;
+    const accessToken = localStorage.getItem('accessToken');
+    const authUser = JSON.parse(localStorage.getItem('authUser'));
 
     if (!accessToken || !authUser) {
       openModal('wishlistNotAllowed');
@@ -117,24 +114,23 @@ export default function PreviewCard({
         })
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        if (response.status === 409) {
-          console.log(errorData.message);
-        } else {
-          throw new Error(errorData.message || 'Failed to update wishlist');
-        }
-      } else {
-        setLiked(!liked);
-        // Show success toast when status is 200
-        toast.success(response.data.message);
+      const data = await response.json();
+
+      if (!response.ok && response.status !== 409) {
+        throw new Error(data.message || 'Failed to update wishlist');
       }
+
+      // toggle in local store
+      toggleWishlist(product._id);
+
+      toast.success(data.message || 'Wishlist updated');
     } catch (error) {
       console.error('Wishlist error:', error);
     } finally {
       setIsWishlistLoading(false);
     }
   };
+
 
   const getMetalColor = (metal) => {
     if (!metal) return '#ccc';
@@ -168,7 +164,7 @@ export default function PreviewCard({
           <Heart
             className={cn(
               'xs:h-5 xs:w-5 h-4 w-4 transition-colors',
-              liked ? 'fill-primary text-primary' : 'text-black'
+              isLiked ? 'fill-primary text-primary' : 'text-black'
             )}
           />
         </button>
@@ -266,11 +262,11 @@ export default function PreviewCard({
                   aria-label='Add to wishlist'
                 >
                   <FaHeart
-                    className={`h-5 w-6 transition-colors duration-300 ${
-                      liked
-                        ? 'fill-primary stroke-[20] text-white'
-                        : 'fill-white stroke-[30] text-black'
-                    }`}
+                    className={`h-5 w-6 transition-colors duration-300 ${isLiked
+                      ? 'fill-primary stroke-[20] text-white'
+                      : 'fill-white stroke-[30] text-black'
+                      }`}
+
                   />
                 </button>
                 <DrawerClose className='flex h-7 w-7 items-center justify-center rounded-full bg-[#D9D9D9] transition focus:scale-105'>

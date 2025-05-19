@@ -3,6 +3,7 @@ import { MapPin, Search } from 'lucide-react';
 import React, { useState } from 'react';
 import { Input } from '../ui/input';
 import { useRouter } from 'next/navigation';
+import { baseUrl } from '@/lib/utils';
 
 export default function LocateAndSearch() {
   const [searchValue, setSearchValue] = useState('');
@@ -29,8 +30,9 @@ export default function LocateAndSearch() {
   const handleSearch = (e) => {
     if (e.key === 'Enter') {
       console.log('Search:', searchValue);
-      // router.push('/search?query=' + searchValue);
-      router.push('/products?query=' + searchValue);
+      router.push('/search?query=' + searchValue);
+      setSearchValue("");
+      // router.push(`${baseUrl}/api/v1/product/get?productName=` + searchValue);
       // You can also trigger an API call here
     }
   };
