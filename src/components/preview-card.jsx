@@ -29,6 +29,7 @@ import ProductGallery, {
 import { useRouter } from 'nextjs-toploader/app';
 import { useModalStore } from '@/store/modal-stote';
 import { toast } from 'sonner';
+import { useUserStore } from '@/store/user-store';
 
 export default function PreviewCard({
   product,
@@ -87,53 +88,111 @@ export default function PreviewCard({
 
   if (!product || !selectedMetal) return null;
 
-  const handleFavoriteClick = async () => {
-    const accessToken =
-      typeof window !== 'undefined'
-        ? localStorage.getItem('accessToken')
-        : null;
-    const authUser =
-      typeof window !== 'undefined'
-        ? JSON.parse(localStorage.getItem('authUser'))
-        : null;
+  // const handleFavoriteClick = async () => {
+  //   const accessToken =
+  //     typeof window !== 'undefined'
+  //       ? localStorage.getItem('accessToken')
+  //       : null;
+  //   const authUser =
+  //     typeof window !== 'undefined'
+  //       ? JSON.parse(localStorage.getItem('authUser'))
+  //       : null;
 
-    if (!accessToken || !authUser) {
+  //   if (!accessToken || !authUser) {
+  //     openModal('wishlistNotAllowed');
+  //     return;
+  //   }
+
+  //   setIsWishlistLoading(true);
+  //   try {
+  //     const response = await fetch(`${BASE_URL}/api/v1/wishlist`, {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json',
+  //         Authorization: `Bearer ${accessToken}`
+  //       },
+  //       body: JSON.stringify({
+  //         userId: authUser.id,
+  //         productId: product._id,
+  //         selectedMetal: selectedMetal.metal
+  //       })
+  //     });
+
+  //     if (!response.ok) {
+  //       const errorData = await response.json();
+  //       if (response.status === 409) {
+  //         console.log(errorData.message);
+  //       } else {
+  //         // throw new Error(errorData.message || 'Failed to update wishlist');
+  //       }
+  //     } else {
+  //       setLiked(!liked);
+  //     }
+  //   } catch (error) {
+  //     console.error('Wishlist error:', error);
+  //   } finally {
+  //     setIsWishlistLoading(false);
+  //   }
+  // };
+  const handleFavoriteClick = async () => {
+    const { isLoggedIn, authUser } = useUserStore.getState();
+    const {
+      wishlist,
+      // setWishlist,
+      addToWishlist,
+      removeFromWishlist
+      // setIsLoading,
+      // setError
+    } = useWishlistStore.getState();
+
+    if (!isLoggedIn || !authUser) {
       openModal('wishlistNotAllowed');
       return;
     }
 
-    setIsWishlistLoading(true);
+    const userId = authUser.id;
+    const productId = product._id;
+    const isWishlisted = wishlist.includes(productId); // or use deep compare if it's an object
+
+    // setIsLoading(true);
+    // setError(null);
+
     try {
-      const response = await fetch(`${BASE_URL}/api/v1/wishlist`, {
-        method: 'POST',
+      const res = await fetch(`/api/wishlist/${userId}`, {
+        method: isWishlisted ? 'DELETE' : 'POST',
+        credentials: 'include',
         headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          userId: authUser.id,
-          productId: product._id,
-          selectedMetal: selectedMetal.metal
+          userId,
+          productId,
+          selectedMetal: selectedMetal?.metal || null
         })
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        if (response.status === 409) {
-          console.log(errorData.message);
-        } else {
-          // throw new Error(errorData.message || 'Failed to update wishlist');
-        }
-      } else {
-        setLiked(!liked);
+      if (!res.ok) {
+        const errorData = await res.json();
+        console.error('Wishlist API error:', errorData.message);
+        setError(errorData.message || 'Wishlist update failed');
+        return;
       }
-    } catch (error) {
-      console.error('Wishlist error:', error);
+
+      // Optimistic update
+      if (isWishlisted) {
+        removeFromWishlist(productId);
+      } else {
+        addToWishlist(productId);
+      }
+
+      setLiked(!isWishlisted);
+    } catch (err) {
+      console.error('Wishlist error:', err);
+      setError('An unexpected error occurred');
     } finally {
-      setIsWishlistLoading(false);
+      setIsLoading(false);
     }
   };
-
   const getMetalColor = (metal) => {
     if (!metal) return '#ccc';
 
