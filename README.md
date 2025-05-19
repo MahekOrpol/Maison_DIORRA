@@ -46,4 +46,11 @@ poster="https://cdn.shopify.com/s/files/1/0039/6994/1568/files/preview_images/a2
 <source src="https://checkout.keyzarjewelry.com/cdn/shop/videos/c/vp/a23cfeccd86a4dd8bee5f19192ff2f55/a23cfeccd86a4dd8bee5f19192ff2f55.m3u8" type="application/x-mpegURL">
 <source src="https://checkout.keyzarjewelry.com/cdn/shop/videos/c/vp/a23cfeccd86a4dd8bee5f19192ff2f55/a23cfeccd86a4dd8bee5f19192ff2f55.HD-720p-4.5Mbps-33725443.mp4" type="video/mp4">
 <source src="https://checkout.keyzarjewelry.com/cdn/shop/videos/c/vp/a23cfeccd86a4dd8bee5f19192ff2f55/a23cfeccd86a4dd8bee5f19192ff2f55.SD-480p-1.5Mbps-33725443.mp4" type="video/mp4"></video>
-deep
+
+/cart
+
+- If the user is logged in: Store the cart on the server (in the database) and sync via APIs.
+
+/wishlist
+
+/user

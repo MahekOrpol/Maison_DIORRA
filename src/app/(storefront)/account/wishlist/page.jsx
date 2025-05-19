@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import PreviewCard from '@/components/preview-card';
@@ -24,7 +24,7 @@ export default function WishlistPage() {
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/wishlist`,
           {
             headers: {
-              'Authorization': `Bearer ${token}`,
+              Authorization: `Bearer ${token}`,
               'Content-Type': 'application/json'
             }
           }
@@ -33,11 +33,13 @@ export default function WishlistPage() {
         // Make sure we're working with an array
         const items = response.data?.data || response.data || [];
         setWishlistItems(items);
-        console.log(items)
-
+        console.log(items);
       } catch (error) {
         // console.error('Error fetching wishlist:', error);
-        toast.error(error.response?.data?.message || 'Failed to load wishlist. Please try again.');
+        toast.error(
+          error.response?.data?.message ||
+            'Failed to load wishlist. Please try again.'
+        );
       } finally {
         setIsLoading(false);
       }
@@ -48,8 +50,8 @@ export default function WishlistPage() {
 
   if (isLoading) {
     return (
-      <div className="sm:wrapper pt-4 pb-10">
-        <div className="flex h-[50vh] items-center justify-center">
+      <div className='sm:wrapper pt-4 pb-10'>
+        <div className='flex h-[50vh] items-center justify-center'>
           <p>Loading your wishlist...</p>
         </div>
       </div>
@@ -61,7 +63,7 @@ export default function WishlistPage() {
       {wishlistItems?.length == 0 ? (
         <div className='flex flex-col items-center justify-center'>
           <div className='w-[120px] sm:w-[170px]'>
-            <img src={'/img/wishlist.jpg'} alt="Empty wishlist" />
+            <img src={'/img/wishlist.jpg'} alt='Empty wishlist' />
           </div>
           <p className='text-muted-foreground text-sm sm:text-xl'>
             YOUR WISHLIST IS EMPTY.
@@ -83,12 +85,16 @@ export default function WishlistPage() {
         </div>
       ) : (
         <div>
-          <h1 className='mb-4 text-2xl sm:text-3xl font-bold md:mb-6 underline'>Your Wishlist</h1>
-          <div className='grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 lg:gap-6'>
-            {wishlistItems.map((item) =>  <PreviewCard key={item._id}  product={item.product} />)}
+          <h1 className='mb-4 text-2xl font-bold underline sm:text-3xl md:mb-6'>
+            Your Wishlist
+          </h1>
+          <div className='3xl:grid-cols-4 grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-2 lg:gap-6 xl:grid-cols-3'>
+            {wishlistItems.map((item) => (
+              <PreviewCard key={item._id} product={item.product} />
+            ))}
           </div>
         </div>
-     )}
+      )}
     </div>
   );
 }

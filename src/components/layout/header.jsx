@@ -7,7 +7,7 @@ import { BsHandbag } from 'react-icons/bs';
 import MobileNavDrawer from './mobile-nav';
 import { AccountDropdown } from './account-dropdown';
 import LocateAndSearch from './locate-search';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { cn } from '@/lib/utils';
 import { GiGemPendant } from 'react-icons/gi';
 import { useModalStore } from '@/store/modal-stote';
@@ -24,15 +24,7 @@ export default function Header({ categories }) {
   const [activeMenu, setActiveMenu] = useState(null);
   const [index, setIndex] = useState(0);
   const openModal = useModalStore((state) => state.openModal);
-  const [user, setUser] = useState(null);
   const router = useRouter();
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
 
   // const router = useRouter();
   // const cookieStore = await cookies();
@@ -467,7 +459,7 @@ export default function Header({ categories }) {
               </Link>
             </div>
             <div className='flex gap-0.5 min-[340px]:gap-1.5 md:gap-4'>
-              <AccountDropdown user={user} />
+              <AccountDropdown />
               {/* Wishlist Link */}
               <button
                 className='relative rounded-full p-1 transition-all duration-200 hover:scale-110 hover:bg-gray-100'

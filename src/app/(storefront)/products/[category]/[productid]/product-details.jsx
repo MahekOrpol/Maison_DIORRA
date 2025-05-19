@@ -89,7 +89,7 @@ export default function ProductDetails({
     const match = shanks.find((s) => s.name === shank.name);
     return {
       ...shank,
-      image: match ? match.imgUrl : shank.image // fallback to original if not found
+      image: match ? match.imgUrl : '' // fallback to original if not found
     };
   });
 
@@ -316,10 +316,10 @@ export default function ProductDetails({
                 onClick={() => setSelectedShank(shank)}
               >
                 <Image
-                  src={shank.image}
+                  src={shank.image || '/img/shapes/shank1.png'}
                   width={30}
                   height={30}
-                  alt={shank.name || 'Shank Image'}
+                  alt={'Shank Icon'}
                   className='h-[30px] w-[30px] object-contain'
                 />
                 <span className='mt-1'>

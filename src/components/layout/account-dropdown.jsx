@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import {
   DropdownMenu,
@@ -14,37 +14,29 @@ import { logoutUser } from '@/app/actions/authAction';
 import { UserRound } from 'lucide-react';
 import { CiLogin } from 'react-icons/ci';
 import { CiLogout } from 'react-icons/ci';
-import { FaWpforms } from 'react-icons/fa6';
 import { MdOutlineAccountBox } from 'react-icons/md';
 import { toast } from 'sonner';
+import { useUserStore } from '@/store/user-store';
 
-export function AccountDropdown({ user, setUser }) {
-  const pathname = usePathname(); // Optional: closes dropdown on route change
+export function AccountDropdown() {
+  const { authUser, hydrateUser, clearUser, isLoggedIn } = useUserStore(
+    (state) => state
+  );
   const [open, setOpen] = useState(false);
   const router = useRouter();
-  const isLoggedIn = !!user;
 
-  // console.log(isLoggedIn);
   useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+    hydrateUser();
+  }, []);
+  console.log(authUser);
 
   const handleLogout = async () => {
     try {
-      // Call your logout API
+      // clear access token from cookie
       await logoutUser();
-
       // Clear client-side storage
-      localStorage.removeItem('user');
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
-      localStorage.removeItem('authUser');
-      // Update state
-      if (setUser) setUser(null);
-
-      // Redirect and refresh
-     window.location.href = '/';
-
+      clearUser();
+      router.push('/login');
       toast.success('Logged out successfully');
     } catch (error) {
       console.error('Logout failed:', error);
@@ -62,7 +54,7 @@ export function AccountDropdown({ user, setUser }) {
               {isLoggedIn ? 'Welcome back' : 'Login'}
             </p>
             <p className='hover:text-muted-foreground'>
-              {isLoggedIn ? user?.name : 'Account'}
+              {isLoggedIn ? authUser?.name : 'Account'}
             </p>
           </div>
         </button>

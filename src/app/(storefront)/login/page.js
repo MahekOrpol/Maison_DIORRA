@@ -19,6 +19,7 @@ import { toast } from 'sonner';
 import axios from 'axios';
 import { useRouter } from 'nextjs-toploader/app';
 import { ForgotPasswordDialog } from './forgotpassworddialog';
+import { useUserStore } from '@/store/user-store';
 
 // Mock API service
 const authService = {
@@ -60,6 +61,7 @@ export default function LoginPage() {
   const [tab, setTab] = useState('login');
   const [openForgotPassword, setOpenForgotPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { setUser } = useUserStore((state) => state);
 
   const router = useRouter();
 
@@ -112,73 +114,43 @@ export default function LoginPage() {
   //   }
   // };
 
-  const detectLoginType = (loginId) => {
-    if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(loginId)) {
-      return 'email';
-    } else if (/^[0-9]{10}$/.test(loginId)) {
-      return 'phone';
-    } else if (/^[a-zA-Z ]{3,}$/.test(loginId)) {
-      return 'name';
-    }
-    return 'email'; // default fallback
-  };
-
   const onLogin = async (data) => {
     setIsSubmitting(true);
     const { loginId, password } = data;
-    const loginType = detectLoginType(loginId);
 
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL || ''}/api/v1/register/login`,
-        {
-          loginType, // Add loginType to the request
-          [loginType]: loginId, // Dynamic property based on loginType
-          password
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-      );
+      const response = await axios.post('/api/login', {
+        loginId,
+        password
+      });
+      const { user } = response.data;
+
+      console.log('User:', user);
 
       if (response.status === 200) {
+        setUser(user);
         resetLoginForm();
-        // Store tokens and user data
-        const { token, user } = response.data;
-        localStorage.setItem('accessToken', token.access.token);
-        localStorage.setItem('authUser', JSON.stringify(user));
-        localStorage.setItem(
-          'user',
-          JSON.stringify({
-            name: user.name,
-            email: user.email,
-            phone: user.phone
-          })
-        );
-        // Redirect to account page
-        window.location.href = '/';
+        router.push('/account/profile');
       }
     } catch (error) {
-      console.error('Login error:', error);
+      console.error('Login failed:', error);
 
-      let errorMessage = 'Login failed. Please try again.';
-      if (axios.isAxiosError(error)) {
-        if (error.response) {
-          if (error.response.data?.message) {
-            errorMessage = error.response.data.message;
-          } else if (error.response.status === 401) {
-            errorMessage = 'Invalid credentials';
-          } else if (error.response.status === 400) {
-            errorMessage = 'Validation error. Please check your inputs.';
-          }
-        } else if (error.request) {
-          errorMessage = 'Network error. Please check your connection.';
-        }
-      }
+      // let errorMessage = 'Login failed. Please try again.';
+      // if (axios.isAxiosError(error)) {
+      //   if (error.response) {
+      //     if (error.response.data?.message) {
+      //       errorMessage = error.response.data.message;
+      //     } else if (error.response.status === 401) {
+      //       errorMessage = 'Invalid credentials';
+      //     } else if (error.response.status === 400) {
+      //       errorMessage = 'Validation error. Please check your inputs.';
+      //     }
+      //   } else if (error.request) {
+      //     errorMessage = 'Network error. Please check your connection.';
+      //   }
+      // }
 
-      toast.error(errorMessage);
+      toast.error(error.message || 'Login failed. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
