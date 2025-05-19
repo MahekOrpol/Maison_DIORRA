@@ -122,12 +122,10 @@ export default function PreviewCard({
         if (response.status === 409) {
           console.log(errorData.message);
         } else {
-          throw new Error(errorData.message || 'Failed to update wishlist');
+          // throw new Error(errorData.message || 'Failed to update wishlist');
         }
       } else {
         setLiked(!liked);
-        // Show success toast when status is 200
-        toast.success(response.data.message);
       }
     } catch (error) {
       console.error('Wishlist error:', error);

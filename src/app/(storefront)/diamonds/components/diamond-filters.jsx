@@ -30,8 +30,8 @@ export default function DiamondFilters() {
         {['Round', 'Pear', 'Emerlad', 'Princess'].map((shape) => (
           <button
             key={shape}
-            className={`w-[95px] rounded-lg border border-secondary shadow-md hover:border-black/60 hover:bg-gray-100 ${
-              filters.shape === shape ? 'bg-gray-100 border-black/60' : ''
+            className={`w-[90px] sm:w-[99px] rounded-xl border border-secondary shadow-md hover:border-black/60 ${
+              filters.shape === shape ? 'bg-gray-200 border-black/60' : ''
             }`}
             onClick={() => setFilters({...filters, shape})}
           >
@@ -58,7 +58,7 @@ export default function DiamondFilters() {
                 <button
                   key={color}
                   className={`inline-flex h-12 w-10 3xl:w-20 items-center justify-center border-r border-l border-l-transparent text-sm hover:border-l hover:border-black ${
-                    filters.color === color ? 'bg-gray-100' : ''
+                    filters.color === color ? 'bg-gray-200' : ''
                   }`}
                   onClick={() => setFilters({...filters, color})}
                 >
@@ -75,7 +75,7 @@ export default function DiamondFilters() {
                 <button
                   key={clarity}
                   className={`inline-flex h-12 w-10 3xl:w-20 items-center justify-center border-r border-l border-l-transparent text-sm hover:border-l hover:border-black ${
-                    filters.clarity === clarity ? 'bg-gray-100' : ''
+                    filters.clarity === clarity ? 'bg-gray-200' : ''
                   }`}
                   onClick={() => setFilters({...filters, clarity})}
                 >
