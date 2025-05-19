@@ -17,18 +17,22 @@ import { CiLogout } from 'react-icons/ci';
 import { MdOutlineAccountBox } from 'react-icons/md';
 import { toast } from 'sonner';
 import { useUserStore } from '@/store/user-store';
+import { useWishlistStore } from '@/store/wishlist-store';
 
 export function AccountDropdown() {
   const { authUser, hydrateUser, clearUser, isLoggedIn } = useUserStore(
     (state) => state
   );
+  const { hydrateWishlist } = useWishlistStore((state) => state);
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
-    hydrateUser();
+    const user = hydrateUser();
+    if (user) {
+      hydrateWishlist(user.id);
+    }
   }, []);
-  console.log(authUser);
 
   const handleLogout = async () => {
     try {

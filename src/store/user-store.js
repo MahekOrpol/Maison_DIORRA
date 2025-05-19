@@ -14,6 +14,10 @@ export const useUserStore = create((set, get) => ({
     if (storedUser) {
       const parsedUser = JSON.parse(storedUser);
       set({ authUser: parsedUser, isLoggedIn: true });
+      return parsedUser;
+    } else {
+      set({ authUser: null }); // Ensure it's cleared
+      return null;
     }
   },
 

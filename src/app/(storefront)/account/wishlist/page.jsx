@@ -8,7 +8,6 @@ import { toast } from 'sonner';
 export default function WishlistPage() {
   const [wishlistItems, setWishlistItems] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
   useEffect(() => {
     const fetchWishlist = async () => {
       try {

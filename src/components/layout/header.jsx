@@ -12,6 +12,8 @@ import { cn } from '@/lib/utils';
 import { GiGemPendant } from 'react-icons/gi';
 import { useModalStore } from '@/store/modal-stote';
 import { useRouter } from 'next/navigation';
+import { useUserStore } from '@/store/user-store';
+import { useWishlistStore } from '@/store/wishlist-store';
 const messages = [
   'Welcome to our jewelry collection!',
   'Enjoy 10% off on your first purchase!',
@@ -24,6 +26,8 @@ export default function Header({ categories }) {
   const [activeMenu, setActiveMenu] = useState(null);
   const [index, setIndex] = useState(0);
   const openModal = useModalStore((state) => state.openModal);
+  const { isLoggedIn, authUser } = useUserStore((state) => state);
+  const wishlistCount = useWishlistStore((state) => state.wishlist.length);
   const router = useRouter();
 
   // const router = useRouter();
@@ -31,10 +35,8 @@ export default function Header({ categories }) {
   // const token = cookieStore.get('token')?.value;
   // const isLoggedIn = !!token;
 
-  // const authUser = localStorage.getItem('authUser');
-  // const isLoggedIn = !!authUser;
-
   useEffect(() => {
+    //banner interval
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % messages.length);
     }, 4000);
@@ -61,11 +63,7 @@ export default function Header({ categories }) {
   }, [lastScrollY]);
 
   const handleWishlistClick = () => {
-    const accessToken =
-      typeof window !== 'undefined'
-        ? localStorage.getItem('accessToken')
-        : null;
-    if (accessToken) {
+    if (isLoggedIn) {
       router.push('/account/wishlist');
     } else {
       openModal('wishlistNotAllowed');
@@ -73,11 +71,7 @@ export default function Header({ categories }) {
   };
 
   const handleAddToCart = () => {
-    const accessToken =
-      typeof window !== 'undefined'
-        ? localStorage.getItem('accessToken')
-        : null;
-    if (accessToken) {
+    if (isLoggedIn) {
       router.push('/checkout');
     } else {
       openModal('cartNotAllowed');
@@ -466,9 +460,13 @@ export default function Header({ categories }) {
                 onClick={handleWishlistClick}
               >
                 <Heart strokeWidth={1.2} size={28} />
-                <span className='text-background absolute top-0 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-black text-xs'>
-                  8
-                </span>
+                {wishlistCount > 0 ? (
+                  <span className='text-background absolute top-0 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-black text-xs'>
+                    {wishlistCount}
+                  </span>
+                ) : (
+                  ''
+                )}
               </button>
               <button
                 onClick={handleAddToCart}
