@@ -22,11 +22,10 @@ export async function GET(req, { params }) {
 
 export async function POST(req, { params }) {
   const cookie = req.headers.get('cookie') || '';
-  const { userId } = await params;
-  const body = await req.json(); // e.g. { productId }
+  const body = await req.json();
 
   const backendRes = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/wishlist/${userId}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/wishlist`,
     {
       method: 'POST',
       headers: {
@@ -47,8 +46,8 @@ export async function POST(req, { params }) {
 
 export async function DELETE(req, { params }) {
   const cookie = req.headers.get('cookie') || '';
-  const { userId } = await params;
   const body = await req.json(); // e.g. { productId }
+  console.log('body', body);
 
   const backendRes = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/wishlist/${userId}`,

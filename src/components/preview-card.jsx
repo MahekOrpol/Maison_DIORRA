@@ -30,13 +30,14 @@ import { useRouter } from 'nextjs-toploader/app';
 import { useModalStore } from '@/store/modal-stote';
 import { toast } from 'sonner';
 import { useUserStore } from '@/store/user-store';
+import { useWishlistStore } from '@/store/wishlist-store';
 
 export default function PreviewCard({
   product,
   className,
   isDraggable = true
 }) {
-  // console.log('products.... :>> ', product);
+  console.log('products.... :>> ', product);
   const [selectedMetal, setSelectedMetal] = useState(
     product?.variations?.[0].metalVariations?.[0]
   );
@@ -152,10 +153,10 @@ export default function PreviewCard({
 
     const userId = authUser.id;
     const productId = product._id;
-    const isWishlisted = wishlist.includes(productId); // or use deep compare if it's an object
-
-    // setIsLoading(true);
-    // setError(null);
+    const isWishlisted = wishlist.some(
+      (item) => item.product._id === productId
+    );
+    console.log({ userId, productId, wishlist, isWishlisted, selectedMetal });
 
     try {
       const res = await fetch(`/api/wishlist/${userId}`, {
@@ -174,7 +175,7 @@ export default function PreviewCard({
       if (!res.ok) {
         const errorData = await res.json();
         console.error('Wishlist API error:', errorData.message);
-        setError(errorData.message || 'Wishlist update failed');
+        toast.error(errorData.message || 'Failed to update wishlist');
         return;
       }
 
