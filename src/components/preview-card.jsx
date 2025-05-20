@@ -37,7 +37,6 @@ export default function PreviewCard({
   className,
   isDraggable = true
 }) {
-  console.log('products.... :>> ', product);
   const [selectedMetal, setSelectedMetal] = useState(
     product?.variations?.[0].metalVariations?.[0]
   );
@@ -89,62 +88,10 @@ export default function PreviewCard({
 
   if (!product || !selectedMetal) return null;
 
-  // const handleFavoriteClick = async () => {
-  //   const accessToken =
-  //     typeof window !== 'undefined'
-  //       ? localStorage.getItem('accessToken')
-  //       : null;
-  //   const authUser =
-  //     typeof window !== 'undefined'
-  //       ? JSON.parse(localStorage.getItem('authUser'))
-  //       : null;
-
-  //   if (!accessToken || !authUser) {
-  //     openModal('wishlistNotAllowed');
-  //     return;
-  //   }
-
-  //   setIsWishlistLoading(true);
-  //   try {
-  //     const response = await fetch(`${BASE_URL}/api/v1/wishlist`, {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Authorization: `Bearer ${accessToken}`
-  //       },
-  //       body: JSON.stringify({
-  //         userId: authUser.id,
-  //         productId: product._id,
-  //         selectedMetal: selectedMetal.metal
-  //       })
-  //     });
-
-  //     if (!response.ok) {
-  //       const errorData = await response.json();
-  //       if (response.status === 409) {
-  //         console.log(errorData.message);
-  //       } else {
-  //         // throw new Error(errorData.message || 'Failed to update wishlist');
-  //       }
-  //     } else {
-  //       setLiked(!liked);
-  //     }
-  //   } catch (error) {
-  //     console.error('Wishlist error:', error);
-  //   } finally {
-  //     setIsWishlistLoading(false);
-  //   }
-  // };
   const handleFavoriteClick = async () => {
     const { isLoggedIn, authUser } = useUserStore.getState();
-    const {
-      wishlist,
-      // setWishlist,
-      addToWishlist,
-      removeFromWishlist
-      // setIsLoading,
-      // setError
-    } = useWishlistStore.getState();
+    const { wishlist, addToWishlist, removeFromWishlist } =
+      useWishlistStore.getState();
 
     if (!isLoggedIn || !authUser) {
       openModal('wishlistNotAllowed');
@@ -154,9 +101,10 @@ export default function PreviewCard({
     const userId = authUser.id;
     const productId = product._id;
     const isWishlisted = wishlist.some(
-      (item) => item.product._id === productId
+      (item) => item.product?._id === productId
     );
     console.log({ userId, productId, wishlist, isWishlisted, selectedMetal });
+    setIsWishlistLoading(true);
 
     try {
       const res = await fetch(`/api/wishlist/${userId}`, {
@@ -189,9 +137,8 @@ export default function PreviewCard({
       setLiked(!isWishlisted);
     } catch (err) {
       console.error('Wishlist error:', err);
-      setError('An unexpected error occurred');
     } finally {
-      setIsLoading(false);
+      setIsWishlistLoading(false);
     }
   };
   const getMetalColor = (metal) => {
@@ -346,7 +293,9 @@ export default function PreviewCard({
                   <div>
                     <p>{product.productName}</p>
                     <p>
-                      <span className=''>${parseFloat(product.salePrice.$numberDecimal)}</span>{' '}
+                      <span className=''>
+                        ${parseFloat(product.salePrice.$numberDecimal)}
+                      </span>{' '}
                       <span className='text-muted-foreground pl-2 text-sm line-through'>
                         ${parseFloat(product.regularPrice.$numberDecimal)}
                       </span>

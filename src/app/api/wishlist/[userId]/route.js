@@ -23,6 +23,7 @@ export async function GET(req, { params }) {
 export async function POST(req, { params }) {
   const cookie = req.headers.get('cookie') || '';
   const body = await req.json();
+  const { userId } = await params;
 
   const backendRes = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/wishlist`,
@@ -47,10 +48,10 @@ export async function POST(req, { params }) {
 export async function DELETE(req, { params }) {
   const cookie = req.headers.get('cookie') || '';
   const body = await req.json(); // e.g. { productId }
-  console.log('body', body);
+  console.log(body.productId);
 
   const backendRes = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/wishlist/${userId}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/wishlist/${body.productId}`,
     {
       method: 'DELETE',
       headers: {
