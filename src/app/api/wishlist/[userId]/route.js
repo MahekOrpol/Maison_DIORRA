@@ -20,10 +20,10 @@ export async function GET(req, { params }) {
   });
 }
 
-export async function POST(req, { params }) {
+export async function POST(req) {
   const cookie = req.headers.get('cookie') || '';
   const body = await req.json();
-  const { userId } = await params;
+  const { productId, userId, selectedMetal } = body;
 
   const backendRes = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/wishlist`,
@@ -33,7 +33,7 @@ export async function POST(req, { params }) {
         'Content-Type': 'application/json',
         Cookie: cookie
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify({ productId, userId, selectedMetal })
     }
   );
 
@@ -45,20 +45,19 @@ export async function POST(req, { params }) {
   });
 }
 
-export async function DELETE(req, { params }) {
+export async function DELETE(req) {
   const cookie = req.headers.get('cookie') || '';
-  const body = await req.json(); // e.g. { productId }
-  console.log(body.productId);
+  const body = await req.json();
+  console.log(body);
 
   const backendRes = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/wishlist/${body.productId}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/wishlist/${body.wishlistItemId}`,
     {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         Cookie: cookie
-      },
-      body: JSON.stringify(body)
+      }
     }
   );
 

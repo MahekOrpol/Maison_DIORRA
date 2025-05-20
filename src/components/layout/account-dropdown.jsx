@@ -23,14 +23,14 @@ export function AccountDropdown() {
   const { authUser, hydrateUser, clearUser, isLoggedIn } = useUserStore(
     (state) => state
   );
-  const { hydrateWishlist } = useWishlistStore((state) => state);
+  const { fetchWishlist } = useWishlistStore((state) => state);
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
   useEffect(() => {
     const user = hydrateUser();
     if (user) {
-      hydrateWishlist(user.id);
+      fetchWishlist();
     }
   }, []);
 
