@@ -266,7 +266,7 @@ export default function PreviewCard({
                   aria-label='Add to wishlist'
                 >
                   <FaHeart
-                    className={`h-5 w-6 transition-colors duration-300 ${
+                    className={`h-4 w-6 transition-colors duration-300 ${
                       liked
                         ? 'fill-primary stroke-[20] text-white'
                         : 'fill-white stroke-[30] text-black'
@@ -277,18 +277,18 @@ export default function PreviewCard({
                   <X size={20} />
                 </DrawerClose>
               </DrawerTitle>
-              <MobileGallery />
+              <MobileGallery media={selectedMetal.images} />
             </DrawerHeader>
 
             <DrawerFooter className='pt-2'>
               <div className=''>
                 <div className='mb-1 flex justify-between text-lg font-medium'>
                   <div>
-                    <p>{selectedMetal.name}</p>
+                    <p>{product.productName}</p>
                     <p>
-                      <span className=''>${selectedMetal.amount}</span>{' '}
+                      <span className=''>${parseFloat(product.salePrice.$numberDecimal)}</span>{' '}
                       <span className='text-muted-foreground pl-2 text-sm line-through'>
-                        ${selectedMetal.wrongAmount}
+                        ${parseFloat(product.regularPrice.$numberDecimal)}
                       </span>
                     </p>
                   </div>
@@ -316,7 +316,7 @@ export default function PreviewCard({
                       height={30}
                       alt='theme'
                     />
-                    Gold
+                    {selectedMetal.metal}
                   </button>
                   <button className='bg-secondary flex flex-col items-center justify-between rounded-sm border border-transparent px-3 pt-4 pb-2 transition focus:border-black'>
                     <Image
@@ -331,8 +331,8 @@ export default function PreviewCard({
 
                 <div className='mt-4 mb-1 flex items-stretch gap-3'>
                   <Link
-                    href='/products/rings/engagement-rings/1'
-                    onClick={() => setIsProductClicked(true)}
+                    href={`/products/${product?.categoryName}/${product._id}?metal=${selectedMetal.metal}&metalVariation=${selectedMetal._id}`}
+                    onClick={() => setIsProductClicked(false)}
                     className='relative inline-block h-[40px] overflow-hidden rounded-md border border-black bg-white px-4 py-2 text-base text-black transition-colors duration-400'
                   >
                     More info

@@ -3,7 +3,7 @@ import DiamondSlider from './diamond-slider';
 
 export default function S6DiamondSection() {
   return (
-    <section className='pt-6 md:pt-8 lg:pt-10'>
+    <section className='pt-6 md:pt-8 lg:pt-14'>
       <Heading
         title='Shop by Diamond Shapes'
         subtitle='Find Your Perfect Shape, Shine Your Way'

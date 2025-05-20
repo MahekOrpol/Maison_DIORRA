@@ -27,7 +27,8 @@ import {
   Gem,
   Search,
   Phone,
-  Book
+  Book,
+  LucideFolderHeart
 } from 'lucide-react';
 import { GiGemPendant } from 'react-icons/gi';
 
@@ -196,6 +197,12 @@ export default function MobileNavDrawer() {
                 icon={<ShoppingBag size={18} />}
               >
                 My Orders
+              </DrawerNavLink>
+               <DrawerNavLink
+                href='/account/wishlist'
+                icon={<LucideFolderHeart size={18} />}
+              >
+                My Wishlist
               </DrawerNavLink>
             </DrawerSection>
 

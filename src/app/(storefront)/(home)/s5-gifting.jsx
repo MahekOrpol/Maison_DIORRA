@@ -46,7 +46,7 @@ const giftingCollectionCards = [
 
 export default function S5GiftingCollections({ data }) {
   return (
-    <section className='wrapper pt-6 md:pt-7 lg:pt-8 xl:pt-10'>
+    <section className='wrapper pt-6 md:pt-7 lg:pt-8 xl:pt-14'>
       <Heading
         title='Gifting Collections'
         subtitle='Statement pieces fit for royalty'

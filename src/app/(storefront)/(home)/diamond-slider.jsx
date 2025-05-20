@@ -17,7 +17,9 @@ const shapes = [
   { name: 'Pear', url: '/img/shapes/pear.png' },
   { name: 'Princess', url: '/img/shapes/princess.png' },
   { name: 'Round', url: '/img/shapes/round.png' },
-  { name: 'Oval', url: '/img/shapes/oval.png' }
+  { name: 'Oval', url: '/img/shapes/oval.png' },
+  { name: 'Cushion', url: '/img/shapes/cushion.png' },
+  { name: 'Emerald', url: '/img/shapes/emerald.png' }
 ];
 
 export default function DiamondSlider() {

@@ -10,8 +10,8 @@ import Tab3Content from './tab3content';
 
 export default function Page() {
   return (
-    <section className=''>
-      <EduBanner imgUrl='/img/banner/banner4.png' className='' />
+    <section className='xl:pt-2'>
+      <EduBanner imgUrl='/img/banner4.png' className='' />
       <section>
         <Tabs defaultValue='diamonds' className='wrapper pb-8'>
           <TabsList className='grid h-[55px] w-full grid-cols-3 gap-1 rounded-none border-b bg-transparent text-xs md:gap-[10vw]'>

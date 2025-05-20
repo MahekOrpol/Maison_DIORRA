@@ -85,7 +85,7 @@ export default function S10TestimonialSection({ data }) {
   }, [slider]);
 
   return (
-    <section className='wrapper 3xl:mb-22 mb-8 pt-6 md:mb-16 md:pt-7 lg:pt-8 xl:mb-14 xl:pt-10'>
+    <section className='wrapper 3xl:mb-22 mb-8 pt-6 md:mb-16 md:pt-7 lg:pt-8 xl:mb-14 xl:pt-14'>
       <Heading
         title='Client Testimonial'
         subtitle='What Clients Say About Us'

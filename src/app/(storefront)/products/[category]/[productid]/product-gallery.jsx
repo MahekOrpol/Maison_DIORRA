@@ -104,7 +104,7 @@ export default function ProductGallery({ className, media }) {
     <>
       {/* Mobile View */}
       <div className={cn('block lg:hidden', className)}>
-        <MobileGallery />
+        <MobileGallery media={media} />
       </div>
       {/* Desktop View */}
       <div
@@ -119,10 +119,20 @@ export default function ProductGallery({ className, media }) {
   );
 }
 
-export function MobileGallery() {
+export function MobileGallery({ media = [] }) {
+  const isVideo = (file) =>
+    file.toLowerCase().endsWith('.mp4') ||
+    file.toLowerCase().endsWith('.webm') ||
+    file.toLowerCase().endsWith('.mov');
+
+  // Separate media into images and videos
+  const imageMedia = media.filter((item) => !isVideo(item));
+  const videoMedia = media.find((item) => isVideo(item)); // Get first video if exists
+  const defaultTab = videoMedia ? '360' : '360';
+
   return (
     <div className=''>
-      <Tabs defaultValue='360' className='aspect-[9.7/10] sm:aspect-[5/4]'>
+      <Tabs defaultValue={defaultTab} className='aspect-[9.7/10] sm:aspect-[5/4]'>
         {/* 360 View */}
         <TabsContent
           value='360'
@@ -141,9 +151,9 @@ export function MobileGallery() {
         <TabsContent value='images' className='h-full w-full overflow-hidden'>
           <Carousel className='h-full w-full'>
             <CarouselContent className='ml-0 !h-full'>
-              {images.map((img, i) => (
-                <CarouselItem key={i} className='h-full p-0'>
-                  <ZoomableImage src={img} alt={`Dummy ${i}`} />
+              {imageMedia.slice(0, 4).map((item, index) => (
+                <CarouselItem key={index} className='h-full p-0'>
+                  <ZoomableImage src={baseUrl + item} alt={'Product Image'} />
                 </CarouselItem>
               ))}
             </CarouselContent>
@@ -153,16 +163,18 @@ export function MobileGallery() {
         </TabsContent>
         {/* Video */}
         <TabsContent value='video' className='h-full w-full overflow-hidden'>
-          <div className='h-full w-full'>
-            <video
-              src='https://checkout.keyzarjewelry.com/cdn/shop/videos/c/vp/a23cfeccd86a4dd8bee5f19192ff2f55/a23cfeccd86a4dd8bee5f19192ff2f55.HD-1080p-7.2Mbps-33725443.mp4'
-              className='h-full w-full object-cover'
-              autoPlay
-              muted
-              loop
-              playsInline
-            />
-          </div>
+          {videoMedia && (
+            <div className='h-full w-full'>
+              <video
+                src={baseUrl + videoMedia}
+                className='h-full w-full object-cover'
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
+            </div>
+          )}
         </TabsContent>
         <TabsList className='flex w-full justify-start gap-2 rounded-none border-b bg-transparent'>
           <TabsTrigger
@@ -177,13 +189,15 @@ export function MobileGallery() {
           >
             <IoImageOutline /> Images
           </TabsTrigger>
-          <TabsTrigger
-            value='video'
-            className='border-b-2 border-b-transparent font-medium data-[state=active]:border-b-black'
-          >
-            <IoVideocamOutline />
-            Videos
-          </TabsTrigger>
+          {videoMedia && (
+            <TabsTrigger
+              value='video'
+              className='border-b-2 border-b-transparent font-medium data-[state=active]:border-b-black'
+            >
+              <IoVideocamOutline />
+              Videos
+            </TabsTrigger>
+          )}
         </TabsList>
       </Tabs>
     </div>
