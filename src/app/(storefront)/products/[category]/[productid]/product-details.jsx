@@ -16,7 +16,7 @@ import { cn } from '@/lib/utils';
 import Image from 'next/image';
 import { TbVideoPlus } from 'react-icons/tb';
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { FaWhatsapp } from 'react-icons/fa';
 import { ScheduleCallDialog } from '@/components/modals/schedule-meeting-modal';
 import ShareButton from '@/app/checkout/components/share-button';
@@ -48,10 +48,18 @@ export default function ProductDetails({
   className,
   data,
   category,
-  subcategory
+  subcategory,
+  availableMetals = []
 }) {
-  // filter
-  const [selectedSize, setSelectedSize] = useState();
+  const searchParams = useSearchParams();
+  const [filters, setFilters] = useState({
+    metal: searchParams.get('metal') || '',
+    style: searchParams.get('style') || '',
+    diamondShape: searchParams.get('diamondShape') || '',
+    sortByPrice: searchParams.get('sortByPrice') || ''
+  });
+  const [currentSize, setCurrentSize] = useState(null);
+  const [price, setPrice] = useState({ salePrice: 0, originalPrice: 0 });
   const [selectedShape, setSelectedShape] = useState(
     data?.selectedVariants?.diamondShape || ' '
   );
@@ -64,6 +72,23 @@ export default function ProductDetails({
   const [openMeeting, setOpenMeeting] = useState(false);
 
   const router = useRouter();
+  // ---------------------------------------------------
+
+  const handleFilterChange = (key, value) => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (value) {
+      params.set(key, value);
+    } else {
+      params.delete(key);
+    }
+
+    // Update URL without full reload
+    router.push(`?${params.toString()}`, { scroll: false });
+
+    // Optional: update local state if needed
+  };
+
+  // --------------------------------------------
 
   const isRing = category === 'rings';
   const isDiamondBased = subcategory?.toLowerCase().includes('diamond');
@@ -71,10 +96,12 @@ export default function ProductDetails({
     data?.variations[0].metalVariations[0].ringSizes || [];
   // const availableMetalPurities =
   //   data?.variations[0].metalVariations[0].metal || [];
-  const availableMetals = data?.availableMetals || [];
+  // const availableMetals = availableMetals || [];
+  console.log('sizes', availableRingSizes);
   const availableMetalPurities = metalPurityOptions.filter((option) =>
-    availableMetals.includes(option.label)
+    availableMetals.some((m) => m.metal === option.label)
   );
+
   const availableShapes2 =
     data?.variations[0].metalVariations[0].diamondShape || [];
   const availableDiamondShapes = availableShapes2.map((shape) => {
@@ -93,8 +120,8 @@ export default function ProductDetails({
     };
   });
 
-  console.log(availableShanks);
-  console.log('product data >>', data);
+  // console.log(availableShanks);
+  // console.log('product data >>', data);
 
   const handleAddToCart = async () => {
     const res = await fetch('/api/check-auth', {
@@ -225,10 +252,16 @@ export default function ProductDetails({
       </div>
 
       {/* Product Options */}
-      {/* Ring Size */}
       <div className='pb-2'>
-        <Select onValueChange={setSelectedSize}>
-          <SelectTrigger className='bg-secondary md:tex-lg data-[placeholder]:text-foreground w-[200px] font-medium'>
+        <Select
+          value={currentSize}
+          onValueChange={(value) => {
+            setCurrentSize(value);
+            console.log(value);
+            // setPrice({ salePrice: , originalPrice: 0 });
+          }}
+        >
+          <SelectTrigger className='bg-secondary data-[placeholder]:text-foreground w-[200px] font-medium md:text-lg'>
             <SelectValue placeholder='Select Ring Size' />
           </SelectTrigger>
           <SelectContent>
@@ -246,12 +279,14 @@ export default function ProductDetails({
         <div className='xxs:grid-cols-3 xxs:max-w-[345px] mt-2 grid w-full grid-cols-2 gap-2'>
           {availableMetalPurities.map((item) => {
             const [purity, ...metalName] = item.label.split(' ');
-            const isSelected = selectedMetal === item.label;
+            const isSelected = searchParams.get('metal') === item.label;
 
             return (
               <button
                 key={item.label}
-                onClick={() => setSelectedMetal(item.label)}
+                onClick={() => {
+                  handleFilterChange('metal', item.label);
+                }}
                 className={`bg-secondary flex items-center gap-2 rounded-md border px-3 py-3 text-left transition ${
                   isSelected
                     ? 'border-black'
@@ -283,10 +318,10 @@ export default function ProductDetails({
                 <button
                   key={shape.name}
                   className={cn(
-                    'bg-secondary flex aspect-square w-[80px] flex-col items-center justify-center rounded-md border border-transparent transition',
-                    selectedShape.name === shape.name ? 'border-black' : ''
+                    'bg-secondary flex aspect-square w-[80px] flex-col items-center justify-center rounded-md border border-transparent transition hover:border-black',
+                    searchParams.get('ds') === shape.name ? 'border-black' : ''
                   )}
-                  onClick={() => setSelectedShape(shape)}
+                  onClick={(e) => handleFilterChange('ds', shape.name)}
                 >
                   <Image
                     src={shape.image}
@@ -310,10 +345,10 @@ export default function ProductDetails({
               <button
                 key={shank.name}
                 className={cn(
-                  'bg-secondary flex aspect-square w-[80px] flex-col items-center justify-center rounded-md border border-transparent transition',
-                  selectedShank === shank.name ? 'border-black' : ''
+                  'bg-secondary flex aspect-square w-[80px] flex-col items-center justify-center rounded-md border border-transparent transition hover:border-black',
+                  searchParams.get('shank') === shank.name ? 'border-black' : ''
                 )}
-                onClick={() => setSelectedShank(shank)}
+                onClick={() => handleFilterChange('shank', shank.name)}
               >
                 <Image
                   src={shank.image || '/img/shapes/shank1.png'}

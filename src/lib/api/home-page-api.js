@@ -49,11 +49,14 @@ export async function fetchNewArrivals() {
   return res.json();
 }
 
-export async function fetchTrendingCollections(categoryName ="rings") {
+export async function fetchTrendingCollections(categoryName = 'rings') {
   //   const res = await fetch(`${BASE_URL}/collections/trending`, {
-  const res = await fetch(`${BASE_URL}/product/get-trending?categoryName=${categoryName}&limit=4`, {
-    // next: { revalidate: 1800 }
-  });
+  const res = await fetch(
+    `${BASE_URL}/product/get-trending?categoryName=${categoryName}&limit=4`,
+    {
+      // next: { revalidate: 1800 }
+    }
+  );
   return res.json();
 }
 
@@ -91,7 +94,7 @@ export async function getHomePageData() {
     fetchGiftingCollections(),
     // fetchDiamonds(),
     fetchNewArrivals(),
-   fetchTrendingCollections(),
+    fetchTrendingCollections(),
     fetchBlogs()
     // fetchTestimonials()
   ]);

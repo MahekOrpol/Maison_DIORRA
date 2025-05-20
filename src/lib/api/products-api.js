@@ -9,3 +9,11 @@ export async function fetchProductsByCategory(category) {
   }
   return res.json();
 }
+
+export async function getListingFilterOptions() {}
+
+export async function getProductsByFilters() {}
+
+export async function getProductById(id) {}
+
+export async function getProductDetailsByFilters({ query }) {}

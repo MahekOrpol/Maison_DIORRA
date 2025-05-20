@@ -43,8 +43,8 @@ const ringStyles = [
 ];
 
 const metalPurityOptions = [
-  { label: '14K Yellow Gold', swatch: '#d4af37' },
-  { label: '18K Yellow Gold', swatch: '#d4af37' },
+  { label: '14K Gold', swatch: '#d4af37' },
+  { label: '18K Gold', swatch: '#d4af37' },
   { label: '14K Rose Gold', swatch: '#e4a0a1' },
   { label: '18K Rose Gold', swatch: '#e4a0a1' },
   { label: '14K White Gold', swatch: '#e0e0e0' },

@@ -76,17 +76,20 @@ export default function ProductListingPage({ params }) {
   const { category } = use(params);
   // const data = await fetchProductsByCategory(category);
   const { metalPurity, style, shape, sortByPrice } = useFilterStore();
+  const queryParams = {
+    categoryName: category,
+    metal: metalPurity,
+    style: style,
+
+    diamondShape: shape
+    // sortByPrice
+  };
+  const query = buildQueryString(queryParams);
 
   const { data, isLoading, error } = useFetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product/get`,
-    {
-      categoryName: category
-      // metal: metalPurity,
-      // shank: style,
-      // diamondShape: shape
-      // sortByPrice
-    },
-    [category, metalPurity, style, shape, sortByPrice]
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product/get${query}`,
+    {},
+    [query]
   );
 
   return (
@@ -107,4 +110,18 @@ export default function ProductListingPage({ params }) {
       />
     </div>
   );
+}
+
+function buildQueryString(params) {
+  const query = Object.entries(params)
+    .filter(
+      ([_, value]) => value !== undefined && value !== '' && value !== null
+    )
+    .map(
+      ([key, value]) =>
+        `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+    )
+    .join('&');
+
+  return query ? `?${query}` : '';
 }

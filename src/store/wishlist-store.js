@@ -6,6 +6,8 @@ export const useWishlistStore = create((set, get) => ({
   isLoading: false,
   error: null,
 
+  clearWishlist: () => set({ wishlist: [] }),
+
   fetchWishlist: async () => {
     set({ isLoading: true });
     const { authUser } = useUserStore.getState();

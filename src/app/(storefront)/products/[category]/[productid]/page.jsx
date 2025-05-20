@@ -1,6 +1,5 @@
-'use client';
-import ProductGallery from '@/app/(storefront)/products/[category]/[productid]/product-gallery';
-import ProductDetails from '@/app/(storefront)/products/[category]/[productid]/product-details';
+import ProductGallery from './product-gallery';
+import ProductDetails from './product-details';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -20,28 +19,94 @@ import { IoDiamondOutline } from 'react-icons/io5';
 import { RiWeightLine } from 'react-icons/ri';
 import { PiDiamondsFour } from 'react-icons/pi';
 import { CustomerReviews } from './customer-reviews';
-import { use, useEffect, useState } from 'react';
-import axios from 'axios';
-import { useSearchParams } from 'next/navigation';
-import { useFetch } from '@/hooks/useFetch';
 
-export default function ProductDetailsPage({ params }) {
-  const { category, productid } = use(params);
-  const searchParams = useSearchParams();
-  const metal = searchParams.get('metal');
-  const metalVariation = searchParams.get('metalVariation');
+export default async function ProductDetailsPage({ params, searchParams }) {
+  const { category, productid } = await params;
+  const { metal, mv, style, shank, shape, sort } = await searchParams;
 
-  console.log(metal, metalVariation);
-  const {
-    data: product,
-    isLoading,
-    error
-  } = useFetch(`${baseUrl}/api/v1/product/get-product-id/${productid}`, {
-    // } = useFetch(
-    //   `${baseUrl}/api/v1/product/get-product-id/68270f15dfb489aef4b062b8`
-    metal: metal,
-    metalVariation: metalVariation
+  const filters = {
+    metal: metal || '',
+    metalVariation: mv || '',
+    style: style || '',
+    shank: shank || '',
+    diamondShape: shape || '',
+    sortByPrice: sort || ''
+  };
+  const query = buildQueryString({
+    categoryName: category,
+    ...filters
   });
+  // availableMetals
+  const res1 = await fetch(
+    `${baseUrl}/api/v1/product/get-product-id/${productid}`
+  );
+  const data = await res1.json();
+  const availableMetals = data.variations[0].metalVariations.map((item) => ({
+    metal: item.metal,
+    metalId: item._id
+  }));
+  // fetch product detials
+  const res = await fetch(
+    `${baseUrl}/api/v1/product/get-product-id/${productid}${query}`
+  );
+  const product = await res.json();
+
+  // const [availableMetals, setAvailableMetals] = useState([]);
+
+  // const [filters, setFilters] = useState({
+  //   metal: searchParams.get('metal') || '',
+  //   style: searchParams.get('style') || '',
+  //   diamondShape: searchParams.get('diamondShape') || '',
+  //   sortByPrice: searchParams.get('sortByPrice') || ''
+  // });
+
+  // useEffect(() => {
+  //   async function fetchMetals() {
+  //     try {
+  //       const res = await axios.get(
+  //         `${baseUrl}/api/v1/product/get-product-id/${productid}`
+  //       );
+  //       const data2 = await res.data;
+  //       console.log('data2:', data2);
+  //       const fetchedMetals = data2.variations[0].metalVariations.map(
+  //         (item) => ({
+  //           metal: item.metal,
+  //           metalId: item._id
+  //         })
+  //       );
+  //       setAvailableMetals(fetchedMetals);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     }
+  //   }
+
+  //   fetchMetals();
+  // }, []);
+
+  //  Build query string for API
+  // const query = buildQueryString({
+  //   categoryName: category,
+  //   ...filters
+  // });
+  // const {
+  //   data: product,
+  //   isLoading,
+  //   error
+  // } = useFetch(`${baseUrl}/api/v1/product/get-product-id/${productid}`, {
+  //   // } = useFetch(
+  //   //   `${baseUrl}/api/v1/product/get-product-id/68270f15dfb489aef4b062b8`
+  //   metal: metal,
+  //   metalVariation: metalVariation
+  // });
+  // const {
+  //   data: product,
+  //   isLoading,
+  //   error
+  // } = useFetch(
+  //   `${baseUrl}/api/v1/product/get-product-id/${productid}?${query}`,
+  //   {},
+  //   [query]
+  // );
 
   // console.log('product data :>> ', product);
 
@@ -83,6 +148,7 @@ export default function ProductDetailsPage({ params }) {
           className='3xl:pr-14 4xl:pr-20 px-3 sm:px-6 lg:w-[55%] lg:pr-8 2xl:pr-12'
           data={product}
           category={category}
+          availableMetals={availableMetals}
           // subcategory={subcategory}
           // selectedMetal={selectedMetal}
           // setSelectedMetal={setSelectedMetal}
@@ -112,3 +178,18 @@ export const PriceDisplay = ({ price, originalPrice, className = '' }) => {
     </div>
   );
 };
+
+function buildQueryString(params) {
+  const query = Object.entries(params)
+    .filter(
+      ([_, value]) => value !== undefined && value !== '' && value !== null
+    )
+    .map(([key, value]) => {
+      const encodedKey = encodeURIComponent(key).replace(/%20/g, '+');
+      const encodedValue = encodeURIComponent(value).replace(/%20/g, '+');
+      return `${encodedKey}=${encodedValue}`;
+    })
+    .join('&');
+
+  return query ? `?${query}` : '';
+}

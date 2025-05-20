@@ -8,7 +8,6 @@ import {
 } from '@/components/ui/carousel';
 import { baseUrl, cn } from '@/lib/utils';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import Image from 'next/image';
 import { Md360 } from 'react-icons/md';
 import { IoImageOutline, IoVideocamOutline } from 'react-icons/io5';
 import Jewelry360Viewer from '@/components/product360viewer';
@@ -97,7 +96,6 @@ const ZoomableImage = ({ src, alt }) => {
     </div>
   );
 };
-
 export default function ProductGallery({ className, media }) {
   // console.log(media);
   return (
@@ -132,7 +130,10 @@ export function MobileGallery({ media = [] }) {
 
   return (
     <div className=''>
-      <Tabs defaultValue={defaultTab} className='aspect-[9.7/10] sm:aspect-[5/4]'>
+      <Tabs
+        defaultValue={defaultTab}
+        className='aspect-[9.7/10] sm:aspect-[5/4]'
+      >
         {/* 360 View */}
         <TabsContent
           value='360'

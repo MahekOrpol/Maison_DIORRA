@@ -51,8 +51,8 @@ export default function PreviewCard({
     wishlist?.some((item) => item.product._id === product._id)
   );
   const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
-  console.log('product', product);
-  console.log('wishlist', wishlist);
+  // console.log('product', product);
+  // console.log('wishlist', wishlist);
   // Fix: Reset metal when product changes
   useEffect(() => {
     setSelectedMetal(product?.variations?.[0].metalVariations?.[0]);
@@ -73,7 +73,7 @@ export default function PreviewCard({
     } else {
       console.log(selectedMetal);
       router.push(
-        `/products/${product?.categoryName}/${product._id}?metal=${selectedMetal.metal}&metalVariation=${selectedMetal._id}`
+        `/products/${product?.categoryName}/${product._id}?metal=${selectedMetal.metal}&mv=${selectedMetal._id}`
         // `/products/${product?.categoryName}/${product._id}`
       );
     }

@@ -23,7 +23,7 @@ export function AccountDropdown() {
   const { authUser, hydrateUser, clearUser, isLoggedIn } = useUserStore(
     (state) => state
   );
-  const { fetchWishlist } = useWishlistStore((state) => state);
+  const { fetchWishlist, clearWishlist } = useWishlistStore((state) => state);
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
@@ -40,6 +40,7 @@ export function AccountDropdown() {
       await logoutUser();
       // Clear client-side storage
       clearUser();
+      clearWishlist();
       router.push('/login');
       toast.success('Logged out successfully');
     } catch (error) {
