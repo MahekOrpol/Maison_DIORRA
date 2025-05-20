@@ -13,7 +13,7 @@ export default function SearchPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const query = searchParams.get('query');
-  const [Products,setProducts] = useState([]);
+  const [Products, setProducts] = useState([]);
 
   // Sync query param to input field when page loads or URL changes
   useEffect(() => {
@@ -23,27 +23,26 @@ export default function SearchPage() {
     }
   }, [query]);
   const searchQuery = async (query) => {
-      try {
-        // Navigate to search page with query parameter
-        // router.push(`/search?query=${encodeURIComponent(searchValue.trim())}`);
+    try {
+      // Navigate to search page with query parameter
+      // router.push(`/search?query=${encodeURIComponent(searchValue.trim())}`);
 
-        // Make API call
-        const response = await axios.get(`${baseUrl}/api/v1/product/get`, {
-          params: {
-            productName: query.trim()
-          }
-        });
-        setProducts(response.data);
-        // Handle the response data
-        console.log('Search results:', response.data);
-        // You might want to store the results in state or context
-        // setSearchResults(response.data);
-
-      } catch (error) {
-        console.error('Error fetching search results:', error);
-        // Handle error (show toast, etc.)
-      }
-  }
+      // Make API call
+      const response = await axios.get(`${baseUrl}/api/v1/product/get`, {
+        params: {
+          productName: query.trim()
+        }
+      });
+      setProducts(response.data);
+      // Handle the response data
+      console.log('Search results:', response.data);
+      // You might want to store the results in state or context
+      // setSearchResults(response.data);
+    } catch (error) {
+      console.error('Error fetching search results:', error);
+      // Handle error (show toast, etc.)
+    }
+  };
   const handleSearch = async (e) => {
     if (e.key === 'Enter' && searchValue.trim()) {
       try {
@@ -61,14 +60,12 @@ export default function SearchPage() {
         console.log('Search results:', response.data);
         // You might want to store the results in state or context
         // setSearchResults(response.data);
-
       } catch (error) {
         console.error('Error fetching search results:', error);
         // Handle error (show toast, etc.)
       }
     }
   };
-
 
   return (
     <div className='flex min-h-screen flex-col items-center justify-start px-4 pt-10'>
@@ -96,15 +93,15 @@ export default function SearchPage() {
             </p>
             <div className='mt-6 mb-10 grid grid-cols-2 gap-2 md:mb-20 md:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-5 xl:gap-6'>
               {Products.map((product) => (
-                <PreviewCard key={product._id} product={product}/>
+                <PreviewCard key={product._id} product={product} />
               ))}
             </div>
           </div>
         ) : (
-          <p className='text-center text-sm text-gray-400'>
+          <div className='text-center text-sm text-gray-400'>
             Type something and hit enter to search...
             <NoResults />
-          </p>
+          </div>
         )}
       </div>
     </div>
