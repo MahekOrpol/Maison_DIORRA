@@ -20,6 +20,7 @@ import axios from 'axios';
 import { useRouter } from 'nextjs-toploader/app';
 import { ForgotPasswordDialog } from './forgotpassworddialog';
 import { useUserStore } from '@/store/user-store';
+import { useWishlistStore } from '@/store/wishlist-store';
 
 // Mock API service
 const authService = {
@@ -130,6 +131,7 @@ export default function LoginPage() {
       if (response.status === 200) {
         setUser(user);
         resetLoginForm();
+        await useWishlistStore.getState().fetchWishlist();
         router.push('/account/profile');
       }
     } catch (error) {

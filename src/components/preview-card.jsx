@@ -47,9 +47,12 @@ export default function PreviewCard({
   const openModal = useModalStore((state) => state.openModal);
   const router = useRouter();
   const [isWishlistLoading, setIsWishlistLoading] = useState(false);
-  const [liked, setLiked] = useState(wishlist?.includes(product._id));
+  const [liked, setLiked] = useState(
+    wishlist?.some((item) => item.product._id === product._id)
+  );
   const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
-
+  console.log('product', product);
+  console.log('wishlist', wishlist);
   // Fix: Reset metal when product changes
   useEffect(() => {
     setSelectedMetal(product?.variations?.[0].metalVariations?.[0]);
@@ -92,8 +95,7 @@ export default function PreviewCard({
 
   const handleFavoriteClick = async () => {
     const { isLoggedIn, authUser } = useUserStore.getState();
-    const { wishlist, addToWishlist, removeFromWishlist } =
-      useWishlistStore.getState();
+    const { wishlist } = useWishlistStore.getState();
 
     if (!isLoggedIn || !authUser) {
       openModal('wishlistNotAllowed');
@@ -102,10 +104,15 @@ export default function PreviewCard({
 
     const userId = authUser.id;
     const productId = product._id;
+
     const isWishlisted = wishlist.some(
       (item) => item.product?._id === productId
     );
-    console.log({ userId, productId, wishlist, isWishlisted, selectedMetal });
+    const wishlistItem = wishlist.find(
+      (item) => item.product?._id === productId
+    );
+    const wishlistItemId = wishlistItem?._id;
+
     setIsWishlistLoading(true);
 
     try {
@@ -118,31 +125,32 @@ export default function PreviewCard({
         body: JSON.stringify({
           userId,
           productId,
+          wishlistItemId,
           selectedMetal: selectedMetal?.metal || null
         })
       });
 
+      const data = await res.json();
+
       if (!res.ok) {
-        const errorData = await res.json();
-        console.error('Wishlist API error:', errorData.message);
-        toast.error(errorData.message || 'Failed to update wishlist');
+        console.error('Wishlist API error:', data.message);
+        toast.error(data.message || 'Failed to update wishlist');
         return;
       }
-
-      // Optimistic update
-      if (isWishlisted) {
-        removeFromWishlist(productId);
-      } else {
-        addToWishlist(productId);
-      }
-
       setLiked(!isWishlisted);
+
+      // Re-hydrate wishlist from backend after update
+      await useWishlistStore.getState().fetchWishlist();
+
+      // UI toggle only
     } catch (err) {
       console.error('Wishlist error:', err);
+      toast.error('Something went wrong while updating wishlist');
     } finally {
       setIsWishlistLoading(false);
     }
   };
+
   const getMetalColor = (metal) => {
     if (!metal) return '#ccc';
 
