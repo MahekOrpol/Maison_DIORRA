@@ -20,7 +20,7 @@ export default async function Page({ params }) {
   return (
     <div className='mb-8 md:mb-10'>
       <BlogsBanner
-        imgUrl='/img/banner/banner2.png'
+        imgUrl='/img/banner2.png'
         title='Blogs and Articles'
         subtitle='Home - Blogs and Articles'
         className='h-[200px]'

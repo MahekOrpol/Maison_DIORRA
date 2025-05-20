@@ -29,7 +29,7 @@ import React from 'react';
 
 export default function S3CategorySection({ data }) {
   return (
-    <section className='wrapper pt-6 md:pt-7 lg:pt-8 xl:pt-10'>
+    <section className='wrapper pt-6 md:pt-7 lg:pt-8 xl:pt-14'>
       <Heading
         title='Shop by Category'
         subtitle='Your Imagination, Our Craftsmanship'
