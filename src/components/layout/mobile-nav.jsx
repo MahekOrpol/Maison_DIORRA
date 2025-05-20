@@ -1,5 +1,4 @@
 'use client';
-
 import {
   Drawer,
   DrawerClose,
@@ -9,13 +8,12 @@ import {
 } from '@/components/ui/drawer';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'nextjs-toploader/app';
 import { useRef, useState } from 'react';
-
 import {
+  MapPin, 
   X,
   Home,
   Diamond,
@@ -36,16 +34,16 @@ export default function MobileNavDrawer() {
   const [searchValue, setSearchValue] = useState('');
   const drawerCloseRef = useRef(null);
   const router = useRouter();
-
+  
   const handleSearch = (e) => {
     if (e.key === 'Enter') {
       const query = searchValue.trim();
       if (!query || query.length < 2) return;
 
-      router.push('/products?query=' + encodeURIComponent(query));
+      router.push('/search?query=' + encodeURIComponent(query));
       setSearchValue('');
       if (drawerCloseRef.current) {
-        drawerCloseRef.current.click(); // Trigger drawer close
+        drawerCloseRef.current.click(); 
       }
     }
   };
@@ -198,7 +196,7 @@ export default function MobileNavDrawer() {
               >
                 My Orders
               </DrawerNavLink>
-               <DrawerNavLink
+             <DrawerNavLink
                 href='/account/wishlist'
                 icon={<LucideFolderHeart size={18} />}
               >
