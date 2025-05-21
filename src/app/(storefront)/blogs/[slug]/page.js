@@ -12,9 +12,9 @@ import { RichTextRenderer } from '@/components/rich-text-renderer';
 export default async function Page({ params }) {
   const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
 
-  const { slug } = params;
+  const { slug } = await params;
   const res = await fetch(`${BASE_URL}/api/v1/blog/get/${slug}`, {
-    cache: 'no-store'
+    next: { revalidate: 86400 }
   });
   const data = await res.json();
 
@@ -223,9 +223,9 @@ export default async function Page({ params }) {
       </div>
       {/* review */}
       <ReviewForm />
-      <section className='wrapper'>
+      {/* <section className='wrapper'>
         <RichTextRenderer html={dummyHtml} />
-      </section>
+      </section> */}
     </div>
   );
 }
