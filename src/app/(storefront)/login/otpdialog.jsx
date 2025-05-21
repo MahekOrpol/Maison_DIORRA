@@ -34,13 +34,19 @@ export function OTPDialog({ open, onOpenChange, onSubmit, email }) {
 
   const handleKeyDown = (e, index) => {
     if (e.key === 'Backspace') {
+      e.preventDefault(); // Prevent default backspace behavior
+
+      const newOtp = [...otp];
+
       if (otp[index]) {
         // If current input has value, just clear it
-        const newOtp = [...otp];
         newOtp[index] = '';
         setOtp(newOtp);
       } else if (index > 0) {
-        // Move focus to previous input if current is empty
+        // If current input is empty and not the first input,
+        // move focus to previous input and clear it
+        newOtp[index - 1] = '';
+        setOtp(newOtp);
         e.target.previousSibling.focus();
       }
     }
@@ -103,18 +109,18 @@ export function OTPDialog({ open, onOpenChange, onSubmit, email }) {
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className='rounded-xl p-6 sm:max-w-md'>
+        <DialogContent className='rounded-xl p-1.5 xs2:p-6 sm:max-w-md'>
           <DialogHeader>
             <DialogTitle className='mb-2 text-center text-xl font-semibold'>
               Enter OTP
             </DialogTitle>
           </DialogHeader>
 
-          <div className='text-muted-foreground mb-4 text-center text-sm'>
+          <div className='text-muted-foreground mb-3 xs2:mb-4 text-center text-sm'>
             Please enter the 6-digit code sent to your email address.
           </div>
 
-          <div className='mb-6 flex justify-center gap-2'>
+          <div className='mb-6 flex justify-center gap-1 xs2:gap-2'>
             {otp.map((data, index) => (
               <input
                 key={index}
@@ -131,7 +137,7 @@ export function OTPDialog({ open, onOpenChange, onSubmit, email }) {
 
           <DialogFooter>
             <Button
-              className='h-11 w-full text-base'
+              className='h-9 xs2:h-11 w-full text-base'
               onClick={handleSubmit}
               email={email}
               disabled={otp.join('').length !== 6}

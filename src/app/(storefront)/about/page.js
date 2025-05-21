@@ -14,10 +14,11 @@ export default async function Page() {
     }
     const aboutData = await response.json();
     const data = aboutData[0];
+    console.log(data)
 
     return (
       <>
-        <Banner imgUrl='/img/banner/banner1.png' heading='About Us' />
+        <Banner imgUrl='/img/banner1.png' heading='About Us' />
         <section className='wrapper py-6 md:py-12'>
           <AboutSection
             image={baseUrl + data.aboutImg}

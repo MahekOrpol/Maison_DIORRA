@@ -83,38 +83,6 @@ export default function LoginPage() {
     reset: resetRegisterForm
   } = useForm();
 
-  /* Mock API service for testing. dont remove this code plz */
-  // const onLogin = async (data) => {
-  //   setIsSubmitting(true);
-  //   try {
-  //     const response = await authService.login(data);
-  //     if (response.success) {
-  //       toast.success('Login successful!');
-  //       resetLoginForm();
-  //       // Redirect or handle successful login
-  //     }
-  //   } catch (error) {
-  //     toast.error('Login failed. Please try again.');
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // };
-  // const onRegister = async (data) => {
-  //   setIsSubmitting(true);
-  //   try {
-  //     const response = await authService.register(data);
-  //     if (response.success) {
-  //       toast.success('Registration successful! Please login.');
-  //       resetRegisterForm();
-  //       setTab('login');
-  //     }
-  //   } catch (error) {
-  //     toast.error('Registration failed. Please try again.');
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // };
-
   const onLogin = async (data) => {
     setIsSubmitting(true);
     const { loginId, password } = data;
@@ -136,23 +104,7 @@ export default function LoginPage() {
       }
     } catch (error) {
       console.error('Login failed:', error);
-
-      // let errorMessage = 'Login failed. Please try again.';
-      // if (axios.isAxiosError(error)) {
-      //   if (error.response) {
-      //     if (error.response.data?.message) {
-      //       errorMessage = error.response.data.message;
-      //     } else if (error.response.status === 401) {
-      //       errorMessage = 'Invalid credentials';
-      //     } else if (error.response.status === 400) {
-      //       errorMessage = 'Validation error. Please check your inputs.';
-      //     }
-      //   } else if (error.request) {
-      //     errorMessage = 'Network error. Please check your connection.';
-      //   }
-      // }
-
-      toast.error(error.message || 'Login failed. Please try again.');
+      toast.error(error.response.data.message);
     } finally {
       setIsSubmitting(false);
     }
@@ -171,7 +123,6 @@ export default function LoginPage() {
           ConfirmPassword: data.confirmPassword
         }
       );
-
       if (response.status === 201) {
         toast.success('Registration successful! Please login.');
         resetRegisterForm();
@@ -199,7 +150,6 @@ export default function LoginPage() {
           errorMessage = 'Network error. Please check your connection.';
         }
       }
-
       toast.error(errorMessage);
     } finally {
       setIsSubmitting(false);
@@ -260,7 +210,7 @@ export default function LoginPage() {
                           'block w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none',
                           loginErrors.loginId ? 'border-red-500' : ''
                         )}
-                        placeholder='Enter email, username, or phone'
+                        placeholder='Email, Username, or PhoneNumber'
                         {...loginRegister('loginId', {
                           required: 'This field is required',
                           validate: {
@@ -295,7 +245,7 @@ export default function LoginPage() {
                           'block w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none',
                           loginErrors.password ? 'border-red-500' : ''
                         )}
-                        placeholder='Enter password'
+                        placeholder='Password'
                         {...loginRegister('password', {
                           required: 'Password is required',
                           minLength: {
@@ -406,10 +356,10 @@ export default function LoginPage() {
                           type='text'
                           id='name'
                           className={cn(
-                            'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
+                            'block w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none',
                             registerErrors.name ? 'border-red-500' : ''
                           )}
-                          placeholder=''
+                          placeholder='Name'
                           {...registerRegister('name', {
                             required: 'Name is required',
                             minLength: {
@@ -418,12 +368,6 @@ export default function LoginPage() {
                             }
                           })}
                         />
-                        <label
-                          htmlFor='name'
-                          className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
-                        >
-                          Name
-                        </label>
                         {registerErrors.name && (
                           <p className='mt-1 text-left text-xs text-red-500'>
                             {registerErrors.name.message}
@@ -436,10 +380,10 @@ export default function LoginPage() {
                           type='email'
                           id='email'
                           className={cn(
-                            'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
+                            'block w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none',
                             registerErrors.email ? 'border-red-500' : ''
                           )}
-                          placeholder=''
+                          placeholder='Email'
                           {...registerRegister('email', {
                             required: 'Email is required',
                             pattern: {
@@ -448,12 +392,6 @@ export default function LoginPage() {
                             }
                           })}
                         />
-                        <label
-                          htmlFor='email'
-                          className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
-                        >
-                          Email
-                        </label>
                         {registerErrors.email && (
                           <p className='mt-1 text-left text-xs text-red-500'>
                             {registerErrors.email.message}
@@ -466,10 +404,10 @@ export default function LoginPage() {
                           type='tel'
                           id='mobile'
                           className={cn(
-                            'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
+                            'block w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none',
                             registerErrors.mobile ? 'border-red-500' : ''
                           )}
-                          placeholder=''
+                          placeholder='Mobile Number'
                           {...registerRegister('mobile', {
                             required: 'Mobile number is required',
                             minLength: {
@@ -482,12 +420,6 @@ export default function LoginPage() {
                             }
                           })}
                         />
-                        <label
-                          htmlFor='mobile'
-                          className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
-                        >
-                          Mobile Number
-                        </label>
                         {registerErrors.mobile && (
                           <p className='mt-1 text-left text-xs text-red-500'>
                             {registerErrors.mobile.message}
@@ -500,24 +432,18 @@ export default function LoginPage() {
                           type='password'
                           id='password'
                           className={cn(
-                            'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
+                            'block w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none',
                             registerErrors.password ? 'border-red-500' : ''
                           )}
-                          placeholder=''
+                          placeholder='Password'
                           {...registerRegister('password', {
                             required: 'Password is required',
                             minLength: {
-                              value: 8,
-                              message: 'Password must be at least 8 characters'
+                              value: 6,
+                              message: 'Password must be at least 6 characters'
                             }
                           })}
                         />
-                        <label
-                          htmlFor='password'
-                          className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
-                        >
-                          Password
-                        </label>
                         {registerErrors.password && (
                           <p className='mt-1 text-left text-xs text-red-500'>
                             {registerErrors.password.message}
@@ -530,12 +456,12 @@ export default function LoginPage() {
                           type='password'
                           id='confirmPassword'
                           className={cn(
-                            'peer block w-full appearance-none rounded-md border-1 border-gray-300 bg-transparent px-2.5 pt-4 pb-2.5 text-sm text-gray-900 focus:ring-0 focus:outline-none',
+                            'block w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none',
                             registerErrors.confirmPassword
                               ? 'border-red-500'
                               : ''
                           )}
-                          placeholder=''
+                          placeholder='Confirm Password'
                           {...registerRegister('confirmPassword', {
                             required: 'Please confirm your password',
                             validate: (value) =>
@@ -543,12 +469,6 @@ export default function LoginPage() {
                               "Passwords don't match"
                           })}
                         />
-                        <label
-                          htmlFor='confirmPassword'
-                          className='absolute start-1 top-2 z-10 origin-[0] -translate-y-4 scale-95 transform bg-white px-2 text-base text-gray-500 duration-300 peer-placeholder-shown:top-1/2 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:scale-100 peer-focus:top-2 peer-focus:-translate-y-4 peer-focus:scale-90 peer-focus:px-2 rtl:peer-focus:left-auto rtl:peer-focus:translate-x-1/4'
-                        >
-                          Confirm Password
-                        </label>
                         {registerErrors.confirmPassword && (
                           <p className='mt-1 text-xs text-red-500'>
                             {registerErrors.confirmPassword.message}
