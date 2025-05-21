@@ -48,7 +48,8 @@ export default function PreviewCard({
   const [liked, setLiked] = useState(
     wishlist?.some((item) => item.product._id === product._id)
   );
-  const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
+  const BASE_URL =
+    process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000';
   // console.log('product', product);
   // console.log('wishlist', wishlist);
   // Fix: Reset metal when product changes

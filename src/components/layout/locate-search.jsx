@@ -18,7 +18,7 @@ export default function LocateAndSearch() {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
-        console.log('User location:', latitude, longitude);
+        // console.log('User location:', latitude, longitude);
       },
       (error) => {
         console.error('Error getting location:', error);
@@ -29,7 +29,7 @@ export default function LocateAndSearch() {
 
   const handleSearch = (e) => {
     if (e.key === 'Enter') {
-      console.log('Search:', searchValue);
+      // console.log('Search:', searchValue);
       router.push('/search?query=' + searchValue);
       setSearchValue('');
       // router.push(`${baseUrl}/api/v1/product/get?productName=` + searchValue);

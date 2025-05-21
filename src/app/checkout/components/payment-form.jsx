@@ -41,7 +41,7 @@ export default function PaymentForm({ onPrev }) {
   ];
 
   const handleApplyDiscount = (code) => {
-    console.log('Applying discount code:', code);
+    // console.log('Applying discount code:', code);
     // Add your discount logic here
   };
   const handlePayment = (e) => {

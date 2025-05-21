@@ -1,4 +1,4 @@
-const BASE_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1`;
+const BASE_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000'}/api/v1`;
 
 export async function fetchProductsByCategory(category) {
   const res = await fetch(

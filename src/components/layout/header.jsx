@@ -165,33 +165,35 @@ export default function Header({ categories }) {
       icon: <GiGemPendant className='size-4.5 text-black' />,
       content: (
         <div className='grid w-full grid-cols-4 items-stretch gap-2 xl:grid-cols-5'>
-          {categories.map((category, index) => (
-            <div key={category.id} className='col-span-1 px-4 py-8 2xl:px-6'>
-              <div
-                className={`flex h-full flex-col ${
-                  index !== categories.length - 1 ? 'border-r-1' : ''
-                }`}
-              >
-                <h3 className='mb-4 font-semibold uppercase'>
-                  {category.categoryName}
-                </h3>
-                <ul className='flex-1 space-y-2 font-light'>
-                  {category.subcategories.map((sub) => (
-                    <li key={sub._id}>
-                      <Link
-                        href={`/products/${sub.subcategoryName
-                          .toLowerCase()
-                          .replace(/\s+/g, '-')}`}
-                        className='decoration-1 underline-offset-3 hover:underline'
-                      >
-                        {sub.subcategoryName}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+          {categories &&
+            categories.length > 0 &&
+            categories.map((category, index) => (
+              <div key={category.id} className='col-span-1 px-4 py-8 2xl:px-6'>
+                <div
+                  className={`flex h-full flex-col ${
+                    index !== categories.length - 1 ? 'border-r-1' : ''
+                  }`}
+                >
+                  <h3 className='mb-4 font-semibold uppercase'>
+                    {category.categoryName}
+                  </h3>
+                  <ul className='flex-1 space-y-2 font-light'>
+                    {category.subcategories.map((sub) => (
+                      <li key={sub._id}>
+                        <Link
+                          href={`/products/${sub.subcategoryName
+                            .toLowerCase()
+                            .replace(/\s+/g, '-')}`}
+                          className='decoration-1 underline-offset-3 hover:underline'
+                        >
+                          {sub.subcategoryName}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
 
           {/* Promotional Image */}
           <div className='group relative hidden h-[230px] w-[230px] overflow-hidden xl:block xl:h-[300px] xl:w-[400px]'>

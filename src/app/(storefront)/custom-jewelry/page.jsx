@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { BiSolidHomeCircle } from 'react-icons/bi';
@@ -22,7 +22,7 @@ export default function UnderConstruction() {
   const [showDialog, setShowDialog] = useState(false);
 
   const onSubmit = (data) => {
-    console.log('Form Data:', data);
+    // console.log('Form Data:', data);
     setShowDialog(true);
     reset();
   };
@@ -39,7 +39,7 @@ export default function UnderConstruction() {
           <p className='mt-2 text-sm text-gray-600'>
             Jewelry as Unique as Your Story
           </p>
-          <img src='/img/customline.png' className='pb-10 w-64 sm:w-96' />
+          <img src='/img/customline.png' className='w-64 pb-10 sm:w-96' />
         </div>
 
         {/* Features Section */}
@@ -90,7 +90,7 @@ export default function UnderConstruction() {
             Create a unique piece of jewelry that reflects your personal style
             and story
           </p>
-          <img src='/img/customline.png' className='pb-10 w-64 sm:w-96' />
+          <img src='/img/customline.png' className='w-64 pb-10 sm:w-96' />
         </div>
 
         {/* Form */}
@@ -101,10 +101,13 @@ export default function UnderConstruction() {
                 type='text'
                 placeholder='Name*'
                 {...register('name', { required: 'Name is required' })}
-                className={`w-full rounded border p-3 focus:outline-none focus:ring-0 ${errors.name ? 'border-red-500' : ''
-                  }`}
+                className={`w-full rounded border p-3 focus:ring-0 focus:outline-none ${
+                  errors.name ? 'border-red-500' : ''
+                }`}
               />
-              {errors.name && <p className='text-sm text-red-500'>{errors.name.message}</p>}
+              {errors.name && (
+                <p className='text-sm text-red-500'>{errors.name.message}</p>
+              )}
             </div>
 
             <div>
@@ -118,10 +121,13 @@ export default function UnderConstruction() {
                     message: 'Enter a valid phone number'
                   }
                 })}
-                className={`w-full rounded border p-3 focus:outline-none focus:ring-0 ${errors.phone ? 'border-red-500' : ''
-                  }`}
+                className={`w-full rounded border p-3 focus:ring-0 focus:outline-none ${
+                  errors.phone ? 'border-red-500' : ''
+                }`}
               />
-              {errors.phone && <p className='text-sm text-red-500'>{errors.phone.message}</p>}
+              {errors.phone && (
+                <p className='text-sm text-red-500'>{errors.phone.message}</p>
+              )}
             </div>
           </div>
 
@@ -136,17 +142,21 @@ export default function UnderConstruction() {
                   message: 'Enter a valid email'
                 }
               })}
-              className={`w-full rounded border p-3 focus:outline-none focus:ring-0 ${errors.email ? 'border-red-500' : ''
-                }`}
+              className={`w-full rounded border p-3 focus:ring-0 focus:outline-none ${
+                errors.email ? 'border-red-500' : ''
+              }`}
             />
-            {errors.email && <p className='text-sm text-red-500'>{errors.email.message}</p>}
+            {errors.email && (
+              <p className='text-sm text-red-500'>{errors.email.message}</p>
+            )}
           </div>
 
           <div className='mb-3'>
             <select
               {...register('type', { required: 'Type is required' })}
-              className={`w-full rounded border p-3 focus:outline-none focus:ring-0 ${errors.type ? 'border-red-500' : ''
-                }`}
+              className={`w-full rounded border p-3 focus:ring-0 focus:outline-none ${
+                errors.type ? 'border-red-500' : ''
+              }`}
             >
               <option value=''>Choose Type</option>
               <option value='Ring'>Ring</option>
@@ -154,7 +164,9 @@ export default function UnderConstruction() {
               <option value='Bracelet'>Bracelet</option>
               <option value='Earrings'>Earrings</option>
             </select>
-            {errors.type && <p className='text-sm text-red-500'>{errors.type.message}</p>}
+            {errors.type && (
+              <p className='text-sm text-red-500'>{errors.type.message}</p>
+            )}
           </div>
 
           <div className='grid grid-cols-1 gap-3 pb-3 md:grid-cols-2'>
@@ -165,10 +177,13 @@ export default function UnderConstruction() {
                 {...register('budget', {
                   required: 'Budget is required'
                 })}
-                className={`w-full rounded border p-3 focus:outline-none focus:ring-0 ${errors.budget ? 'border-red-500' : ''
-                  }`}
+                className={`w-full rounded border p-3 focus:ring-0 focus:outline-none ${
+                  errors.budget ? 'border-red-500' : ''
+                }`}
               />
-              {errors.budget && <p className='text-sm text-red-500'>{errors.budget.message}</p>}
+              {errors.budget && (
+                <p className='text-sm text-red-500'>{errors.budget.message}</p>
+              )}
             </div>
 
             <div>
@@ -176,10 +191,13 @@ export default function UnderConstruction() {
                 type='text'
                 placeholder='Metal Type'
                 {...register('metal', { required: 'Metal type is required' })}
-                className={`w-full rounded border p-3 focus:outline-none focus:ring-0 ${errors.metal ? 'border-red-500' : ''
-                  }`}
+                className={`w-full rounded border p-3 focus:ring-0 focus:outline-none ${
+                  errors.metal ? 'border-red-500' : ''
+                }`}
               />
-              {errors.metal && <p className='text-sm text-red-500'>{errors.metal.message}</p>}
+              {errors.metal && (
+                <p className='text-sm text-red-500'>{errors.metal.message}</p>
+              )}
             </div>
           </div>
 
@@ -188,12 +206,16 @@ export default function UnderConstruction() {
               type='file'
               {...register('file', { required: 'File upload is required' })}
               accept='.jpg,.jpeg,.png,.pdf,.doc,.docx'
-              className={`mb-1 w-full rounded border p-3 focus:outline-none focus:ring-0 ${errors.file ? 'border-red-500' : ''
-                }`}
+              className={`mb-1 w-full rounded border p-3 focus:ring-0 focus:outline-none ${
+                errors.file ? 'border-red-500' : ''
+              }`}
             />
-            {errors.file && <p className='text-sm text-red-500'>{errors.file.message}</p>}
+            {errors.file && (
+              <p className='text-sm text-red-500'>{errors.file.message}</p>
+            )}
             <p className='mb-3 text-xs text-gray-500'>
-              Choose your file here to be uploaded. Allowed types: pdf, jpg, png, jpeg, doc, docx
+              Choose your file here to be uploaded. Allowed types: pdf, jpg,
+              png, jpeg, doc, docx
             </p>
           </div>
 
@@ -201,11 +223,14 @@ export default function UnderConstruction() {
             <textarea
               placeholder='Please describe your idea for this Custom Project...'
               {...register('message', { required: 'Description is required' })}
-              className={`w-full rounded border p-2 focus:outline-none focus:ring-0 ${errors.message ? 'border-red-500' : ''
-                }`}
+              className={`w-full rounded border p-2 focus:ring-0 focus:outline-none ${
+                errors.message ? 'border-red-500' : ''
+              }`}
               rows={4}
             ></textarea>
-            {errors.message && <p className='text-sm text-red-500'>{errors.message.message}</p>}
+            {errors.message && (
+              <p className='text-sm text-red-500'>{errors.message.message}</p>
+            )}
           </div>
 
           <button
@@ -221,13 +246,14 @@ export default function UnderConstruction() {
               <DialogTitle className='text-2xl font-bold'>
                 Thank You!
               </DialogTitle>
-              <DialogDescription className='text-gray-700 pt-2 text-base'>
-                Your custom jewelry request has been submitted. We’ll get back to you soon.
+              <DialogDescription className='pt-2 text-base text-gray-700'>
+                Your custom jewelry request has been submitted. We’ll get back
+                to you soon.
               </DialogDescription>
             </DialogHeader>
             <button
               onClick={() => setShowDialog(false)}
-              className='mt-6 w-full rounded bg-black text-white h-12'
+              className='mt-6 h-12 w-full rounded bg-black text-white'
             >
               CLOSE
             </button>

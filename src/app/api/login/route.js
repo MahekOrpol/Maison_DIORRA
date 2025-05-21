@@ -16,7 +16,7 @@ export async function POST(request) {
 
     // Call your external backend
     const backendRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/register/login`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000'}/api/v1/register/login`,
       {
         method: 'POST',
         headers: {
@@ -35,7 +35,7 @@ export async function POST(request) {
     }
 
     const data = await backendRes.json();
-    console.log(data);
+    // console.log(data);
     const { token, user } = data;
 
     // Set the access token in HTTP-only cookie

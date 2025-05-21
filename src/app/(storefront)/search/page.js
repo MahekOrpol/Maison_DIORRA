@@ -35,7 +35,7 @@ export default function SearchPage() {
       });
       setProducts(response.data);
       // Handle the response data
-      console.log('Search results:', response.data);
+      // console.log('Search results:', response.data);
       // You might want to store the results in state or context
       // setSearchResults(response.data);
     } catch (error) {
@@ -57,7 +57,7 @@ export default function SearchPage() {
         });
         setProducts(response.data);
         // Handle the response data
-        console.log('Search results:', response.data);
+        // console.log('Search results:', response.data);
         // You might want to store the results in state or context
         // setSearchResults(response.data);
       } catch (error) {

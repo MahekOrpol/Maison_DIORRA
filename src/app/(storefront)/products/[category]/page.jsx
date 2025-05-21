@@ -87,7 +87,7 @@ export default function ProductListingPage({ params }) {
   const query = buildQueryString(queryParams);
 
   const { data, isLoading, error } = useFetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product/get${query}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000'}/api/v1/product/get${query}`,
     {},
     [query]
   );

@@ -43,7 +43,8 @@ export default function PreviewCardMd({ product, className }) {
   );
   const openModal = useModalStore((state) => state.openModal);
   const router = useRouter();
-  const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
+  const BASE_URL =
+    process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000';
   // console.log("Product >>",product);
   // Fix: Reset metal when product changes
   useEffect(() => {
@@ -61,8 +62,10 @@ export default function PreviewCardMd({ product, className }) {
     if (isClientMobile) {
       setIsProductClicked(true);
     } else {
+      // console.log(selectedMetal);
       router.push(
-        `/products/${product.category}/${product?.subcategory ? product.subcategory : 'all'}/${product.id}`
+        `/products/${product?.categoryName}/${product._id}?metal=${selectedMetal.metal}&mv=${selectedMetal._id}`
+        // `/products/${product?.categoryName}/${product._id}`
       );
     }
   };
@@ -280,10 +283,11 @@ export default function PreviewCardMd({ product, className }) {
                   aria-label='Add to wishlist'
                 >
                   <FaHeart
-                    className={`h-4 w-6 transition-colors duration-300 ${liked
-                      ? 'fill-primary stroke-[20] text-white'
-                      : 'fill-white stroke-[30] text-black'
-                      }`}
+                    className={`h-4 w-6 transition-colors duration-300 ${
+                      liked
+                        ? 'fill-primary stroke-[20] text-white'
+                        : 'fill-white stroke-[30] text-black'
+                    }`}
                   />
                 </button>
                 <DrawerClose className='flex h-7 w-7 items-center justify-center rounded-full bg-[#D9D9D9] transition focus:scale-105'>
@@ -298,7 +302,9 @@ export default function PreviewCardMd({ product, className }) {
                   <div>
                     <p>{product.productName}</p>
                     <p>
-                      <span className=''>${parseFloat(product.salePrice.$numberDecimal)}</span>{' '}
+                      <span className=''>
+                        ${parseFloat(product.salePrice.$numberDecimal)}
+                      </span>{' '}
                       <span className='text-muted-foreground pl-2 text-sm line-through'>
                         ${parseFloat(product.regularPrice.$numberDecimal)}
                       </span>

@@ -51,64 +51,7 @@ export default async function ProductDetailsPage({ params, searchParams }) {
   );
   const product = await res.json();
 
-  // const [availableMetals, setAvailableMetals] = useState([]);
-
-  // const [filters, setFilters] = useState({
-  //   metal: searchParams.get('metal') || '',
-  //   style: searchParams.get('style') || '',
-  //   diamondShape: searchParams.get('diamondShape') || '',
-  //   sortByPrice: searchParams.get('sortByPrice') || ''
-  // });
-
-  // useEffect(() => {
-  //   async function fetchMetals() {
-  //     try {
-  //       const res = await axios.get(
-  //         `${baseUrl}/api/v1/product/get-product-id/${productid}`
-  //       );
-  //       const data2 = await res.data;
-  //       console.log('data2:', data2);
-  //       const fetchedMetals = data2.variations[0].metalVariations.map(
-  //         (item) => ({
-  //           metal: item.metal,
-  //           metalId: item._id
-  //         })
-  //       );
-  //       setAvailableMetals(fetchedMetals);
-  //     } catch (error) {
-  //       console.error('Error fetching data:', error);
-  //     }
-  //   }
-
-  //   fetchMetals();
-  // }, []);
-
-  //  Build query string for API
-  // const query = buildQueryString({
-  //   categoryName: category,
-  //   ...filters
-  // });
-  // const {
-  //   data: product,
-  //   isLoading,
-  //   error
-  // } = useFetch(`${baseUrl}/api/v1/product/get-product-id/${productid}`, {
-  //   // } = useFetch(
-  //   //   `${baseUrl}/api/v1/product/get-product-id/68270f15dfb489aef4b062b8`
-  //   metal: metal,
-  //   metalVariation: metalVariation
-  // });
-  // const {
-  //   data: product,
-  //   isLoading,
-  //   error
-  // } = useFetch(
-  //   `${baseUrl}/api/v1/product/get-product-id/${productid}?${query}`,
-  //   {},
-  //   [query]
-  // );
-
-  // console.log('product data :>> ', product);
+  // console.log('product >>', product);
 
   return (
     <>
@@ -143,6 +86,10 @@ export default async function ProductDetailsPage({ params, searchParams }) {
         <ProductGallery
           className='lg:sticky lg:top-10 lg:h-fit lg:w-[45%]'
           media={product?.variations[0].metalVariations[0].images}
+          // media={
+          //   // product?.variations[0].metalVariations[0].combinationImages[0] // comibnations after filter of shapes and shank
+          //     // .images
+          // }
         />
         <ProductDetails
           className='3xl:pr-14 4xl:pr-20 px-3 sm:px-6 lg:w-[55%] lg:pr-8 2xl:pr-12'

@@ -2,7 +2,8 @@ import { baseUrl, cn } from '@/lib/utils';
 import Image from 'next/image';
 import React from 'react';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
+const BASE_URL =
+  process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000';
 
 export default async function Page() {
   try {

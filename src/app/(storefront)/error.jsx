@@ -19,7 +19,7 @@ export default function Error({ error, reset }) {
         </p>
         <div className='mt-4 w-full rounded-md bg-red-50 p-4 text-left text-sm text-red-700'>
           <strong className='mb-1 block'>Error Message :</strong>
-          <code className='break-words'>{error.message}</code>
+          <code className='break-words'>{error?.message}</code>
         </div>
         <Button onClick={reset} className='mt-6 w-full rounded-full'>
           Try Again
