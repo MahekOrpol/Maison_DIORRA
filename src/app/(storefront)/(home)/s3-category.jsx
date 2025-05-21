@@ -1,5 +1,5 @@
 import Heading from '@/components/heading';
-import { baseUrl } from '@/lib/utils';
+import { baseApiUrl } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -43,7 +43,7 @@ export default function S3CategorySection({ data }) {
           >
             <div className='w-full overflow-hidden rounded-2xl 2xl:rounded-[20px]'>
               <Image
-                src={baseUrl + item.categoryImage}
+                src={baseApiUrl + item.categoryImage}
                 // src={item.categoryImage}
                 alt={`${item.categoryName} category`}
                 width={250}

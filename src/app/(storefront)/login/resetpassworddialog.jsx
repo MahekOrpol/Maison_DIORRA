@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog';
-import { cn } from '@/lib/utils';
+import { baseApiUrl, cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import axios from 'axios';
 export function ResetPasswordDialog({ open = false, setOpen, email }) {
@@ -35,7 +35,7 @@ export function ResetPasswordDialog({ open = false, setOpen, email }) {
     setIsSubmitting(true);
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000'}/api/v1/auth/forgot-password`,
+        `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/auth/forgot-password`,
         {
           email: data.email || email, // Use form email or prop email as fallback
           password: data.password,

@@ -58,8 +58,8 @@ export default function ProductDetails({
     diamondShape: searchParams.get('diamondShape') || '',
     sortByPrice: searchParams.get('sortByPrice') || ''
   });
-  const [currentSize, setCurrentSize] = useState(null);
-  const [price, setPrice] = useState({ salePrice: 0, originalPrice: 0 });
+  const [selectedSize, setSelectedSize] = useState(null);
+
   const [selectedShape, setSelectedShape] = useState(
     data?.selectedVariants?.diamondShape || ' '
   );
@@ -90,10 +90,14 @@ export default function ProductDetails({
 
   // --------------------------------------------
 
-  const isRing = category === 'rings';
-  const isDiamondBased = subcategory?.toLowerCase().includes('diamond');
+  // const isRing = category === 'rings';
+  const isRing = true;
+
+  // const isDiamondBased = subcategory?.toLowerCase().includes('diamond');
+  const isDiamondBased = true;
   const availableRingSizes =
     data?.variations[0].metalVariations[0].ringSizes || [];
+  console.log(availableRingSizes);
   // const availableMetalPurities =
   //   data?.variations[0].metalVariations[0].metal || [];
   // const availableMetals = availableMetals || [];
@@ -121,7 +125,6 @@ export default function ProductDetails({
   });
 
   // console.log(availableShanks);
-  // console.log('product data >>', data);
 
   const handleAddToCart = async () => {
     const res = await fetch('/api/check-auth', {
@@ -200,23 +203,40 @@ export default function ProductDetails({
             variant='outline'
             className={cn(
               'xs:text-xs absolute right-0 rounded-full text-[10px] uppercase sm:relative xl:text-sm',
-              data?.stock
-                ? 'me-2 border border-green-400 bg-green-100 px-2.5 py-0.5 text-green-800'
-                : 'me-2 border border-red-600 bg-red-100 px-2.5 py-0.5 text-red-800'
+              selectedSize
+                ? selectedSize.quantity > 0
+                  ? 'me-2 border border-green-400 bg-green-100 px-2.5 py-0.5 text-green-800'
+                  : 'me-2 border border-red-600 bg-red-100 px-2.5 py-0.5 text-red-800'
+                : data?.stock.includes('In Stock')
+                  ? 'me-2 border border-green-400 bg-green-100 px-2.5 py-0.5 text-green-800'
+                  : 'me-2 border border-red-600 bg-red-100 px-2.5 py-0.5 text-red-800'
             )}
           >
-            {/* {data?.inStock ? 'In Stock' : 'Out of Stock'} */}
-            {data?.stock}
+            {selectedSize
+              ? selectedSize.quantity > 0
+                ? 'In Stock'
+                : 'Out of Stock'
+              : data?.stock}
           </Badge>
         </div>
 
         {/* Pricing */}
         <div className='mb-1 md:mb-2'>
           <span className='text-2xl font-semibold text-gray-900 lg:text-3xl'>
-            $ {parseFloat(data?.salePrice.$numberDecimal)}
+            ${' '}
+            {parseFloat(
+              selectedSize
+                ? parseFloat(selectedSize?.salePrice.$numberDecimal)
+                : data?.salePrice.$numberDecimal
+            )}
           </span>
           <span className='text-muted-foreground ml-2 text-xl line-through'>
-            $ {parseFloat(data?.regularPrice.$numberDecimal)}
+            ${' '}
+            {parseFloat(
+              selectedSize
+                ? parseFloat(selectedSize?.regularPrice.$numberDecimal)
+                : data?.regularPrice.$numberDecimal
+            )}
           </span>
         </div>
         {/* Product Description */}
@@ -254,11 +274,12 @@ export default function ProductDetails({
       {/* Product Options */}
       <div className='pb-2'>
         <Select
-          value={currentSize}
+          value={selectedSize?.productSize || ''}
           onValueChange={(value) => {
-            setCurrentSize(value);
-            // console.log(value);
-            // setPrice({ salePrice: , originalPrice: 0 });
+            const sizeObj = availableRingSizes.find(
+              (size) => size.productSize === value
+            );
+            setSelectedSize(sizeObj || null);
           }}
         >
           <SelectTrigger className='bg-secondary data-[placeholder]:text-foreground w-[200px] font-medium md:text-lg'>

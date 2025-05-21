@@ -9,7 +9,7 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog';
-import { cn } from '@/lib/utils';
+import { baseApiUrl, cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { OTPDialog } from './otpdialog';
@@ -30,7 +30,7 @@ export function ForgotPasswordDialog({ open = false, setOpen }) {
     setIsSubmitting(true);
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000'}/api/v1/auth/send-otp`,
+        `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/auth/send-otp`,
         {
           email: data.email
         },

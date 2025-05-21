@@ -5,6 +5,7 @@ import { useFilterStore } from '@/store/use-filter-store';
 import { useFetch } from '@/hooks/useFetch';
 import ProductFilters from './product-filters';
 import ProductGrid from './product-grid';
+import { baseApiUrl } from '@/lib/utils';
 
 const advertisements = [
   {
@@ -87,7 +88,7 @@ export default function ProductListingPage({ params }) {
   const query = buildQueryString(queryParams);
 
   const { data, isLoading, error } = useFetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000'}/api/v1/product/get${query}`,
+    `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/product/get${query}`,
     {},
     [query]
   );

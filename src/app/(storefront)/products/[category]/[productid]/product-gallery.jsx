@@ -6,7 +6,7 @@ import {
   CarouselNext,
   CarouselPrevious
 } from '@/components/ui/carousel';
-import { baseUrl, cn } from '@/lib/utils';
+import { baseApiUrl, cn } from '@/lib/utils';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Md360 } from 'react-icons/md';
 import { IoImageOutline, IoVideocamOutline } from 'react-icons/io5';
@@ -154,7 +154,10 @@ export function MobileGallery({ media = [] }) {
             <CarouselContent className='ml-0 !h-full'>
               {imageMedia.slice(0, 4).map((item, index) => (
                 <CarouselItem key={index} className='h-full p-0'>
-                  <ZoomableImage src={baseUrl + item} alt={'Product Image'} />
+                  <ZoomableImage
+                    src={baseApiUrl + item}
+                    alt={'Product Image'}
+                  />
                 </CarouselItem>
               ))}
             </CarouselContent>
@@ -167,7 +170,7 @@ export function MobileGallery({ media = [] }) {
           {videoMedia && (
             <div className='h-full w-full'>
               <video
-                src={baseUrl + videoMedia}
+                src={baseApiUrl + videoMedia}
                 className='h-full w-full object-cover'
                 autoPlay
                 muted
@@ -227,7 +230,7 @@ function DesktopGallery({ media = [] }) {
           key={index}
           className='flex aspect-square items-center justify-center overflow-hidden border border-black/20 bg-gray-100'
         >
-          <ZoomableImage src={baseUrl + item} alt={`Product ${index}`} />
+          <ZoomableImage src={baseApiUrl + item} alt={`Product ${index}`} />
         </div>
       ))}
 
@@ -236,7 +239,7 @@ function DesktopGallery({ media = [] }) {
         <div className='col-span-1'>
           <div className='aspect-square h-full overflow-hidden border border-black/20 bg-gray-100'>
             <video
-              src={baseUrl + videoMedia}
+              src={baseApiUrl + videoMedia}
               className='h-full w-full object-cover'
               autoPlay
               muted

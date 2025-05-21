@@ -9,7 +9,7 @@ import {
   TooltipTrigger
 } from '@/components/ui/tooltip';
 import PreviewCardMd from '@/components/preview-card-md';
-import { baseUrl } from '@/lib/utils';
+import { baseApiUrl } from '@/lib/utils';
 import { useFetch } from '@/hooks/useFetch';
 
 const tooltipContent = [
@@ -42,7 +42,7 @@ const tooltipContent = [
 export default function TrendingCollections() {
   const [selectedCategory, setSelectedCategory] = useState('rings');
   const { data, isLoading } = useFetch(
-    `${baseUrl}/api/v1/product/get-trending?categoryName=${selectedCategory}&limit=4`,
+    `${baseApiUrl}/api/v1/product/get-trending?categoryName=${selectedCategory}&limit=4`,
     {},
     []
   );

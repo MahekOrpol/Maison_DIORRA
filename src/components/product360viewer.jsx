@@ -32,13 +32,13 @@ export default function Jewelry360Viewer({ images, className }) {
 
 // export function Jewelry360Viewer2({ images }) {
 //   // Extract base URL and count from your array
-//   const baseUrl = images[0].substring(0, images[0].lastIndexOf('/') + '/');
+//   const baseApiUrl = images[0].substring(0, images[0].lastIndexOf('/') + '/');
 //   const fileName = images[0].substring(images[0].lastIndexOf('/') + 1);
 //   const fileType = fileName.split('.').pop();
 //   const baseName = fileName.split('_')[0]; // Assumes "product_01.jpg" format
 //   return (
 //     <React360Viewer
-//       imagesBaseUrl={baseUrl}
+//       imagesbaseApiUrl={baseApiUrl}
 //       imagesPrefix={baseName + '_'} // e.g., "product_"
 //       imagesCount={images.length}
 //       imagesFiletype={fileType}
