@@ -58,7 +58,7 @@ export function AccountDropdown() {
             <p className='text-muted-foreground text-xs leading-2'>
               {isLoggedIn ? 'Welcome back' : 'Login'}
             </p>
-            <p className='hover:text-muted-foreground'>
+            <p>
               {isLoggedIn ? authUser?.name : 'Account'}
             </p>
           </div>

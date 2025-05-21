@@ -1,5 +1,4 @@
 'use client';
-
 import { useEffect, useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -31,7 +30,6 @@ import { useModalStore } from '@/store/modal-stote';
 import { toast } from 'sonner';
 import { useUserStore } from '@/store/user-store';
 import { useWishlistStore } from '@/store/wishlist-store';
-
 export default function PreviewCard({
   product,
   className,
@@ -57,7 +55,6 @@ export default function PreviewCard({
   useEffect(() => {
     setSelectedMetal(product?.variations?.[0].metalVariations?.[0]);
   }, [product]);
-
   useEffect(() => {
     const handleResize = () => {
       setIsClientMobile(window.innerWidth < 1024);
@@ -66,7 +63,6 @@ export default function PreviewCard({
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
   const handleProductClick = () => {
     if (isClientMobile) {
       setIsProductClicked(true);
@@ -78,7 +74,6 @@ export default function PreviewCard({
       );
     }
   };
-
   const handleAddToCart = async () => {
     const accessToken =
       typeof window !== 'undefined'
@@ -90,21 +85,16 @@ export default function PreviewCard({
       openModal('cartNotAllowed');
     }
   };
-
   if (!product || !selectedMetal) return null;
-
   const handleFavoriteClick = async () => {
     const { isLoggedIn, authUser } = useUserStore.getState();
     const { wishlist } = useWishlistStore.getState();
-
     if (!isLoggedIn || !authUser) {
       openModal('wishlistNotAllowed');
       return;
     }
-
     const userId = authUser.id;
     const productId = product._id;
-
     const isWishlisted = wishlist.some(
       (item) => item.product?._id === productId
     );
@@ -112,9 +102,7 @@ export default function PreviewCard({
       (item) => item.product?._id === productId
     );
     const wishlistItemId = wishlistItem?._id;
-
     setIsWishlistLoading(true);
-
     try {
       const res = await fetch(`/api/wishlist/${userId}`, {
         method: isWishlisted ? 'DELETE' : 'POST',
@@ -129,19 +117,15 @@ export default function PreviewCard({
           selectedMetal: selectedMetal?.metal || null
         })
       });
-
       const data = await res.json();
-
       if (!res.ok) {
         console.error('Wishlist API error:', data.message);
         toast.error(data.message || 'Failed to update wishlist');
         return;
       }
       setLiked(!isWishlisted);
-
       // Re-hydrate wishlist from backend after update
       await useWishlistStore.getState().fetchWishlist();
-
       // UI toggle only
     } catch (err) {
       console.error('Wishlist error:', err);
@@ -150,22 +134,17 @@ export default function PreviewCard({
       setIsWishlistLoading(false);
     }
   };
-
   const getMetalColor = (metal) => {
     if (!metal) return '#ccc';
-
     const name = metal.toLowerCase();
-
     if (name.includes('rose'))
       return 'linear-gradient(135deg, #b76e79, #e5a3a3)';
     if (name.includes('white'))
       return 'linear-gradient(135deg, #e0e0e0, #f8f8f8)';
     if (name.includes('gold'))
       return 'linear-gradient(135deg, #d4af37, #f5d76e)';
-
     return '#ccc'; // fallback gray
   };
-
   return (
     <>
       <Card
@@ -266,7 +245,6 @@ export default function PreviewCard({
           </Button>
         </CardContent>
       </Card>
-
       {/* Mobile Drawer */}
       {isClientMobile && (
         <Drawer
@@ -296,7 +274,6 @@ export default function PreviewCard({
               </DrawerTitle>
               <MobileGallery media={selectedMetal.images} />
             </DrawerHeader>
-
             <DrawerFooter className='pt-2'>
               <div className=''>
                 <div className='mb-1 flex justify-between text-lg font-medium'>
@@ -347,7 +324,6 @@ export default function PreviewCard({
                     Solitaire
                   </button>
                 </div>
-
                 <div className='mt-4 mb-1 flex items-stretch gap-3'>
                   <Link
                     href={`/products/${product?.categoryName}/${product._id}?metal=${selectedMetal.metal}&metalVariation=${selectedMetal._id}`}
@@ -364,7 +340,6 @@ export default function PreviewCard({
                     Add to Cart <ShoppingBagIcon size={20} />
                   </Button>
                 </div>
-
                 <p className='text-center text-xs'>
                   Installments starting at ₹5,000 per month.{' '}
                   <Link href='#' className='font-medium underline'>

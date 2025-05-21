@@ -27,15 +27,23 @@ import ProductGallery, {
 } from '@/app/(storefront)/products/[category]/[productid]/product-gallery';
 import { useRouter } from 'next/navigation';
 import { useModalStore } from '@/store/modal-stote';
+import { useUserStore } from '@/store/user-store';
+import { useWishlistStore } from '@/store/wishlist-store';
+
 export default function PreviewCardMd({ product, className }) {
   const [selectedMetal, setSelectedMetal] = useState(
     product?.variations?.[0].metalVariations?.[0]
   );
+  const wishlist = useWishlistStore((state) => state.wishlist);
   const [isProductClicked, setIsProductClicked] = useState(false);
   const [isClientMobile, setIsClientMobile] = useState(false);
-  const [liked, setLiked] = useState(false);
+  const [isWishlistLoading, setIsWishlistLoading] = useState(false);
+  const [liked, setLiked] = useState(
+    wishlist?.some((item) => item.product._id === product._id)
+  );
   const openModal = useModalStore((state) => state.openModal);
   const router = useRouter();
+  const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
   // console.log("Product >>",product);
   // Fix: Reset metal when product changes
   useEffect(() => {
@@ -58,30 +66,79 @@ export default function PreviewCardMd({ product, className }) {
       );
     }
   };
+
   const handleAddToCart = async () => {
-    // Check if user is logged in or not, if not then open modal
-    // const res = await fetch('/api/check-auth', {
-    //   method: 'GET',
-    //   cache: 'no-store'
-    // });
-    // const data = await res.json();
-    // if (!data.authenticated) {
-    //   return (window.location.href = '/checkout');
-    // }
-    // return (window.location.href = '/checkout');
-    const authUser = false;
-    if (authUser) {
+    const accessToken =
+      typeof window !== 'undefined'
+        ? localStorage.getItem('accessToken')
+        : null;
+    if (accessToken) {
       router.push('/checkout');
     } else {
       openModal('cartNotAllowed');
     }
   };
+
   if (!product || !selectedMetal) return null;
-  const handleFavoriteClick = () => {
-    //check if user is logged in add to wishlist else open modal
-    openModal('wishlistNotAllowed');
-    setLiked(!liked);
+
+  const handleFavoriteClick = async () => {
+    const { isLoggedIn, authUser } = useUserStore.getState();
+    const { wishlist } = useWishlistStore.getState();
+
+    if (!isLoggedIn || !authUser) {
+      openModal('wishlistNotAllowed');
+      return;
+    }
+
+    const userId = authUser.id;
+    const productId = product._id;
+
+    const isWishlisted = wishlist.some(
+      (item) => item.product?._id === productId
+    );
+    const wishlistItem = wishlist.find(
+      (item) => item.product?._id === productId
+    );
+    const wishlistItemId = wishlistItem?._id;
+
+    setIsWishlistLoading(true);
+
+    try {
+      const res = await fetch(`/api/wishlist/${userId}`, {
+        method: isWishlisted ? 'DELETE' : 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          userId,
+          productId,
+          wishlistItemId,
+          selectedMetal: selectedMetal?.metal || null
+        })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        console.error('Wishlist API error:', data.message);
+        toast.error(data.message || 'Failed to update wishlist');
+        return;
+      }
+      setLiked(!isWishlisted);
+
+      // Re-hydrate wishlist from backend after update
+      await useWishlistStore.getState().fetchWishlist();
+
+      // UI toggle only
+    } catch (err) {
+      console.error('Wishlist error:', err);
+      toast.error('Something went wrong while updating wishlist');
+    } finally {
+      setIsWishlistLoading(false);
+    }
   };
+
   const getMetalColor = (metal) => {
     if (!metal) return '#ccc';
     const name = metal.toLowerCase();
@@ -104,6 +161,7 @@ export default function PreviewCardMd({ product, className }) {
         {/* Wishlist Button */}
         <button
           onClick={handleFavoriteClick}
+          disabled={isWishlistLoading}
           className='hover:bg-primary/4 absolute top-1 right-1 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow shadow-gray-400 xl:top-3 xl:right-3'
         >
           <Heart
@@ -122,27 +180,29 @@ export default function PreviewCardMd({ product, className }) {
           className='relative w-full'
         >
           <CarouselContent className='3xl:h-[283px] ml-0 w-full gap-0 lg:h-[200px] xl:h-[257px]'>
-            {selectedMetal.images.map((image, index) => (
-              <CarouselItem
-                key={index}
-                onClick={handleProductClick}
-                className='h-full w-full basis-full cursor-pointer pl-[0.5px]'
-              >
-                <Image
-                  src={baseUrl + image}
-                  alt={'Product image'}
-                  width={300}
-                  height={300}
-                  className='max-h-full w-full object-fill object-center'
-                />
-                {/* <Image
+            {selectedMetal.images
+              .filter((img) => !img.match(/\.(mp4|webm|mov)$/i)) // exclude video files
+              .map((image, index) => (
+                <CarouselItem
+                  key={index}
+                  onClick={handleProductClick}
+                  className='h-full w-full basis-full cursor-pointer pl-[0.5px]'
+                >
+                  <Image
+                    src={baseUrl + image}
+                    alt={'Product image'}
+                    width={300}
+                    height={300}
+                    className='max-h-full w-full object-fill object-center'
+                  />
+                  {/* <Image
                   src={image.mediaUrl}
                   alt={selectedMetal.metalType}
                   width={300}
                   height={300}
                   className='max-h-full max-w-full object-contain'
                 /> */}
-                {/* <div className='flex h-full w-full items-center justify-center p-1'>
+                  {/* <div className='flex h-full w-full items-center justify-center p-1'>
                   <Image
                     src={image.mediaUrl}
                     alt={selectedMetal.metalType}
@@ -151,8 +211,8 @@ export default function PreviewCardMd({ product, className }) {
                     className='max-h-full max-w-full object-contain'
                   />
                 </div> */}
-              </CarouselItem>
-            ))}
+                </CarouselItem>
+              ))}
           </CarouselContent>
           <div className='3xl:-bottom-[-7%] xs:bottom-5 absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 2xl:bottom-4'>
             <CarouselPrevious className='h-7 w-7 translate-x-4 rounded-full border-none bg-white/80 text-gray-600 transition hover:bg-white 2xl:h-8 2xl:w-8 2xl:translate-x-1' />
@@ -220,11 +280,10 @@ export default function PreviewCardMd({ product, className }) {
                   aria-label='Add to wishlist'
                 >
                   <FaHeart
-                    className={`h-4 w-6 transition-colors duration-300 ${
-                      liked
-                        ? 'fill-primary stroke-[20] text-white'
-                        : 'fill-white stroke-[30] text-black'
-                    }`}
+                    className={`h-4 w-6 transition-colors duration-300 ${liked
+                      ? 'fill-primary stroke-[20] text-white'
+                      : 'fill-white stroke-[30] text-black'
+                      }`}
                   />
                 </button>
                 <DrawerClose className='flex h-7 w-7 items-center justify-center rounded-full bg-[#D9D9D9] transition focus:scale-105'>

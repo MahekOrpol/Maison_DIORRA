@@ -1,37 +1,55 @@
 'use client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import PreviewCard from '@/components/preview-card';
 import { useWishlistStore } from '@/store/wishlist-store';
 import { toast } from 'sonner';
+import { ProductCardSkeleton } from '@/components/skeleton';
 
 export default function WishlistPage() {
-  const { wishlist, isLoading, refreshWishlist } = useWishlistStore();
+  const { wishlist, refreshWishlist } = useWishlistStore();
+  const [isInitialLoad, setIsInitialLoad] = useState(true);
+  const [previousWishlistLength, setPreviousWishlistLength] = useState(0);
+
+  useEffect(() => {
+    const storedLength = localStorage.getItem('wishlistLength');
+    setPreviousWishlistLength(storedLength ? parseInt(storedLength) : 0);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         await refreshWishlist();
+        localStorage.setItem('wishlistLength', wishlist.length.toString());
+        setIsInitialLoad(false);
       } catch (err) {
         toast.error('Failed to load wishlist. Please try again.');
+        setIsInitialLoad(false);
       }
     };
 
     fetchData();
-  }, [refreshWishlist]);
+  }, [refreshWishlist, wishlist.length]);
 
-  if (isLoading) {
+  if (isInitialLoad) {
     return (
       <div className='sm:wrapper pt-4 pb-10'>
-        <div className='flex h-[50vh] items-center justify-center'>
-          <p>Loading your wishlist...</p>
+        <div className='min-h-[60vh] pt-24 pb-10'>
+          <h1 className='mb-4 text-2xl font-bold underline sm:text-3xl md:mb-6'>
+            Your Wishlist
+          </h1>
+          <div className='3xl:grid-cols-4 grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-2 lg:gap-6 xl:grid-cols-3'>
+            {Array.from({ length: previousWishlistLength }).map((_, index) => (
+              <ProductCardSkeleton key={index} />
+            ))}
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className='sm:wrapper min-h-[60vh] pt-4 pb-10'>
+    <div className='sm:wrapper min-h-[60vh] pt-6 xl:pt-24 pb-10'>
       {wishlist?.length === 0 ? (
         <div className='flex flex-col items-center justify-center'>
           <div className='w-[120px] sm:w-[170px]'>
@@ -51,7 +69,7 @@ export default function WishlistPage() {
               href='/products/rings'
               className='bg-primary text-primary-foreground inline-block rounded-md border border-black px-6 py-3 text-xs sm:px-9 sm:py-3 sm:text-lg'
             >
-              Add products to your cart or wishlist
+              Add products to your cart
             </Link>
           </div>
         </div>
