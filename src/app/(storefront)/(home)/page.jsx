@@ -12,7 +12,6 @@ import { getHomePageData } from '@/lib/api/home-page-api';
 import S2CustomDesign from './s2-custom-design';
 export default async function HomePage() {
   const data = await getHomePageData();
-  console.log(data);
 
   return (
     <>

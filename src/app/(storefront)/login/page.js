@@ -25,7 +25,7 @@ import { useWishlistStore } from '@/store/wishlist-store';
 // Mock API service
 const authService = {
   login: async (data) => {
-    console.log('Logging in with:', data);
+    // console.log('Logging in with:', data);
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({ success: true, token: 'mock-token' });
@@ -33,7 +33,7 @@ const authService = {
     });
   },
   register: async (data) => {
-    console.log('Registering with:', data);
+    // console.log('Registering with:', data);
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({ success: true });
@@ -41,7 +41,7 @@ const authService = {
     });
   },
   forgotPassword: async (email) => {
-    console.log('Sending reset link to:', email);
+    // console.log('Sending reset link to:', email);
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({ success: true });
@@ -49,7 +49,7 @@ const authService = {
     });
   },
   resetPassword: async (data) => {
-    console.log('Resetting password with:', data);
+    // console.log('Resetting password with:', data);
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({ success: true });
@@ -126,7 +126,7 @@ export default function LoginPage() {
       });
       const { user } = response.data;
 
-      console.log('User:', user);
+      // console.log('User:', user);
 
       if (response.status === 200) {
         setUser(user);
@@ -390,7 +390,7 @@ export default function LoginPage() {
               >
                 <div className='px-6 pt-3 md:pt-0'>
                   <h2 className='mb-2 text-xl leading-6 font-medium sm:text-2xl'>
-                    Don't have an Account?
+                    Don&apos;t have an Account?
                   </h2>
                   <p className='text-xs leading-4 font-light sm:text-sm'>
                     For the purpose of industry registration, your details are

@@ -97,7 +97,7 @@ export default function ProductDetails({
   // const availableMetalPurities =
   //   data?.variations[0].metalVariations[0].metal || [];
   // const availableMetals = availableMetals || [];
-  console.log('sizes', availableRingSizes);
+  // console.log('sizes', availableRingSizes);
   const availableMetalPurities = metalPurityOptions.filter((option) =>
     availableMetals.some((m) => m.metal === option.label)
   );
@@ -257,7 +257,7 @@ export default function ProductDetails({
           value={currentSize}
           onValueChange={(value) => {
             setCurrentSize(value);
-            console.log(value);
+            // console.log(value);
             // setPrice({ salePrice: , originalPrice: 0 });
           }}
         >

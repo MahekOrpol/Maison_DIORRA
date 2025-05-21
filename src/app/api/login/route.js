@@ -35,7 +35,7 @@ export async function POST(request) {
     }
 
     const data = await backendRes.json();
-    console.log(data);
+    // console.log(data);
     const { token, user } = data;
 
     // Set the access token in HTTP-only cookie

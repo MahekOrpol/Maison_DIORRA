@@ -222,7 +222,7 @@ function DesktopGallery({ media = [] }) {
       )} */}
 
       {/* Render all images */}
-      {imageMedia.slice(0, 4).map((item, index) => (
+      {imageMedia.slice(0, 6).map((item, index) => (
         <div
           key={index}
           className='flex aspect-square items-center justify-center overflow-hidden border border-black/20 bg-gray-100'

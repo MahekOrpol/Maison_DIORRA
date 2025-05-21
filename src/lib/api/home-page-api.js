@@ -12,7 +12,8 @@ const BASE_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1`;
 
 export async function fetchCategories() {
   const res = await fetch(`${BASE_URL}/category/get`, {
-    // next: { revalidate: 3600 }
+    // cache: 'force-cache'
+    // next: { revalidate: 1800 } // Revalidate once every 24 hours (in seconds)
   });
   return res.json();
 }

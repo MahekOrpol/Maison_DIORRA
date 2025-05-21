@@ -26,9 +26,9 @@ export default function ContactPage() {
       const response = await fetch(`${BASE_URL}/api/v1/contact-us/create`, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json'
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(data)
       });
 
       if (!response.ok) {
@@ -36,7 +36,7 @@ export default function ContactPage() {
       }
 
       const result = await response.json();
-      console.log('Form submission successful:', result);
+      // console.log('Form submission successful:', result);
       toast.success('Message sent successfully!');
       reset();
     } catch (error) {

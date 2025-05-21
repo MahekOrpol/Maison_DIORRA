@@ -83,8 +83,10 @@ export function ScheduleCallDialog({ open, setOpen }) {
       notes
     };
 
-    console.log('Form Data:', formData);
-    alert('Thank you for scheduling your consultation! We will contact you shortly.');
+    // console.log('Form Data:', formData);
+    alert(
+      'Thank you for scheduling your consultation! We will contact you shortly.'
+    );
     resetForm(); // Clear all inputs after successful submission
     setOpen(false); // Close the dialog
   };
@@ -100,14 +102,16 @@ export function ScheduleCallDialog({ open, setOpen }) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className='p-0 sm:w-[90vw] md:max-w-2xl lg:max-w-4xl xl:max-w-5xl border-0'>
+      <DialogContent className='border-0 p-0 sm:w-[90vw] md:max-w-2xl lg:max-w-4xl xl:max-w-5xl'>
         <form onSubmit={handleSubmit}>
           <div className='flex'>
             {/* Left Side - Banner */}
             <div className='bg-primary hidden w-2/5 lg:block'>
               <div className='flex h-full flex-col justify-between p-8 text-white'>
                 <div>
-                  <h3 className='text-2xl font-bold'>Live Video Consultation</h3>
+                  <h3 className='text-2xl font-bold'>
+                    Live Video Consultation
+                  </h3>
                   <p className='mt-2 text-sm opacity-90'>
                     See your favorite jewelry designs up close with our experts
                   </p>
@@ -149,7 +153,7 @@ export function ScheduleCallDialog({ open, setOpen }) {
             {/* Right Side - Form */}
             <div className='w-full p-4 sm:p-6 lg:w-3/5'>
               <DialogHeader>
-                <DialogTitle className='text-xl sm:text-2xl font-bold text-gray-800'>
+                <DialogTitle className='text-xl font-bold text-gray-800 sm:text-2xl'>
                   Schedule Video Consultation
                 </DialogTitle>
                 <p className='text-sm text-gray-600'>
@@ -157,12 +161,14 @@ export function ScheduleCallDialog({ open, setOpen }) {
                 </p>
               </DialogHeader>
 
-              <div className='mt-3 sm:mt-6 space-y-3 sm:space-y-5'>
+              <div className='mt-3 space-y-3 sm:mt-6 sm:space-y-5'>
                 {/* Date and Time */}
                 <div className='grid grid-cols-1 gap-4 sm:grid-cols-2'>
                   {/* Date Picker */}
                   <div className='space-y-2'>
-                    <label className='text-sm font-medium text-gray-700'>Preferred Date*</label>
+                    <label className='text-sm font-medium text-gray-700'>
+                      Preferred Date*
+                    </label>
                     <Popover>
                       <PopoverTrigger asChild>
                         <Button
@@ -170,7 +176,11 @@ export function ScheduleCallDialog({ open, setOpen }) {
                           className='w-full justify-start text-left font-normal'
                         >
                           <CalendarIcon className='mr-2 h-4 w-4' />
-                          {date ? format(date, 'PPP') : <span>Pick a date</span>}
+                          {date ? (
+                            format(date, 'PPP')
+                          ) : (
+                            <span>Pick a date</span>
+                          )}
                         </Button>
                       </PopoverTrigger>
                       <PopoverContent className='w-auto p-0'>
@@ -185,15 +195,25 @@ export function ScheduleCallDialog({ open, setOpen }) {
                   </div>
 
                   {/* Time Selector */}
-                  <div className='space-y-2 relative'>
-                    <label className='text-sm font-medium text-gray-700'>Preferred Time*</label>
-                    <Clock className='absolute top-9 left-3 h-4 w-4 text-gray-400 z-10' />
+                  <div className='relative space-y-2'>
+                    <label className='text-sm font-medium text-gray-700'>
+                      Preferred Time*
+                    </label>
+                    <Clock className='absolute top-9 left-3 z-10 h-4 w-4 text-gray-400' />
                     <Select value={time} onValueChange={setTime}>
                       <SelectTrigger className='w-full pl-10'>
                         <SelectValue placeholder='Select time' />
                       </SelectTrigger>
                       <SelectContent>
-                        {['10:00', '11:00', '12:00', '14:00', '15:00', '16:00', '17:00'].map((slot) => (
+                        {[
+                          '10:00',
+                          '11:00',
+                          '12:00',
+                          '14:00',
+                          '15:00',
+                          '16:00',
+                          '17:00'
+                        ].map((slot) => (
                           <SelectItem key={slot} value={slot}>
                             {slot}
                           </SelectItem>
@@ -208,26 +228,34 @@ export function ScheduleCallDialog({ open, setOpen }) {
 
                 {/* Contact Information */}
                 <div className='space-y-2'>
-                  <label className='text-sm font-medium text-gray-700'>Phone Number*</label>
+                  <label className='text-sm font-medium text-gray-700'>
+                    Phone Number*
+                  </label>
                   <div className='grid grid-cols-12 gap-2'>
                     <div className='col-span-5 sm:col-span-4'>
                       <Select
                         value={country.code}
                         onValueChange={(code) => {
-                          const selected = countryOptions.find((c) => c.code === code);
+                          const selected = countryOptions.find(
+                            (c) => c.code === code
+                          );
                           if (selected) setCountry(selected);
                         }}
                       >
                         <SelectTrigger className='w-full'>
                           <SelectValue
                             placeholder='+1'
-                            renderValue={() => `${country.code} ${country.name}`}
+                            renderValue={() =>
+                              `${country.code} ${country.name}`
+                            }
                           />
                         </SelectTrigger>
                         <SelectContent>
                           {countryOptions.map((c) => (
                             <SelectItem key={c.code} value={c.code}>
-                              <span className='text-muted-foreground'>{c.code}</span>{' '}
+                              <span className='text-muted-foreground'>
+                                {c.code}
+                              </span>{' '}
                               <span>{c.name}</span>
                             </SelectItem>
                           ))}
@@ -244,7 +272,9 @@ export function ScheduleCallDialog({ open, setOpen }) {
                         onChange={(e) => setPhone(e.target.value)}
                       />
                       {formErrors.phone && (
-                        <p className='text-sm text-red-500'>{formErrors.phone}</p>
+                        <p className='text-sm text-red-500'>
+                          {formErrors.phone}
+                        </p>
                       )}
                     </div>
                   </div>
@@ -266,10 +296,13 @@ export function ScheduleCallDialog({ open, setOpen }) {
 
                 {/* Fixed Language */}
                 <div className='space-y-1'>
-                  <label className='text-sm font-medium text-gray-700'>Language</label>
+                  <label className='text-sm font-medium text-gray-700'>
+                    Language
+                  </label>
                   <Input value='English' disabled className='bg-gray-100' />
-                  <p className='text-xs text-muted-foreground'>
-                    English is the default and only supported language for consultations at this time.
+                  <p className='text-muted-foreground text-xs'>
+                    English is the default and only supported language for
+                    consultations at this time.
                   </p>
                 </div>
 
@@ -278,11 +311,7 @@ export function ScheduleCallDialog({ open, setOpen }) {
                   <label className='text-sm font-medium text-gray-700'>
                     Preferred Platform*
                   </label>
-                  <Select
-                    value={platform}
-                    onValueChange={setPlatform}
-                    required
-                  >
+                  <Select value={platform} onValueChange={setPlatform} required>
                     <SelectTrigger className='w-full'>
                       <SelectValue placeholder='Select platform' />
                     </SelectTrigger>
@@ -290,11 +319,15 @@ export function ScheduleCallDialog({ open, setOpen }) {
                       <SelectItem value='zoom'>Zoom (Recommended)</SelectItem>
                       <SelectItem value='google-meet'>Google Meet</SelectItem>
                       <SelectItem value='whatsapp'>WhatsApp Video</SelectItem>
-                      <SelectItem value='phone'>Phone Call (No Video)</SelectItem>
+                      <SelectItem value='phone'>
+                        Phone Call (No Video)
+                      </SelectItem>
                     </SelectContent>
                   </Select>
                   {formErrors.platform && (
-                    <p className='text-sm text-red-500'>{formErrors.platform}</p>
+                    <p className='text-sm text-red-500'>
+                      {formErrors.platform}
+                    </p>
                   )}
                 </div>
 
@@ -313,7 +346,7 @@ export function ScheduleCallDialog({ open, setOpen }) {
                 {/* Submit Button */}
                 <Button
                   type='submit'
-                  className='mt-4 w-full py-3 sm:py-6 text-sm sm:text-base font-medium'
+                  className='mt-4 w-full py-3 text-sm font-medium sm:py-6 sm:text-base'
                 >
                   Confirm Video Call Appointment
                 </Button>
