@@ -43,7 +43,8 @@ export default function PreviewCardMd({ product, className }) {
   );
   const openModal = useModalStore((state) => state.openModal);
   const router = useRouter();
-  const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
+  const BASE_URL =
+    process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000';
   // console.log("Product >>",product);
   // Fix: Reset metal when product changes
   useEffect(() => {

@@ -10,7 +10,8 @@ import { baseUrl } from '@/lib/utils';
 import { RichTextRenderer } from '@/components/rich-text-renderer';
 
 export default async function Page({ params }) {
-  const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
+  const BASE_URL =
+    process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000';
 
   const { slug } = await params;
   const res = await fetch(`${BASE_URL}/api/v1/blog/get/${slug}`, {

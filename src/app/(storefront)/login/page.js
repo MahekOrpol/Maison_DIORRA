@@ -162,7 +162,7 @@ export default function LoginPage() {
     setIsSubmitting(true);
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/register/register`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000'}/api/v1/register/register`,
         {
           name: data.name,
           email: data.email,
