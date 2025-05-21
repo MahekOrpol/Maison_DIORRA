@@ -7,7 +7,7 @@ export default function S4FavouriteSection({ data }) {
   // console.log('favorito :>> ', data);
   // const customersFavourite = repeatProductsV1(20); // Replace with server-fetch if needed
   return (
-    <section className='wrapper pt-6 md:pt-7 lg:pt-8 xl:pt-10'>
+    <section className='wrapper pt-6 md:pt-7 lg:pt-8 xl:pt-14'>
       <Heading
         title='Customer’s Favourite'
         subtitle='New Styles, Endless Elegance'

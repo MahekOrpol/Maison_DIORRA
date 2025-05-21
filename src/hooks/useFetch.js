@@ -1,28 +1,31 @@
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-export function useFetch(fetchFn, deps = []) {
+export function useFetch(url, params = {}, deps = []) {
   const [data, setData] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
   useEffect(() => {
     let isCancelled = false;
-    setLoading(true);
-    fetchFn()
+    setIsLoading(true);
+
+    axios
+      .get(url, { params })
       .then((res) => {
-        if (!isCancelled) setData(res);
+        if (!isCancelled) setData(res.data);
       })
       .catch((err) => {
         if (!isCancelled) setError(err);
       })
       .finally(() => {
-        if (!isCancelled) setLoading(false);
+        if (!isCancelled) setIsLoading(false);
       });
 
     return () => {
       isCancelled = true;
     };
-  }, deps);
+  }, [url, JSON.stringify(params), ...deps]);
 
-  return { data, loading, error };
+  return { data, isLoading, error };
 }

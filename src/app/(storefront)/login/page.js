@@ -19,11 +19,13 @@ import { toast } from 'sonner';
 import axios from 'axios';
 import { useRouter } from 'nextjs-toploader/app';
 import { ForgotPasswordDialog } from './forgotpassworddialog';
+import { useUserStore } from '@/store/user-store';
+import { useWishlistStore } from '@/store/wishlist-store';
 
 // Mock API service
 const authService = {
   login: async (data) => {
-    console.log('Logging in with:', data);
+    // console.log('Logging in with:', data);
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({ success: true, token: 'mock-token' });
@@ -31,7 +33,7 @@ const authService = {
     });
   },
   register: async (data) => {
-    console.log('Registering with:', data);
+    // console.log('Registering with:', data);
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({ success: true });
@@ -39,7 +41,7 @@ const authService = {
     });
   },
   forgotPassword: async (email) => {
-    console.log('Sending reset link to:', email);
+    // console.log('Sending reset link to:', email);
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({ success: true });
@@ -47,7 +49,7 @@ const authService = {
     });
   },
   resetPassword: async (data) => {
-    console.log('Resetting password with:', data);
+    // console.log('Resetting password with:', data);
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({ success: true });
@@ -60,6 +62,7 @@ export default function LoginPage() {
   const [tab, setTab] = useState('login');
   const [openForgotPassword, setOpenForgotPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { setUser } = useUserStore((state) => state);
 
   const router = useRouter();
 
@@ -112,74 +115,44 @@ export default function LoginPage() {
   //   }
   // };
 
-  const detectLoginType = (loginId) => {
-    if (/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(loginId)) {
-      return 'email';
-    } else if (/^[0-9]{10}$/.test(loginId)) {
-      return 'phone';
-    } else if (/^[a-zA-Z ]{3,}$/.test(loginId)) {
-      return 'name';
-    }
-    return 'email'; // default fallback
-  };
-
   const onLogin = async (data) => {
     setIsSubmitting(true);
     const { loginId, password } = data;
-    const loginType = detectLoginType(loginId);
 
     try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL || ''}/api/v1/register/login`,
-        {
-          loginType, // Add loginType to the request
-          [loginType]: loginId, // Dynamic property based on loginType
-          password
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-      );
+      const response = await axios.post('/api/login', {
+        loginId,
+        password
+      });
+      const { user } = response.data;
+
+      // console.log('User:', user);
 
       if (response.status === 200) {
+        setUser(user);
         resetLoginForm();
-        // Store tokens and user data
-        const { token, user } = response.data;
-        localStorage.setItem('accessToken', token.access.token);
-        localStorage.setItem('refreshToken', token.refresh.token);
-        localStorage.setItem('authUser', JSON.stringify(user));
-        localStorage.setItem(
-          'user',
-          JSON.stringify({
-            name: user.name,
-            email: user.email,
-            phone: user.phone
-          })
-        );
-        // Redirect to account page
-        window.location.href = '/';
+        await useWishlistStore.getState().fetchWishlist();
+        router.push('/account/profile');
       }
     } catch (error) {
-      console.error('Login error:', error);
+      console.error('Login failed:', error);
 
-      let errorMessage = 'Login failed. Please try again.';
-      if (axios.isAxiosError(error)) {
-        if (error.response) {
-          if (error.response.data?.message) {
-            errorMessage = error.response.data.message;
-          } else if (error.response.status === 401) {
-            errorMessage = 'Invalid credentials';
-          } else if (error.response.status === 400) {
-            errorMessage = 'Validation error. Please check your inputs.';
-          }
-        } else if (error.request) {
-          errorMessage = 'Network error. Please check your connection.';
-        }
-      }
+      // let errorMessage = 'Login failed. Please try again.';
+      // if (axios.isAxiosError(error)) {
+      //   if (error.response) {
+      //     if (error.response.data?.message) {
+      //       errorMessage = error.response.data.message;
+      //     } else if (error.response.status === 401) {
+      //       errorMessage = 'Invalid credentials';
+      //     } else if (error.response.status === 400) {
+      //       errorMessage = 'Validation error. Please check your inputs.';
+      //     }
+      //   } else if (error.request) {
+      //     errorMessage = 'Network error. Please check your connection.';
+      //   }
+      // }
 
-      toast.error(errorMessage);
+      toast.error(error.message || 'Login failed. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -189,18 +162,13 @@ export default function LoginPage() {
     setIsSubmitting(true);
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL || ''}/api/v1/register/register`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/register/register`,
         {
           name: data.name,
           email: data.email,
           phone: data.mobile,
           password: data.password,
           ConfirmPassword: data.confirmPassword
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json'
-          }
         }
       );
 
@@ -422,7 +390,7 @@ export default function LoginPage() {
               >
                 <div className='px-6 pt-3 md:pt-0'>
                   <h2 className='mb-2 text-xl leading-6 font-medium sm:text-2xl'>
-                    Don't have an Account?
+                    Don&apos;t have an Account?
                   </h2>
                   <p className='text-xs leading-4 font-light sm:text-sm'>
                     For the purpose of industry registration, your details are

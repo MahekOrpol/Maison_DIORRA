@@ -25,7 +25,7 @@ export default async function BlogsPage() {
   return (
     <div>
       <BlogsBanner
-        imgUrl='/img/banner/banner2.png'
+        imgUrl='/img/banner2.png'
         title='Blogs and Articles'
         subtitle='Home - Blogs and Articles'
       />

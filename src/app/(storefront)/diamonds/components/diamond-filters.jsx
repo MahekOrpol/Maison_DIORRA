@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 export default function DiamondFilters() {
   const colors = ['J', 'I', 'H', 'G', 'F', 'E', 'D'];
   const clarities = ['S1', 'VS2', 'VS1', 'VVS2', 'VVS1', 'IF', 'FL'];
-  
+
   const [filters, setFilters] = React.useState({
     shape: 'Round', // default shape
     color: null,
@@ -17,7 +17,7 @@ export default function DiamondFilters() {
   });
 
   const handleFilterClick = () => {
-    console.log('Current filters:', filters);
+    // console.log('Current filters:', filters);
   };
 
   return (
@@ -30,10 +30,10 @@ export default function DiamondFilters() {
         {['Round', 'Pear', 'Emerlad', 'Princess'].map((shape) => (
           <button
             key={shape}
-            className={`w-[95px] rounded-lg border border-secondary shadow-md hover:border-black/60 hover:bg-gray-100 ${
-              filters.shape === shape ? 'bg-gray-100 border-black/60' : ''
+            className={`border-secondary w-[90px] rounded-xl border shadow-md hover:border-black/60 sm:w-[99px] ${
+              filters.shape === shape ? 'border-black/60 bg-gray-200' : ''
             }`}
-            onClick={() => setFilters({...filters, shape})}
+            onClick={() => setFilters({ ...filters, shape })}
           >
             <div className='flex items-center justify-center'>
               <Image
@@ -49,7 +49,7 @@ export default function DiamondFilters() {
       </div>
       {/* quality */}
       <div className='w-full space-y-6 p-0 md:p-4'>
-        <div className='grid grid-cols-1 justify-center xl:gap-30 3xl:gap-30 place-items-center xl:place-items-stretch sm:grid-cols-2 lg:grid-cols-3'>
+        <div className='3xl:gap-30 grid grid-cols-1 place-items-center justify-center sm:grid-cols-2 lg:grid-cols-3 xl:place-items-stretch xl:gap-30'>
           {/* Color Filter */}
           <div className=''>
             <h3 className='mb-1 font-medium'>Color</h3>
@@ -57,10 +57,10 @@ export default function DiamondFilters() {
               {colors.map((color) => (
                 <button
                   key={color}
-                  className={`inline-flex h-12 w-10 3xl:w-20 items-center justify-center border-r border-l border-l-transparent text-sm hover:border-l hover:border-black ${
-                    filters.color === color ? 'bg-gray-100' : ''
+                  className={`3xl:w-20 inline-flex h-12 w-10 items-center justify-center border-r border-l border-l-transparent text-sm hover:border-l hover:border-black ${
+                    filters.color === color ? 'bg-gray-200' : ''
                   }`}
-                  onClick={() => setFilters({...filters, color})}
+                  onClick={() => setFilters({ ...filters, color })}
                 >
                   {color}
                 </button>
@@ -74,10 +74,10 @@ export default function DiamondFilters() {
               {clarities.map((clarity) => (
                 <button
                   key={clarity}
-                  className={`inline-flex h-12 w-10 3xl:w-20 items-center justify-center border-r border-l border-l-transparent text-sm hover:border-l hover:border-black ${
-                    filters.clarity === clarity ? 'bg-gray-100' : ''
+                  className={`3xl:w-20 inline-flex h-12 w-10 items-center justify-center border-r border-l border-l-transparent text-sm hover:border-l hover:border-black ${
+                    filters.clarity === clarity ? 'bg-gray-200' : ''
                   }`}
-                  onClick={() => setFilters({...filters, clarity})}
+                  onClick={() => setFilters({ ...filters, clarity })}
                 >
                   {clarity}
                 </button>
@@ -85,14 +85,16 @@ export default function DiamondFilters() {
             </div>
           </div>
           {/* Carat Filter */}
-          <div className='w-full max-w-sm 3xl:max-w-lg sm:col-span-2 lg:col-span-1'>
+          <div className='3xl:max-w-lg w-full max-w-sm sm:col-span-2 lg:col-span-1'>
             <h3 className='font-medium'>Carat</h3>
             <Slider
               value={filters.caratRange}
               min={1}
               max={8}
               step={0.1}
-              onValueChange={(value) => setFilters({...filters, caratRange: value})}
+              onValueChange={(value) =>
+                setFilters({ ...filters, caratRange: value })
+              }
               className='my-2'
             />
             <div className='flex justify-between text-sm text-gray-500'>
@@ -109,7 +111,9 @@ export default function DiamondFilters() {
             min={20}
             max={400}
             step={10}
-            onValueChange={(value) => setFilters({...filters, priceRange: value})}
+            onValueChange={(value) =>
+              setFilters({ ...filters, priceRange: value })
+            }
             className='my-2'
           />
           <div className='flex justify-between text-sm text-gray-500'>
@@ -117,7 +121,7 @@ export default function DiamondFilters() {
             <span>${filters.priceRange[1]}</span>
           </div>
         </div>
-      </div>    
+      </div>
       <Button onClick={handleFilterClick}>Filter</Button>
     </div>
   );

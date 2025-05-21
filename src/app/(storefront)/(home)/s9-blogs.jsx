@@ -175,7 +175,7 @@ export default function S9BlogsSection({ data }) {
   }, [slider]);
 
   return (
-    <section className='wrapper pt-6 md:pt-7 lg:pt-8 xl:pt-10'>
+    <section className='wrapper pt-6 md:pt-7 lg:pt-8 xl:pt-14'>
       <Heading
         title='Blogs and Articles'
         subtitle='Affordable luxury for everyday wear'

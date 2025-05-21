@@ -12,7 +12,8 @@ const BASE_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1`;
 
 export async function fetchCategories() {
   const res = await fetch(`${BASE_URL}/category/get`, {
-    // next: { revalidate: 3600 }
+    // cache: 'force-cache'
+    // next: { revalidate: 1800 } // Revalidate once every 24 hours (in seconds)
   });
   return res.json();
 }
@@ -49,11 +50,14 @@ export async function fetchNewArrivals() {
   return res.json();
 }
 
-export async function fetchTrendingCollections(categoryName = 'Rings') {
+export async function fetchTrendingCollections(categoryName = 'rings') {
   //   const res = await fetch(`${BASE_URL}/collections/trending`, {
-  const res = await fetch(`${BASE_URL}/product/get-trending?categoryName=${categoryName}&limit=4`, {
-    // next: { revalidate: 1800 }
-  });
+  const res = await fetch(
+    `${BASE_URL}/product/get-trending?categoryName=${categoryName}&limit=4`,
+    {
+      // next: { revalidate: 1800 }
+    }
+  );
   return res.json();
 }
 
@@ -91,7 +95,7 @@ export async function getHomePageData() {
     fetchGiftingCollections(),
     // fetchDiamonds(),
     fetchNewArrivals(),
-   fetchTrendingCollections('Rings'),
+    fetchTrendingCollections(),
     fetchBlogs()
     // fetchTestimonials()
   ]);

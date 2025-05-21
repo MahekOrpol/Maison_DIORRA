@@ -7,10 +7,13 @@ import { BsHandbag } from 'react-icons/bs';
 import MobileNavDrawer from './mobile-nav';
 import { AccountDropdown } from './account-dropdown';
 import LocateAndSearch from './locate-search';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, use } from 'react';
 import { cn } from '@/lib/utils';
 import { GiGemPendant } from 'react-icons/gi';
 import { useModalStore } from '@/store/modal-stote';
+import { useRouter } from 'next/navigation';
+import { useUserStore } from '@/store/user-store';
+import { useWishlistStore } from '@/store/wishlist-store';
 const messages = [
   'Welcome to our jewelry collection!',
   'Enjoy 10% off on your first purchase!',
@@ -23,24 +26,17 @@ export default function Header({ categories }) {
   const [activeMenu, setActiveMenu] = useState(null);
   const [index, setIndex] = useState(0);
   const openModal = useModalStore((state) => state.openModal);
-  const [user, setUser] = useState(null);
-
-    useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
+  const { isLoggedIn, authUser } = useUserStore((state) => state);
+  const wishlistCount = useWishlistStore((state) => state.wishlist.length);
+  const router = useRouter();
 
   // const router = useRouter();
   // const cookieStore = await cookies();
   // const token = cookieStore.get('token')?.value;
   // const isLoggedIn = !!token;
 
-  // const authUser = localStorage.getItem('authUser');
-  // const isLoggedIn = !!authUser;
-
   useEffect(() => {
+    //banner interval
     const interval = setInterval(() => {
       setIndex((prev) => (prev + 1) % messages.length);
     }, 4000);
@@ -67,16 +63,19 @@ export default function Header({ categories }) {
   }, [lastScrollY]);
 
   const handleWishlistClick = () => {
-    // Check if user is logged in or not
-    // if (authUser) {
-    //   router.push(`/account/wishlist`);
-    // } else {
-    openModal('wishlistNotAllowed');
-    // }
+    if (isLoggedIn) {
+      router.push('/account/wishlist');
+    } else {
+      openModal('wishlistNotAllowed');
+    }
   };
+
   const handleAddToCart = () => {
-    // Check if user is logged in or not, if not then
-    openModal('cartNotAllowed');
+    if (isLoggedIn) {
+      router.push('/checkout');
+    } else {
+      openModal('cartNotAllowed');
+    }
   };
 
   const diamondShapes = [
@@ -166,33 +165,35 @@ export default function Header({ categories }) {
       icon: <GiGemPendant className='size-4.5 text-black' />,
       content: (
         <div className='grid w-full grid-cols-4 items-stretch gap-2 xl:grid-cols-5'>
-          {categories.map((category, index) => (
-            <div key={category.id} className='col-span-1 px-4 py-8 2xl:px-6'>
-              <div
-                className={`flex h-full flex-col ${
-                  index !== categories.length - 1 ? 'border-r-1' : ''
-                }`}
-              >
-                <h3 className='mb-4 font-semibold uppercase'>
-                  {category.categoryName}
-                </h3>
-                <ul className='flex-1 space-y-2 font-light'>
-                  {category.subcategories.map((sub) => (
-                    <li key={sub._id}>
-                      <Link
-                        href={`/products/${category.categoryName.toLowerCase()}/${sub.subcategoryName
-                          .toLowerCase()
-                          .replace(/\s+/g, '-')}`}
-                        className='decoration-1 underline-offset-3 hover:underline'
-                      >
-                        {sub.subcategoryName}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
+          {categories &&
+            categories.length > 0 &&
+            categories.map((category, index) => (
+              <div key={category.id} className='col-span-1 px-4 py-8 2xl:px-6'>
+                <div
+                  className={`flex h-full flex-col ${
+                    index !== categories.length - 1 ? 'border-r-1' : ''
+                  }`}
+                >
+                  <h3 className='mb-4 font-semibold uppercase'>
+                    {category.categoryName}
+                  </h3>
+                  <ul className='flex-1 space-y-2 font-light'>
+                    {category.subcategories.map((sub) => (
+                      <li key={sub._id}>
+                        <Link
+                          href={`/products/${sub.subcategoryName
+                            .toLowerCase()
+                            .replace(/\s+/g, '-')}`}
+                          className='decoration-1 underline-offset-3 hover:underline'
+                        >
+                          {sub.subcategoryName}
+                        </Link>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
 
           {/* Promotional Image */}
           <div className='group relative hidden h-[230px] w-[230px] overflow-hidden xl:block xl:h-[300px] xl:w-[400px]'>
@@ -421,8 +422,9 @@ export default function Header({ categories }) {
   return (
     <>
       <div
-        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ease-in ${showHeader ? 'translate-y-0' : '-translate-y-full'
-          }`}
+        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ease-in ${
+          showHeader ? 'translate-y-0' : '-translate-y-full'
+        }`}
       >
         <header className='bg-background text-foreground shadow-xs'>
           {/* black banner */}
@@ -453,16 +455,20 @@ export default function Header({ categories }) {
               </Link>
             </div>
             <div className='flex gap-0.5 min-[340px]:gap-1.5 md:gap-4'>
-              <AccountDropdown user={user} />
+              <AccountDropdown />
               {/* Wishlist Link */}
               <button
                 className='relative rounded-full p-1 transition-all duration-200 hover:scale-110 hover:bg-gray-100'
                 onClick={handleWishlistClick}
               >
                 <Heart strokeWidth={1.2} size={28} />
-                <span className='text-background absolute top-0 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-black text-xs'>
-                  8
-                </span>
+                {wishlistCount > 0 ? (
+                  <span className='text-background absolute top-0 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-black text-xs'>
+                    {wishlistCount}
+                  </span>
+                ) : (
+                  ''
+                )}
               </button>
               <button
                 onClick={handleAddToCart}

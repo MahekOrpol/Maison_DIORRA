@@ -5,7 +5,7 @@ import React from 'react';
 
 export default function S2CustomDesign() {
   return (
-    <section className='wrapper pt-4 md:pt-7 lg:pt-8'>
+    <section className='wrapper pt-4 md:pt-7 lg:pt-14'>
       <Heading
         title='Design Your Ring'
         subtitle='Your Vision, Your Ring, Your Forever.'

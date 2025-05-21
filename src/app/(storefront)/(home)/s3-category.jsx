@@ -4,32 +4,32 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
-const categories = [
-  {
-    label: 'Rings',
-    image: '/img/category/rings2.jpg',
-    href: '/products/rings'
-  },
-  {
-    label: 'Earrings',
-    image: '/img/category/earrings2.jpg',
-    href: '/products/earrings/diamond-earrings'
-  },
-  {
-    label: 'Pendant',
-    image: '/img/category/pendant-4.jpg',
-    href: '/products/necklaces/diamond-pendants'
-  },
-  {
-    label: 'Bracelet',
-    image: '/img/category/bracelet2.jpg',
-    href: '/products/bracelets'
-  }
-];
+// const categories = [
+//   {
+//     label: 'Rings',
+//     image: '/img/category/rings2.jpg',
+//     href: '/products/rings'
+//   },
+//   {
+//     label: 'Earrings',
+//     image: '/img/category/earrings2.jpg',
+//     href: '/products/earrings/diamond-earrings'
+//   },
+//   {
+//     label: 'Pendant',
+//     image: '/img/category/pendant-4.jpg',
+//     href: '/products/necklaces/diamond-pendants'
+//   },
+//   {
+//     label: 'Bracelet',
+//     image: '/img/category/bracelet2.jpg',
+//     href: '/products/bracelets'
+//   }
+// ];
 
 export default function S3CategorySection({ data }) {
   return (
-    <section className='wrapper pt-6 md:pt-7 lg:pt-8 xl:pt-10'>
+    <section className='wrapper pt-6 md:pt-7 lg:pt-8 xl:pt-14'>
       <Heading
         title='Shop by Category'
         subtitle='Your Imagination, Our Craftsmanship'
@@ -38,7 +38,7 @@ export default function S3CategorySection({ data }) {
         {data.map((item) => (
           <Link
             key={item.id}
-            href={`/products/${item.categoryName}`}
+            href={`/products/${item.categoryName.toLowerCase()}`}
             className='flex flex-col items-center text-center text-lg font-medium transition-all duration-200'
           >
             <div className='w-full overflow-hidden rounded-2xl 2xl:rounded-[20px]'>

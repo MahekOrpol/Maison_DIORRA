@@ -20,7 +20,7 @@ export function ReviewForm() {
   });
 
   const onSubmit = (data) => {
-    console.log('Review submitted:', data);
+    // console.log('Review submitted:', data);
     reset();
   };
 

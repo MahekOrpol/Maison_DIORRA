@@ -1,10 +1,11 @@
+'use client';
 import CustomTagWrapper from '@/components/custom-tag-wrapper';
-import PreviewCard from '@/components/preview-card';
-import { ProductListingSkeleton } from '@/components/skeleton';
-import Advertisement from './components/ads';
-import ProductsFilter from './components/product-filters';
-import { fetchProductsByCategory } from '@/lib/api/products';
-import React from 'react';
+import { use } from 'react';
+import { useFilterStore } from '@/store/use-filter-store';
+import { useFetch } from '@/hooks/useFetch';
+import ProductFilters from './product-filters';
+import ProductGrid from './product-grid';
+
 const advertisements = [
   {
     title: '40 % Off',
@@ -71,90 +72,56 @@ const advertisements = [
 //   };
 // }
 
-export default async function ProductListingPage({ params }) {
-  const { category, subcategory } = await params;
+export default function ProductListingPage({ params }) {
+  const { category } = use(params);
+  // const data = await fetchProductsByCategory(category);
+  const { metalPurity, style, shape, sortByPrice } = useFilterStore();
+  const queryParams = {
+    categoryName: category,
+    metal: metalPurity,
+    style: style,
 
-  const data = await fetchProductsByCategory(category);
+    diamondShape: shape
+    // sortByPrice
+  };
+  const query = buildQueryString(queryParams);
 
-  console.log(category);
+  const { data, isLoading, error } = useFetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/product/get${query}`,
+    {},
+    [query]
+  );
 
   return (
     <div className='wrapper'>
       {category === 'rings' && (
         <CustomTagWrapper className='xs:mt-[25px] mt-[20px] sm:mt-[30px] lg:mt-[35px] xl:mt-[45px] 2xl:mt-[65px]' />
       )}
-      <ProductsFilter
+      <ProductFilters
         category={category.toLowerCase()}
-        subCategory={''}
+        // subCategory={''}
         className='mt-3 lg:mt-8 2xl:mt-10'
       />
-      {/* listing components */}
-      <section className='mt-8 mb-10 grid grid-cols-2 gap-2 md:mb-20 md:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-5 xl:gap-6'>
-        {data.map((product, index) => {
-          // Separate ad indices for different breakpoints
-          const mobileAdIndex = Math.floor(index / 2) % advertisements.length;
-          const mediumAdIndex = Math.floor(index / 6) % advertisements.length;
-          const largeAdIndex = Math.floor(index / 8) % advertisements.length;
-
-          // Get the correct ad based on the breakpoint
-          const mobileAd = advertisements[mobileAdIndex];
-          const mediumAd = advertisements[mediumAdIndex];
-          const largeAd = advertisements[largeAdIndex];
-
-          // Mobile: Ad appears after 4th, then 6th item, repeating
-          const adsAfterMobile = [];
-          let adPosition = 5;
-          for (let i = 0; i < 10; i++) {
-            adsAfterMobile.push(adPosition);
-            adPosition += i % 2 === 0 ? 6 : 4;
-          }
-          const showMobileAd = adsAfterMobile.includes(index + 1);
-          return (
-            <React.Fragment key={index}>
-              {/* Mobile View: Show ad after 4th, then 6th, then repeat */}
-              {showMobileAd && (
-                <Advertisement
-                  title={mobileAd.title}
-                  subtitle={mobileAd.subtitle}
-                  buttonLabel={mobileAd.buttonLabel}
-                  buttonLink={mobileAd.buttonLink}
-                  backgroundImage={mobileAd.backgroundImage}
-                  align={mobileAd.align}
-                  className='col-span-2 md:hidden' // Visible only on mobile
-                />
-              )}
-
-              {/* Medium Screens: Show ad after every 6th item*/}
-              {index > 0 && index % 6 === 0 && (
-                <Advertisement
-                  title={mediumAd.title}
-                  subtitle={mediumAd.subtitle}
-                  buttonLabel={mediumAd.buttonLabel}
-                  buttonLink={mediumAd.buttonLink}
-                  backgroundImage={mediumAd.backgroundImage}
-                  align={mediumAd.align}
-                  className='hidden md:col-span-3 md:block lg:hidden'
-                />
-              )}
-
-              {/* Large Screens: Show ad after every 8th item */}
-              {index > 0 && index % 8 === 0 && (
-                <Advertisement
-                  title={largeAd.title}
-                  subtitle={largeAd.subtitle}
-                  buttonLabel={largeAd.buttonLabel}
-                  buttonLink={largeAd.buttonLink}
-                  backgroundImage={largeAd.backgroundImage}
-                  align={largeAd.align}
-                  className='col-span-2 hidden lg:block' // Visible only on large screens
-                />
-              )}
-              {/* Render Listing Item */}
-              <PreviewCard product={product} />
-            </React.Fragment>
-          );
-        })}
-      </section>
+      <ProductGrid
+        advertisements={advertisements}
+        isLoading={isLoading}
+        error={error}
+        products={data}
+      />
     </div>
   );
+}
+
+function buildQueryString(params) {
+  const query = Object.entries(params)
+    .filter(
+      ([_, value]) => value !== undefined && value !== '' && value !== null
+    )
+    .map(
+      ([key, value]) =>
+        `${encodeURIComponent(key)}=${encodeURIComponent(value)}`
+    )
+    .join('&');
+
+  return query ? `?${query}` : '';
 }

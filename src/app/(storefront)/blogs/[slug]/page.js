@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { ArrowRight, ChevronLeft, ChevronRight, MoveRight } from 'lucide-react';
 import { ImQuotesLeft, ImQuotesRight } from 'react-icons/im';
 import { baseUrl } from '@/lib/utils';
+import { RichTextRenderer } from '@/components/rich-text-renderer';
 
 export default async function Page({ params }) {
   const BASE_URL = process.env.NEXT_PUBLIC_BACKEND_URL || '';
@@ -17,10 +18,87 @@ export default async function Page({ params }) {
   });
   const data = await res.json();
 
+  const dummyHtml = `<h1>Main Heading (h1)</h1>
+<h2>Section Heading (h2)</h2>
+<h3>Subsection Heading (h3)</h3>
+<h4>Smller Heading (h4)</h4>
+<h5>Tiny Heading (h5)</h5>
+<h6>Smallest Heading (h6)</h6>
+<p>This is a paragraph with <strong>strong</strong>, <em>emphasis</em>, <u>underline</u>, and <a href="https://example.com">a link</a>.</p>
+<p>Here's a <abbr title="HyperText Markup Language">HTML</abbr> abbreviation and an inline <code>console.log('Code')</code> example.</p>
+<blockquote cite="https://example.com">
+  This is a blockquote with some cited source.
+</blockquote>
+<pre><code>&lt;div&gt;This is preformatted code&lt;/div&gt;</code></pre>
+<hr />
+<ul>
+  <li>Unordered List Item 1</li>
+  <li>Unordered List Item 2</li>
+  <li>Unordered List Item 3</li>
+</ul>
+
+<ol>
+  <li>Ordered List Item 1</li>
+  <li>Ordered List Item 2</li>
+  <li>Ordered List Item 3</li>
+</ol>
+<dl>
+  <dt>Definition Term</dt>
+  <dd>This is the definition description.</dd>
+  <dt>Another Term</dt>
+  <dd>Another description for the term.</dd>
+</dl>
+<table>
+  <thead>
+    <tr>
+      <th>Table Head 1</th>
+      <th>Table Head 2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Table Data 1</td>
+      <td>Table Data 2</td>
+    </tr>
+    <tr>
+      <td>Table Data 3</td>
+      <td>Table Data 4</td>
+    </tr>
+  </tbody>
+</table>
+<figure>
+  <img src="https://www.shutterstock.com/image-photo/field-cosmos-flower-600nw-1011699703.jpg" alt="Placeholder image" />
+  <figcaption>This is a caption for the image above.</figcaption>
+</figure>
+<mark>This is a highlighted text using &lt;mark&gt;.</mark>
+<small>This is small text.</small>
+<time datetime="2025-05-20">May 20, 2025</time>
+<h2>Ordered List Example</h2>
+<ol>
+  <li>First Step</li>
+  <li>Second Step</li>
+  <li>Third Step
+    <ol>
+      <li>Sub-step i</li>
+      <li>Sub-step ii</li>
+    </ol>
+  </li>
+  <li>Final Step</li>
+</ol>
+<h2>Mixed List Example</h2>
+<ul>
+    <ol>
+      <li>Option A</li>
+      <li>Option B</li>
+    </ol>
+  </li>
+</ul>
+`;
+
   return (
     <div className='mb-8 md:mb-10'>
       <BlogsBanner
-        imgUrl='/img/banner/banner2.png'
+        imgUrl='/img/banner2.png'
         title='Blogs and Articles'
         subtitle='Home - Blogs and Articles'
         className='h-[200px]'
@@ -145,6 +223,9 @@ export default async function Page({ params }) {
       </div>
       {/* review */}
       <ReviewForm />
+      <section className='wrapper'>
+        <RichTextRenderer html={dummyHtml} />
+      </section>
     </div>
   );
 }
