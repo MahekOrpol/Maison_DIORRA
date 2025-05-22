@@ -11,6 +11,7 @@ import {
 import { toast } from 'sonner';
 import axios from 'axios';
 import { ResetPasswordDialog } from './resetpassworddialog';
+import { baseApiUrl } from '@/lib/utils';
 
 export function OTPDialog({ open, onOpenChange, onSubmit, email }) {
   const [otp, setOtp] = useState(new Array(6).fill(''));
@@ -60,7 +61,7 @@ export function OTPDialog({ open, onOpenChange, onSubmit, email }) {
     try {
       // Make API call with Axios
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000'}/api/v1/auth/verify-otp`,
+        `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/auth/verify-otp`,
         {
           email: email, // Make sure this is not null/undefined
           generateOTP: enteredOtp
@@ -88,7 +89,7 @@ export function OTPDialog({ open, onOpenChange, onSubmit, email }) {
 
       // Debugging: Log the exact request being sent
       console.error('API Request Failed:', {
-        url: `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000'}/api/v1/auth/verify-otp`,
+        url: `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/auth/verify-otp`,
         payload: {
           email: email,
           generateOTP: enteredOtp

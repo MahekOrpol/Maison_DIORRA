@@ -14,7 +14,7 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog';
-import { cn } from '@/lib/utils';
+import { baseApiUrl, cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import axios from 'axios';
 import { useRouter } from 'nextjs-toploader/app';
@@ -162,7 +162,7 @@ export default function LoginPage() {
     setIsSubmitting(true);
     try {
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000'}/api/v1/register/register`,
+        `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/register/register`,
         {
           name: data.name,
           email: data.email,

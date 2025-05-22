@@ -6,7 +6,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
-import { baseUrl, cn } from '@/lib/utils';
+import { baseApiUrl, cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
 
 export default function S7NewArrivals({ data }) {
@@ -155,7 +155,7 @@ export function ArrivalSwiper({ className, slides }) {
               <Image
                 src={
                   slide?.image
-                    ? `${baseUrl}${slide.image}`
+                    ? `${baseApiUrl}${slide.image}`
                     : '/img/arrival1.png'
                 }
                 alt={'New arrival product'}

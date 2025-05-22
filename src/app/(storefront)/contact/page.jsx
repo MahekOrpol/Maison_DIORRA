@@ -10,9 +10,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
+import { baseApiUrl } from '@/lib/utils';
 
-const BASE_URL =
-  process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000';
+const BASE_URL = baseApiUrl || 'http://153.92.222.195:5000';
 
 export default function ContactPage() {
   const {

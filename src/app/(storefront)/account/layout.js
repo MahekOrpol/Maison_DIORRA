@@ -1,5 +1,5 @@
 // app/account/layout.tsx
-'use client'
+'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -13,20 +13,21 @@ export default function AccountLayout({ children }) {
   ];
 
   return (
-    <div className="flex flex-col md:flex-row mt-6 px-2.5 xs:px-4 md:px-6">
+    <div className='xs:px-4 mt-6 flex flex-col px-2.5 md:flex-row md:px-6'>
       {/* Sidebar */}
-      <aside className="w-64 xl:w-72 bg-white border-1 shadow-xl rounded-md mb-6 md:mb-0 md:mr-6 p-6 hidden lg:block">
-        <h2 className="text-[23px] xl:text-[27px] font-semibold text-gray-800 mb-6 underline">My Account</h2>
+      <aside className='mb-6 hidden w-64 rounded-md border-1 bg-white p-6 shadow-xl md:mr-6 md:mb-0 lg:block xl:w-72'>
+        <h2 className='mb-6 text-[23px] font-semibold text-gray-800 underline xl:text-[27px]'>
+          My Account
+        </h2>
         <nav>
-          <ul className="space-y-2">
+          <ul className='space-y-2'>
             {tabs.map((tab) => {
               const isActive = pathname === tab.href;
               return (
                 <li key={tab.href}>
                   <Link
                     href={tab.href}
-                    className={`block px-5 py-2 rounded-md font-medium transition-all duration-200 text-base xl:text-lg
-                      ${isActive ? 'bg-black text-white' : 'text-gray-700 hover:bg-gray-100 bg-secondary'}`}
+                    className={`block rounded-md px-5 py-2 text-base font-medium transition-all duration-200 xl:text-lg ${isActive ? 'bg-black text-white' : 'bg-secondary text-gray-700 hover:bg-gray-100'}`}
                   >
                     {tab.name}
                   </Link>
@@ -38,9 +39,7 @@ export default function AccountLayout({ children }) {
       </aside>
 
       {/* Content Area */}
-      <main className="flex-1 bg-white lg:p-6">
-        {children}
-      </main>
+      <main className='flex-1 bg-white lg:p-6'>{children}</main>
     </div>
   );
 }

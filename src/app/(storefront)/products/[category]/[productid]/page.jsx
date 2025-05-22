@@ -1,5 +1,4 @@
 import ProductGallery from './product-gallery';
-import ProductDetails from './product-details';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,7 +9,7 @@ import {
 } from '@/components/ui/breadcrumb';
 import { AiOutlineColumnHeight } from 'react-icons/ai';
 import Image from 'next/image';
-import { baseUrl, cn, getProductDetaisByCategory } from '@/lib/utils';
+import { baseApiUrl, cn, getProductDetaisByCategory } from '@/lib/utils';
 import RelatedProducts from '@/components/related-products';
 import CustomTagWrapper from '@/components/custom-tag-wrapper';
 import { LiaBalanceScaleSolid } from 'react-icons/lia';
@@ -19,6 +18,7 @@ import { IoDiamondOutline } from 'react-icons/io5';
 import { RiWeightLine } from 'react-icons/ri';
 import { PiDiamondsFour } from 'react-icons/pi';
 import { CustomerReviews } from './customer-reviews';
+import ProductDetails from './product-details';
 
 export default async function ProductDetailsPage({ params, searchParams }) {
   const { category, productid } = await params;
@@ -29,8 +29,8 @@ export default async function ProductDetailsPage({ params, searchParams }) {
     metalVariation: mv || '',
     style: style || '',
     shank: shank || '',
-    diamondShape: shape || '',
-    sortByPrice: sort || ''
+    diamondShape: shape || ''
+    // sortByPrice: sort || ''
   };
   const query = buildQueryString({
     categoryName: category,
@@ -38,7 +38,7 @@ export default async function ProductDetailsPage({ params, searchParams }) {
   });
   // availableMetals
   const res1 = await fetch(
-    `${baseUrl}/api/v1/product/get-product-id/${productid}`
+    `${baseApiUrl}/api/v1/product/get-product-id/${productid}`
   );
   const data = await res1.json();
   const availableMetals = data.variations[0].metalVariations.map((item) => ({
@@ -47,10 +47,24 @@ export default async function ProductDetailsPage({ params, searchParams }) {
   }));
   // fetch product detials
   const res = await fetch(
-    `${baseUrl}/api/v1/product/get-product-id/${productid}${query}`
+    `${baseApiUrl}/api/v1/product/get-product-id/${productid}${query}`
   );
   const product = await res.json();
 
+  const galleryImages = getGalleryImages({
+    metalVariation: product?.variations[0]?.metalVariations[0],
+    filters: {
+      // search params
+      style: style,
+      shank: shank,
+      diamondShape: shape
+    }
+  });
+
+  console.log(
+    'combinedImages >>',
+    product?.variations[0]?.metalVariations[0].combinationImages
+  );
   // console.log('product >>', product);
 
   return (
@@ -85,11 +99,7 @@ export default async function ProductDetailsPage({ params, searchParams }) {
       <div className='mx-auto mb-8 flex w-full max-w-[2100px] flex-col gap-3 md:gap-4 lg:flex-row xl:gap-6'>
         <ProductGallery
           className='lg:sticky lg:top-10 lg:h-fit lg:w-[45%]'
-          media={product?.variations[0].metalVariations[0].images}
-          // media={
-          //   // product?.variations[0].metalVariations[0].combinationImages[0] // comibnations after filter of shapes and shank
-          //     // .images
-          // }
+          media={galleryImages}
         />
         <ProductDetails
           className='3xl:pr-14 4xl:pr-20 px-3 sm:px-6 lg:w-[55%] lg:pr-8 2xl:pr-12'
@@ -125,6 +135,29 @@ export const PriceDisplay = ({ price, originalPrice, className = '' }) => {
     </div>
   );
 };
+
+function getGalleryImages({ metalVariation, filters }) {
+  const { style, shank, diamondShape } = filters || {};
+
+  const isFilterApplied = style || shank || diamondShape;
+
+  if (!metalVariation) return [];
+
+  if (!isFilterApplied) {
+    return metalVariation.images || [];
+  }
+
+  const matchedCombination = metalVariation.combinationImages?.find((combo) => {
+    return (
+      (!style || combo.style?.toLowerCase() === style.toLowerCase()) &&
+      (!shank || combo.shank?.toLowerCase() === shank.toLowerCase()) &&
+      (!diamondShape ||
+        combo.diamondShape?.toLowerCase() === diamondShape.toLowerCase())
+    );
+  });
+
+  return matchedCombination?.images || metalVariation.images || [];
+}
 
 function buildQueryString(params) {
   const query = Object.entries(params)
