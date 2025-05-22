@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { baseApiUrl } from '@/lib/utils';
 
 export async function POST(request) {
   try {
@@ -16,7 +17,7 @@ export async function POST(request) {
 
     // Call your external backend
     const backendRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000'}/api/v1/register/login`,
+      `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/register/login`,
       {
         method: 'POST',
         headers: {

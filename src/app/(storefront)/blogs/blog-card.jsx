@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { MoveRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { baseUrl } from '@/lib/utils';
+import { baseApiUrl } from '@/lib/utils';
 export default function BlogCard({ data }) {
   const router = useRouter();
   const handleClick = () => {
@@ -17,7 +17,7 @@ export default function BlogCard({ data }) {
       {/* Image with fixed aspect ratio */}
       <div className='aspect-[5/3.25] w-full overflow-hidden rounded-lg'>
         <img
-          src={`${baseUrl}${data?.imges}`}
+          src={`${baseApiUrl}${data?.imges}`}
           alt='Blog Image'
           className='h-full w-full object-cover transition duration-300 ease-in-out hover:scale-108 hover:rotate-2'
           // width={380}

@@ -87,5 +87,4 @@ export function getProductDetaisByCategory(category) {
   return productDetails[category];
 }
 
-export const baseUrl =
-  process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000';
+export const baseApiUrl = 'http://192.168.1.5:5000';

@@ -6,12 +6,11 @@ import { ReviewForm } from '../review-form';
 import Link from 'next/link';
 import { ArrowRight, ChevronLeft, ChevronRight, MoveRight } from 'lucide-react';
 import { ImQuotesLeft, ImQuotesRight } from 'react-icons/im';
-import { baseUrl } from '@/lib/utils';
+import { baseApiUrl } from '@/lib/utils';
 import { RichTextRenderer } from '@/components/rich-text-renderer';
 
 export default async function Page({ params }) {
-  const BASE_URL =
-    process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000';
+  const BASE_URL = baseApiUrl || 'http://153.92.222.195:5000';
 
   const { slug } = await params;
   const res = await fetch(`${BASE_URL}/api/v1/blog/get/${slug}`, {
@@ -113,7 +112,7 @@ export default async function Page({ params }) {
               <Image
                 src={
                   data?.image
-                    ? `${baseUrl}${data.image}`
+                    ? `${baseApiUrl}${data.image}`
                     : '/img/blogs/blog-details.png'
                 }
                 width={800}

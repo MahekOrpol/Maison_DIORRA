@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { Search, SearchX } from 'lucide-react';
 import PreviewCard3 from '@/components/preview-card';
 import axios from 'axios';
-import { baseUrl } from '@/lib/utils';
+import { baseApiUrl } from '@/lib/utils';
 import PreviewCard from '@/components/preview-card';
 
 export default function SearchPage() {
@@ -28,7 +28,7 @@ export default function SearchPage() {
       // router.push(`/search?query=${encodeURIComponent(searchValue.trim())}`);
 
       // Make API call
-      const response = await axios.get(`${baseUrl}/api/v1/product/get`, {
+      const response = await axios.get(`${baseApiUrl}/api/v1/product/get`, {
         params: {
           productName: query.trim()
         }
@@ -50,7 +50,7 @@ export default function SearchPage() {
         router.push(`/search?query=${encodeURIComponent(searchValue.trim())}`);
 
         // Make API call
-        const response = await axios.get(`${baseUrl}/api/v1/product/get`, {
+        const response = await axios.get(`${baseApiUrl}/api/v1/product/get`, {
           params: {
             productName: searchValue.trim()
           }

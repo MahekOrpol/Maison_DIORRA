@@ -3,8 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { BlogsBanner } from './blogs-banner';
 
-const BASE_URL =
-  process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000';
+const BASE_URL = baseApiUrl || 'http://153.92.222.195:5000';
 
 async function getBlogPosts() {
   try {

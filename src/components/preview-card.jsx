@@ -12,7 +12,7 @@ import {
   CarouselNext,
   CarouselPrevious
 } from '@/components/ui/carousel';
-import { baseUrl, cn } from '@/lib/utils';
+import { baseApiUrl, cn } from '@/lib/utils';
 import Link from 'next/link';
 import {
   Drawer,
@@ -48,8 +48,7 @@ export default function PreviewCard({
   const [liked, setLiked] = useState(
     wishlist?.some((item) => item.product._id === product._id)
   );
-  const BASE_URL =
-    process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000';
+  const BASE_URL = baseApiUrl || 'http://153.92.222.195:5000';
   // console.log('product', product);
   // console.log('wishlist', wishlist);
   // Fix: Reset metal when product changes
@@ -186,7 +185,7 @@ export default function PreviewCard({
                   className='h-full w-full basis-full cursor-pointer pl-[0.5px]'
                 >
                   <Image
-                    src={baseUrl + image}
+                    src={baseApiUrl + image}
                     alt={'Product image'}
                     width={300}
                     height={300}

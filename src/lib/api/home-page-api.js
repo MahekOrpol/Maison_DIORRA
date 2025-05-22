@@ -1,6 +1,8 @@
 // lib/api/home-sections.js
 
-const BASE_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000'}/api/v1`;
+import { baseApiUrl } from '../utils';
+
+const BASE_URL = `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1`;
 
 // export async function fetchHeroSection() {
 //   const res = await fetch(`${BASE_URL}/home/hero`, {
@@ -11,7 +13,7 @@ const BASE_URL = `${process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.19
 // }
 
 export async function fetchCategories() {
-  console.log(BASE_URL);
+  // console.log(BASE_URL);
   const res = await fetch(`${BASE_URL}/category/get`, {
     // cache: 'force-cache'
     // next: { revalidate: 1800 } // Revalidate once every 24 hours (in seconds)

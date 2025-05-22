@@ -1,9 +1,8 @@
-import { baseUrl, cn } from '@/lib/utils';
+import { baseApiUrl, cn } from '@/lib/utils';
 import Image from 'next/image';
 import React from 'react';
 
-const BASE_URL =
-  process.env.NEXT_PUBLIC_BACKEND_URL || 'http://153.92.222.195:5000';
+const BASE_URL = baseApiUrl || 'http://153.92.222.195:5000';
 
 export default async function Page() {
   try {
@@ -21,7 +20,7 @@ export default async function Page() {
         <Banner imgUrl='/img/banner1.png' heading='About Us' />
         <section className='wrapper py-6 md:py-12'>
           <AboutSection
-            image={baseUrl + data.aboutImg}
+            image={baseApiUrl + data.aboutImg}
             title='About Us'
             paragraphs={data.aboutDescription.split('\n\n')}
           />
@@ -36,7 +35,7 @@ export default async function Page() {
           </div>
 
           <AboutSection
-            image={baseUrl + data.goalImg}
+            image={baseApiUrl + data.goalImg}
             title='Our Goal'
             paragraphs={data.goalDescription.split('\n\n')}
             reverse
