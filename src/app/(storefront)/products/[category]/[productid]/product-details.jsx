@@ -97,7 +97,6 @@ export default function ProductDetails({
   const isDiamondBased = true;
   const availableRingSizes =
     data?.variations[0].metalVariations[0].ringSizes || [];
-  console.log(availableRingSizes);
   // const availableMetalPurities =
   //   data?.variations[0].metalVariations[0].metal || [];
   // const availableMetals = availableMetals || [];
