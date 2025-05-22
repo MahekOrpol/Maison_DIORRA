@@ -1,5 +1,4 @@
 import ProductGallery from './product-gallery';
-import ProductDetails from './product-details';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -19,6 +18,7 @@ import { IoDiamondOutline } from 'react-icons/io5';
 import { RiWeightLine } from 'react-icons/ri';
 import { PiDiamondsFour } from 'react-icons/pi';
 import { CustomerReviews } from './customer-reviews';
+import ProductDetails from './product-details';
 
 export default async function ProductDetailsPage({ params, searchParams }) {
   const { category, productid } = await params;

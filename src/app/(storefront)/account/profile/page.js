@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@radix-ui/react-dropdown-menu';
 import { FormProvider } from 'react-hook-form';
-
+// export const dynamic = 'force-dynamic';
 export default function Page() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   return (

@@ -5,6 +5,7 @@ import PreviewCard from '@/components/preview-card';
 import { useWishlistStore } from '@/store/wishlist-store';
 import { toast } from 'sonner';
 import { ProductCardSkeleton } from '@/components/skeleton';
+// export const dynamic = 'force-dynamic';
 
 export default function WishlistPage() {
   const { wishlist, refreshWishlist } = useWishlistStore();
@@ -20,7 +21,7 @@ export default function WishlistPage() {
     const fetchData = async () => {
       try {
         await refreshWishlist();
-        localStorage.setItem('wishlistLength', wishlist.length.toString());
+        localStorage.setItem('wishlistLength', wishlist?.length.toString());
         setIsInitialLoad(false);
       } catch (err) {
         toast.error('Failed to load wishlist. Please try again.');
@@ -29,7 +30,7 @@ export default function WishlistPage() {
     };
 
     fetchData();
-  }, [refreshWishlist, wishlist.length]);
+  }, [refreshWishlist, wishlist?.length]);
 
   if (isInitialLoad) {
     return (
@@ -49,7 +50,7 @@ export default function WishlistPage() {
   }
 
   return (
-    <div className='sm:wrapper min-h-[60vh] pt-6 xl:pt-24 pb-10'>
+    <div className='sm:wrapper min-h-[60vh] pt-6 pb-10 xl:pt-24'>
       {wishlist?.length === 0 ? (
         <div className='flex flex-col items-center justify-center'>
           <div className='w-[120px] sm:w-[170px]'>
