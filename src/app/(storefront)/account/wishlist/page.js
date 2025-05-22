@@ -34,23 +34,21 @@ export default function WishlistPage() {
 
   if (isInitialLoad) {
     return (
-      <div className='sm:wrapper pt-4 pb-10'>
-        <div className='min-h-[60vh] pt-24 pb-10'>
-          <h1 className='mb-4 text-2xl font-bold underline sm:text-3xl md:mb-6'>
-            Your Wishlist
-          </h1>
-          <div className='3xl:grid-cols-4 grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-2 lg:gap-6 xl:grid-cols-3'>
-            {Array.from({ length: previousWishlistLength }).map((_, index) => (
-              <ProductCardSkeleton key={index} />
-            ))}
-          </div>
+      <div className='sm:wrapper pt-4'>
+        <h1 className='mb-4 text-2xl font-bold underline sm:text-3xl md:mb-6'>
+          Your Wishlist
+        </h1>
+        <div className='3xl:grid-cols-4 grid grid-cols-2 gap-2 md:grid-cols-3 md:gap-4 lg:grid-cols-2 lg:gap-6 xl:grid-cols-3'>
+          {Array.from({ length: previousWishlistLength }).map((_, index) => (
+            <ProductCardSkeleton key={index} />
+          ))}
         </div>
       </div>
     );
   }
 
   return (
-    <div className='sm:wrapper min-h-[60vh] pt-6 pb-10 xl:pt-24'>
+    <div className='sm:wrapper min-h-[60vh] pt-6 pb-10'>
       {wishlist?.length === 0 ? (
         <div className='flex flex-col items-center justify-center'>
           <div className='w-[120px] sm:w-[170px]'>

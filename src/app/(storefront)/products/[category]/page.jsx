@@ -81,7 +81,6 @@ export default function ProductListingPage({ params }) {
     categoryName: category,
     metal: metalPurity,
     style: style,
-
     diamondShape: shape
     // sortByPrice
   };
@@ -93,6 +92,21 @@ export default function ProductListingPage({ params }) {
     [query]
   );
 
+  // fetch all available filters 1. metal 2. shape 3. style
+  const { data: availableMetals } = useFetch(
+    `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/metal/get`
+  );
+  const { data: availableShapes } = useFetch(
+    `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/diamond-shape/get`
+  );
+  const { data: allCategories } = useFetch(
+    `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/category/get`
+  );
+  // issue is here, not getting the styles of the category, for first time ..
+  const availableStyles = (allCategories || []).find(
+    (item) => item.categoryName.toLowerCase() === category
+  )?.style;
+
   return (
     <div className='wrapper'>
       {category === 'rings' && (
@@ -100,7 +114,9 @@ export default function ProductListingPage({ params }) {
       )}
       <ProductFilters
         category={category.toLowerCase()}
-        // subCategory={''}
+        availableMetals={availableMetals}
+        availableShapes={availableShapes}
+        availableStyles={availableStyles}
         className='mt-3 lg:mt-8 2xl:mt-10'
       />
       <ProductGrid

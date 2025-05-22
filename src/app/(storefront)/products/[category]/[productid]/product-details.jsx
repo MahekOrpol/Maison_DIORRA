@@ -20,11 +20,14 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { FaWhatsapp } from 'react-icons/fa';
 import { ScheduleCallDialog } from '@/components/modals/schedule-meeting-modal';
 import ShareButton from '@/app/checkout/components/share-button';
+import { toast } from 'sonner';
+import { useUserStore } from '@/store/user-store';
+import { useWishlistStore } from '@/store/wishlist-store';
 
 const shapes = [
   { name: 'Round', imgUrl: '/icons/shape-round.svg' },
   { name: 'Pear', imgUrl: '/icons/shape-pear.svg' },
-  { name: 'Emerald', imgUrl: '/icons/shape-emerlad.svg' },
+  { name: 'Emerald', imgUrl: '/icons/shape-emerald.svg' },
   { name: 'Princess', imgUrl: '/icons/shape-princess.svg' }
 ];
 const shanks = [
@@ -72,59 +75,44 @@ export default function ProductDetails({
   const [openMeeting, setOpenMeeting] = useState(false);
 
   const router = useRouter();
-  // ---------------------------------------------------
+  const wishlist = useWishlistStore((state) => state.wishlist);
+  const toggleWishlist = useWishlistStore((state) => state.toggleWishlist);
+  const [isWishlistLoading, setIsWishlistLoading] = useState(false);
+  const [liked, setLiked] = useState(
+    wishlist?.some((item) => item.product._id === data._id)
+  );
 
   const handleFilterChange = (key, value) => {
     const params = new URLSearchParams(searchParams.toString());
-    if (value) {
-      params.set(key, value);
-    } else {
+    // Toggle logic: if value is already selected, remove it
+    if (params.get(key) === value) {
       params.delete(key);
+    } else {
+      params.set(key, value);
     }
 
     // Update URL without full reload
     router.push(`?${params.toString()}`, { scroll: false });
-
-    // Optional: update local state if needed
   };
-
-  // --------------------------------------------
 
   // const isRing = category === 'rings';
   const isRing = true;
 
   // const isDiamondBased = subcategory?.toLowerCase().includes('diamond');
   const isDiamondBased = true;
+
+  // available filters --------------------------------------------
   const availableRingSizes =
     data?.variations[0].metalVariations[0].ringSizes || [];
-  console.log(availableRingSizes);
   // const availableMetalPurities =
-  //   data?.variations[0].metalVariations[0].metal || [];
-  // const availableMetals = availableMetals || [];
-  // console.log('sizes', availableRingSizes);
-  const availableMetalPurities = metalPurityOptions.filter((option) =>
-    availableMetals.some((m) => m.metal === option.label)
+  //   data?.variations[0].metalVariations[0].metal || []; //dynamic
+  const availableMetalPurities = metalPurityOptions.filter(
+    (option) => availableMetals.some((m) => m.metal === option.label) //using available metals from parent
   );
-
-  const availableShapes2 =
+  const availableDiamondShapes =
     data?.variations[0].metalVariations[0].diamondShape || [];
-  const availableDiamondShapes = availableShapes2.map((shape) => {
-    const match = shapes.find((s) => s.name === shape.name);
-    return {
-      ...shape,
-      image: match ? match.imgUrl : shape.image // fallback to original if not found
-    };
-  });
-  const availableShanks2 = data?.variations[0].metalVariations[0].shank || [];
-  const availableShanks = availableShanks2.map((shank) => {
-    const match = shanks.find((s) => s.name === shank.name);
-    return {
-      ...shank,
-      image: match ? match.imgUrl : '' // fallback to original if not found
-    };
-  });
-
-  // console.log(availableShanks);
+  const availableShanks = data?.variations[0].metalVariations[0].shank || [];
+  const availableStyles = data?.variations[0].metalVariations[0].style || [];
 
   const handleAddToCart = async () => {
     const res = await fetch('/api/check-auth', {
@@ -137,34 +125,75 @@ export default function ProductDetails({
     }
     router.push('/checkout');
   };
-  const handleAddToWishlist = async () => {
-    const res = await fetch('/api/check-auth', {
-      method: 'GET',
-      cache: 'no-store'
-    });
-    const data = await res.json();
-    if (!data.authenticated) {
-      router.push('/login');
+
+  // Replace the existing handleFavoriteClick with this one:
+  const handleFavoriteClick = async () => {
+    const { isLoggedIn, authUser } = useUserStore.getState();
+    const { wishlist } = useWishlistStore.getState();
+
+    if (!isLoggedIn || !authUser) {
+      openModal('wishlistNotAllowed');
+      return;
     }
-    router.push('/account/wishlist');
+
+    const userId = authUser.id;
+    const productId = data._id; // Changed from product._id to data.
+    console.log(data._id)
+    const isWishlisted = wishlist.some((item) => item.product?._id === productId);
+    const wishlistItem = wishlist.find((item) => item.product?._id === productId);
+    const wishlistItemId = wishlistItem?._id;
+
+    setIsWishlistLoading(true);
+    try {
+      const res = await fetch(`/api/wishlist/${userId}`, {
+        method: isWishlisted ? 'DELETE' : 'POST',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          userId,
+          productId,
+          wishlistItemId,
+          selectedMetal: selectedMetal || null // Changed from selectedMetal?.metal to selectedMetal
+        })
+      });
+
+      const responseData = await res.json(); // Renamed to avoid conflict with the data prop
+      if (!res.ok) {
+        console.error('Wishlist API error:', responseData.message);
+        toast.error(responseData.message || 'Failed to update wishlist');
+        return;
+      }
+
+      setLiked(!isWishlisted);
+      await useWishlistStore.getState().fetchWishlist();
+      toast.success(isWishlisted ? 'Removed from wishlist' : 'Added to wishlist');
+    } catch (err) {
+      console.error('Wishlist error:', err);
+      toast.error('Something went wrong while updating wishlist');
+    } finally {
+      setIsWishlistLoading(false);
+    }
   };
+
   return (
     <section className={cn(className)}>
       <div>
         {/* Sale Badge */}
         <span className='bg-primary text-primary-foreground mb-2 inline-block rounded-full px-3 py-1 text-xs'>
-          SAVE {parseFloat(data?.discount.$numberDecimal)} %
+          SAVE <span className='pl-1'>{parseFloat(data?.discount.$numberDecimal)}</span> %
         </span>
         {/* Product Title */}
-        <div className='xs:pt-0 mb-2 flex gap-4 pt-2 md:mb-3'>
-          <h1 className='mb-2 flex-1 text-xl leading-6 font-medium sm:text-2xl sm:leading-8 md:text-3xl md:leading-10'>
+        <div className='xs:pt-0 mb-3 flex gap-4 pt-2 relative'>
+          <h1 className='flex-1 text-xl leading-6 font-medium sm:text-2xl sm:leading-8 md:text-3xl md:leading-10'>
             {data?.productName || 'Product name'}
           </h1>
-          <Image src='/icons/hand.svg' alt='hand icon' height={40} width={40} />
+          <Image src='/icons/hand.svg' alt='hand icon' height={36} width={36} className=' absolute sm:relative right-1.5 bottom-1' />
           {/* <GiBigDiamondRing className='h-5 w-5 sm:h-7 sm:w-7 lg:h-14 lg:w-14' /> */}
         </div>
         {/* Reviews */}
-        <div className='xs:text-sm xs:gap-6 mb-1 flex items-center gap-2 text-xs text-nowrap min-[350px]:gap-5 sm:mb-2 md:gap-4 xl:gap-12'>
+        <div className='xs:text-sm xs:gap-6 mb-2 flex items-center gap-2 text-xs text-nowrap min-[350px]:gap-5 sm:mb-2 md:gap-4 xl:gap-12 mt-2 sm:mt-0'>
           <span className='flex items-center'>
             {/* Star Rating Display */}
             <span className='flex items-center'>
@@ -272,7 +301,7 @@ export default function ProductDetails({
       </div>
 
       {/* Product Options */}
-      <div className='pb-2'>
+      <div className='pb-2 sm:pb-4'>
         <Select
           value={selectedSize?.productSize || ''}
           onValueChange={(value) => {
@@ -282,9 +311,12 @@ export default function ProductDetails({
             setSelectedSize(sizeObj || null);
           }}
         >
-          <SelectTrigger className='bg-secondary data-[placeholder]:text-foreground w-[200px] font-medium md:text-lg'>
+          <div className='flex gap-3 items-center'>
+          <span className='text-xl font-medium'>Size:</span>
+          <SelectTrigger className='bg-secondary data-[placeholder]:text-foreground w-[200px] font-light md:text-sm'>
             <SelectValue placeholder='Select Ring Size' />
           </SelectTrigger>
+          </div>
           <SelectContent>
             {availableRingSizes.map((size) => (
               <SelectItem key={size._id} value={size.productSize}>
@@ -295,8 +327,8 @@ export default function ProductDetails({
         </Select>
       </div>
       {/* metal purity */}
-      <div className='border-b pb-4'>
-        <p className='text-lg font-medium'>Metal & Purity</p>
+      <div className='border-b pb-4 pt-2'>
+        <p className='text-lg font-medium pb-1'>Metal & Purity :</p>
         <div className='xxs:grid-cols-3 xxs:max-w-[345px] mt-2 grid w-full grid-cols-2 gap-2'>
           {availableMetalPurities.map((item) => {
             const [purity, ...metalName] = item.label.split(' ');
@@ -308,11 +340,10 @@ export default function ProductDetails({
                 onClick={() => {
                   handleFilterChange('metal', item.label);
                 }}
-                className={`bg-secondary flex items-center gap-2 rounded-md border px-3 py-3 text-left transition ${
-                  isSelected
+                className={`bg-secondary flex items-center gap-2 rounded-md border px-3 py-3 text-left transition ${isSelected
                     ? 'border-black'
                     : 'border-transparent hover:border-black'
-                }`}
+                  }`}
               >
                 <div
                   className='h-4 w-4 shrink-0 rounded-full border border-gray-300'
@@ -332,17 +363,19 @@ export default function ProductDetails({
       {(isRing === true || isDiamondBased === true) &&
         Array.isArray(shapes) &&
         shapes.length > 0 && (
-          <div className='border-b pt-2 pb-4'>
-            <p className='text-lg font-medium'>Diamond Shape</p>
+          <div className='border-b pt-3 pb-4'>
+            <p className='text-lg font-medium'>Diamond Shape :</p>
             <div className='mt-2 flex gap-2 text-[0.8rem]'>
               {availableDiamondShapes.map((shape) => (
                 <button
                   key={shape.name}
                   className={cn(
                     'bg-secondary flex aspect-square w-[80px] flex-col items-center justify-center rounded-md border border-transparent transition hover:border-black',
-                    searchParams.get('ds') === shape.name ? 'border-black' : ''
+                    searchParams.get('shape') === shape.name
+                      ? 'border-black'
+                      : ''
                   )}
-                  onClick={(e) => handleFilterChange('ds', shape.name)}
+                  onClick={() => handleFilterChange('shape', shape.name)}
                 >
                   <Image
                     src={shape.image}
@@ -359,8 +392,8 @@ export default function ProductDetails({
         )}
       {/* Shank */}
       {isRing && (
-        <div className='pt-2 pb-6'>
-          <p className='text-lg font-medium'>Shank</p>
+        <div className='pt-3 pb-6'>
+          <p className='text-lg font-medium pb-1'>Shank :</p>
           <div className='flex gap-2 text-[0.8rem]'>
             {availableShanks.map((shank) => (
               <button
@@ -388,6 +421,35 @@ export default function ProductDetails({
           </div>
         </div>
       )}
+
+      <div className='pt-2 pb-6'>
+        <p className='text-lg font-medium'>Styles</p>
+        <div className='flex gap-2 text-[0.8rem]'>
+          {availableStyles.map((style) => (
+            <button
+              key={style.name}
+              className={cn(
+                'bg-secondary flex aspect-square w-[80px] flex-col items-center justify-center rounded-md border border-transparent transition hover:border-black',
+                searchParams.get('style') === style.name ? 'border-black' : ''
+              )}
+              onClick={() => handleFilterChange('style', style.name)}
+            >
+              <Image
+                src={style.image}
+                width={60}
+                height={60}
+                alt={'Shank Icon'}
+                className='h-3/4 w-3/4 object-contain'
+              />
+              <span className='mt-1'>
+                {style.name
+                  ? style.name.charAt(0).toUpperCase() + style.name.slice(1)
+                  : ''}
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
 
       <div className='xs:p-0 pt-3'>
         {/* See It Live Section */}
@@ -440,7 +502,7 @@ export default function ProductDetails({
               className='h-10 flex-1 gap-4 rounded-lg text-base lg:h-12 lg:text-lg'
               onClick={handleAddToCart}
             >
-              <FaWhatsapp className='mr- size-6' /> Chat With Experts
+              <FaWhatsapp className='mr- size-6' /> Order On Whatsapp
             </Button>
 
             {/* <button
@@ -452,10 +514,13 @@ export default function ProductDetails({
 
             {/* Add to Wishlist */}
             <button
-              onClick={handleAddToWishlist}
+              onClick={handleFavoriteClick}
+              disabled={isWishlistLoading}
               className='hover:bg-muted flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 bg-white transition md:h-10 md:w-10'
             >
-              <Heart className='h-4 w-4 md:h-5 md:w-5' strokeWidth={1.6} />
+              <Heart className={`h-4 w-4 md:h-5 md:w-5 transition-colors ${liked ? 'fill-primary text-primary' : 'text-black'
+                }`}
+                strokeWidth={1.6} />
             </button>
             <ShareButton url={window.location.href} />
           </div>

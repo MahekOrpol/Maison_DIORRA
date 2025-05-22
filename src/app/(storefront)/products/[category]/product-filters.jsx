@@ -14,7 +14,7 @@ import {
   SelectTrigger,
   SelectValue
 } from '@/components/ui/select';
-import { cn } from '@/lib/utils';
+import { baseApiUrl, cn } from '@/lib/utils';
 import { useFilterStore } from '@/store/use-filter-store';
 import { Funnel, RotateCcw, RotateCcwIcon, X } from 'lucide-react';
 import Image from 'next/image';
@@ -48,10 +48,18 @@ const metalPurityOptions = [
   { label: '14K Rose Gold', swatch: '#e4a0a1' },
   { label: '18K Rose Gold', swatch: '#e4a0a1' },
   { label: '14K White Gold', swatch: '#e0e0e0' },
-  { label: '18K White Gold', swatch: '#e0e0e0' }
+  { label: '18K White Gold', swatch: '#e0e0e0' },
+  { label: 'Platinum', swatch: '#e0e0e0' }
 ];
 
-export default function ProductFilters({ category, subCategory, className }) {
+export default function ProductFilters({
+  category,
+  subCategory,
+  className,
+  availableMetals,
+  availableShapes,
+  availableStyles
+}) {
   const {
     metalPurity,
     style,
@@ -67,7 +75,8 @@ export default function ProductFilters({ category, subCategory, className }) {
   const isRing = category === 'rings';
   const isDiamondBased = subCategory?.toLowerCase().includes('diamond');
   const showRingStyle = isRing;
-  const showDiamondShapes = isDiamondBased || isRing;
+  // const showDiamondShapes = isDiamondBased || isRing;
+  const showDiamondShapes = true;
   const showCommonFilters = [
     'rings',
     'pendants',
@@ -75,6 +84,13 @@ export default function ProductFilters({ category, subCategory, className }) {
     'earrings'
   ].includes(category.toLowerCase());
 
+  const modifiedMetals = Array.isArray(availableMetals)
+    ? metalPurityOptions.filter((option) =>
+        availableMetals.some(
+          (m) => m.metal.toLowerCase() === option.label.toLowerCase()
+        )
+      )
+    : [];
   return (
     <>
       {/* heading + product styles  */}
@@ -95,35 +111,39 @@ export default function ProductFilters({ category, subCategory, className }) {
         >
           Find Your Statement Piece – Crafted to Elevate Your Style
         </p>
-        {category === 'rings' && (
+        {/* {category === 'rings' && ( */}
+        {
           <div className='hidden justify-center gap-4 pt-3 lg:flex'>
-            {ringStyles.map((item) => {
-              const isSelected = style === item.styleType;
-              return (
-                <button
-                  key={item.styleType}
-                  onClick={() =>
-                    setStyle(item.styleType.toLowerCase().replace(/\s+/g, '-'))
-                  }
-                  className={`inline-flex w-[112px] flex-col items-center rounded-2xl border p-3 pt-4 text-xs transition-all ${isSelected ? 'border-secondary shadow-md' : 'border-secondary shadow-md hover:border-black/60 hover:bg-gray-100'} `}
-                >
-                  <div className='mb-4 flex h-[30px] w-[70px] items-center justify-center 2xl:h-[35px]'>
-                    <Image
-                      src={item.imgUrl}
-                      height={30}
-                      width={70}
-                      alt={item.styleType}
-                      className='h-full w-full object-contain'
-                    />
-                  </div>
-                  <p className='3xl:text-lg mt-auto text-[15px] leading-4 text-nowrap xl:text-base'>
-                    {item.styleType}
-                  </p>
-                </button>
-              );
-            })}
+            {availableStyles &&
+              availableStyles.length > 0 &&
+              availableStyles.map((item) => {
+                const isSelected = style === item.name;
+                return (
+                  <button
+                    key={item.name}
+                    onClick={() =>
+                      // setStyle(item.name.toLowerCase().replace(/\s+/g, '-'))
+                      setStyle(item.name)
+                    }
+                    className={`inline-flex w-[112px] flex-col items-center rounded-2xl border p-3 pt-4 text-xs transition-all ${isSelected ? 'border-secondary shadow-md' : 'border-secondary shadow-md hover:border-black/60 hover:bg-gray-100'} `}
+                  >
+                    <div className='mb-4 flex h-[30px] w-[70px] items-center justify-center 2xl:h-[35px]'>
+                      <Image
+                        src={baseApiUrl + item.image}
+                        height={30}
+                        width={70}
+                        alt={item.name}
+                        className='h-full w-full object-contain'
+                      />
+                    </div>
+                    <p className='3xl:text-lg mt-auto text-[15px] leading-4 text-nowrap xl:text-base'>
+                      {item.name}
+                    </p>
+                  </button>
+                );
+              })}
           </div>
-        )}
+        }
       </div>
       {/* product filters */}
       <div className={cn(className)}>
@@ -165,7 +185,7 @@ export default function ProductFilters({ category, subCategory, className }) {
                   </span>
                 </p>
                 <div className='xxs:grid-cols-3 mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4'>
-                  {metalPurityOptions.map((item) => {
+                  {modifiedMetals.map((item) => {
                     const [purity, ...metalName] = item.label.split(' ');
                     const isSelected = metalPurity === item.label;
 
@@ -200,29 +220,31 @@ export default function ProductFilters({ category, subCategory, className }) {
                   <span className='text-secondary-foreground'>Halo</span>
                 </p>
                 <div className='mt-2 grid grid-cols-5 gap-2 text-xs sm:grid-cols-8'>
-                  {ringStyles.map((item, idx) => {
-                    const isSelected = style === item.styleType;
-                    return (
-                      <button
-                        key={idx}
-                        onClick={() => setStyle(item.styleType)}
-                        className={`bg-secondary flex h-full flex-col items-center rounded-md border px-2 pb-2 text-[10px] transition-all ${
-                          isSelected
-                            ? 'border-black'
-                            : 'border-transparent hover:border-black'
-                        }`}
-                      >
-                        <Image
-                          src={item.imgUrl}
-                          width={50}
-                          height={25}
-                          alt={item.styleType}
-                          className='my-2 h-[25px] w-[50px] object-contain'
-                        />
-                        <p className='mt-2 text-center'>{item.styleType}</p>
-                      </button>
-                    );
-                  })}
+                  {availableStyles &&
+                    availableStyles.length > 0 &&
+                    availableStyles.map((item, idx) => {
+                      const isSelected = style === item.name;
+                      return (
+                        <button
+                          key={idx}
+                          onClick={() => setStyle(item.name)}
+                          className={`bg-secondary flex h-full flex-col items-center rounded-md border px-2 pb-2 text-[10px] transition-all ${
+                            isSelected
+                              ? 'border-black'
+                              : 'border-transparent hover:border-black'
+                          }`}
+                        >
+                          <Image
+                            src={baseApiUrl + item.image}
+                            width={50}
+                            height={25}
+                            alt={item.name}
+                            className='my-2 h-[25px] w-[50px] object-contain'
+                          />
+                          <p className='mt-2 text-center'>{item.name}</p>
+                        </button>
+                      );
+                    })}
                 </div>
               </div>
               {/* Diamond Shape Section */}
@@ -233,24 +255,33 @@ export default function ProductFilters({ category, subCategory, className }) {
                     <span className='text-secondary-foreground'>Round</span>
                   </p>
                   <div className='mt-2 grid grid-cols-5 gap-2 text-xs sm:grid-cols-8'>
-                    {['round', 'pear', 'emerlad', 'princess'].map(
-                      (shape, idx) => (
-                        <button
-                          key={idx}
-                          className='bg-secondary flex flex-col items-center rounded-md border border-transparent px-1 pb-2 text-[10px] transition hover:border-black'
-                          onClick={() => setShape(shape)}
-                        >
-                          <Image
-                            src={`/icons/shape-${shape}.svg`}
-                            width={48}
-                            height={48}
-                            alt={shape}
-                            className='h-12 w-12'
-                          />
-                          {shape.charAt(0).toUpperCase() + shape.slice(1)}
-                        </button>
-                      )
-                    )}
+                    {availableShapes &&
+                      availableShapes.length > 0 &&
+                      availableShapes.map((item, idx) => {
+                        const isSelected =
+                          shape.toLowerCase() ===
+                          item.diamondShape.toLowerCase();
+                        return (
+                          <button
+                            key={idx}
+                            onClick={() => setShape(item.diamondShape)}
+                            className={`bg-secondary flex flex-col items-center rounded-md border border-transparent px-1 pb-2 text-[10px] transition hover:border-black ${
+                              isSelected
+                                ? 'border-black'
+                                : 'border-transparent hover:border-black'
+                            }`}
+                          >
+                            <Image
+                              src={baseApiUrl + item.diamondImage}
+                              width={48}
+                              height={48}
+                              alt={item.diamondShape}
+                              className='h-12 w-12'
+                            />
+                            {item.diamondShape}
+                          </button>
+                        );
+                      })}
                   </div>
                 </div>
               )}
@@ -267,7 +298,7 @@ export default function ProductFilters({ category, subCategory, className }) {
                     <div
                       className='h-3 w-3 shrink-0 rounded-full border border-gray-300'
                       style={{
-                        backgroundColor: metalPurityOptions.find(
+                        backgroundColor: modifiedMetals.find(
                           (m) => m.label === metalPurity
                         )?.swatch
                       }}
@@ -285,7 +316,7 @@ export default function ProductFilters({ category, subCategory, className }) {
               </SelectTrigger>
               <SelectContent className='w-[270px]'>
                 <div className='grid grid-cols-2 gap-3 p-3'>
-                  {metalPurityOptions.map((item) => {
+                  {modifiedMetals.map((item) => {
                     const [purity, ...metalName] = item.label.split(' ');
                     const metalLabel = metalName.join(' ');
                     return (
@@ -381,42 +412,18 @@ export default function ProductFilters({ category, subCategory, className }) {
                 <SelectValue placeholder='Diamond Shape' />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value='round'>
-                  <Image
-                    src='/icons/shape-round.svg'
-                    width={26}
-                    height={26}
-                    alt='metal'
-                  />
-                  Round
-                </SelectItem>
-                <SelectItem value='pear'>
-                  <Image
-                    src='/icons/shape-pear.svg'
-                    width={26}
-                    height={26}
-                    alt='metal'
-                  />
-                  Pear
-                </SelectItem>
-                <SelectItem value='emerlad'>
-                  <Image
-                    src='/icons/shape-emerlad.svg'
-                    width={26}
-                    height={26}
-                    alt='metal'
-                  />
-                  Emerlad
-                </SelectItem>
-                <SelectItem value='princess'>
-                  <Image
-                    src='/icons/shape-princess.svg'
-                    width={26}
-                    height={26}
-                    alt='metal'
-                  />
-                  Princess
-                </SelectItem>
+                {availableShapes &&
+                  availableShapes.map((shape) => (
+                    <SelectItem value={shape.diamondShape} key={shape.id}>
+                      <Image
+                        src={baseApiUrl + shape.diamondImage}
+                        width={26}
+                        height={26}
+                        alt='metal'
+                      />
+                      {shape.diamondShape}
+                    </SelectItem>
+                  ))}
               </SelectContent>
             </Select>
           )}

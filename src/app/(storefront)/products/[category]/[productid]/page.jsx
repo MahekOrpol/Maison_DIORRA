@@ -65,7 +65,7 @@ export default async function ProductDetailsPage({ params, searchParams }) {
     'combinedImages >>',
     product?.variations[0]?.metalVariations[0].combinationImages
   );
-  // console.log('product >>', product);
+  console.log('product >>', product);
 
   return (
     <>
@@ -79,7 +79,7 @@ export default async function ProductDetailsPage({ params, searchParams }) {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href='#' className='3xl:text-lg lg:text-base'>
+              <BreadcrumbLink href={`/products/${category}`} className='3xl:text-lg lg:text-base'>
                 {category
                   .split('-')
                   .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -106,9 +106,9 @@ export default async function ProductDetailsPage({ params, searchParams }) {
           data={product}
           category={category}
           availableMetals={availableMetals}
-          // subcategory={subcategory}
-          // selectedMetal={selectedMetal}
-          // setSelectedMetal={setSelectedMetal}
+        // subcategory={subcategory}
+        // selectedMetal={selectedMetal}
+        // setSelectedMetal={setSelectedMetal}
         />
       </div>
       {/* <FinalDetails className='wrapper' data={product.finalProductDetails} /> */}
@@ -139,7 +139,8 @@ export const PriceDisplay = ({ price, originalPrice, className = '' }) => {
 function getGalleryImages({ metalVariation, filters }) {
   const { style, shank, diamondShape } = filters || {};
 
-  const isFilterApplied = style || shank || diamondShape;
+  const isFilterApplied = diamondShape || shank || style;
+  // console.log('filters >>', filters);
 
   if (!metalVariation) return [];
 

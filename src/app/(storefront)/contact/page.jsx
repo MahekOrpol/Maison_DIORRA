@@ -48,7 +48,7 @@ export default function ContactPage() {
 
   return (
     <div className=''>
-      <Banner imgUrl='/img/banner/banner1.png' heading='Contact Us' />
+      <Banner imgUrl='/img/banner1.png' heading='Contact Us' />
 
       {/* Contact Info Cards */}
       <div className='wrapper mt-14 mb-8 w-full md:mt-16 md:mb-12 xl:mt-20 xl:mb-16'>
