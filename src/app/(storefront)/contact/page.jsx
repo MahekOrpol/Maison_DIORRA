@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { toast } from 'sonner';
+import { baseApiUrl } from '@/lib/utils';
 
 const BASE_URL = baseApiUrl || 'http://153.92.222.195:5000';
 
