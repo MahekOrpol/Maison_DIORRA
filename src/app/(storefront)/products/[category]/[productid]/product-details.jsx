@@ -27,7 +27,7 @@ import { useWishlistStore } from '@/store/wishlist-store';
 const shapes = [
   { name: 'Round', imgUrl: '/icons/shape-round.svg' },
   { name: 'Pear', imgUrl: '/icons/shape-pear.svg' },
-  { name: 'Emerald', imgUrl: '/icons/shape-emerlad.svg' },
+  { name: 'Emerald', imgUrl: '/icons/shape-emerald.svg' },
   { name: 'Princess', imgUrl: '/icons/shape-princess.svg' }
 ];
 const shanks = [
@@ -84,54 +84,35 @@ export default function ProductDetails({
 
   const handleFilterChange = (key, value) => {
     const params = new URLSearchParams(searchParams.toString());
-    if (value) {
-      params.set(key, value);
-    } else {
+    // Toggle logic: if value is already selected, remove it
+    if (params.get(key) === value) {
       params.delete(key);
+    } else {
+      params.set(key, value);
     }
 
     // Update URL without full reload
     router.push(`?${params.toString()}`, { scroll: false });
-
-    // Optional: update local state if needed
   };
-
-  // --------------------------------------------
 
   // const isRing = category === 'rings';
   const isRing = true;
 
   // const isDiamondBased = subcategory?.toLowerCase().includes('diamond');
   const isDiamondBased = true;
+
+  // available filters --------------------------------------------
   const availableRingSizes =
     data?.variations[0].metalVariations[0].ringSizes || [];
   // const availableMetalPurities =
-  //   data?.variations[0].metalVariations[0].metal || [];
-  // const availableMetals = availableMetals || [];
-  // console.log('sizes', availableRingSizes);
-  const availableMetalPurities = metalPurityOptions.filter((option) =>
-    availableMetals.some((m) => m.metal === option.label)
+  //   data?.variations[0].metalVariations[0].metal || []; //dynamic
+  const availableMetalPurities = metalPurityOptions.filter(
+    (option) => availableMetals.some((m) => m.metal === option.label) //using available metals from parent
   );
-
-  const availableShapes2 =
+  const availableDiamondShapes =
     data?.variations[0].metalVariations[0].diamondShape || [];
-  const availableDiamondShapes = availableShapes2.map((shape) => {
-    const match = shapes.find((s) => s.name === shape.name);
-    return {
-      ...shape,
-      image: match ? match.imgUrl : shape.image // fallback to original if not found
-    };
-  });
-  const availableShanks2 = data?.variations[0].metalVariations[0].shank || [];
-  const availableShanks = availableShanks2.map((shank) => {
-    const match = shanks.find((s) => s.name === shank.name);
-    return {
-      ...shank,
-      image: match ? match.imgUrl : '' // fallback to original if not found
-    };
-  });
-
-  // console.log(availableShanks);
+  const availableShanks = data?.variations[0].metalVariations[0].shank || [];
+  const availableStyles = data?.variations[0].metalVariations[0].style || [];
 
   const handleAddToCart = async () => {
     const res = await fetch('/api/check-auth', {
@@ -390,9 +371,11 @@ export default function ProductDetails({
                   key={shape.name}
                   className={cn(
                     'bg-secondary flex aspect-square w-[80px] flex-col items-center justify-center rounded-md border border-transparent transition hover:border-black',
-                    searchParams.get('ds') === shape.name ? 'border-black' : ''
+                    searchParams.get('shape') === shape.name
+                      ? 'border-black'
+                      : ''
                   )}
-                  onClick={(e) => handleFilterChange('ds', shape.name)}
+                  onClick={() => handleFilterChange('shape', shape.name)}
                 >
                   <Image
                     src={shape.image}
@@ -438,6 +421,35 @@ export default function ProductDetails({
           </div>
         </div>
       )}
+
+      <div className='pt-2 pb-6'>
+        <p className='text-lg font-medium'>Styles</p>
+        <div className='flex gap-2 text-[0.8rem]'>
+          {availableStyles.map((style) => (
+            <button
+              key={style.name}
+              className={cn(
+                'bg-secondary flex aspect-square w-[80px] flex-col items-center justify-center rounded-md border border-transparent transition hover:border-black',
+                searchParams.get('style') === style.name ? 'border-black' : ''
+              )}
+              onClick={() => handleFilterChange('style', style.name)}
+            >
+              <Image
+                src={style.image}
+                width={60}
+                height={60}
+                alt={'Shank Icon'}
+                className='h-3/4 w-3/4 object-contain'
+              />
+              <span className='mt-1'>
+                {style.name
+                  ? style.name.charAt(0).toUpperCase() + style.name.slice(1)
+                  : ''}
+              </span>
+            </button>
+          ))}
+        </div>
+      </div>
 
       <div className='xs:p-0 pt-3'>
         {/* See It Live Section */}
