@@ -9,29 +9,33 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog';
+import { useUserStore } from '@/store/user-store';
 
 export default function Page() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const [userData, setUserData] = useState({});
-  const [token, setToken] = useState(null);
+   const [formData, setFormData] = useState({});
+  const { authUser, isLoggedIn } = useUserStore((state) => state);
 
+  // Set form data when authUser changes
   useEffect(() => {
-    // Check for token in localStorage
-    const storedToken = localStorage.getItem('accessToken');
-    setToken(storedToken);
-
-    if (storedToken) {
-      const storedUserData = localStorage.getItem('authUser');
-      if (storedUserData) {
-        try {
-          const parsedData = JSON.parse(storedUserData);
-          setUserData(parsedData);
-        } catch (error) {
-          console.error('Error parsing user data:', error);
-        }
-      }
+    if (authUser) {
+      setFormData({
+        name: authUser.name || '',
+        email: authUser.email || '',
+        phone: authUser.phone || '',
+        address: authUser.address || '',
+        city: authUser.city || '',
+        state: authUser.state || '',
+        zipCode: authUser.zipCode || '',
+        birthDate: authUser.birthDate || '',
+        gender: authUser.gender || ''
+      });
     }
-  }, []);
+  }, [authUser]);
+
+  if (!isLoggedIn) {
+    return null; // or a loading spinner while redirect happens
+  }
 
   return (
     <div className='mx-auto max-w-3xl px-4 py-10'>
@@ -54,26 +58,26 @@ export default function Page() {
         <CardContent className='space-y-3 pt-2 md:pt-0 xl:space-y-5'>
           <div>
             <p className='text-muted-foreground text-base font-medium'>Name</p>
-            <p className='text-base'>{userData.name || 'Not provided'}</p>
+            <p className='text-base'>{authUser.name || 'Not provided'}</p>
           </div>
           <div>
             <p className='text-muted-foreground text-base font-medium'>Email</p>
-            <p className='text-base'>{userData.email || 'Not provided'}</p>
+            <p className='text-base'>{authUser.email || 'Not provided'}</p>
           </div>
           <div>
             <p className='text-muted-foreground text-base font-medium'>Phone</p>
-            <p className='text-base'>{userData.phone || 'Not provided'}</p>
+            <p className='text-base'>{authUser.phone || 'Not provided'}</p>
           </div>
           <div>
             <p className='text-muted-foreground text-base font-medium'>
               Saved Address
             </p>
             <p className='text-base'>
-              {userData.address ? (
+              {authUser.address ? (
                 <>
-                  {userData.address}
+                  {authUser.address}
                   <br />
-                  {userData.city}, {userData.state} - {userData.zipCode}
+                  {authUser.city}, {authUser.state} - {authUser.zipCode}
                 </>
               ) : (
                 'Not provided'
@@ -97,7 +101,7 @@ export default function Page() {
                 type='text'
                 id='first_name'
                 placeholder='First Name'
-                value={userData.name || ''}
+                // value={authUser.name || ''}
                 className='block w-full rounded-lg border p-3 text-sm text-black'
               />
               <input
@@ -112,7 +116,7 @@ export default function Page() {
                 id='email'
                 name='email'
                 placeholder='Email'
-                value={userData.email || ''}
+                // value={authUser.email || ''}
                 className='block w-full rounded-lg border p-3 text-sm text-black'
               />
             </div>
@@ -122,7 +126,7 @@ export default function Page() {
                 id='phone'
                 name='phone'
                 placeholder='Phone Number'
-                value={userData.phone || ''}
+                // value={authUser.phone || ''}
                 className='block w-full rounded-lg border p-3 text-sm text-black'
               />
             </div>
@@ -132,7 +136,7 @@ export default function Page() {
                 id='address'
                 name='address'
                 placeholder='Address'
-                value={userData.address || ''}
+                // value={authUser.address || ''}
                 className='block w-full rounded-lg border p-3 text-sm text-black'
               />
             </div>
@@ -141,21 +145,21 @@ export default function Page() {
                 id='City'
                 name='City'
                 placeholder='City'
-                value={userData.city || ''}
+                // value={authUser.city || ''}
                 className='block w-full rounded-lg border p-3 text-sm text-black'
               />
               <input
                 id='State'
                 name='State'
                 placeholder='State'
-                value={userData.state || ''}
+                // value={authUser.state || ''}
                 className='block w-full rounded-lg border p-3 text-sm text-black'
               />
               <input
                 id='Zip Code'
                 name='Zip Code'
                 placeholder='Zip Code'
-                value={userData.zipCode || ''}
+                // value={authUser.zipCode || ''}
                 className='block w-full rounded-lg border p-3 text-sm text-black'
               />
             </div>
@@ -164,7 +168,7 @@ export default function Page() {
                 id='Birth Date'
                 name='Birth Date'
                 placeholder='Birth Date'
-                value={userData.birthDate || ''}
+                // value={authUser.birthDate || ''}
                 className='block w-full rounded-lg border p-3 text-sm text-black'
               />
             </div>

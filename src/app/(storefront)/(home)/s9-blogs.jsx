@@ -174,6 +174,12 @@ export default function S9BlogsSection({ data }) {
     };
   }, [slider]);
 
+  const tempBlogPosts = data.map((post, index) => ({
+    ...post,
+    image: `/img/blogs/blog${index + 1}.png`
+  }));
+  console.log(tempBlogPosts);
+
   return (
     <section className='wrapper pt-6 md:pt-7 lg:pt-8 xl:pt-14'>
       <Heading
@@ -186,7 +192,7 @@ export default function S9BlogsSection({ data }) {
           isSliderReady ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        {data.map((post, index) => (
+        {tempBlogPosts.map((post, index) => (
           <div key={index} className='keen-slider__slide'>
             <BlogCard data={post} />
           </div>

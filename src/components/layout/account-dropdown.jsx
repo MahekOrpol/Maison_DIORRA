@@ -58,45 +58,49 @@ export function AccountDropdown() {
           <UserRound className='h-6 w-6' /> {/* Adjusted icon size */}
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className='mt-2 w-52 border border-gray-200 bg-white shadow-lg rounded-md'>
+      <DropdownMenuContent className='mt-2 w-52 rounded-md border border-gray-200 bg-white shadow-lg'>
         {isLoggedIn ? (
           <>
-            <DropdownMenuLabel className='px-3 py-2 bg-gray-100'>
-              <div className="flex items-center gap-2">
-                <FaUser className="h-4 w-4 text-gray-700" />
-                <p className="text-base font-medium text-black truncate">
+            <DropdownMenuLabel className='bg-gray-100 px-3 py-2'>
+              <div className='flex items-center gap-2'>
+                <FaUser className='h-4 w-4 text-gray-700' />
+                <p className='truncate text-base font-medium text-black'>
                   {authUser?.name}
                 </p>
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator className='bg-gray-100' />
-            <DropdownMenuItem className='px-3 py-2 focus:bg-gray-50 cursor-pointer'>
-              <Link href='/account' className='w-full flex items-center'>
-                <MdOutlineAccountCircle className='mr-2 w-20 h-20 text-gray-700' />
+            <DropdownMenuItem className='cursor-pointer px-3 py-2 focus:bg-gray-50'>
+              <Link href='/account' className='flex w-full items-center'>
+                <MdOutlineAccountCircle className='mr-2 h-20 w-20 text-gray-700' />
                 <span className='text-sm text-gray-800'>My Account</span>
               </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator className='bg-gray-100' />
             <DropdownMenuItem
-              className='px-3 py-2 focus:bg-gray-50 cursor-pointer'
+              className='cursor-pointer px-3 py-2 focus:bg-gray-50'
               onClick={handleLogout}
             >
-              <div className='flex items-center w-full'>
+              <div className='flex w-full items-center'>
                 <CiLogout className='mr-2 h-4 w-4 text-gray-700' />
                 <span className='text-sm text-gray-800'>Logout</span>
               </div>
             </DropdownMenuItem>
           </>
         ) : (
-          <DropdownMenuItem className="px-4 py-3 hover:bg-gray-50 cursor-pointer">
-            <Link href="/login" className="flex items-center w-full">
-              <div className="relative mr-3">
-                <div className="absolute -inset-1 rounded-full bg-gray-200 opacity-0 hover:opacity-100 transition-opacity"></div>
-                <CiLogin className="relative h-5 w-5 text-gray-700" />
+          <DropdownMenuItem className='cursor-pointer px-4 py-3 hover:bg-gray-50'>
+            <Link href='/login' className='flex w-full items-center'>
+              <div className='relative mr-3'>
+                <div className='absolute -inset-1 rounded-full bg-gray-200 opacity-0 transition-opacity hover:opacity-100'></div>
+                <CiLogin className='relative h-5 w-5 text-gray-700' />
               </div>
-              <div className="border-l border-gray-200 pl-3">
-                <p className="text-base font-medium text-gray-900">Please Login!</p>
-                <p className="text-xs text-gray-500 mt-0.5 italic">Login to your account to access favorites</p>
+              <div className='border-l border-gray-200 pl-3'>
+                <p className='text-base font-medium text-gray-900'>
+                  Please Login!
+                </p>
+                <p className='mt-0.5 text-xs text-gray-500 italic'>
+                  Login to your account to access favorites
+                </p>
               </div>
             </Link>
           </DropdownMenuItem>

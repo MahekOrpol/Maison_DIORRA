@@ -221,7 +221,7 @@ export default function PreviewCardMd({ product, className }) {
             <CarouselNext className='h-7 w-7 -translate-x-4 rounded-full border-none bg-white/80 text-gray-600 transition hover:bg-white 2xl:h-8 2xl:w-8' />
           </div>
         </Carousel>
-        <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2 md:space-y-1 xl:px-4'>
+        <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2 md:space-y-1 xl:px-3'>
           <div className='flex items-center justify-between border-t pt-2 xl:pt-1'>
             <div className='flex gap-1 sm:gap-2'>
               <p className='3xl:text-2xl leading-1 font-medium sm:text-[22px] lg:text-xl'>
@@ -259,7 +259,7 @@ export default function PreviewCardMd({ product, className }) {
             </button>
           </p>
           <Button
-            className='xs:text-base xs:h-9 3xl:text-xl 3xl:h-12 mt-auto h-8 w-full text-sm lg:h-10'
+            className='xs:text-base xs:h-9 3xl:text-xl 3xl:h-12 mt-auto h-8 w-full text-sm lg:h-8'
             onClick={handleAddToCart}
           >
             Add to Cart <ShoppingBagIcon size={20} className='ml-2 xl:size-5' />
