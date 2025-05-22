@@ -351,10 +351,10 @@ export default function ProductFilters({
                 <SelectValue placeholder='Sort By Price' />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value='asc' className='py-2'>
+                <SelectItem value='low' className='py-2'>
                   Low to high
                 </SelectItem>
-                <SelectItem value='desc' className='py-2'>
+                <SelectItem value='high' className='py-2'>
                   High to low
                 </SelectItem>
               </SelectContent>

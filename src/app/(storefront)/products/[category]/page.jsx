@@ -1,6 +1,6 @@
 'use client';
 import CustomTagWrapper from '@/components/custom-tag-wrapper';
-import { use } from 'react';
+import { use, useMemo } from 'react';
 import { useFilterStore } from '@/store/use-filter-store';
 import { useFetch } from '@/hooks/useFetch';
 import ProductFilters from './product-filters';
@@ -82,7 +82,6 @@ export default function ProductListingPage({ params }) {
     metal: metalPurity,
     style: style,
     diamondShape: shape
-    // sortByPrice
   };
   const query = buildQueryString(queryParams);
 
@@ -107,6 +106,25 @@ export default function ProductListingPage({ params }) {
     (item) => item.categoryName.toLowerCase() === category
   )?.style;
 
+  const sortedData = useMemo(() => {
+    if (!data || !Array.isArray(data)) return [];
+
+    const extractPrice = (product) => {
+      // Extract price from "$numberDecimal" field and convert to float
+      return parseFloat(product.regularPrice?.$numberDecimal || 0);
+    };
+
+    if (sortByPrice === 'low') {
+      return [...data].sort((a, b) => extractPrice(a) - extractPrice(b));
+    }
+
+    if (sortByPrice === 'high') {
+      return [...data].sort((a, b) => extractPrice(b) - extractPrice(a));
+    }
+
+    return data;
+  }, [data, sortByPrice]);
+
   return (
     <div className='wrapper'>
       {category === 'rings' && (
@@ -123,7 +141,7 @@ export default function ProductListingPage({ params }) {
         advertisements={advertisements}
         isLoading={isLoading}
         error={error}
-        products={data}
+        products={sortedData}
       />
     </div>
   );
