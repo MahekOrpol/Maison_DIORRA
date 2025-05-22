@@ -57,7 +57,7 @@ export default function DiamondFilters() {
               {colors.map((color) => (
                 <button
                   key={color}
-                  className={`3xl:w-20 inline-flex h-12 w-10 items-center justify-center border-r border-l border-l-transparent text-sm hover:border-l hover:border-black ${
+                  className={`3xl:w-18 lg:w-14 inline-flex h-12 w-10 items-center justify-center border-r border-l border-l-transparent text-sm hover:border-l hover:border-black ${
                     filters.color === color ? 'bg-gray-200' : ''
                   }`}
                   onClick={() => setFilters({ ...filters, color })}
@@ -74,7 +74,7 @@ export default function DiamondFilters() {
               {clarities.map((clarity) => (
                 <button
                   key={clarity}
-                  className={`3xl:w-20 inline-flex h-12 w-10 items-center justify-center border-r border-l border-l-transparent text-sm hover:border-l hover:border-black ${
+                  className={`3xl:w-18 lg:w-14 inline-flex h-12 w-10 items-center justify-center border-r border-l border-l-transparent text-sm hover:border-l hover:border-black ${
                     filters.clarity === clarity ? 'bg-gray-200' : ''
                   }`}
                   onClick={() => setFilters({ ...filters, clarity })}
