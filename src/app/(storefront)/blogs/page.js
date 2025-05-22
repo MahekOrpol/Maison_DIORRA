@@ -22,6 +22,11 @@ async function getBlogPosts() {
 
 export default async function BlogsPage() {
   const blogPosts = await getBlogPosts();
+  const updatedBlogPosts = blogPosts.map((post, index) => ({
+    ...post,
+    image: `/img/blogs/blog${index + 1}.png`
+  }));
+  console.log(updatedBlogPosts);
 
   return (
     <div>
@@ -33,7 +38,7 @@ export default async function BlogsPage() {
       <div className='wrapper flex w-full flex-col gap-4 pt-6 pb-10 sm:gap-6 md:pt-8 xl:flex-row xl:justify-between xl:gap-[4%]'>
         {/* Blog posts container - takes full width on mobile, 2/3 on desktop */}
         <div className='grid grid-cols-1 gap-6 md:grid-cols-2 xl:w-[66%]'>
-          {blogPosts.map((post, index) => (
+          {updatedBlogPosts.map((post, index) => (
             <BlogCard key={post.id || index} data={post} />
           ))}
         </div>

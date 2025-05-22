@@ -17,7 +17,8 @@ export default function BlogCard({ data }) {
       {/* Image with fixed aspect ratio */}
       <div className='aspect-[5/3.25] w-full overflow-hidden rounded-lg'>
         <img
-          src={`${baseApiUrl}${data?.imges}`}
+          // src={`${baseApiUrl}${data?.imges}`}
+          src={`${data?.image}`}
           alt='Blog Image'
           className='h-full w-full object-cover transition duration-300 ease-in-out hover:scale-108 hover:rotate-2'
           // width={380}
