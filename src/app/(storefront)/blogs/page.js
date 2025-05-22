@@ -26,7 +26,7 @@ export default async function BlogsPage() {
     ...post,
     image: `/img/blogs/blog${index + 1}.png`
   }));
-  console.log(updatedBlogPosts);
+  // console.log(updatedBlogPosts);
 
   return (
     <div>

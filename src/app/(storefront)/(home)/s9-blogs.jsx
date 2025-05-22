@@ -178,7 +178,7 @@ export default function S9BlogsSection({ data }) {
     ...post,
     image: `/img/blogs/blog${index + 1}.png`
   }));
-  console.log(tempBlogPosts);
+  // console.log(tempBlogPosts);
 
   return (
     <section className='wrapper pt-6 md:pt-7 lg:pt-8 xl:pt-14'>
