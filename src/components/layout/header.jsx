@@ -102,9 +102,12 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
           <div className='col-span-1 p-4 xl:p-6'>
             <h3 className='mb-4 font-semibold'>DIAMONDS BY SHAPE</h3>
             <ul className='space-y-2 border-r-2 font-light'>
-              {DiamondShapes?.length > 0 ? (
+              {DiamondShapes && DiamondShapes?.length > 0 ? (
                 DiamondShapes.map((shape) => (
-                  <li key={shape._id || shape.name} className='flex items-center space-x-2'>
+                  <li
+                    key={shape._id || shape.name}
+                    className='flex items-center space-x-2'
+                  >
                     {shape.diamondImage && (
                       <Image
                         src={baseApiUrl + shape.diamondImage}
@@ -116,7 +119,8 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
                     )}
                     <span>{shape.diamondShape}</span>
                   </li>
-                ))) : (
+                ))
+              ) : (
                 <li>Loading diamond shapes...</li>
               )}
             </ul>
@@ -163,8 +167,9 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
             categories.map((category, index) => (
               <div key={category.id} className='col-span-1 px-4 py-8 2xl:px-6'>
                 <div
-                  className={`flex h-full flex-col ${index !== categories.length - 1 ? 'border-r-1' : ''
-                    }`}
+                  className={`flex h-full flex-col ${
+                    index !== categories.length - 1 ? 'border-r-1' : ''
+                  }`}
                 >
                   <h3 className='mb-4 font-semibold uppercase'>
                     {category.categoryName}
@@ -208,23 +213,25 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
           <div className='col-span-1 p-3 xl:p-6'>
             <h3 className='mb-4 font-semibold'>ENGAGEMENT RINGS</h3>
             <ul className='h-40 space-y-2 overflow-y-auto border-r-2 font-light'>
-              {availableStyles.map(({ name, image }) => (
-                <li key={name} className='flex items-center space-x-2'>
-                  <Link
-                    href={`/products/rings/engagement-rings?style=${name}`}
-                    className='flex items-center space-x-2 hover:underline'
-                  >
-                    <Image
-                      src={baseApiUrl + image}
-                      alt={name}
-                      width={24}
-                      height={24}
-                      className='h-6 w-6 object-contain'
-                    />
-                    <span>{name}</span>
-                  </Link>
-                </li>
-              ))}
+              {availableStyles &&
+                availableStyles.length > 0 &&
+                availableStyles.map(({ name, image }) => (
+                  <li key={name} className='flex items-center space-x-2'>
+                    <Link
+                      href={`/products/rings/engagement-rings?style=${name}`}
+                      className='flex items-center space-x-2 hover:underline'
+                    >
+                      <Image
+                        src={baseApiUrl + image}
+                        alt={name}
+                        width={24}
+                        height={24}
+                        className='h-6 w-6 object-contain'
+                      />
+                      <span>{name}</span>
+                    </Link>
+                  </li>
+                ))}
             </ul>
           </div>
           <div className='col-span-1 p-3 xl:p-6'>
@@ -414,8 +421,9 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
   return (
     <>
       <div
-        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ease-in ${showHeader ? 'translate-y-0' : '-translate-y-full'
-          }`}
+        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ease-in ${
+          showHeader ? 'translate-y-0' : '-translate-y-full'
+        }`}
       >
         <header className='bg-background text-foreground shadow-xs'>
           {/* black banner */}
