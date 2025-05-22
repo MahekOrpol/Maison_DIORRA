@@ -75,7 +75,8 @@ export default function ProductFilters({
   const isRing = category === 'rings';
   const isDiamondBased = subCategory?.toLowerCase().includes('diamond');
   const showRingStyle = isRing;
-  const showDiamondShapes = isDiamondBased || isRing;
+  // const showDiamondShapes = isDiamondBased || isRing;
+  const showDiamondShapes = true;
   const showCommonFilters = [
     'rings',
     'pendants',
@@ -90,7 +91,6 @@ export default function ProductFilters({
         )
       )
     : [];
-  console.log('style', availableStyles);
   return (
     <>
       {/* heading + product styles  */}
@@ -111,7 +111,8 @@ export default function ProductFilters({
         >
           Find Your Statement Piece – Crafted to Elevate Your Style
         </p>
-        {category === 'rings' && (
+        {/* {category === 'rings' && ( */}
+        {
           <div className='hidden justify-center gap-4 pt-3 lg:flex'>
             {availableStyles &&
               availableStyles.length > 0 &&
@@ -142,7 +143,7 @@ export default function ProductFilters({
                 );
               })}
           </div>
-        )}
+        }
       </div>
       {/* product filters */}
       <div className={cn(className)}>
