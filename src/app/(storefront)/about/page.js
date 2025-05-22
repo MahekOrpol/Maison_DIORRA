@@ -13,7 +13,7 @@ export default async function Page() {
     }
     const aboutData = await response.json();
     const data = aboutData[0];
-    console.log(data)
+    // console.log(data)
 
     return (
       <>
