@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Pencil } from 'lucide-react';
@@ -9,13 +9,30 @@ import {
   DialogHeader,
   DialogTitle
 } from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Label } from '@radix-ui/react-dropdown-menu';
-import { FormProvider } from 'react-hook-form';
-// export const dynamic = 'force-dynamic';
+
 export default function Page() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [userData, setUserData] = useState({});
+  const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    // Check for token in localStorage
+    const storedToken = localStorage.getItem('accessToken');
+    setToken(storedToken);
+
+    if (storedToken) {
+      const storedUserData = localStorage.getItem('authUser');
+      if (storedUserData) {
+        try {
+          const parsedData = JSON.parse(storedUserData);
+          setUserData(parsedData);
+        } catch (error) {
+          console.error('Error parsing user data:', error);
+        }
+      }
+    }
+  }, []);
+
   return (
     <div className='mx-auto max-w-3xl px-4 py-10'>
       <h1 className='mb-6 text-2xl font-bold'>My Account</h1>
@@ -37,26 +54,30 @@ export default function Page() {
         <CardContent className='space-y-3 pt-2 md:pt-0 xl:space-y-5'>
           <div>
             <p className='text-muted-foreground text-base font-medium'>Name</p>
-            <p className='text-base'>John Doe</p>
+            <p className='text-base'>{userData.name || 'Not provided'}</p>
           </div>
           <div>
             <p className='text-muted-foreground text-base font-medium'>Email</p>
-            <p className='text-base'>john@example.com</p>
+            <p className='text-base'>{userData.email || 'Not provided'}</p>
           </div>
           <div>
             <p className='text-muted-foreground text-base font-medium'>Phone</p>
-            <p className='text-base'>+91 9876543210</p>
+            <p className='text-base'>{userData.phone || 'Not provided'}</p>
           </div>
           <div>
             <p className='text-muted-foreground text-base font-medium'>
               Saved Address
             </p>
             <p className='text-base'>
-              123, Royal Avenue, Diamond Nagar,
-              <br />
-              Surat, Gujarat - 395007
-              <br />
-              India
+              {userData.address ? (
+                <>
+                  {userData.address}
+                  <br />
+                  {userData.city}, {userData.state} - {userData.zipCode}
+                </>
+              ) : (
+                'Not provided'
+              )}
             </p>
           </div>
         </CardContent>
@@ -76,6 +97,7 @@ export default function Page() {
                 type='text'
                 id='first_name'
                 placeholder='First Name'
+                value={userData.name || ''}
                 className='block w-full rounded-lg border p-3 text-sm text-black'
               />
               <input
@@ -90,6 +112,7 @@ export default function Page() {
                 id='email'
                 name='email'
                 placeholder='Email'
+                value={userData.email || ''}
                 className='block w-full rounded-lg border p-3 text-sm text-black'
               />
             </div>
@@ -99,6 +122,7 @@ export default function Page() {
                 id='phone'
                 name='phone'
                 placeholder='Phone Number'
+                value={userData.phone || ''}
                 className='block w-full rounded-lg border p-3 text-sm text-black'
               />
             </div>
@@ -108,6 +132,7 @@ export default function Page() {
                 id='address'
                 name='address'
                 placeholder='Address'
+                value={userData.address || ''}
                 className='block w-full rounded-lg border p-3 text-sm text-black'
               />
             </div>
@@ -116,18 +141,21 @@ export default function Page() {
                 id='City'
                 name='City'
                 placeholder='City'
+                value={userData.city || ''}
                 className='block w-full rounded-lg border p-3 text-sm text-black'
               />
               <input
                 id='State'
                 name='State'
                 placeholder='State'
+                value={userData.state || ''}
                 className='block w-full rounded-lg border p-3 text-sm text-black'
               />
               <input
                 id='Zip Code'
                 name='Zip Code'
                 placeholder='Zip Code'
+                value={userData.zipCode || ''}
                 className='block w-full rounded-lg border p-3 text-sm text-black'
               />
             </div>
@@ -136,40 +164,42 @@ export default function Page() {
                 id='Birth Date'
                 name='Birth Date'
                 placeholder='Birth Date'
+                value={userData.birthDate || ''}
                 className='block w-full rounded-lg border p-3 text-sm text-black'
               />
             </div>
-
-            <div className='mb-4 flex items-center justify-start'>
-              <input
-                id='default-radio-1'
-                type='radio'
-                value=''
-                name='default-radio'
-                className='h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600'
-              />
-              <label
-                for='default-radio-1'
-                className='ms-2 text-sm font-medium text-gray-900 dark:text-gray-300'
-              >
-                Default radio
-              </label>
-              <input
-                checked
-                id='default-radio-2'
-                type='radio'
-                value=''
-                name='default-radio'
-                className='h-4 w-4 border-gray-300 bg-gray-100 text-blue-600 dark:border-gray-600 dark:bg-gray-700 dark:ring-offset-gray-800 dark:focus:ring-blue-600'
-              />
-              <label
-                for='default-radio-2'
-                className='ms-2 text-sm font-medium text-gray-900 dark:text-gray-300'
-              >
-                Checked state
-              </label>
+            <div className='mb-4 flex items-center justify-start gap-4'>
+              <div className='flex items-center'>
+                <input
+                  id='male-radio'
+                  type='radio'
+                  value='male'
+                  name='gender'
+                  className='h-4 w-4 border-gray-300 bg-gray-100 text-black'
+                />
+                <label
+                  htmlFor='male-radio'
+                  className='ms-2 text-sm font-medium text-gray-900 dark:text-gray-300'
+                >
+                  Male
+                </label>
+              </div>
+              <div className='flex items-center'>
+                <input
+                  id='female-radio'
+                  type='radio'
+                  value='female'
+                  name='gender'
+                  className='h-4 w-4 border-gray-300 bg-gray-100 text-black'
+                />
+                <label
+                  htmlFor='female-radio'
+                  className='ms-2 text-sm font-medium text-gray-900 dark:text-gray-300'
+                >
+                  Female
+                </label>
+              </div>
             </div>
-            <div className='flex items-center'></div>
 
             <div className='flex justify-end space-x-2 pt-4'>
               <Button

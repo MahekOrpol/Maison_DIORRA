@@ -79,7 +79,7 @@ export default async function ProductDetailsPage({ params, searchParams }) {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href='#' className='3xl:text-lg lg:text-base'>
+              <BreadcrumbLink href={`/products/${category}`} className='3xl:text-lg lg:text-base'>
                 {category
                   .split('-')
                   .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -106,9 +106,9 @@ export default async function ProductDetailsPage({ params, searchParams }) {
           data={product}
           category={category}
           availableMetals={availableMetals}
-          // subcategory={subcategory}
-          // selectedMetal={selectedMetal}
-          // setSelectedMetal={setSelectedMetal}
+        // subcategory={subcategory}
+        // selectedMetal={selectedMetal}
+        // setSelectedMetal={setSelectedMetal}
         />
       </div>
       {/* <FinalDetails className='wrapper' data={product.finalProductDetails} /> */}
