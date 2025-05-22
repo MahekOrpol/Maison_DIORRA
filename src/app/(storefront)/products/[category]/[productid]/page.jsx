@@ -65,7 +65,7 @@ export default async function ProductDetailsPage({ params, searchParams }) {
     'combinedImages >>',
     product?.variations[0]?.metalVariations[0].combinationImages
   );
-  // console.log('product >>', product);
+  console.log('product >>', product);
 
   return (
     <>
@@ -139,7 +139,8 @@ export const PriceDisplay = ({ price, originalPrice, className = '' }) => {
 function getGalleryImages({ metalVariation, filters }) {
   const { style, shank, diamondShape } = filters || {};
 
-  const isFilterApplied = style || shank || diamondShape;
+  const isFilterApplied = diamondShape || shank || style;
+  // console.log('filters >>', filters);
 
   if (!metalVariation) return [];
 
