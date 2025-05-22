@@ -8,7 +8,7 @@ import MobileNavDrawer from './mobile-nav';
 import { AccountDropdown } from './account-dropdown';
 import LocateAndSearch from './locate-search';
 import { useState, useEffect, use } from 'react';
-import { cn } from '@/lib/utils';
+import { baseApiUrl, cn } from '@/lib/utils';
 import { GiGemPendant } from 'react-icons/gi';
 import { useModalStore } from '@/store/modal-stote';
 import { useRouter } from 'next/navigation';
@@ -20,7 +20,7 @@ const messages = [
   'THE ESSENTIALS | UP TO 40% OFF* Ends in April'
 ];
 
-export default function Header({ categories }) {
+export default function Header({ categories, DiamondShapes, availableStyles }) {
   const [showHeader, setShowHeader] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
   const [activeMenu, setActiveMenu] = useState(null);
@@ -78,13 +78,6 @@ export default function Header({ categories }) {
     }
   };
 
-  const diamondShapes = [
-    { name: 'Princess', image: '/icons/shape-princess.svg' },
-    { name: 'Round', image: '/icons/shape-round.svg' },
-    { name: 'Emerald', image: '/icons/shape-emerlad.svg' },
-    { name: 'Pear', image: '/icons/shape-pear.svg' }
-  ];
-
   const ringStyless = [
     { name: 'Solitaire', image: '/img/ring-style-solitaire.svg' },
     { name: 'Halo', image: '/img/ring-style-halo.svg' },
@@ -109,23 +102,23 @@ export default function Header({ categories }) {
           <div className='col-span-1 p-4 xl:p-6'>
             <h3 className='mb-4 font-semibold'>DIAMONDS BY SHAPE</h3>
             <ul className='space-y-2 border-r-2 font-light'>
-              {diamondShapes.map(({ name, image }) => (
-                <li key={name} className='flex items-center space-x-2'>
-                  <Link
-                    href={`/diamonds?shape=${name.toLowerCase()}`}
-                    className='flex items-center space-x-2 hover:underline'
-                  >
-                    <Image
-                      src={image}
-                      alt={name}
-                      width={24}
-                      height={24}
-                      className='object-contain'
-                    />
-                    <span>{name}</span>
-                  </Link>
-                </li>
-              ))}
+              {DiamondShapes?.length > 0 ? (
+                DiamondShapes.map((shape) => (
+                  <li key={shape._id || shape.name} className='flex items-center space-x-2'>
+                    {shape.diamondImage && (
+                      <Image
+                        src={baseApiUrl + shape.diamondImage}
+                        // alt={shape.name}
+                        width={24}
+                        height={24}
+                        className='object-contain'
+                      />
+                    )}
+                    <span>{shape.diamondShape}</span>
+                  </li>
+                ))) : (
+                <li>Loading diamond shapes...</li>
+              )}
             </ul>
           </div>
           <div className='col-span-1 p-4 xl:col-span-2 xl:p-6'>
@@ -170,9 +163,8 @@ export default function Header({ categories }) {
             categories.map((category, index) => (
               <div key={category.id} className='col-span-1 px-4 py-8 2xl:px-6'>
                 <div
-                  className={`flex h-full flex-col ${
-                    index !== categories.length - 1 ? 'border-r-1' : ''
-                  }`}
+                  className={`flex h-full flex-col ${index !== categories.length - 1 ? 'border-r-1' : ''
+                    }`}
                 >
                   <h3 className='mb-4 font-semibold uppercase'>
                     {category.categoryName}
@@ -216,14 +208,14 @@ export default function Header({ categories }) {
           <div className='col-span-1 p-3 xl:p-6'>
             <h3 className='mb-4 font-semibold'>ENGAGEMENT RINGS</h3>
             <ul className='h-40 space-y-2 overflow-y-auto border-r-2 font-light'>
-              {ringStyless.map(({ name, image }) => (
+              {availableStyles.map(({ name, image }) => (
                 <li key={name} className='flex items-center space-x-2'>
                   <Link
-                    href={`/products/rings/engagement-rings?style=${name.toLowerCase().replace(/\s+/g, '-')}`}
+                    href={`/products/rings/engagement-rings?style=${name}`}
                     className='flex items-center space-x-2 hover:underline'
                   >
                     <Image
-                      src={image}
+                      src={baseApiUrl + image}
                       alt={name}
                       width={24}
                       height={24}
@@ -422,9 +414,8 @@ export default function Header({ categories }) {
   return (
     <>
       <div
-        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ease-in ${
-          showHeader ? 'translate-y-0' : '-translate-y-full'
-        }`}
+        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ease-in ${showHeader ? 'translate-y-0' : '-translate-y-full'
+          }`}
       >
         <header className='bg-background text-foreground shadow-xs'>
           {/* black banner */}
