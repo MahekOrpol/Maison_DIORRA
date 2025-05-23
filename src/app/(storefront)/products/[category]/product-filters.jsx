@@ -77,12 +77,13 @@ export default function ProductFilters({
   const showRingStyle = isRing;
   // const showDiamondShapes = isDiamondBased || isRing;
   const showDiamondShapes = true;
-  const showCommonFilters = [
-    'rings',
-    'pendants',
-    'bracelets',
-    'earrings'
-  ].includes(category.toLowerCase());
+  // const showCommonFilters = [
+  //   'rings',
+  //   'pendants',
+  //   'bracelets',
+  //   'earrings'
+  // ].includes(category.toLowerCase());
+  const showCommonFilters = true;
 
   const modifiedMetals = Array.isArray(availableMetals)
     ? metalPurityOptions.filter((option) =>

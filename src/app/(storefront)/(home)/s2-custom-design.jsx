@@ -12,7 +12,9 @@ export default function S2CustomDesign() {
       />
       <div className='flex justify-center overflow-x-hidden'>
         <Image
-          src='/img/home-design2.png'
+          src='/img/home-design2.png' //my ai refined one
+          // src='/img/home-design.svg' //my ai refined one
+          // src='/img/home-design4x.png' //my ai refined one
           alt='logo'
           width={500}
           height={100}

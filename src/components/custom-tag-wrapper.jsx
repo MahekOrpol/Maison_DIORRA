@@ -14,7 +14,7 @@ export default function CustomTagWrapper({ className }) {
     <>
       <div
         className={cn(
-          'xs:gap-4 grid grid-cols-3 place-items-stretch gap-2.5 sm:gap-6 md:gap-8 lg:gap-10 2xl:gap-14',
+          'grid grid-cols-3 place-items-stretch gap-2 sm:gap-6 md:gap-8 lg:gap-10 2xl:gap-14',
           className
         )}
       >
@@ -55,7 +55,7 @@ export function ProductSelectionStepsForDiamonds({ className }) {
     <>
       <div
         className={cn(
-          'xs:gap-4 grid grid-cols-3 place-items-stretch gap-2.5 sm:gap-6 md:gap-8 lg:gap-10 2xl:gap-14',
+          'xs:gap-2 grid grid-cols-3 place-items-stretch gap-1 sm:gap-6 md:gap-8 lg:gap-10 2xl:gap-14',
           className
         )}
       >

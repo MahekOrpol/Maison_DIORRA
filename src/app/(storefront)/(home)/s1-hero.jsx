@@ -117,15 +117,17 @@ export default function S1HeroSection({ data }) {
               <div className='relative flex-1 sm:h-full'>
                 {/* Mobile Image (shown below sm) */}
                 <Image
-                  src='/img/home-m-hero2.png'
+                  // src='/img/home-m-hero2.png'
+                  src='/img/hero-model-4x.png'
                   alt='hero mobile'
                   fill
-                  className='block object-cover sm:hidden'
+                  className='block object-cover object-right sm:hidden'
                 />
 
                 {/* Desktop Image (shown sm and up) */}
                 <Image
-                  src='/img/home-hero2.jpg'
+                  // src='/img/home-hero2.jpg'
+                  src='/img/hero-model-4x.png'
                   alt='hero desktop'
                   fill
                   className='hidden object-cover sm:block'
@@ -133,14 +135,14 @@ export default function S1HeroSection({ data }) {
               </div>
 
               {/* Bottom content */}
-              <div className='xs:h-[37%] relative z-20 flex h-[35%] w-full flex-col items-center justify-end bg-black py-4 text-center text-white sm:bottom-[6%] sm:h-0 sm:bg-transparent sm:py-0 md:bottom-[25%] md:left-[12%] md:w-fit md:translate-x-[-15%]'>
+              <div className='xs:h-[37%] relative z-20 flex h-[35%] w-full flex-col items-center justify-center gap-1 bg-black py-4 text-center text-white sm:bottom-[6%] sm:h-0 sm:justify-end sm:bg-transparent sm:py-0 md:bottom-[25%] md:left-[12%] md:w-fit md:translate-x-[-15%]'>
                 <p className='mb-3 text-sm tracking-widest underline underline-offset-6 sm:mb-6 md:text-[20px]'>
                   VALENTINE'S DAY
                 </p>
                 <h1 className='font-rozha hero-font mb-3 hidden leading-[110%] font-medium tracking-wide sm:block'>
                   GET 20% OFF ON YOUR <div>FIRST ORDER</div>
                 </h1>
-                <h1 className='font-rozha xs2:text-[22px] mb-3 text-xl leading-[110%] font-medium sm:hidden'>
+                <h1 className='font-rozha xs2:text-[22px] text-xl leading-[110%] font-medium sm:hidden'>
                   GET 20% OFF ON YOUR FIRST ORDER
                 </h1>
                 <div className='xs:text-lg relative mb-3 max-w-2xl text-sm sm:text-xl lg:mb-6'>

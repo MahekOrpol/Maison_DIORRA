@@ -97,7 +97,6 @@ export default function ProductDetails({
 
   // const isRing = category === 'rings';
   const isRing = true;
-
   // const isDiamondBased = subcategory?.toLowerCase().includes('diamond');
   const isDiamondBased = true;
 
@@ -202,8 +201,8 @@ export default function ProductDetails({
           <Image
             src='/icons/hand.svg'
             alt='hand icon'
-            height={36}
-            width={36}
+            height={32}
+            width={32}
             className='absolute right-1.5 bottom-1 sm:relative'
           />
           {/* <GiBigDiamondRing className='h-5 w-5 sm:h-7 sm:w-7 lg:h-14 lg:w-14' /> */}
@@ -291,8 +290,8 @@ export default function ProductDetails({
       </div>
 
       {/* Installment Option */}
-      <div className='xs:text-sm mb-6 border-b py-4 text-xs md:text-sm'>
-        <h3 className='mb-2 text-xl font-medium underline underline-offset-5 md:mb-4 md:text-2xl md:underline-offset-8'>
+      <div className='xs:text-xs border-b pb-4 text-[11px] md:text-sm'>
+        <h3 className='xs:text-lg mb-2 text-base font-medium underline underline-offset-5 md:mb-4 md:text-2xl md:underline-offset-8'>
           Buy Jewelry on Interest Free Installment
         </h3>
         <p className='mt-1'>
@@ -317,31 +316,33 @@ export default function ProductDetails({
       </div>
 
       {/* Product Options */}
-      <div className='pb-2 sm:pb-4'>
-        <Select
-          value={selectedSize?.productSize || ''}
-          onValueChange={(value) => {
-            const sizeObj = availableRingSizes.find(
-              (size) => size.productSize === value
-            );
-            setSelectedSize(sizeObj || null);
-          }}
-        >
-          <div className='flex items-center gap-3'>
-            <span className='text-xl font-medium'>Size:</span>
-            <SelectTrigger className='bg-secondary data-[placeholder]:text-foreground w-[200px] font-light md:text-sm'>
-              <SelectValue placeholder='Select Ring Size' />
-            </SelectTrigger>
-          </div>
-          <SelectContent>
-            {availableRingSizes.map((size) => (
-              <SelectItem key={size._id} value={size.productSize}>
-                {size.productSize}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+      {category === 'rings' && (
+        <div className='py-2 sm:py-4'>
+          <Select
+            value={selectedSize?.productSize || ''}
+            onValueChange={(value) => {
+              const sizeObj = availableRingSizes.find(
+                (size) => size.productSize === value
+              );
+              setSelectedSize(sizeObj || null);
+            }}
+          >
+            <div className='flex items-center gap-3'>
+              <span className='text-xl font-medium'>Size:</span>
+              <SelectTrigger className='bg-secondary data-[placeholder]:text-foreground w-[200px] font-light md:text-sm'>
+                <SelectValue placeholder='Select Ring Size' />
+              </SelectTrigger>
+            </div>
+            <SelectContent>
+              {availableRingSizes.map((size) => (
+                <SelectItem key={size._id} value={size.productSize}>
+                  {size.productSize}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        </div>
+      )}
       {/* metal purity */}
       <div className='border-b pt-2 pb-4'>
         <p className='pb-1 text-lg font-medium'>Metal & Purity :</p>
@@ -408,7 +409,7 @@ export default function ProductDetails({
           </div>
         )}
       {/* Shank */}
-      {isRing && (
+      {category === 'rings' && (
         <div className='pt-3 pb-6'>
           <p className='pb-1 text-lg font-medium'>Shank :</p>
           <div className='flex gap-2 text-[0.8rem]'>
@@ -468,7 +469,7 @@ export default function ProductDetails({
         </div>
       </div> */}
 
-      <div className='xs:p-0 pt-3'>
+      <div className='xs:p-0 mt-4 pt-3'>
         {/* See It Live Section */}
         <div className='bg-secondary xs:pb-0 mb-6 flex items-center gap-2 rounded-lg p-1 pb-3 sm:gap-6 sm:p-4 md:items-start'>
           <Image
@@ -476,7 +477,7 @@ export default function ProductDetails({
             alt='Live Consultant'
             width={120}
             height={80}
-            className='h-[80px] w-[120px] rounded-sm md:h-[120px] md:w-[180px]'
+            className='xs:h-[100px] h-[80px] w-[120px] rounded-sm md:h-[120px] md:w-[180px]'
           />
           <div className='flex-1'>
             <h3 className='text-sm font-medium md:text-xl'>
@@ -487,7 +488,7 @@ export default function ProductDetails({
               close
             </p>
             <Button
-              className='h-[30px] w-[130px] rounded-full text-xs md:h-auto md:text-sm'
+              className='h-[30px] w-[130px] rounded-full border bg-white text-xs text-black hover:border-black hover:bg-white md:h-auto md:text-sm'
               onClick={() => setOpenMeeting(true)}
             >
               See it Live <TbVideoPlus />

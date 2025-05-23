@@ -164,12 +164,14 @@ export default function PreviewCardMd({ product, className }) {
         <button
           onClick={handleFavoriteClick}
           disabled={isWishlistLoading}
-          className='hover:bg-primary/4 absolute top-1 right-1 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow shadow-gray-400 xl:top-3 xl:right-3'
+          className='hover:bg-primary/4 group/wish absolute top-2 right-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow shadow-gray-400 xl:top-3 xl:right-3'
         >
           <Heart
             className={cn(
-              'xs:h-5 xs:w-5 h-4 w-4 transition-colors',
-              liked ? 'fill-primary text-primary' : 'text-muted-foreground'
+              'xs:h-5 xs:w-5 h-4 w-4 transition-colors group-hover/wish:fill-white',
+              liked
+                ? 'fill-primary text-primary group-hover/wish:fill-primary'
+                : 'text-black'
             )}
           />
         </button>
@@ -179,9 +181,10 @@ export default function PreviewCardMd({ product, className }) {
             align: 'start',
             loop: false
           }}
-          className='relative w-full'
+          className='relative w-full border-b'
         >
-          <CarouselContent className='3xl:h-[283px] ml-0 w-full gap-0 lg:h-[200px] xl:h-[257px]'>
+          {/* Below card css is working for square images, proper images. -------------- */}
+          {/* <CarouselContent className='3xl:h-[283px] ml-0 w-full gap-0 lg:h-[200px] xl:h-[257px]'>
             {selectedMetal.images
               .filter((img) => !img.match(/\.(mp4|webm|mov)$/i)) // exclude video files
               .map((image, index) => (
@@ -196,15 +199,15 @@ export default function PreviewCardMd({ product, className }) {
                     width={300}
                     height={300}
                     className='max-h-full w-full object-fill object-center'
-                  />
-                  {/* <Image
+                  /> */}
+          {/* <Image
                   src={image.mediaUrl}
                   alt={selectedMetal.metalType}
                   width={300}
                   height={300}
                   className='max-h-full max-w-full object-contain'
                 /> */}
-                  {/* <div className='flex h-full w-full items-center justify-center p-1'>
+          {/* <div className='flex h-full w-full items-center justify-center p-1'>
                   <Image
                     src={image.mediaUrl}
                     alt={selectedMetal.metalType}
@@ -213,21 +216,58 @@ export default function PreviewCardMd({ product, className }) {
                     className='max-h-full max-w-full object-contain'
                   />
                 </div> */}
+          {/* </CarouselItem>
+              ))}
+          </CarouselContent> -----------------------------------------------------------------------------*/}
+          {/* New code 23.05.2025 by mahek */}
+          <CarouselContent className='ml-0 w-full gap-0'>
+            {selectedMetal.images
+              .filter((img) => !img.match(/\.(mp4|webm|mov)$/i)) // exclude video files
+              .map((image, index) => (
+                <CarouselItem
+                  key={index}
+                  onClick={handleProductClick}
+                  className='h-full w-full basis-full cursor-pointer pl-0'
+                >
+                  {/* <Image
+                    src={baseApiUrl + image}
+                    alt={'Product image'}
+                    width={300}
+                    height={300}
+                    className='max-h-full w-full object-fill object-center'
+                  /> */}
+                  {/* <Image
+                    src={baseApiUrl + image}
+                    alt={'Product image'}
+                    width={300}
+                    height={300}
+                    className='max-h-full max-w-full object-contain'
+                  /> */}
+                  <div className='xs:h-[190px] min min-[10] flex h-[160px] w-full items-center justify-center min-[500px]:!h-[260px] min-[600px]:!h-[240px]'>
+                    <Image
+                      src={baseApiUrl + image}
+                      alt={'Product image'}
+                      width={300}
+                      height={300}
+                      className='h-full w-full object-cover'
+                    />
+                  </div>
                 </CarouselItem>
               ))}
           </CarouselContent>
+
           <div className='3xl:-bottom-[-7%] xs:bottom-5 absolute bottom-3.25 left-1/2 z-10 flex -translate-x-1/2 items-center gap-1 2xl:bottom-4'>
             <CarouselPrevious className='h-7 w-7 translate-x-4 rounded-full border-none bg-white/80 text-gray-600 transition hover:bg-white 2xl:h-8 2xl:w-8 2xl:translate-x-1' />
             <CarouselNext className='h-7 w-7 -translate-x-4 rounded-full border-none bg-white/80 text-gray-600 transition hover:bg-white 2xl:h-8 2xl:w-8' />
           </div>
         </Carousel>
-        <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2 md:space-y-1 xl:px-3'>
-          <div className='flex items-center justify-between border-t pt-2 xl:pt-1'>
-            <div className='flex gap-1 sm:gap-2'>
-              <p className='3xl:text-2xl leading-1 font-medium sm:text-[22px] lg:text-xl'>
+        <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-1 md:space-y-1 xl:px-3'>
+          <div className='flex items-center justify-between'>
+            <div className='flex gap-1 2xl:gap-2'>
+              <p className='3xl:text-2xl leading-1 font-medium sm:text-base lg:text-lg xl:text-xl'>
                 ${parseFloat(product.salePrice.$numberDecimal)}
               </p>
-              <span className='text-xs leading-1 font-normal text-[#958F86] line-through sm:text-base xl:text-lg'>
+              <span className='text-xs leading-1 font-normal text-[#958F86] line-through sm:text-sm xl:text-lg'>
                 ${parseFloat(product.regularPrice.$numberDecimal)}
               </span>
             </div>
@@ -259,7 +299,7 @@ export default function PreviewCardMd({ product, className }) {
             </button>
           </p>
           <Button
-            className='xs:text-base xs:h-9 3xl:text-xl 3xl:h-12 mt-auto h-8 w-full text-sm lg:h-8'
+            className='xs:text-base xs:h-9 3xl:text-xl 3xl:h-12 mt-auto h-8 w-full text-sm lg:h-8 xl:h-9'
             onClick={handleAddToCart}
           >
             Add to Cart <ShoppingBagIcon size={20} className='ml-2 xl:size-5' />
@@ -295,7 +335,7 @@ export default function PreviewCardMd({ product, className }) {
               </DrawerTitle>
               <MobileGallery media={selectedMetal.images} />
             </DrawerHeader>
-            <DrawerFooter className='pt-2'>
+            <DrawerFooter className='pt-3'>
               <div className=''>
                 <div className='mb-1 flex justify-between text-lg font-medium'>
                   <div>
