@@ -10,6 +10,7 @@ import {
   CarouselContent,
   CarouselItem
 } from '@/components/ui/carousel';
+import Image from 'next/image';
 // const slides = [
 //   {
 //     image: '/img/home-hero2.jpg',
@@ -53,67 +54,133 @@ export default function S1HeroSection({ data }) {
     setTimeout(() => setShowTooltip(false), 4000);
   };
 
-  const heroImages = [
-    '/img/home-hero2.jpg',
-    '/img/hero2.jpg',
-    // '/img/hero3.jpg'
-  ];
+  const heroImages = ['/img/home-hero2.jpg'];
   return (
     <section className='relative w-full'>
-      <Carousel className='w-full' opts={{ loop: true }} setApi={setApi}>
+      {/* <Carousel className='w-full' opts={{ loop: true }} setApi={setApi}>
         <CarouselContent className='ml-0'>
           {heroImages.map((image, index) => (
-            <CarouselItem key={index} className='pl-0'>
-              <div
-                className='3xl:h-[70vh] h-[530px] w-full bg-cover bg-center bg-no-repeat sm:h-[450px] md:h-[500px] md:bg-left xl:h-[84vh]'
-                style={{ backgroundImage: `url(${image})` }}
+            <CarouselItem key={index} className='pl-0'> */}
+      <div
+        className='3xl:h-[70vh] h-[500px] w-full bg-cover bg-center bg-no-repeat sm:h-[450px] md:h-[500px] md:bg-left xl:h-[84vh]'
+        // style={{ backgroundImage: `url(${image})` }}
+      >
+        <div className='relative h-full'>
+          {
+            // <div className='flex h-full flex-col'>
+            //   <div className='flex-1 bg-red-200'>
+            //     <Image
+            //       src={image}
+            //       alt='hero'
+            //       width={1920}
+            //       height={1080}
+            //       className='h-full w-full object-cover'
+            //     />
+            //   </div>
+            //   <div className='absolute inset-x-0 bottom-[0] z-20 flex w-full flex-col items-center justify-end bg-black py-4 text-center text-white md:bottom-[25%] md:left-[12%] md:w-fit md:translate-x-[-15%]'>
+            //     <p className='mb-4 text-sm tracking-widest underline underline-offset-6 sm:mb-6 md:text-[20px]'>
+            //       VALENTINE'S DAY
+            //     </p>
+            //     <h1 className='font-rozha hero-font mb-3 hidden leading-[110%] font-medium tracking-wide sm:block'>
+            //       GET 20% OFF ON YOUR <div>FIRST ORDER</div>
+            //     </h1>
+            //     <h1 className='font-rozha mb-3 text-xl leading-[110%] font-medium sm:hidden'>
+            //       GET 20% OFF ON YOUR FIRST ORDER
+            //     </h1>
+            //     <div className='xs:text-xl relative mb-3 max-w-2xl text-sm lg:mb-6'>
+            //       <p>
+            //         Use code{' '}
+            //         <button
+            //           onClick={handleCopy}
+            //           className='inline-flex items-center gap-1 underline underline-offset-4'
+            //         >
+            //           FIRST20 <IoCopy className='inline h-4 w-4' />
+            //         </button>{' '}
+            //         at Checkout
+            //       </p>
+            //     </div>
+            //     {/* <Link
+            //     href='/products/rings'
+            //     className='xs:px-8 xs:py-2.5 xs:text-sm relative flex items-center rounded-full border border-white bg-black px-3.5 py-2 text-xs font-semibold text-white transition-all duration-300 before:absolute before:top-1 before:left-1 before:-z-10 before:h-full before:w-full before:rounded-full before:bg-white hover:before:opacity-0 md:py-3 md:text-base'
+            //   >
+            //     SHOP NOW <MoveRight className='ml-2 inline' />
+            //   </Link> */}
+            //     <Link
+            //       href='/products/rings'
+            //       className='xs:px-8 xs:py-2.5 xs:text-sm relative flex items-center rounded-full border border-white bg-white px-3.5 py-1.5 text-xs font-semibold text-black transition-all duration-300 md:py-3 md:text-base md:before:absolute md:before:top-1 md:before:left-1 md:before:-z-10 md:before:h-full md:before:w-full md:before:rounded-full md:before:bg-white hover:md:before:opacity-0'
+            //     >
+            //       SHOP NOW <MoveRight className='ml-2 inline' />
+            //     </Link>
+            //   </div>
+            // </div>
+            <div className='flex h-full flex-col'>
+              <div className='relative flex-1 sm:h-full'>
+                {/* Mobile Image (shown below sm) */}
+                <Image
+                  src='/img/home-m-hero2.png'
+                  alt='hero mobile'
+                  fill
+                  className='block object-cover sm:hidden'
+                />
+
+                {/* Desktop Image (shown sm and up) */}
+                <Image
+                  src='/img/home-hero2.jpg'
+                  alt='hero desktop'
+                  fill
+                  className='hidden object-cover sm:block'
+                />
+              </div>
+
+              {/* Bottom content */}
+              <div className='xs:h-[37%] relative z-20 flex h-[35%] w-full flex-col items-center justify-end bg-black py-4 text-center text-white sm:bottom-[6%] sm:h-0 sm:bg-transparent sm:py-0 md:bottom-[25%] md:left-[12%] md:w-fit md:translate-x-[-15%]'>
+                <p className='mb-3 text-sm tracking-widest underline underline-offset-6 sm:mb-6 md:text-[20px]'>
+                  VALENTINE'S DAY
+                </p>
+                <h1 className='font-rozha hero-font mb-3 hidden leading-[110%] font-medium tracking-wide sm:block'>
+                  GET 20% OFF ON YOUR <div>FIRST ORDER</div>
+                </h1>
+                <h1 className='font-rozha xs2:text-[22px] mb-3 text-xl leading-[110%] font-medium sm:hidden'>
+                  GET 20% OFF ON YOUR FIRST ORDER
+                </h1>
+                <div className='xs:text-lg relative mb-3 max-w-2xl text-sm sm:text-xl lg:mb-6'>
+                  <p>
+                    Use code{' '}
+                    <button
+                      onClick={handleCopy}
+                      className='inline-flex items-center gap-1 underline underline-offset-4'
+                    >
+                      FIRST20 <IoCopy className='inline h-4 w-4' />
+                    </button>{' '}
+                    at Checkout
+                  </p>
+                </div>
+                <Link
+                  href='/products/rings'
+                  className='xs:px-6 xs:text-sm sm:bg-primary sm:text-primary-foreground relative flex items-center rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-black transition-all duration-300 md:py-3 md:text-base md:before:absolute md:before:top-1 md:before:left-1 md:before:-z-10 md:before:h-full md:before:w-full md:before:rounded-full md:before:bg-white hover:md:before:opacity-0'
+                >
+                  SHOP NOW <MoveRight className='ml-2 inline' />
+                </Link>
+              </div>
+            </div>
+          }
+          {/* {index === 1 && (
+            <div className='absolute bottom-10 left-4 z-20 w-full max-w-xl px-4 text-left text-white sm:bottom-16 sm:left-10 sm:px-0 lg:bottom-32'>
+              <h2 className='mb-2 text-xl leading-tight font-bold sm:mb-4 sm:text-2xl md:text-4xl'>
+                Discover the Summer Collection
+              </h2>
+              <p className='mb-3 max-w-md text-xs sm:mb-5 sm:text-base md:text-lg'>
+                Celebrate with bright gemstones and radiant styles.
+              </p>
+              <Link
+                href='/'
+                className='hover:bg-opacity-90 inline-block rounded-full bg-white px-5 py-2 text-sm font-medium text-black transition sm:px-6 sm:py-2.5 sm:text-base md:px-8 md:py-3'
               >
-                <div className='wrapper relative h-full'>
-                  {index === 0 && (
-                    <div className='absolute inset-x-0 bottom-[6%] flex w-full flex-col items-center justify-end text-center text-white md:bottom-[25%] md:left-[12%] md:w-fit md:translate-x-[-15%]'>
-                      <p className='mb-4 text-base tracking-widest underline underline-offset-6 sm:mb-6 md:text-[21px]'>
-                        VALENTINE'S DAY
-                      </p>
-                      <h1 className='font-rozha hero-font mb-5 leading-[110%] font-medium tracking-wide'>
-                        GET 20% OFF ON YOUR <div>FIRST ORDER</div>
-                      </h1>
-                      <div className='xs:text-xl relative mb-3 max-w-2xl text-sm lg:mb-6'>
-                        <p>
-                          Use code{' '}
-                          <button
-                            onClick={handleCopy}
-                            className='inline-flex items-center gap-1 underline underline-offset-4'
-                          >
-                            FIRST20 <IoCopy className='inline h-4 w-4' />
-                          </button>{' '}
-                          at Checkout
-                        </p>
-                      </div>
-                      <Link
-                        href='/products/rings'
-                        className='xs:px-8 xs:py-2.5 xs:text-sm relative flex items-center rounded-full bg-black px-3.5 py-2 text-xs font-semibold text-white transition-all duration-300 before:absolute before:top-1 before:left-1 before:-z-10 before:h-full before:w-full before:rounded-full before:bg-white hover:before:opacity-0 md:py-3 md:text-base'
-                      >
-                        SHOP NOW <MoveRight className='ml-2 inline' />
-                      </Link>
-                    </div>
-                  )}
-                  {index === 1 && (
-                    <div className='absolute bottom-10 left-4 w-full max-w-xl px-4 text-left text-white sm:bottom-16 sm:left-10 sm:px-0 lg:bottom-32'>
-                      <h2 className='mb-2 text-xl leading-tight font-bold sm:mb-4 sm:text-2xl md:text-4xl'>
-                        Discover the Summer Collection
-                      </h2>
-                      <p className='mb-3 max-w-md text-xs sm:mb-5 sm:text-base md:text-lg'>
-                        Celebrate with bright gemstones and radiant styles.
-                      </p>
-                      <Link
-                        href='/'
-                        className='hover:bg-opacity-90 inline-block rounded-full bg-white px-5 py-2 text-sm font-medium text-black transition sm:px-6 sm:py-2.5 sm:text-base md:px-8 md:py-3'
-                      >
-                        Explore Now
-                      </Link>
-                    </div>
-                  )}
-                  {/* {index === 2 && (
+                Explore Now
+              </Link>
+            </div>
+          )} */}
+          {/* {index === 2 && (
                     <div className='absolute top-23 left-0 w-full px-4 text-left text-black sm:top-50 sm:left-10 sm:px-0'>
                       <h1 className='mb-2 font-sans text-lg leading-snug font-bold sm:mb-3 sm:text-2xl md:text-5xl'>
                         For the Moments That Matter Most
@@ -122,10 +189,10 @@ export default function S1HeroSection({ data }) {
                         Timeless Jewelry for Your Forever
                       </h2>
                       {/* Optional paragraph can be re-enabled here if needed */}
-                      {/* <p className="mb-4 text-xs sm:text-base md:text-lg max-w-md">
+          {/* <p className="mb-4 text-xs sm:text-base md:text-lg max-w-md">
       Graceful pieces to complete your wedding story.
     </p> */}
-                      {/* <Link
+          {/* <Link
                         href='/collections/bridal'
                         className='inline-block rounded-full border border-black bg-black text-white px-5 py-2 font-sans text-sm font-medium transition hover:bg-white hover:text-black sm:px-6 sm:py-2.5 sm:text-base md:px-8 md:py-3'
                       >
@@ -133,14 +200,14 @@ export default function S1HeroSection({ data }) {
                       </Link>
                     </div>
                   )}  */}
-                </div>
-              </div>
-            </CarouselItem>
+        </div>
+      </div>
+      {/* </CarouselItem>
           ))}
-        </CarouselContent>
+        </CarouselContent> */}
 
-        {/* Custom Pagination Dots */}
-        <div className='absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2'>
+      {/* Custom Pagination Dots */}
+      {/* <div className='absolute bottom-4 left-1/2 z-20 flex -translate-x-1/2 gap-2'>
           {[0, 1].map((_, index) => (
             <button
               key={index}
@@ -149,8 +216,8 @@ export default function S1HeroSection({ data }) {
               aria-label={`Go to slide ${index + 1}`}
             />
           ))}
-        </div>
-      </Carousel>
+        </div> */}
+      {/* </Carousel> */}
 
       {/* Toast */}
       {showTooltip && (
