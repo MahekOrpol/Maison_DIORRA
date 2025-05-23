@@ -114,13 +114,11 @@ export default function ProductDetails({
   const availableStyles = data?.variations[0].metalVariations[0].style || [];
 
   const handleAddToCart = async () => {
-    const res = await fetch('/api/check-auth', {
-      method: 'GET',
-      cache: 'no-store'
-    });
+    const { isLoggedIn, authUser } = useUserStore.getState();
     const data = await res.json();
-    if (!data.authenticated) {
-      router.push('/login');
+    if (!isLoggedIn || !authUser) {
+      openModal('cartNotAllowed');
+      return;
     }
     router.push('/checkout');
   };
@@ -410,7 +408,7 @@ export default function ProductDetails({
         )}
       {/* Shank */}
       {category === 'rings' && (
-        <div className='pt-3 pb-6'>
+        <div className='py-2'>
           <p className='pb-1 text-lg font-medium'>Shank :</p>
           <div className='flex gap-2 text-[0.8rem]'>
             {availableShanks.map((shank) => (
@@ -518,6 +516,7 @@ export default function ProductDetails({
           <div className='xs:gap-2 flex w-full items-center gap-1 md:w-1/2 lg:w-full'>
             <Button
               className='h-10 flex-1 gap-4 rounded-lg text-base lg:h-12 lg:text-lg'
+              disabled
               // onClick={handleAddToCart}
             >
               <FaWhatsapp className='mr- size-6' /> Order On Whatsapp
@@ -543,7 +542,7 @@ export default function ProductDetails({
                 strokeWidth={1.6}
               />
             </button>
-            <ShareButton url={window.location.href} />
+            <ShareButton />
           </div>
         </div>
       </div>

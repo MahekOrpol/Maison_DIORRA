@@ -19,11 +19,11 @@ import { RiWeightLine } from 'react-icons/ri';
 import { PiDiamondsFour } from 'react-icons/pi';
 import { CustomerReviews } from './customer-reviews';
 import ProductDetails from './product-details';
+import reviews from '@/constants/reviews';
 
 export default async function ProductDetailsPage({ params, searchParams }) {
   const { category, productid } = await params;
   const { metal, mv, style, shank, shape, sort } = await searchParams;
-
   const filters = {
     metal: metal || '',
     metalVariation: mv || '',
@@ -50,7 +50,7 @@ export default async function ProductDetailsPage({ params, searchParams }) {
     `${baseApiUrl}/api/v1/product/get-product-id/${productid}${query}`
   );
   const product = await res.json();
-
+  // console.log('product >>', product);
   const galleryImages = getGalleryImages({
     metalVariation: product?.variations[0]?.metalVariations[0],
     filters: {
@@ -65,7 +65,6 @@ export default async function ProductDetailsPage({ params, searchParams }) {
     'combinedImages >>',
     product?.variations[0]?.metalVariations[0].combinationImages
   );
-  console.log('product >>', product);
 
   return (
     <>
@@ -79,7 +78,10 @@ export default async function ProductDetailsPage({ params, searchParams }) {
             </BreadcrumbItem>
             <BreadcrumbSeparator />
             <BreadcrumbItem>
-              <BreadcrumbLink href={`/products/${category}`} className='3xl:text-lg lg:text-base'>
+              <BreadcrumbLink
+                href={`/products/${category}`}
+                className='3xl:text-lg lg:text-base'
+              >
                 {category
                   .split('-')
                   .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
@@ -106,16 +108,13 @@ export default async function ProductDetailsPage({ params, searchParams }) {
           data={product}
           category={category}
           availableMetals={availableMetals}
-        // subcategory={subcategory}
-        // selectedMetal={selectedMetal}
-        // setSelectedMetal={setSelectedMetal}
+          // subcategory={subcategory}
+          // selectedMetal={selectedMetal}
+          // setSelectedMetal={setSelectedMetal}
         />
       </div>
       {/* <FinalDetails className='wrapper' data={product.finalProductDetails} /> */}
-      {/* <CustomerReviews
-        className='wrapper'
-        data={product?.reviews?.reviews ?? []}
-      /> */}
+      <CustomerReviews className='wrapper' data={reviews?.reviews ?? []} />
       <RelatedProducts className='wrapper' />
     </>
   );

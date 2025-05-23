@@ -1,0 +1,113 @@
+{
+  "avgRating": 4.9,
+  "reviews": [
+    {
+      "id": 1,
+      "userId": 101,
+      "author": "Rosalina Kelin",
+      "date": "19th June, 2024",
+      "authorImg": "https://randomuser.me/api/portraits/women/1.jpg",
+      "rating": 5,
+      "content": "Absolutely love my new necklace! The craftsmanship is exceptional and it arrived sooner than expected."
+    },
+    {
+      "id": 2,
+      "userId": 102,
+      "author": "Michael Chen",
+      "date": "15th June, 2024",
+      "authorImg": "",
+      "rating": 4,
+      "content": "Good quality earrings, though slightly smaller than I imagined. Still very pretty."
+    },
+    {
+      "id": 3,
+      "userId": 103,
+      "author": "Sarah Johnson",
+      "date": "12th June, 2024",
+      "authorImg": "https://randomuser.me/api/portraits/women/22.jpg",
+      "rating": 5,
+      "content": "Perfect gift for my anniversary! My partner loved the bracelet. Will definitely shop here again."
+    },
+    {
+      "id": 4,
+      "userId": 104,
+      "author": "David Wilson",
+      "date": "10th June, 2024",
+      "authorImg": "",
+      "rating": 3,
+      "content": "The ring is nice but the sizing was off. Had to get it resized which was an extra cost."
+    },
+    {
+      "id": 5,
+      "userId": 105,
+      "author": "Emma Thompson",
+      "date": "8th June, 2024",
+      "authorImg": "https://randomuser.me/api/portraits/women/45.jpg",
+      "rating": 5,
+      "content": "Stunning piece! Exactly as pictured. The packaging was beautiful too - made it feel like a luxury purchase."
+    },
+    {
+      "id": 6,
+      "userId": 106,
+      "author": "James Rodriguez",
+      "date": "5th June, 2024",
+      "authorImg": "https://randomuser.me/api/portraits/men/33.jpg",
+      "rating": 2,
+      "content": "Disappointed with the quality for the price. The stone fell out after just two weeks."
+    },
+    {
+      "id": 7,
+      "userId": 107,
+      "author": "Olivia Martinez",
+      "date": "3rd June, 2024",
+      "authorImg": "",
+      "rating": 4,
+      "content": "Beautiful pendant, but the chain was shorter than I expected. Still wearable though."
+    },
+    {
+      "id": 8,
+      "userId": 108,
+      "author": "Robert Kim",
+      "date": "1st June, 2024",
+      "authorImg": "https://randomuser.me/api/portraits/men/12.jpg",
+      "rating": 5,
+      "content": "Exceptional customer service! They helped me choose the perfect engagement ring. She said yes!"
+    },
+    {
+      "id": 9,
+      "userId": 109,
+      "author": "Sophia Garcia",
+      "date": "28th May, 2024",
+      "authorImg": "",
+      "rating": 1,
+      "content": "Item arrived damaged. Still waiting for resolution from customer service."
+    },
+    {
+      "id": 10,
+      "userId": 110,
+      "author": "Daniel Brown",
+      "date": "25th May, 2024",
+      "authorImg": "https://randomuser.me/api/portraits/men/8.jpg",
+      "rating": 5,
+      "content": "The watch is even more beautiful in person. Very happy with this purchase!"
+    },
+    {
+      "id": 11,
+      "userId": 111,
+      "author": "Ava Lee",
+      "date": "22nd May, 2024",
+      "authorImg": "",
+      "rating": 3,
+      "content": "It's okay. Not as shiny as in the photos but decent for the price."
+    },
+    {
+      "id": 12,
+      "userId": 112,
+      "author": "William Taylor",
+      "date": "20th May, 2024",
+      "authorImg": "https://randomuser.me/api/portraits/men/65.jpg",
+      "rating": 4,
+      "content": "Good product overall. Shipping took longer than expected but worth the wait."
+    }
+  ]
+}
