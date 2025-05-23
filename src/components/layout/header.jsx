@@ -105,13 +105,13 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
               {DiamondShapes && DiamondShapes?.length > 0 ? (
                 DiamondShapes.map((shape) => (
                   <li
-                    key={shape._id || shape.name}
+                    key={shape.id}
                     className='flex items-center space-x-2'
                   >
                     {shape.diamondImage && (
                       <Image
                         src={baseApiUrl + shape.diamondImage}
-                        // alt={shape.name}
+                        alt={shape.diamondShape}
                         width={24}
                         height={24}
                         className='object-contain'
