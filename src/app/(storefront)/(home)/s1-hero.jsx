@@ -54,7 +54,7 @@ export default function S1HeroSection({ data }) {
   };
 
   const heroImages = [
-    '/img/home-hero2.jpg',
+    '/img/heroimg.png',
     '/img/hero2.jpg',
     // '/img/hero3.jpg'
   ];

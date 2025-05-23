@@ -67,7 +67,7 @@ export function OTPDialog({ open, onOpenChange, onSubmit, email }) {
     try {
       // Make API call with Axios
       const response = await axios.post(
-        `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/auth/verify-otp`,
+        `${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1/auth/verify-otp`,
         {
           email: email, // Make sure this is not null/undefined
           generateOTP: enteredOtp
@@ -95,7 +95,7 @@ export function OTPDialog({ open, onOpenChange, onSubmit, email }) {
 
       // Debugging: Log the exact request being sent
       console.error('API Request Failed:', {
-        url: `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/auth/verify-otp`,
+        url: `${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1/auth/verify-otp`,
         payload: {
           email: email,
           generateOTP: enteredOtp

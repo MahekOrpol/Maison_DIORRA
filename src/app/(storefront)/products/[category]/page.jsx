@@ -86,20 +86,20 @@ export default function ProductListingPage({ params }) {
   const query = buildQueryString(queryParams);
 
   const { data, isLoading, error } = useFetch(
-    `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/product/get${query}`,
+    `${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1/product/get${query}`,
     {},
     [query]
   );
 
   // fetch all available filters 1. metal 2. shape 3. style
   const { data: availableMetals } = useFetch(
-    `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/metal/get`
+    `${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1/metal/get`
   );
   const { data: availableShapes } = useFetch(
-    `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/diamond-shape/get`
+    `${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1/diamond-shape/get`
   );
   const { data: allCategories } = useFetch(
-    `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/category/get`
+    `${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1/category/get`
   );
   // issue is here, not getting the styles of the category, for first time ..
   const availableStyles = (allCategories || []).find(

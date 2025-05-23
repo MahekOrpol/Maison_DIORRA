@@ -17,7 +17,7 @@ export async function POST(request) {
 
     // Call your external backend
     const backendRes = await fetch(
-      `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/register/login`,
+      `${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1/register/login`,
       {
         method: 'POST',
         headers: {
