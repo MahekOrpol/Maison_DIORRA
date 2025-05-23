@@ -2,7 +2,7 @@
 
 import { baseApiUrl } from '../utils';
 
-const BASE_URL = `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1`;
+const BASE_URL = `${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1`;
 
 // export async function fetchHeroSection() {
 //   const res = await fetch(`${BASE_URL}/home/hero`, {

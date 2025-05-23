@@ -35,7 +35,7 @@ export function ResetPasswordDialog({ open = false, setOpen, email }) {
     setIsSubmitting(true);
     try {
       const response = await axios.post(
-        `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/auth/forgot-password`,
+        `${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1/auth/forgot-password`,
         {
           email: data.email || email, // Use form email or prop email as fallback
           password: data.password,

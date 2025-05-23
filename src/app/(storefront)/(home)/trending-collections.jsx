@@ -53,7 +53,7 @@ export default function TrendingCollections() {
       {isLoading ? (
         <></>
       ) : (
-        <div className='xl:grid-row-2 grid grid-cols-2 gap-4 sm:gap-4 lg:w-[22%] lg:grid-cols-1 2xl:gap-6'>
+        <div className='xl:grid-row-2 grid grid-cols-2 gap-2.5 sm:gap-4 lg:w-[22%] lg:grid-cols-1 2xl:gap-6'>
           {data.products[0] && (
             <PreviewCardMd
               key={data.products[0]._id}
@@ -105,7 +105,7 @@ export default function TrendingCollections() {
       {isLoading ? (
         <></>
       ) : (
-        <div className='xl:grid-row-2 grid grid-cols-2 gap-4 sm:gap-4 lg:w-[22%] lg:grid-cols-1 2xl:gap-6'>
+        <div className='xl:grid-row-2 grid grid-cols-2 gap-2.5 sm:gap-4 lg:w-[22%] lg:grid-cols-1 2xl:gap-6'>
           {data.products[2] && (
             <PreviewCardMd
               key={data.products[2]._id}

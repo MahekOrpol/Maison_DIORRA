@@ -137,7 +137,7 @@ export function MobileGallery({ media = [] }) {
         {/* 360 View */}
         <TabsContent
           value='360'
-          className='flex h-full w-full items-center justify-center overflow-hidden rounded-md'
+          className='flex h-full w-full items-center justify-center overflow-hidden rounded-md bg-[#e2e2e2]'
         >
           {/* <Image
             src='/img/dummy/360view.gif'

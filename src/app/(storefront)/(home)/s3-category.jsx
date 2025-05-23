@@ -34,7 +34,7 @@ export default function S3CategorySection({ data }) {
         title='Shop by Category'
         subtitle='Your Imagination, Our Craftsmanship'
       />
-      <div className='xs:gap-6 grid grid-cols-2 gap-4 sm:flex-row md:grid-cols-4 md:gap-4 lg:gap-5'>
+      <div className='grid grid-cols-2 gap-x-4 gap-y-3 sm:flex-row sm:gap-x-6 sm:gap-y-4 md:grid-cols-4 md:gap-4 lg:gap-5'>
         {data.map((item) => (
           <Link
             key={item.id}

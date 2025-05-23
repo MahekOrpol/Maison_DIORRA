@@ -2,9 +2,16 @@
 import { useState, useRef, useEffect } from 'react';
 import { Share2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-export default function ShareButton({ className, url, title, media }) {
+export default function ShareButton({ className, title, media }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [url, setUrl] = useState('');
   const shareRef = useRef(null);
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setUrl(window.location.href);
+    }
+  }, []);
+
   // Close the share menu when clicking outside
   useEffect(() => {
     function handleClickOutside(event) {
@@ -17,12 +24,15 @@ export default function ShareButton({ className, url, title, media }) {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, []);
+  if (!url) return null;
+
   const shareLinks = {
     facebook: `https://www.facebook.com/sharer.php?u=${encodeURIComponent(url)}`,
     twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`,
     pinterest: `https://pinterest.com/pin/create/button/?url=${encodeURIComponent(url)}&media=${encodeURIComponent(media)}&description=${encodeURIComponent(title)}`,
     whatsapp: `https://wa.me/?text=${encodeURIComponent(`${title} ${url}`)}`
   };
+
   const handleNativeShare = async () => {
     try {
       await navigator.share({

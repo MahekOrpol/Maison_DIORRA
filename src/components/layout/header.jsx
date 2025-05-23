@@ -14,6 +14,7 @@ import { useModalStore } from '@/store/modal-stote';
 import { useRouter } from 'next/navigation';
 import { useUserStore } from '@/store/user-store';
 import { useWishlistStore } from '@/store/wishlist-store';
+import MobileSidebarCopy from './mobile-nav(copy)';
 const messages = [
   'Welcome to our jewelry collection!',
   'Enjoy 10% off on your first purchase!',
@@ -104,14 +105,11 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
             <ul className='space-y-2 border-r-2 font-light'>
               {DiamondShapes && DiamondShapes?.length > 0 ? (
                 DiamondShapes.map((shape) => (
-                  <li
-                    key={shape._id || shape.name}
-                    className='flex items-center space-x-2'
-                  >
+                  <li key={shape.id} className='flex items-center space-x-2'>
                     {shape.diamondImage && (
                       <Image
                         src={baseApiUrl + shape.diamondImage}
-                        // alt={shape.name}
+                        alt={shape.diamondShape || 'Diamond Shape'}
                         width={24}
                         height={24}
                         className='object-contain'
@@ -180,7 +178,8 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
                         <Link
                           href={`/products/${sub.subcategoryName
                             .toLowerCase()
-                            .replace(/\s+/g, '-')}`}
+                            .replace(/\s+/g, '-')}
+                            `}
                           className='decoration-1 underline-offset-3 hover:underline'
                         >
                           {sub.subcategoryName}
@@ -205,7 +204,7 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
       )
     },
     {
-      href: '/products/rings/engagement-rings',
+      href: '/products/rings',
       label: 'Engagement Rings',
       icon: <Image src='/icons/ring2.svg' alt='ring2' width={16} height={16} />,
       content: (
@@ -218,7 +217,7 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
                 availableStyles.map(({ name, image }) => (
                   <li key={name} className='flex items-center space-x-2'>
                     <Link
-                      href={`/products/rings/engagement-rings?style=${name}`}
+                      href={`/products/rings?style=${name}`}
                       className='flex items-center space-x-2 hover:underline'
                     >
                       <Image
@@ -240,7 +239,7 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
               {metalOptions.map(({ name, image }) => (
                 <li key={name} className='flex items-center space-x-2'>
                   <Link
-                    href={`/products/rings/engagement-rings?metal=${name.toLowerCase().replace(/\s+/g, '-')}`}
+                    href={`/products/rings?metal=${name.toLowerCase().replace(/\s+/g, '-')}`}
                     className='flex items-center space-x-2 hover:underline'
                   >
                     <Image
@@ -263,7 +262,8 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
                 (collection) => (
                   <li key={collection}>
                     <Link
-                      href={`/products/rings/engagement-rings/collections/${collection.toLowerCase().replace(/\s+/g, '-')}`}
+                      // href={`/products/rings/engagement-rings/collections/${collection.toLowerCase().replace(/\s+/g, '-')}`}
+                      href={`/products/rings`}
                       className='hover:underline'
                     >
                       {collection}
@@ -436,7 +436,13 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
           </div>
           {/* header */}
           <div className='header-wrapper relative flex items-center justify-between py-2'>
-            <MobileNavDrawer />
+            <MobileSidebarCopy
+              menuItems={menuItems}
+              categories={categories}
+              DiamondShapes={DiamondShapes}
+              availableStyles={availableStyles}
+              metalOptions={metalOptions}
+            />
             <div className='relative hidden items-center gap-3 lg:flex'>
               <LocateAndSearch />
             </div>
@@ -446,8 +452,8 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
                 <Image
                   src='/icons/diorra-logo.png'
                   alt='logo'
-                  width={150}
-                  height={80}
+                  width={132}
+                  height={58}
                   className=''
                   priority
                 />
@@ -462,7 +468,7 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
               >
                 <Heart strokeWidth={1.2} size={28} />
                 {wishlistCount > 0 ? (
-                  <span className='text-background absolute top-0 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-black text-xs'>
+                  <span className='text-background absolute top-1 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-black text-xs'>
                     {wishlistCount}
                   </span>
                 ) : (
@@ -474,7 +480,7 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
                 className='relative rounded-full p-1 transition-all duration-200 hover:scale-110 hover:bg-gray-100'
               >
                 <BsHandbag size={26} />
-                <span className='text-background absolute top-0 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-black text-xs'>
+                <span className='text-background absolute top-1 right-0 flex h-4 w-4 items-center justify-center rounded-full bg-black text-xs'>
                   2
                 </span>
               </button>

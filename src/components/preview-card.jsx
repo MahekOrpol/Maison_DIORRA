@@ -30,6 +30,7 @@ import { useModalStore } from '@/store/modal-stote';
 import { toast } from 'sonner';
 import { useUserStore } from '@/store/user-store';
 import { useWishlistStore } from '@/store/wishlist-store';
+import { useWindowWidth, truncateText } from '@/hooks/useWindowWidth';
 export default function PreviewCard({
   product,
   className,
@@ -48,7 +49,7 @@ export default function PreviewCard({
   const [liked, setLiked] = useState(
     wishlist?.some((item) => item.product._id === product._id)
   );
-  const BASE_URL = baseApiUrl || 'http://153.92.222.195:5000';
+  const BASE_URL = baseApiUrl || 'https://massion-diorra-ywz5.onrender.com';
   // console.log('product', product);
   // console.log('wishlist', wishlist);
   // Fix: Reset metal when product changes
@@ -145,11 +146,26 @@ export default function PreviewCard({
       return 'linear-gradient(135deg, #d4af37, #f5d76e)';
     return '#ccc'; // fallback gray
   };
+
+  const width = useWindowWidth();
+  const maxChars =
+    width < 360
+      ? 17
+      : width < 500
+        ? 20
+        : width < 640
+          ? 22
+          : width < 1024
+            ? 30
+            : width < 1440
+              ? 50
+              : 60; // Default for large screens
+
   return (
     <>
       <Card
         className={cn(
-          'group relative justify-between gap-0 overflow-hidden rounded-xl border border-gray-200 pt-0 pb-2 shadow transition-transform duration-300 hover:shadow-xl lg:border-2',
+          'group relative justify-between gap-0 overflow-hidden rounded-xl border border-black pt-0 pb-2 shadow transition-transform duration-300 hover:border-black hover:shadow-xl sm:border-2 sm:border-gray-400',
           className
         )}
       >
@@ -157,11 +173,11 @@ export default function PreviewCard({
         <button
           onClick={handleFavoriteClick}
           disabled={isWishlistLoading}
-          className='hover:bg-primary/4 absolute top-2 right-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow shadow-gray-400 xl:top-3 xl:right-3'
+          className='hover:bg-primary/4 group absolute top-2 right-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow shadow-gray-400 xl:top-3 xl:right-3'
         >
           <Heart
             className={cn(
-              'xs:h-5 xs:w-5 h-4 w-4 transition-colors',
+              'xs:h-5 xs:w-5 h-4 w-4 transition-colors group-hover:fill-white',
               liked ? 'fill-primary text-primary' : 'text-black'
             )}
           />
@@ -173,7 +189,7 @@ export default function PreviewCard({
             loop: false,
             watchDrag: isDraggable
           }}
-          className='relative w-full'
+          className='relative w-full border-b'
         >
           <CarouselContent className='ml-0 aspect-[1/1] w-full gap-0'>
             {selectedMetal.images
@@ -182,7 +198,7 @@ export default function PreviewCard({
                 <CarouselItem
                   key={index}
                   onClick={handleProductClick}
-                  className='h-full w-full basis-full cursor-pointer pl-[0.5px]'
+                  className='h-full w-full basis-full cursor-pointer pl-0'
                 >
                   <Image
                     src={baseApiUrl + image}
@@ -200,7 +216,7 @@ export default function PreviewCard({
           </div>
         </Carousel>
         <CardContent className='xs:px-2 w-full space-y-1 px-1 sm:space-y-2 xl:px-4 xl:pb-2'>
-          <div className='flex items-center justify-between border-t pt-2 xl:pt-5'>
+          <div className='flex items-center justify-between pt-2 xl:pt-5'>
             <div className='flex gap-1 sm:gap-2'>
               <p className='3xl:text-2xl leading-1 font-medium sm:text-[22px] lg:text-xl'>
                 ${parseFloat(product.salePrice.$numberDecimal)}
@@ -217,7 +233,7 @@ export default function PreviewCard({
                     key={variant.metal}
                     onClick={() => setSelectedMetal(variant)}
                     className={cn(
-                      'h-4.5 w-4.5 rounded-full border-2 border-white hover:outline hover:outline-offset-1 sm:h-5.25 sm:w-5.25',
+                      'h-4.5 w-4.5 rounded-full border border-white hover:outline hover:outline-offset-2 sm:h-5.25 sm:w-5.25',
                       isSelected ? 'ring-primary/40 ring-offset-0.5 ring' : ''
                     )}
                     style={{
@@ -233,7 +249,7 @@ export default function PreviewCard({
               onClick={handleProductClick}
               className='!line-clamp-1 block w-full text-left'
             >
-              {product.productName}
+              {truncateText(product.productName || '', maxChars)}
             </button>
           </p>
           <Button

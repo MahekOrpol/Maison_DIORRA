@@ -8,6 +8,7 @@ import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import { baseApiUrl, cn } from '@/lib/utils';
 import { useEffect, useState } from 'react';
+import Heading from '@/components/heading';
 
 export default function S7NewArrivals({ data }) {
   return (
@@ -22,9 +23,13 @@ export default function S7NewArrivals({ data }) {
             className='4xl:w-[13vw] absolute top-0 left-0 z-10 max-h-[430px] object-cover md:w-[160px] lg:w-[130px] xl:w-[190px] 2xl:w-[230px]'
           />
           <div className='wrapper relative h-full'>
-            <p className='absolute top-5 left-0 z-20 mb-2 w-full text-center text-[1.40rem] text-black underline decoration-[1.5px] underline-offset-4 md:text-4xl lg:top-[14%] lg:left-20 lg:w-fit lg:text-3xl lg:font-medium xl:left-30 xl:text-4xl 2xl:left-[9%] 2xl:text-5xl'>
+            {/* <p className='absolute top-5 left-0 z-20 mb-2 w-full text-center text-[1.40rem] text-black underline decoration-[1.5px] underline-offset-4 md:text-4xl lg:top-[14%] lg:left-20 lg:w-fit lg:text-3xl lg:font-medium xl:left-30 xl:text-4xl 2xl:left-[9%] 2xl:text-5xl'>
               New Arrivals
-            </p>
+            </p> */}
+            <Heading
+              title={'New Arrivals'}
+              className='absolute top-4 left-0 z-20 w-full text-center lg:top-[14%] lg:left-20 lg:w-fit xl:left-30 2xl:left-[9%]'
+            />
             <div
               className={cn(
                 '3xl:pr-14 4xl:pr-20 px-3 sm:px-6 lg:pr-8 2xl:pr-12',
@@ -34,7 +39,7 @@ export default function S7NewArrivals({ data }) {
               <ArrivalSwiper className='h-full w-full' slides={data} />
             </div>
 
-            <div className='absolute bottom-[5%] left-0 z-20 w-full text-center lg:top-2/5 lg:left-20 lg:w-fit lg:text-left xl:left-30 2xl:left-[9%]'>
+            <div className='absolute bottom-[4%] left-0 z-20 w-full text-center lg:top-2/5 lg:left-20 lg:w-fit lg:text-left xl:left-30 2xl:left-[9%]'>
               <p className='font-sande text-2xl font-bold md:text-3xl xl:text-4xl 2xl:text-5xl'>
                 Timeless{' '}
                 <span className='text-5xl md:text-6xl lg:text-5xl xl:text-6xl 2xl:text-7xl'>
