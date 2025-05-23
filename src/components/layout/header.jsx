@@ -14,6 +14,7 @@ import { useModalStore } from '@/store/modal-stote';
 import { useRouter } from 'next/navigation';
 import { useUserStore } from '@/store/user-store';
 import { useWishlistStore } from '@/store/wishlist-store';
+import MobileSidebarCopy from './mobile-nav(copy)';
 const messages = [
   'Welcome to our jewelry collection!',
   'Enjoy 10% off on your first purchase!',
@@ -167,9 +168,8 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
             categories.map((category, index) => (
               <div key={category.id} className='col-span-1 px-4 py-8 2xl:px-6'>
                 <div
-                  className={`flex h-full flex-col ${
-                    index !== categories.length - 1 ? 'border-r-1' : ''
-                  }`}
+                  className={`flex h-full flex-col ${index !== categories.length - 1 ? 'border-r-1' : ''
+                    }`}
                 >
                   <h3 className='mb-4 font-semibold uppercase'>
                     {category.categoryName}
@@ -421,9 +421,8 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
   return (
     <>
       <div
-        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ease-in ${
-          showHeader ? 'translate-y-0' : '-translate-y-full'
-        }`}
+        className={`fixed top-0 left-0 z-50 w-full transition-transform duration-200 ease-in ${showHeader ? 'translate-y-0' : '-translate-y-full'
+          }`}
       >
         <header className='bg-background text-foreground shadow-xs'>
           {/* black banner */}
@@ -436,7 +435,11 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
           </div>
           {/* header */}
           <div className='header-wrapper relative flex items-center justify-between py-2'>
-            <MobileNavDrawer />
+            <MobileSidebarCopy menuItems={menuItems}
+              categories={categories}
+              DiamondShapes={DiamondShapes}
+              availableStyles={availableStyles}
+              metalOptions={metalOptions} />
             <div className='relative hidden items-center gap-3 lg:flex'>
               <LocateAndSearch />
             </div>
