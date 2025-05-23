@@ -518,7 +518,7 @@ export default function ProductDetails({
           <div className='xs:gap-2 flex w-full items-center gap-1 md:w-1/2 lg:w-full'>
             <Button
               className='h-10 flex-1 gap-4 rounded-lg text-base lg:h-12 lg:text-lg'
-              onClick={handleAddToCart}
+              // onClick={handleAddToCart}
             >
               <FaWhatsapp className='mr- size-6' /> Order On Whatsapp
             </Button>

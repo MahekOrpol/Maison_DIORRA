@@ -24,7 +24,7 @@ export async function fetchDiamondShapes() {
 
 export async function fetchRingStyles() {
   try {
-    const response = await fetch(`${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/category/get`, {
+    const response = await fetch(`${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1/category/get`, {
       // next: { revalidate: 3600 } // Optional: revalidate data every hour
     });
     if (!response.ok) {

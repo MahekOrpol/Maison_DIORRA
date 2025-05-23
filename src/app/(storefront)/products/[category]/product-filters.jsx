@@ -77,13 +77,15 @@ export default function ProductFilters({
   const showRingStyle = isRing;
   // const showDiamondShapes = isDiamondBased || isRing;
   const showDiamondShapes = true;
-  // const showCommonFilters = [
-  //   'rings',
-  //   'pendants',
-  //   'bracelets',
-  //   'earrings'
-  // ].includes(category.toLowerCase());
-  const showCommonFilters = true;
+  const showCommonFilters = [
+    'rings',
+    'pendants',
+    'bracelets',
+    'earrings'
+  ].includes(category.toLowerCase());
+  const filtersSelectedCount = [metalPurity, style, shape].filter(
+    Boolean
+  ).length;
 
   const modifiedMetals = Array.isArray(availableMetals)
     ? metalPurityOptions.filter((option) =>
@@ -162,7 +164,7 @@ export default function ProductFilters({
             <DrawerTitle className='sr-only'>Filter drawer</DrawerTitle>
             <div className='bg-secondary flex items-center justify-between gap-2 px-4 py-2'>
               <Button className='w-fit rounded-sm text-xs' variant='outline'>
-                Filters Selected (2)
+                Filters Selected ({filtersSelectedCount})
               </Button>
               <Button
                 className='mr-auto w-fit rounded-sm text-xs'
@@ -253,36 +255,35 @@ export default function ProductFilters({
                 <div>
                   <p>
                     <strong className='font-medium'>Diamond Shape : </strong>
-                    <span className='text-secondary-foreground'>Round</span>
+                    <span className='text-secondary-foreground'>
+                      {shape || 'None'}
+                    </span>
                   </p>
                   <div className='mt-2 grid grid-cols-5 gap-2 text-xs sm:grid-cols-8'>
-                    {availableShapes &&
-                      availableShapes.length > 0 &&
-                      availableShapes.map((item, idx) => {
-                        const isSelected =
-                          shape.toLowerCase() ===
-                          item.diamondShape.toLowerCase();
-                        return (
-                          <button
-                            key={idx}
-                            onClick={() => setShape(item.diamondShape)}
-                            className={`bg-secondary flex flex-col items-center rounded-md border border-transparent px-1 pb-2 text-[10px] transition hover:border-black ${
-                              isSelected
-                                ? 'border-black'
-                                : 'border-transparent hover:border-black'
-                            }`}
-                          >
-                            <Image
-                              src={baseApiUrl + item.diamondImage}
-                              width={48}
-                              height={48}
-                              alt={item.diamondShape}
-                              className='h-12 w-12'
-                            />
-                            {item.diamondShape}
-                          </button>
-                        );
-                      })}
+                    {availableShapes?.map((item, idx) => {
+                      const isSelected =
+                        shape.toLowerCase() === item.diamondShape.toLowerCase();
+                      return (
+                        <button
+                          key={idx}
+                          onClick={() => setShape(item.diamondShape)}
+                          className={`bg-secondary flex flex-col items-center rounded-md border px-1 pb-2 text-[10px] transition ${
+                            isSelected
+                              ? 'border-black'
+                              : 'border-transparent hover:border-black'
+                          }`}
+                        >
+                          <Image
+                            src={baseApiUrl + item.diamondImage}
+                            width={48}
+                            height={48}
+                            alt={item.diamondShape}
+                            className='h-12 w-12'
+                          />
+                          {item.diamondShape}
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               )}

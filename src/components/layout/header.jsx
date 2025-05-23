@@ -14,6 +14,7 @@ import { useModalStore } from '@/store/modal-stote';
 import { useRouter } from 'next/navigation';
 import { useUserStore } from '@/store/user-store';
 import { useWishlistStore } from '@/store/wishlist-store';
+import MobileSidebarCopy from './mobile-nav(copy)';
 const messages = [
   'Welcome to our jewelry collection!',
   'Enjoy 10% off on your first purchase!',
@@ -435,7 +436,13 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
           </div>
           {/* header */}
           <div className='header-wrapper relative flex items-center justify-between py-2'>
-            <MobileNavDrawer />
+            <MobileSidebarCopy
+              menuItems={menuItems}
+              categories={categories}
+              DiamondShapes={DiamondShapes}
+              availableStyles={availableStyles}
+              metalOptions={metalOptions}
+            />
             <div className='relative hidden items-center gap-3 lg:flex'>
               <LocateAndSearch />
             </div>
