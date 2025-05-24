@@ -130,12 +130,11 @@ export default function S1HeroSection({ data }) {
                   src='/img/hero-model-4x.png'
                   alt='hero desktop'
                   fill
-                  className='hidden object-cover sm:block'
+                  className='hidden object-cover object-right sm:block'
                 />
               </div>
-
               {/* Bottom content */}
-              <div className='xs:h-[37%] relative z-20 flex h-[35%] w-full flex-col items-center justify-center gap-1 bg-black py-4 text-center text-white sm:bottom-[6%] sm:h-0 sm:justify-end sm:bg-transparent sm:py-0 md:bottom-[25%] md:left-[12%] md:w-fit md:translate-x-[-15%]'>
+              <div className='xs:h-[37%] relative z-20 flex h-[35%] w-full flex-col items-center justify-center gap-1 bg-black py-4 text-center text-white sm:-top-[60%] sm:h-0 sm:translate-x-[-20%] sm:bg-transparent sm:py-0 md:-top-[50%] md:left-[12%] md:w-fit md:translate-x-[-15%] xl:left-[15%]'>
                 <p className='mb-3 text-sm tracking-widest underline underline-offset-6 sm:mb-6 md:text-[20px]'>
                   VALENTINE'S DAY
                 </p>
@@ -159,7 +158,7 @@ export default function S1HeroSection({ data }) {
                 </div>
                 <Link
                   href='/products/rings'
-                  className='xs:px-6 xs:text-sm sm:bg-primary sm:text-primary-foreground relative flex items-center rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-black transition-all duration-300 md:py-3 md:text-base md:before:absolute md:before:top-1 md:before:left-1 md:before:-z-10 md:before:h-full md:before:w-full md:before:rounded-full md:before:bg-white hover:md:before:opacity-0'
+                  className='xs:px-6 xs:text-sm relative flex items-center rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-black transition-all duration-300 md:py-3 md:text-base'
                 >
                   SHOP NOW <MoveRight className='ml-2 inline' />
                 </Link>
