@@ -38,7 +38,8 @@ export default async function ProductDetailsPage({ params, searchParams }) {
   });
   // availableMetals
   const res1 = await fetch(
-    `${baseApiUrl}/api/v1/product/get-product-id/${productid}`
+    `${baseApiUrl}/api/v1/product/get-product-id/${productid}`,
+    { cache: 'no-store' }
   );
   const data = await res1.json();
   const availableMetals = data?.variations[0].metalVariations.map((item) => ({
@@ -47,7 +48,8 @@ export default async function ProductDetailsPage({ params, searchParams }) {
   }));
   // fetch product detials
   const res = await fetch(
-    `${baseApiUrl}/api/v1/product/get-product-id/${productid}${query}`
+    `${baseApiUrl}/api/v1/product/get-product-id/${productid}${query}`,
+    { cache: 'no-store' }
   );
   const product = await res.json();
   // console.log('product >>', product);
