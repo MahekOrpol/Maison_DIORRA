@@ -56,10 +56,7 @@ export async function fetchNewArrivals() {
 export async function fetchTrendingCollections(categoryName = 'rings') {
   //   const res = await fetch(`${BASE_URL}/collections/trending`, {
   const res = await fetch(
-    `${BASE_URL}/product/get-trending?categoryName=${categoryName}&limit=4`,
-    {
-      // next: { revalidate: 1800 }
-    }
+    `${BASE_URL}/product/get-trending?categoryName=${categoryName}&limit=4`
   );
   return res.json();
 }
