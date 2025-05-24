@@ -114,7 +114,7 @@ export default function LoginPage() {
     setIsSubmitting(true);
     try {
       const response = await axios.post(
-        `${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1/register/register`,
+        `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/register/register`,
         {
           name: data.name,
           email: data.email,

@@ -12,7 +12,7 @@ import Heading from '@/components/heading';
 
 export default function S7NewArrivals({ data }) {
   return (
-    <section className='3xl:mt-[7vw] 3xl:mb-[5vw] pt-4 md:pt-10 lg:mt-[6%] lg:mb-[5%] xl:my-[5vw]'>
+    <section className='3xl:mt-[7vw] 3xl:mb-[5vw] pt-4 md:pt-10 lg:mt-[10%] lg:pt-14 xl:my-[5vw]'>
       <div className='relative flex w-full flex-col items-center justify-between lg:flex-row'>
         <div className='xs:aspect-[9/8] 4xl:h-[420px] aspect-[1/1] w-full border-y shadow-[2px_2px_6px_6px_rgba(0,_0,_0,_0.1)] sm:aspect-[5/4] lg:aspect-auto lg:h-[240px] xl:h-[314px] 2xl:h-[360px]'>
           <Image

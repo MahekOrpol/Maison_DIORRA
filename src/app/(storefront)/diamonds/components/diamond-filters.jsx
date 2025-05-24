@@ -27,7 +27,7 @@ export default function DiamondFilters() {
       </h2>
       {/* shape */}
       <div className='my-4 flex justify-center gap-2'>
-        {['Round', 'Pear', 'Emerlad', 'Princess'].map((shape) => (
+        {['Round', 'Pear', 'Emerald', 'Princess'].map((shape) => (
           <button
             key={shape}
             className={`border-secondary w-[90px] rounded-xl border shadow-md hover:border-black/60 sm:w-[99px] ${
@@ -57,7 +57,7 @@ export default function DiamondFilters() {
               {colors.map((color) => (
                 <button
                   key={color}
-                  className={`3xl:w-18 lg:w-14 inline-flex h-12 w-10 items-center justify-center border-r border-l border-l-transparent text-sm hover:border-l hover:border-black ${
+                  className={`3xl:w-18 inline-flex h-12 w-10 items-center justify-center border-r border-l border-l-transparent text-sm hover:border-l hover:border-black lg:w-14 ${
                     filters.color === color ? 'bg-gray-200' : ''
                   }`}
                   onClick={() => setFilters({ ...filters, color })}
@@ -74,7 +74,7 @@ export default function DiamondFilters() {
               {clarities.map((clarity) => (
                 <button
                   key={clarity}
-                  className={`3xl:w-18 lg:w-14 inline-flex h-12 w-10 items-center justify-center border-r border-l border-l-transparent text-sm hover:border-l hover:border-black ${
+                  className={`3xl:w-18 inline-flex h-12 w-10 items-center justify-center border-r border-l border-l-transparent text-sm hover:border-l hover:border-black lg:w-14 ${
                     filters.clarity === clarity ? 'bg-gray-200' : ''
                   }`}
                   onClick={() => setFilters({ ...filters, clarity })}

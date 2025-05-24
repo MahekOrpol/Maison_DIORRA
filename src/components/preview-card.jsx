@@ -49,7 +49,7 @@ export default function PreviewCard({
   const [liked, setLiked] = useState(
     wishlist?.some((item) => item.product._id === product._id)
   );
-  const BASE_URL = baseApiUrl || 'https://massion-diorra-ywz5.onrender.com';
+  const BASE_URL = baseApiUrl || 'http://153.92.222.195:5000';
   // console.log('product', product);
   // console.log('wishlist', wishlist);
   // Fix: Reset metal when product changes
@@ -173,12 +173,14 @@ export default function PreviewCard({
         <button
           onClick={handleFavoriteClick}
           disabled={isWishlistLoading}
-          className='hover:bg-primary/4 group absolute top-2 right-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow shadow-gray-400 xl:top-3 xl:right-3'
+          className='hover:bg-primary/4 group/heart absolute top-2 right-2 z-10 flex h-8 w-8 items-center justify-center rounded-full bg-white shadow shadow-gray-400 xl:top-3 xl:right-3'
         >
           <Heart
             className={cn(
-              'xs:h-5 xs:w-5 h-4 w-4 transition-colors group-hover:fill-white',
-              liked ? 'fill-primary text-primary' : 'text-black'
+              'xs:h-5 xs:w-5 h-4 w-4 transition-colors group-hover/heart:fill-white',
+              liked
+                ? 'fill-primary text-primary group-hover/heart:fill-primary'
+                : 'text-black'
             )}
           />
         </button>

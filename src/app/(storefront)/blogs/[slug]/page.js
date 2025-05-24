@@ -10,7 +10,7 @@ import { baseApiUrl } from '@/lib/utils';
 import { RichTextRenderer } from '@/components/rich-text-renderer';
 
 export default async function Page({ params }) {
-  const BASE_URL = baseApiUrl || 'https://massion-diorra-ywz5.onrender.com';
+  const BASE_URL = baseApiUrl || 'http://153.92.222.195:5000';
 
   const { slug } = await params;
   const res = await fetch(`${BASE_URL}/api/v1/blog/get/${slug}`, {

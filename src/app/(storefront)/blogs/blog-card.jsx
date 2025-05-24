@@ -26,7 +26,7 @@ export default function BlogCard({ data }) {
         />
       </div>
       {/* Content */}
-      <div className='flex flex-1 flex-col p-2'>
+      <div className='flex flex-1 flex-col px-2 pt-2'>
         <p className='text-xs leading-5 font-medium lg:text-sm lg:leading-6'>
           {new Date(data?.createdAt).toLocaleDateString('en-US', {
             month: 'short',

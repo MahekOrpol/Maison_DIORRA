@@ -1,18 +1,15 @@
-// stores/useProductFilter.js
+// use-filter-store.js
 import { create } from 'zustand';
 
-const initialState = {
-  metalPurity: '',
-  style: '',
-  shape: '',
-  sortByPrice: ''
-};
-
 export const useFilterStore = create((set) => ({
-  ...initialState,
-  setMetalPurity: (val) => set({ metalPurity: val }),
-  setStyle: (val) => set({ style: val }),
-  setShape: (val) => set({ shape: val }),
-  setSortByPrice: (val) => set({ sortByPrice: val }),
-  resetFilters: () => set(initialState)
+  stateMetals: [],
+  stateStyles: [],
+  stateShapes: [],
+  sortByPrice: '',
+  setStateMetals: (values) => set({ stateMetals: values }),
+  setStateStyles: (values) => set({ stateStyles: values }),
+  setStateShapes: (values) => set({ stateShapes: values }),
+  setSortByPrice: (value) => set({ sortByPrice: value }),
+  resetFilters: () =>
+    set({ stateMetals: [], stateStyles: [], stateShapes: [], sortByPrice: '' })
 }));

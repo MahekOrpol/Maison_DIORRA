@@ -6,7 +6,7 @@ const TrendingCollections = dynamic(() => import('./trending-collections'));
 
 export default function S8TrendingCollections({ data }) {
   return (
-    <section className='wrapper pt-6 md:pt-10 lg:pt-12 xl:pt-20'>
+    <section className='wrapper 3xl:pt-16 pt-6 md:pt-8 lg:pt-10 xl:pt-12'>
       <Heading
         title='Trending Collection'
         subtitle='Affordable luxury for everyday wear'

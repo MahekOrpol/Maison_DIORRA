@@ -34,7 +34,7 @@ export default function S3CategorySection({ data }) {
         title='Shop by Category'
         subtitle='Your Imagination, Our Craftsmanship'
       />
-      <div className='grid grid-cols-2 gap-x-4 gap-y-3 sm:flex-row sm:gap-x-6 sm:gap-y-4 md:grid-cols-4 md:gap-4 lg:gap-5'>
+      <div className='grid grid-cols-2 gap-x-4 gap-y-3.5 sm:flex-row sm:gap-x-6 sm:gap-y-4 md:grid-cols-4 md:gap-4 lg:gap-5'>
         {data.map((item) => (
           <Link
             key={item.id}
@@ -51,7 +51,7 @@ export default function S3CategorySection({ data }) {
                 className='w-full rounded-md object-cover transition-transform duration-300 hover:scale-110'
               />
             </div>
-            <p className='3xl:text-3xl text-lg md:text-xl lg:my-2 lg:text-2xl'>
+            <p className='3xl:text-3xl text-lg leading-5 md:text-xl lg:my-2 lg:text-2xl'>
               {item.categoryName}
             </p>
           </Link>

@@ -43,7 +43,7 @@ export default function PreviewCardMd({ product, className }) {
   );
   const openModal = useModalStore((state) => state.openModal);
   const router = useRouter();
-  const BASE_URL = baseApiUrl || 'https://massion-diorra-ywz5.onrender.com';
+  const BASE_URL = baseApiUrl || 'http://153.92.222.195:5000';
   // console.log("Product >>",product);
   // Fix: Reset metal when product changes
   useEffect(() => {

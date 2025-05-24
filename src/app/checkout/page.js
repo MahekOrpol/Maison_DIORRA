@@ -28,7 +28,7 @@ const CheckoutPage = () => {
       {step > 1 && (
         <button
           onClick={prevStep}
-          className='mb-4 flex items-center text-sm text-gray-600 hover:text-gray-900'
+          className='mb-2 flex items-center text-base text-gray-600 hover:text-gray-900 font-medium hover:underline'
         >
           <ChevronLeft className='mr-1 h-5 w-5' />
           Back

@@ -5,7 +5,7 @@ import React from 'react';
 
 export default function S2CustomDesign() {
   return (
-    <section className='wrapper pt-4 md:pt-7 lg:pt-14'>
+    <section className='wrapper xs:pt-5 pt-4 md:pt-7 lg:pt-8 xl:pt-14'>
       <Heading
         title='Design Your Ring'
         subtitle='Your Vision, Your Ring, Your Forever.'
@@ -21,7 +21,7 @@ export default function S2CustomDesign() {
           className='aspect-ratio h-[60vw] w-[90vw] object-cover object-[20%] sm:w-[100vw] md:h-[40vw] md:w-[90%] md:-translate-x-8 lg:h-[37vw] lg:w-full lg:-translate-x-15 lg:object-[50%] xl:h-auto'
         />
       </div>
-      <CustomTagWrapper className='-mt-6' />
+      <CustomTagWrapper className='-mt-6 lg:-mt-10 xl:-mt-14' />
     </section>
   );
 }

@@ -24,9 +24,12 @@ export async function fetchDiamondShapes() {
 
 export async function fetchRingStyles() {
   try {
-    const response = await fetch(`${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1/category/get`, {
-      // next: { revalidate: 3600 } // Optional: revalidate data every hour
-    });
+    const response = await fetch(
+      `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/category/get`,
+      {
+        // next: { revalidate: 3600 } // Optional: revalidate data every hour
+      }
+    );
     if (!response.ok) {
       throw new Error('Failed to fetch diamond shapes');
     }
@@ -42,11 +45,15 @@ export default async function MainLayout({ children }) {
   const DiamondShapes = await fetchDiamondShapes();
   const allcategories = await fetchRingStyles();
   const availableStyles = (allcategories || []).find(
-    (item) => item.categoryName === "Rings"
+    (item) => item.categoryName === 'Rings'
   )?.style;
   return (
     <>
-      <Header categories={categories} DiamondShapes={DiamondShapes} availableStyles={availableStyles} />
+      <Header
+        categories={categories}
+        DiamondShapes={DiamondShapes}
+        availableStyles={availableStyles}
+      />
       <main className='flex-1 pt-[85px] min-[1023px]:pt-[118px]'>
         {children}
       </main>
