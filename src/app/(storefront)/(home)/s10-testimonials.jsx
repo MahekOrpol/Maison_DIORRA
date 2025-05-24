@@ -85,7 +85,7 @@ export default function S10TestimonialSection({ data }) {
   }, [slider]);
 
   return (
-    <section className='wrapper 3xl:mb-22 mb-8 pt-6 md:mb-16 md:pt-7 lg:pt-8 xl:mb-14 xl:pt-14'>
+    <section className='wrapper 3xl:mb-22 mb-8 pt-6 md:mb-14 md:pt-7 lg:pt-8 xl:mb-14 xl:pt-14'>
       <Heading
         title='Client Testimonial'
         subtitle='What Clients Say About Us'
@@ -140,7 +140,7 @@ export default function S10TestimonialSection({ data }) {
               </div>
               <div className='relative mt-2 md:mt-4'>
                 <Quote className='absolute -top-1 -left-3 h-4 w-4 rotate-180 stroke-1' />
-                <p className='full px-3 text-justify text-xs font-light whitespace-normal md:text-sm lg:text-base 2xl:line-clamp-3 2xl:text-lg'>
+                <p className='full px-3 text-xs font-light whitespace-normal md:text-sm lg:text-base 2xl:line-clamp-3 2xl:text-lg'>
                   The service exceeded all our expectations. Their attention to
                   detail and creative approach solved problems we didn't even
                   know we had!
