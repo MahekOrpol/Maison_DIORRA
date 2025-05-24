@@ -18,6 +18,8 @@ import { baseApiUrl, cn } from '@/lib/utils';
 import { useFilterStore } from '@/store/use-filter-store';
 import { Funnel, RotateCcw, RotateCcwIcon, X } from 'lucide-react';
 import Image from 'next/image';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect } from 'react';
 
 const ringStyles = [
   {
@@ -49,6 +51,7 @@ const metalPurityOptions = [
   { label: '18K Rose Gold', swatch: '#e4a0a1' },
   { label: '14K White Gold', swatch: '#e0e0e0' },
   { label: '18K White Gold', swatch: '#e0e0e0' },
+  { label: '22K Gold', swatch: '#d4af37' },
   { label: 'Platinum', swatch: '#e0e0e0' }
 ];
 
@@ -61,17 +64,21 @@ export default function ProductFilters({
   availableStyles
 }) {
   const {
-    metalPurity,
-    style,
-    shape,
+    stateMetals,
+    stateStyles,
+    stateShapes,
     sortByPrice,
-    setMetalPurity,
-    setStyle,
-    setShape,
+    setStateMetals,
+    setStateStyles,
+    setStateShapes,
     setSortByPrice,
     resetFilters
   } = useFilterStore();
 
+  // console.log(availableShapes);
+
+  const searchParams = useSearchParams();
+  const router = useRouter();
   const isRing = category === 'rings';
   const isDiamondBased = subCategory?.toLowerCase().includes('diamond');
   const showRingStyle = isRing;
@@ -83,7 +90,8 @@ export default function ProductFilters({
     'bracelets',
     'earrings'
   ].includes(category.toLowerCase());
-  const filtersSelectedCount = [metalPurity, style, shape].filter(
+
+  const filtersSelectedCount = [stateMetals, stateStyles, stateShapes].filter(
     Boolean
   ).length;
 
@@ -94,6 +102,39 @@ export default function ProductFilters({
         )
       )
     : [];
+
+  useEffect(() => {
+    const metal = searchParams.get('metal')?.split(',') || [];
+    const style = searchParams.get('style')?.split(',') || [];
+    const shape = searchParams.get('shape')?.split(',') || [];
+
+    setStateMetals(metal);
+    setStateStyles(style);
+    setStateShapes(shape);
+  }, []);
+
+  const toggleParam = (param, value) => {
+    const params = new URLSearchParams(searchParams.toString());
+    const currentValues = params.get(param)?.split(',') || [];
+
+    const newValues = currentValues.includes(value)
+      ? currentValues.filter((v) => v !== value)
+      : [...currentValues, value];
+
+    if (newValues.length === 0) {
+      params.delete(param);
+    } else {
+      params.set(param, newValues.join(','));
+    }
+
+    router.push(`?${params.toString()}`, { scroll: false });
+
+    // Sync zustand (optional but preferred for internal logic)
+    if (param === 'metal') setStateMetals(newValues);
+    if (param === 'style') setStateStyles(newValues);
+    if (param === 'shape') setStateShapes(newValues);
+  };
+
   return (
     <>
       {/* heading + product styles  */}
@@ -120,14 +161,15 @@ export default function ProductFilters({
             {availableStyles &&
               availableStyles.length > 0 &&
               availableStyles.map((item) => {
-                const isSelected = style === item.name;
+                const isSelected = stateStyles.includes(item.name);
                 return (
                   <button
                     key={item.name}
-                    onClick={() =>
+                    onClick={() => {
                       // setStyle(item.name.toLowerCase().replace(/\s+/g, '-'))
-                      setStyle(item.name)
-                    }
+                      // setStyle(item.name);
+                      toggleParam('style', item.name);
+                    }}
                     className={`inline-flex w-[112px] flex-col items-center rounded-2xl border p-3 pt-4 text-xs transition-all ${isSelected ? 'border-secondary shadow-md' : 'border-secondary shadow-md hover:border-black/60 hover:bg-gray-100'} `}
                   >
                     <div className='mb-4 flex h-[30px] w-[70px] items-center justify-center 2xl:h-[35px]'>
@@ -184,18 +226,19 @@ export default function ProductFilters({
                 <p>
                   <strong className='font-medium'>Metal & Purity : </strong>
                   <span className='text-secondary-foreground'>
-                    {metalPurity || 'Not Selected'}
+                    {stateMetals || 'Not Selected'}
                   </span>
                 </p>
                 <div className='xxs:grid-cols-3 mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4'>
                   {modifiedMetals.map((item) => {
                     const [purity, ...metalName] = item.label.split(' ');
-                    const isSelected = metalPurity === item.label;
+                    const isSelected = stateMetals.includes(item.label);
 
                     return (
                       <button
                         key={item.label}
-                        onClick={() => setMetalPurity(item.label)}
+                        // onClick={() => setMetalPurity(item.label)}
+                        onClick={() => toggleParam('metal', item.label)}
                         className={`bg-secondary flex items-center gap-2 rounded-md border px-3 py-3 text-left transition ${
                           isSelected
                             ? 'border-black'
@@ -226,11 +269,12 @@ export default function ProductFilters({
                   {availableStyles &&
                     availableStyles.length > 0 &&
                     availableStyles.map((item, idx) => {
-                      const isSelected = style === item.name;
+                      const isSelected = stateStyles.includes(item.name);
                       return (
                         <button
                           key={idx}
-                          onClick={() => setStyle(item.name)}
+                          // onClick={() => setStyle(item.name)}
+                          onClick={() => toggleParam('style', style.name)}
                           className={`bg-secondary flex h-full flex-col items-center rounded-md border px-2 pb-2 text-[10px] transition-all ${
                             isSelected
                               ? 'border-black'
@@ -256,17 +300,21 @@ export default function ProductFilters({
                   <p>
                     <strong className='font-medium'>Diamond Shape : </strong>
                     <span className='text-secondary-foreground'>
-                      {shape || 'None'}
+                      {stateShapes || 'None'}
                     </span>
                   </p>
                   <div className='mt-2 grid grid-cols-5 gap-2 text-xs sm:grid-cols-8'>
                     {availableShapes?.map((item, idx) => {
-                      const isSelected =
-                        shape.toLowerCase() === item.diamondShape.toLowerCase();
+                      const isSelected = stateShapes.includes(
+                        item.diamondShape
+                      );
                       return (
                         <button
                           key={idx}
-                          onClick={() => setShape(item.diamondShape)}
+                          // onClick={() => setShape(item.diamondShape)}
+                          onClick={() =>
+                            toggleParam('shape', item.diamondShape)
+                          }
                           className={`bg-secondary flex flex-col items-center rounded-md border px-1 pb-2 text-[10px] transition ${
                             isSelected
                               ? 'border-black'
@@ -293,24 +341,29 @@ export default function ProductFilters({
         {/* desktop - unchanged */}
         <div className='hidden gap-4 lg:flex'>
           {showCommonFilters && (
-            <Select value={metalPurity} onValueChange={setMetalPurity}>
+            <Select
+              value={stateMetals[0] || ''}
+              onValueChange={(value) => toggleParam('metal', value)}
+            >
               <SelectTrigger className='data-[placeholder]:text-foreground flex w-[200px] items-center justify-between rounded-md border-black px-3 py-2'>
-                {metalPurity ? (
+                {stateMetals && stateMetals.length ? (
                   <div className='flex items-center gap-2 truncate'>
                     <div
                       className='h-3 w-3 shrink-0 rounded-full border border-gray-300'
                       style={{
                         backgroundColor: modifiedMetals.find(
-                          (m) => m.label === metalPurity
+                          (m) => m.label === stateMetals
                         )?.swatch
                       }}
                     />
-                    <span className='text-sm font-semibold'>
-                      {metalPurity.split(' ')[0]}
+                    <span className='text-sm'>
+                      {/* {stateMetals[0].split(' ')[0]} */}
+                      {/* {stateMetals.join(',')} */}
+                      Metal ({stateMetals.length})
                     </span>
-                    <span className='truncate text-sm'>
-                      {metalPurity.split(' ').slice(1).join(' ')}
-                    </span>
+                    {/* <span className='truncate text-sm'>
+                      {stateMetals[0].split(' ').slice(1).join(' ')}
+                    </span> */}
                   </div>
                 ) : (
                   <span className='text-sm'>Select Metal & Purity</span>
@@ -409,7 +462,10 @@ export default function ProductFilters({
             </Select>
           )} */}
           {showDiamondShapes && (
-            <Select value={shape} onValueChange={setShape}>
+            <Select
+              value={stateShapes[0] || ''}
+              onValueChange={(value) => toggleParam('shape', value)}
+            >
               <SelectTrigger className='data-[placeholder]:text-foreground w-[150px] border-black'>
                 <SelectValue placeholder='Diamond Shape' />
               </SelectTrigger>
@@ -432,7 +488,10 @@ export default function ProductFilters({
           <Button
             variant='outline'
             className='border-black font-normal'
-            onClick={resetFilters}
+            onClick={() => {
+              resetFilters();
+              router.push(`/products/${category}`);
+            }}
           >
             <RotateCcw />
             Reset Filters

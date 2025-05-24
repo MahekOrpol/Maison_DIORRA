@@ -6,7 +6,7 @@ export async function GET(req, { params }) {
   const { userId } = await params;
 
   const backendRes = await fetch(
-    `${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1/wishlist/${userId}`,
+    `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/wishlist/${userId}`,
     {
       headers: { Cookie: cookie },
       cache: 'no-store'
@@ -27,7 +27,7 @@ export async function POST(req) {
   const { productId, userId, selectedMetal } = body;
 
   const backendRes = await fetch(
-    `${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1/wishlist`,
+    `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/wishlist`,
     {
       method: 'POST',
       headers: {
@@ -52,7 +52,7 @@ export async function DELETE(req) {
   // console.log(body);
 
   const backendRes = await fetch(
-    `${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1/wishlist/${body.wishlistItemId}`,
+    `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/wishlist/${body.wishlistItemId}`,
     {
       method: 'DELETE',
       headers: {

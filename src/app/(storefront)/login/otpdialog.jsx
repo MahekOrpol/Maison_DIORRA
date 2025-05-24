@@ -67,7 +67,7 @@ export function OTPDialog({ open, onOpenChange, onSubmit, email }) {
     try {
       // Make API call with Axios
       const response = await axios.post(
-        `${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1/auth/verify-otp`,
+        `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/auth/verify-otp`,
         {
           email: email, // Make sure this is not null/undefined
           generateOTP: enteredOtp
@@ -95,7 +95,7 @@ export function OTPDialog({ open, onOpenChange, onSubmit, email }) {
 
       // Debugging: Log the exact request being sent
       console.error('API Request Failed:', {
-        url: `${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1/auth/verify-otp`,
+        url: `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1/auth/verify-otp`,
         payload: {
           email: email,
           generateOTP: enteredOtp
@@ -110,18 +110,18 @@ export function OTPDialog({ open, onOpenChange, onSubmit, email }) {
   return (
     <>
       <Dialog open={open} onOpenChange={onOpenChange}>
-        <DialogContent className='rounded-xl p-1.5 xs2:p-6 sm:max-w-md'>
+        <DialogContent className='xs2:p-6 rounded-xl p-1.5 sm:max-w-md'>
           <DialogHeader>
             <DialogTitle className='mb-2 text-center text-xl font-semibold'>
               Enter OTP
             </DialogTitle>
           </DialogHeader>
 
-          <div className='text-muted-foreground mb-3 xs2:mb-4 text-center text-sm'>
+          <div className='text-muted-foreground xs2:mb-4 mb-3 text-center text-sm'>
             Please enter the 6-digit code sent to your email address.
           </div>
 
-          <div className='mb-6 flex justify-center gap-1 xs2:gap-2'>
+          <div className='xs2:gap-2 mb-6 flex justify-center gap-1'>
             {otp.map((data, index) => (
               <input
                 key={index}
@@ -138,7 +138,7 @@ export function OTPDialog({ open, onOpenChange, onSubmit, email }) {
 
           <DialogFooter>
             <Button
-              className='h-9 xs2:h-11 w-full text-base'
+              className='xs2:h-11 h-9 w-full text-base'
               onClick={handleSubmit}
               email={email}
               disabled={otp.join('').length !== 6}

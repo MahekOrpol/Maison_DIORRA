@@ -1,11 +1,12 @@
-'use client';
 import CustomTagWrapper from '@/components/custom-tag-wrapper';
-import { use, useMemo } from 'react';
-import { useFilterStore } from '@/store/use-filter-store';
-import { useFetch } from '@/hooks/useFetch';
+// import { use, useMemo } from 'react';
+// import { useFilterStore } from '@/store/use-filter-store';
+// import { useFetch } from '@/hooks/useFetch';
 import ProductFilters from './product-filters';
 import ProductGrid from './product-grid';
 import { baseApiUrl } from '@/lib/utils';
+
+export const dynamic = 'force-dynamic';
 
 const advertisements = [
   {
@@ -73,57 +74,83 @@ const advertisements = [
 //   };
 // }
 
-export default function ProductListingPage({ params }) {
-  const { category } = use(params);
-  // const data = await fetchProductsByCategory(category);
-  const { metalPurity, style, shape, sortByPrice } = useFilterStore();
+// utils/api.ts or inside this component file
+
+async function fetchProducts(queryParams) {
+  // const query = buildQueryString(queryParams);
+  // console.log(queryParams);
+  const res = await fetch(`${baseApiUrl}/api/v1/product/get${queryParams}`, {
+    cache: 'no-store'
+  });
+
+  if (res.status !== 200) throw new Error('Failed to fetch products');
+  return res.json();
+}
+
+async function fetchFilters() {
+  const [metalRes, shapeRes, categoryRes] = await Promise.all([
+    fetch(`${baseApiUrl}/api/v1/metal/get`, { next: { revalidate: 300 } }),
+    fetch(`${baseApiUrl}/api/v1/diamond-shape/get`, {
+      next: { revalidate: 300 }
+    }),
+    fetch(`${baseApiUrl}/api/v1/category/get`, { next: { revalidate: 300 } })
+  ]);
+
+  const [availableMetals, availableShapes, allCategories] = await Promise.all([
+    metalRes.json(),
+    shapeRes.json(),
+    categoryRes.json()
+  ]);
+
+  return { availableMetals, availableShapes, allCategories };
+}
+
+export default async function ProductListingPage({ params, searchParams }) {
+  const { category } = await params;
+  const { metal, style, shape, sort } = await searchParams;
+
   const queryParams = {
-    categoryName: category,
-    metal: metalPurity,
-    style: style,
-    diamondShape: shape
+    categoryName: category || '',
+    metal: metal || '',
+    style: style || '',
+    diamondShape: shape || ''
   };
-  const query = buildQueryString(queryParams);
+  const fullQuery = buildQueryString(queryParams);
 
-  const { data, isLoading, error } = useFetch(
-    `${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1/product/get${query}`,
-    {},
-    [query]
-  );
+  const [products, filters] = await Promise.all([
+    fetchProducts(fullQuery),
+    fetchFilters()
+  ]);
 
-  // fetch all available filters 1. metal 2. shape 3. style
-  const { data: availableMetals } = useFetch(
-    `${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1/metal/get`
-  );
-  const { data: availableShapes } = useFetch(
-    `${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1/diamond-shape/get`
-  );
-  const { data: allCategories } = useFetch(
-    `${baseApiUrl || 'https://massion-diorra-ywz5.onrender.com'}/api/v1/category/get`
-  );
-  // issue is here, not getting the styles of the category, for first time ..
-  const availableStyles = (allCategories || []).find(
+  // console.log('products', products);
+
+  const availableStyles = (filters.allCategories || []).find(
     (item) => item.categoryName.toLowerCase() === category
   )?.style;
 
-  const sortedData = useMemo(() => {
-    if (!data || !Array.isArray(data)) return [];
+  // console.log('availableStyles', availableStyles);
+  // console.log('allCategories', allCategories);
+  // console.log('availableShapes', availableShapes);
+  // console.log('availableMetals', availableMetals);
+  // console.log('data', data);
+  // const sortedData = useMemo(() => {
+  //   if (!data || !Array.isArray(data)) return [];
 
-    const extractPrice = (product) => {
-      // Extract price from "$numberDecimal" field and convert to float
-      return parseFloat(product.regularPrice?.$numberDecimal || 0);
-    };
+  //   const extractPrice = (product) => {
+  //     // Extract price from "$numberDecimal" field and convert to float
+  //     return parseFloat(product.regularPrice?.$numberDecimal || 0);
+  //   };
 
-    if (sortByPrice === 'low') {
-      return [...data].sort((a, b) => extractPrice(a) - extractPrice(b));
-    }
+  //   if (sortByPrice === 'low') {
+  //     return [...data].sort((a, b) => extractPrice(a) - extractPrice(b));
+  //   }
 
-    if (sortByPrice === 'high') {
-      return [...data].sort((a, b) => extractPrice(b) - extractPrice(a));
-    }
+  //   if (sortByPrice === 'high') {
+  //     return [...data].sort((a, b) => extractPrice(b) - extractPrice(a));
+  //   }
 
-    return data;
-  }, [data, sortByPrice]);
+  //   return data;
+  // }, [data, sortByPrice]);
 
   return (
     <div className='wrapper'>
@@ -132,16 +159,16 @@ export default function ProductListingPage({ params }) {
       )}
       <ProductFilters
         category={category.toLowerCase()}
-        availableMetals={availableMetals}
-        availableShapes={availableShapes}
+        availableMetals={filters.availableMetals}
+        availableShapes={filters.availableShapes}
         availableStyles={availableStyles}
         className='mt-3 lg:mt-8 2xl:mt-10'
       />
       <ProductGrid
         advertisements={advertisements}
-        isLoading={isLoading}
-        error={error}
-        products={sortedData}
+        isLoading={false}
+        error={null}
+        products={products}
       />
     </div>
   );

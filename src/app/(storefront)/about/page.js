@@ -2,7 +2,7 @@ import { baseApiUrl, cn } from '@/lib/utils';
 import Image from 'next/image';
 import React from 'react';
 
-const BASE_URL = baseApiUrl || 'https://massion-diorra-ywz5.onrender.com';
+const BASE_URL = baseApiUrl || 'http://153.92.222.195:5000';
 
 export default async function Page() {
   try {
