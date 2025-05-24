@@ -6,7 +6,7 @@ import ProductFilters from './product-filters';
 import ProductGrid from './product-grid';
 import { baseApiUrl } from '@/lib/utils';
 
-export const dynamic = 'force-dynamic';
+// export const dynamic = 'force-dynamic';
 
 const advertisements = [
   {
@@ -79,9 +79,7 @@ const advertisements = [
 async function fetchProducts(queryParams) {
   // const query = buildQueryString(queryParams);
   // console.log(queryParams);
-  const res = await fetch(`${baseApiUrl}/api/v1/product/get${queryParams}`, {
-    cache: 'no-store'
-  });
+  const res = await fetch(`${baseApiUrl}/api/v1/product/get${queryParams}`);
 
   if (res.status !== 200) throw new Error('Failed to fetch products');
   return res.json();
