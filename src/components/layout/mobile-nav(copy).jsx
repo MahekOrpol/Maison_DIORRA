@@ -83,22 +83,6 @@ export default function MobileSidebarCopy({
         }
     };
 
-    const handleLinkClick = (e) => {
-        e.preventDefault();
-        const href = e.currentTarget.getAttribute('href');
-        closeDrawer();
-        router.push(href);
-    };
-
-    // Update your submenu components to use this approach
-    const SubmenuLink = ({ href, children }) => (
-        <DrawerClose asChild>
-            <Link href={href} onClick={closeDrawer} className='py-1 hover:underline'>
-                {children}
-            </Link>
-        </DrawerClose>
-    );
-
     return (
         <Drawer direction='left' repositionInputs={false}>
             <DrawerTrigger asChild>
@@ -115,9 +99,8 @@ export default function MobileSidebarCopy({
             </DrawerTrigger>
             <DrawerClose ref={drawerCloseRef} className='hidden' />
 
-            <DrawerContent className='flex flex-col p-0 data-[vaul-drawer-direction=left]:w-[85%] border-none'>
+            <DrawerContent className='flex flex-col p-0 backdrop-blur-lg bg-white/90 data-[vaul-drawer-direction=left]:w-[85%] border-none'>
                 <DrawerTitle className='sr-only'>Mobile side nav bar</DrawerTitle>
-
                 {/* TOP SECTION */}
                 <div className='flex items-center justify-between bg-black px-4 py-1'>
                     <DrawerClose asChild>
@@ -154,7 +137,7 @@ export default function MobileSidebarCopy({
                     {/* Navigation Sections */}
                     <nav className='space-y-1'>
                         {menuItems.map((item, index) => (
-                            <div key={index} className='border-b'>
+                            <div key={index} className="border-b">
                                 {item.content ? (
                                     <>
                                         <button
@@ -163,7 +146,7 @@ export default function MobileSidebarCopy({
                                         >
                                             <div className='flex items-center gap-2'>
                                                 {item.icon}
-                                                <span>{item.label}</span>
+                                                <span className='text-lg'>{item.label}</span>
                                             </div>
                                             <ChevronRight
                                                 className={`transition-transform ${activeSubmenu === item.label ? 'rotate-90' : ''}`}
@@ -171,7 +154,7 @@ export default function MobileSidebarCopy({
                                             />
                                         </button>
                                         {activeSubmenu === item.label && (
-                                            <div className='pb-3 pl-6'  onClick={closeDrawer}>
+                                            <div className='pb-3 pl-8' onClick={closeDrawer}>
                                                 {item.label === 'Diamonds' && (
                                                     <DiamondsSubmenu DiamondShapes={DiamondShapes} />
                                                 )}
@@ -206,10 +189,10 @@ export default function MobileSidebarCopy({
                         ))}
 
                         <div className='border-b'>
-                            <DrawerClose asChild  onClick={closeDrawer}>
+                            <DrawerClose asChild onClick={closeDrawer}>
                                 <Link
                                     href='/account'
-                                    className='flex items-center gap-2 py-3'
+                                    className='flex items-center gap-2 py-3 text-lg'
                                 >
                                     <User size={18} />
                                     My Account
@@ -217,10 +200,10 @@ export default function MobileSidebarCopy({
                             </DrawerClose>
                         </div>
                         <div className='border-b'>
-                            <DrawerClose asChild  onClick={closeDrawer}>
+                            <DrawerClose asChild onClick={closeDrawer}>
                                 <Link
                                     href='/contact'
-                                    className='flex items-center gap-2 py-3'
+                                    className='flex items-center gap-2 py-3 text-lg'
                                 >
                                     <FiShoppingCart size={18} />
                                     My Orders
@@ -228,10 +211,10 @@ export default function MobileSidebarCopy({
                             </DrawerClose>
                         </div>
                         <div className='border-b'>
-                            <DrawerClose asChild  onClick={closeDrawer}> 
+                            <DrawerClose asChild onClick={closeDrawer}>
                                 <Link
                                     href='/account/wishlist'
-                                    className='flex items-center gap-2 py-3'
+                                    className='flex items-center gap-2 py-3 text-lg'
                                 >
                                     <FaHandHoldingHeart size={18} />
                                     My Wishlist
@@ -276,7 +259,7 @@ function DiamondsSubmenu({ DiamondShapes }) {
     return (
         <div className='space-y-4'>
             <div>
-                <h4 className='mb-2 mt-2 font-medium text-base border-b'>DIAMONDS BY SHAPE</h4>
+                <h4 className='mb-2 mt-2 font-medium text-base underline'>Diamonds By Shape</h4>
                 <ul className='space-y-2'>
                     {DiamondShapes?.map((shape) => (
                         <li key={shape.id}>
@@ -293,20 +276,20 @@ function DiamondsSubmenu({ DiamondShapes }) {
                                         className='object-contain'
                                     />
                                 )}
-                                <span>{shape.diamondShape}</span>
+                                <span className='text-sm font-light'>{shape.diamondShape}</span>
                             </Link>
                         </li>
                     ))}
                 </ul>
             </div>
             <div>
-                <h4 className='mb-2 mt-2 font-medium text-base border-b'>DIAMONDS BY PRICE</h4>
-                <ul className='space-y-2'>
+                <h4 className='mb-2 mt-2 font-medium text-base underline'>Diamonds By Price</h4>
+                <ul className='space-y-2 pt-1 pb-1'>
                     {['Under $1,000', '$1,000 - $2,500', '$2,500 - $5,000', 'Over $5,000'].map((price) => (
                         <li key={price}>
                             <Link
                                 href={`/diamonds?price=${price}`}
-                                className='py-1 hover:underline'
+                                className='py-1 hover:underline text-sm font-light'
                             >
                                 {price}
                             </Link>
@@ -323,13 +306,13 @@ function FineJewelrySubmenu({ categories }) {
         <div className='space-y-4'>
             {categories?.map((category) => (
                 <div key={category.id}>
-                    <h4 className='mb-2 mt-2 font-medium text-base border-b'>{category.categoryName}</h4>
+                    <h4 className='mb-2 mt-2 font-medium text-base underline'>{category.categoryName}</h4>
                     <ul className='space-y-2'>
                         {category.subcategories.map((sub) => (
                             <li key={sub._id} >
                                 <Link
                                     href={`/products/${sub.subcategoryName.toLowerCase().replace(/\s+/g, '-')}`}
-                                    className='py-1 hover:underline'
+                                    className='py-1 hover:underline text-sm font-light'
                                 >
                                     {sub.subcategoryName}
                                 </Link>
@@ -346,8 +329,8 @@ function EngagementRingsSubmenu({ availableStyles, metalOptions }) {
     return (
         <div className='space-y-4'>
             <div>
-                <h4 className='mb-2 mt-2 font-medium text-base border-b'>RING STYLES</h4>
-                <ul className='space-y-2'>
+                <h4 className='mb-2 mt-2 font-medium text-base underline'>Ring Styles</h4>
+                <ul className='space-y-1'>
                     {availableStyles?.map(({ name, image }) => (
                         <li key={name}>
                             <Link
@@ -361,15 +344,15 @@ function EngagementRingsSubmenu({ availableStyles, metalOptions }) {
                                     height={20}
                                     className='object-contain'
                                 />
-                                <span>{name}</span>
+                                <span className='hover:underline text-sm font-light'>{name}</span>
                             </Link>
                         </li>
                     ))}
                 </ul>
             </div>
             <div>
-                <h4 className='mb-2 mt-2 font-medium text-base border-b'>METAL TYPES</h4>
-                <ul className='space-y-2'>
+                <h4 className='mb-2 mt-2 font-medium text-base underline'>Metal Types</h4>
+                <ul className='space-y-1'>
                     {metalOptions?.map(({ name, image }) => (
                         <li key={name}>
                             <Link
@@ -383,21 +366,21 @@ function EngagementRingsSubmenu({ availableStyles, metalOptions }) {
                                     height={20}
                                     className='object-contain'
                                 />
-                                <span>{name}</span>
+                                <span className='hover:underline text-sm font-light'>{name}</span>
                             </Link>
                         </li>
                     ))}
                 </ul>
             </div>
             <div>
-                <h4 className='mb-2 mt-2 font-medium text-base border-b'>COLLECTIONS</h4>
+                <h4 className='mb-2 mt-2 font-medium text-base underline'>Collections</h4>
                 <ul className='space-y-2'>
                     {['Classic', 'Bridal', 'Nature Inspired', 'Minimalist'].map(
                         (collection) => (
                             <li key={collection}>
                                 <Link
                                     href={`/products/rings/engagement-rings/collections/${collection.toLowerCase().replace(/\s+/g, '-')}`}
-                                    className='py-1 hover:underline'
+                                    className='hover:underline text-sm font-light'
                                 >
                                     {collection}
                                 </Link>
@@ -414,7 +397,7 @@ function CustomJewelrySubmenu() {
     return (
         <div className='space-y-4'>
             <div>
-                <h4 className='mb-2 mt-2 font-medium text-base border-b'>CUSTOM JEWELRY</h4>
+                <h4 className='mb-2 mt-2 font-medium text-base underline'>Custom Jewelry</h4>
                 <ul className='space-y-2'>
                     {[
                         'Design Your Own Ring',
@@ -426,7 +409,7 @@ function CustomJewelrySubmenu() {
                         <li key={service}>
                             <Link
                                 href={`/custom-jewelry/${service.toLowerCase().replace(/\s+/g, '-')}`}
-                                className='py-1 hover:underline'
+                                className='py-1 hover:underline text-sm font-light'
                             >
                                 {service}
                             </Link>
@@ -435,7 +418,7 @@ function CustomJewelrySubmenu() {
                 </ul>
             </div>
             <div>
-                <h4 className='mb-2 mt-2 font-medium text-base border-b'>THE PROCESS</h4>
+                <h4 className='mb-2 mt-2 font-medium text-base underline'>The Process</h4>
                 <ul className='space-y-2'>
                     {[
                         '1. Consultation',
@@ -447,7 +430,7 @@ function CustomJewelrySubmenu() {
                         <li key={step}>
                             <Link
                                 href='/custom-jewelry#process'
-                                className='py-1 hover:underline'
+                                className='py-1 hover:underline text-sm font-light'
                             >
                                 {step}
                             </Link>
@@ -463,7 +446,7 @@ function EducationSubmenu() {
     return (
         <div className='space-y-4'>
             <div>
-                <h4 className='mb-2 mt-2 font-medium text-base border-b'>DIAMOND EDUCATION</h4>
+                <h4 className='mb-2 mt-2 font-medium text-base underline'>Diamond Education</h4>
                 <ul className='space-y-2'>
                     {[
                         'The 4 Cs',
@@ -475,7 +458,7 @@ function EducationSubmenu() {
                         <li key={topic}>
                             <Link
                                 href={`/education/diamonds/${topic.toLowerCase().replace(/\s+/g, '-')}`}
-                                className='py-1 hover:underline'
+                                className='py-1 hover:underline text-sm font-light'
                             >
                                 {topic}
                             </Link>
@@ -484,7 +467,7 @@ function EducationSubmenu() {
                 </ul>
             </div>
             <div>
-                <h4 className='mb-2 mt-2 font-medium text-base border-b'>JEWELRY CARE</h4>
+                <h4 className='mb-2 mt-2 font-medium text-base underline'>Jewelry Care</h4>
                 <ul className='space-y-2'>
                     {[
                         'Cleaning Guide',
@@ -496,7 +479,7 @@ function EducationSubmenu() {
                         <li key={topic}>
                             <Link
                                 href={`/education/care/${topic.toLowerCase().replace(/\s+/g, '-')}`}
-                                className='py-1 hover:underline'
+                                className='py-1 hover:underline text-sm font-light'
                             >
                                 {topic}
                             </Link>

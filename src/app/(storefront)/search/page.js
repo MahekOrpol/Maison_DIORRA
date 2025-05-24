@@ -3,7 +3,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Search, SearchX } from 'lucide-react';
-import PreviewCard3 from '@/components/preview-card';
 import axios from 'axios';
 import { baseApiUrl } from '@/lib/utils';
 import PreviewCard from '@/components/preview-card';
@@ -68,8 +67,8 @@ export default function SearchPage() {
   };
 
   return (
-    <div className='flex min-h-screen flex-col items-center justify-start px-4 pt-10'>
-      <div className='w-full max-w-3xl'>
+    <div className='flex min-h-screen flex-col items-center justify-start pt-5 sm:pt-10'>
+      <div className='w-full max-w-3xl  px-4'>
         <div className='relative w-full border-b border-gray-700 transition-colors'>
           <Search className='absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 text-gray-400' />
           <input
@@ -84,10 +83,10 @@ export default function SearchPage() {
       </div>
 
       {/* Optional: Search Results */}
-      <div className='wrapper mt-12 w-full'>
+      <div className='wrapper mt-8 sm:mt-12 w-full'>
         {Products.length ? (
           <div>
-            <p className='text-center text-gray-400'>
+            <p className='text-center text-gray-500'>
               Showing results for:{' '}
               <span className='font-semibold'>{query}</span>
             </p>
