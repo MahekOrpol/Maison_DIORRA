@@ -50,7 +50,7 @@ export default function TrendingCollections() {
   return (
     <div className='xs:gap-3 3xl:max-h-[840px] flex flex-col gap-2 sm:gap-6 lg:max-h-[700px] lg:flex-row lg:items-stretch lg:justify-center lg:gap-4 xl:max-h-[760px] 2xl:gap-6'>
       {/* Left cards - first 2 products */}
-      {isLoading ? (
+      {isLoading || !data?.products ? (
         <></>
       ) : (
         <div className='xl:grid-row-2 grid grid-cols-2 gap-2.5 sm:gap-4 lg:w-[22%] lg:grid-cols-1 2xl:gap-6'>
@@ -102,7 +102,7 @@ export default function TrendingCollections() {
       </div>
 
       {/* Right cards - next 2 products */}
-      {isLoading ? (
+      {isLoading || !data?.products ? (
         <></>
       ) : (
         <div className='xl:grid-row-2 grid grid-cols-2 gap-2.5 sm:gap-4 lg:w-[22%] lg:grid-cols-1 2xl:gap-6'>
