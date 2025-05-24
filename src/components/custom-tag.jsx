@@ -35,13 +35,12 @@ export default function CustomTag({
           <div className='shrink-0 leading-none max-[350px]:text-base min-[340px]:text-lg sm:pl-1 sm:text-2xl md:pl-1 md:text-3xl xl:pl-2 xl:text-[46px] 2xl:pl-5'>
             {no}
           </div>
-
           {/* Text & Bold */}
-          <div className='flex flex-col gap-[2px] md:gap-1 lg:flex-row'>
-            <div className='xs:text-sm 3xl:text-3xl overflow-hidden text-[9px] leading-none sm:text-[15px] md:text-lg lg:text-lg xl:text-2xl'>
+          <div className='flex flex-col gap-[2px] md:gap-1 lg:flex-row lg:gap-2'>
+            <div className='3xl:text-3xl xs:text-[11px] overflow-hidden text-[9px] leading-none min-[500px]:!text-sm sm:!text-[15px] md:!text-lg lg:!text-lg xl:!text-2xl'>
               {text}
             </div>
-            <div className='xs:text-[12px] 3xl:text-3xl text-left text-[9px] leading-none font-semibold text-black uppercase sm:text-[15px] md:text-lg lg:text-lg xl:text-2xl'>
+            <div className='xs:text-[11px] 3xl:text-3xl text-left text-[9px] leading-none font-semibold text-black uppercase min-[500px]:!text-sm sm:!text-[15px] md:!text-lg lg:!text-lg xl:!text-2xl'>
               {bold}
             </div>
           </div>
