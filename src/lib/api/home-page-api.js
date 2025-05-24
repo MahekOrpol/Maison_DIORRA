@@ -40,7 +40,8 @@ export async function fetchGiftingCollections() {
 export async function fetchDiamonds() {
   //   const res = await fetch(`${BASE_URL}/products/diamonds`, {
   const res = await fetch(`${BASE_URL}/test`, {
-    next: { revalidate: 1800 }
+    // next: { revalidate: 1800 }
+    cache: 'no-store'
   });
   return res.json();
 }

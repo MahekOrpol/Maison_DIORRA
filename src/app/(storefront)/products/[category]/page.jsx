@@ -89,11 +89,9 @@ async function fetchProducts(queryParams) {
 
 async function fetchFilters() {
   const [metalRes, shapeRes, categoryRes] = await Promise.all([
-    fetch(`${baseApiUrl}/api/v1/metal/get`, { next: { revalidate: 300 } }),
-    fetch(`${baseApiUrl}/api/v1/diamond-shape/get`, {
-      next: { revalidate: 300 }
-    }),
-    fetch(`${baseApiUrl}/api/v1/category/get`, { next: { revalidate: 300 } })
+    fetch(`${baseApiUrl}/api/v1/metal/get`),
+    fetch(`${baseApiUrl}/api/v1/diamond-shape/get`),
+    fetch(`${baseApiUrl}/api/v1/category/get`)
   ]);
 
   const [availableMetals, availableShapes, allCategories] = await Promise.all([
