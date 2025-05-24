@@ -41,7 +41,7 @@ export default async function ProductDetailsPage({ params, searchParams }) {
     `${baseApiUrl}/api/v1/product/get-product-id/${productid}`
   );
   const data = await res1.json();
-  const availableMetals = data.variations[0].metalVariations.map((item) => ({
+  const availableMetals = data?.variations[0].metalVariations.map((item) => ({
     metal: item.metal,
     metalId: item._id
   }));
@@ -61,10 +61,10 @@ export default async function ProductDetailsPage({ params, searchParams }) {
     }
   });
 
-  console.log(
-    'combinedImages >>',
-    product?.variations[0]?.metalVariations[0].combinationImages
-  );
+  // console.log(
+  //   'combinedImages >>',
+  //   product?.variations[0]?.metalVariations[0].combinationImages
+  // );
 
   return (
     <>

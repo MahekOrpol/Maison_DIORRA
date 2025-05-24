@@ -168,7 +168,7 @@ export default async function ProductListingPage({ params, searchParams }) {
         advertisements={advertisements}
         isLoading={false}
         error={null}
-        products={products}
+        products={products || []}
       />
     </div>
   );
