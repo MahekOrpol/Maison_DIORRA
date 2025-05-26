@@ -159,8 +159,7 @@ export function MobileGallery({ media = [] }) {
               {imageMedia.slice(0, 4).map((item, index) => (
                 <CarouselItem key={index} className='h-full p-0'>
                   <ZoomableImage
-                    // src={baseApiUrl + item}
-                    src={`/api/image-proxy?url=${encodeURIComponent(baseApiUrl + item)}`}
+                    src={baseApiUrl + item}
                     alt={'Product Image'}
                   />
                 </CarouselItem>
@@ -175,8 +174,7 @@ export function MobileGallery({ media = [] }) {
           {videoMedia && (
             <div className='h-full w-full'>
               <video
-                // src={baseApiUrl + videoMedia}
-                src={`/api/video-proxy?url=${encodeURIComponent(baseApiUrl + videoMedia)}`}
+                src={baseApiUrl + videoMedia}
                 className='h-full w-full object-cover'
                 autoPlay
                 muted
@@ -236,11 +234,7 @@ function DesktopGallery({ media = [] }) {
           key={index}
           className='flex aspect-square items-center justify-center overflow-hidden border border-black/20 bg-gray-100'
         >
-          <ZoomableImage
-            // src={baseApiUrl + item}
-            src={`/api/image-proxy?url=${encodeURIComponent(baseApiUrl + item)}`} // this adds server load, and it is tempoprary fix, not recommended
-            alt={`Product ${index}`}
-          />
+          <ZoomableImage src={baseApiUrl + item} alt={`Product ${index}`} />
         </div>
       ))}
 
@@ -249,8 +243,7 @@ function DesktopGallery({ media = [] }) {
         <div className='col-span-1'>
           <div className='aspect-square h-full overflow-hidden border border-black/20 bg-gray-100'>
             <video
-              // src={baseApiUrl + videoMedia}
-              src={`/api/video-proxy?url=${encodeURIComponent(baseApiUrl + videoMedia)}`}
+              src={baseApiUrl + videoMedia}
               className='h-full w-full object-cover'
               autoPlay
               muted

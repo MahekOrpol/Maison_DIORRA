@@ -108,8 +108,7 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
                   <li key={shape.id} className='flex items-center space-x-2'>
                     {shape.diamondImage && (
                       <img
-                        // src={baseApiUrl + shape.diamondImage}
-                        src={`/api/image-proxy?url=${encodeURIComponent(baseApiUrl + shape.diamondImage)}`} // this adds server load,
+                        src={baseApiUrl + shape.diamondImage}
                         alt={shape.diamondShape || 'Diamond Shape'}
                         width={24}
                         height={24}
@@ -222,8 +221,7 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
                       className='flex items-center space-x-2 hover:underline'
                     >
                       <Image
-                        // src={baseApiUrl + image}
-                        src={`/api/image-proxy?url=${encodeURIComponent(baseApiUrl + image)}`} // this adds server load,
+                        src={baseApiUrl + image}
                         alt={name}
                         width={24}
                         height={24}
