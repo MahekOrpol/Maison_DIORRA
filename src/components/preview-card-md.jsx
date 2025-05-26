@@ -245,7 +245,8 @@ export default function PreviewCardMd({ product, className }) {
                   /> */}
                   <div className='xs:h-[190px] min min-[10] flex h-[160px] w-full items-center justify-center min-[500px]:!h-[260px] min-[600px]:!h-[240px]'>
                     <Image
-                      src={baseApiUrl + image}
+                      // src={baseApiUrl + image}
+                      src={`/api/image-proxy?url=${encodeURIComponent(baseApiUrl + image)}`}
                       alt={'Product image'}
                       width={300}
                       height={300}

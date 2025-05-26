@@ -166,6 +166,7 @@ export function ArrivalSwiper({ className, slides }) {
                 alt={'New arrival product'}
                 fill
                 className='rounded-2xl object-cover'
+                quality={100}
               />
             </div>
           </SwiperSlide>

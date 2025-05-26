@@ -10,8 +10,8 @@ const nextConfig = {
         pathname: '/images/**'
       },
       {
-        protocol: 'https',
-        hostname: 'massion-diorra-ywz5.onrender.com', // for LAN testing
+        protocol: 'http',
+        hostname: '153.92.222.195', // for LAN testing
         pathname: '/images/**'
       },
       {
