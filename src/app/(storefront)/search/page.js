@@ -70,14 +70,14 @@ export default function SearchPage() {
     <div className='flex min-h-screen flex-col items-center justify-start pt-5 sm:pt-10'>
       <div className='w-full max-w-3xl  px-4'>
         <div className='relative w-full border-b border-gray-700 transition-colors'>
-          <Search className='absolute top-1/2 left-3 h-5 w-5 -translate-y-1/2 text-gray-400' />
+          <Search className='absolute top-1/2 left-3 h-4 w-4 xs2:h-5 xs2:w-5 -translate-y-1/2 text-gray-400' />
           <input
             type='text'
             placeholder='Search for diamonds, rings, collections...'
             value={searchValue}
             onChange={(e) => setSearchValue(e.target.value)}
             onKeyDown={handleSearch}
-            className='w-full bg-transparent py-3 pr-4 pl-10 text-lg outline-none placeholder:text-gray-500'
+            className='w-full bg-transparent py-3 pr-4 pl-10 text-xs xs:text-lg outline-none placeholder:text-gray-500'
           />
         </div>
       </div>

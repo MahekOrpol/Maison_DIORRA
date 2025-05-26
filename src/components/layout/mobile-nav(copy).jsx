@@ -11,7 +11,7 @@ import { Input } from '@/components/ui/input';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useRouter } from 'nextjs-toploader/app';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
     X,
     Search,
@@ -48,10 +48,12 @@ export default function MobileSidebarCopy({
     const { clearUser, isLoggedIn } = useUserStore(
         (state) => state
     );
+
     const handleLogout = async () => {
         try {
             await logoutUser();
             clearUser();
+            closeDrawer();
             router.push('/login');
             toast.success('Logged out successfully');
         } catch (error) {
@@ -188,39 +190,44 @@ export default function MobileSidebarCopy({
                             </div>
                         ))}
 
-                        <div className='border-b'>
-                            <DrawerClose asChild onClick={closeDrawer}>
-                                <Link
-                                    href='/account'
-                                    className='flex items-center gap-2 py-3 text-lg'
-                                >
-                                    <User size={18} />
-                                    My Account
-                                </Link>
-                            </DrawerClose>
-                        </div>
-                        <div className='border-b'>
-                            <DrawerClose asChild onClick={closeDrawer}>
-                                <Link
-                                    href='/contact'
-                                    className='flex items-center gap-2 py-3 text-lg'
-                                >
-                                    <FiShoppingCart size={18} />
-                                    My Orders
-                                </Link>
-                            </DrawerClose>
-                        </div>
-                        <div className='border-b'>
-                            <DrawerClose asChild onClick={closeDrawer}>
-                                <Link
-                                    href='/account/wishlist'
-                                    className='flex items-center gap-2 py-3 text-lg'
-                                >
-                                    <FaHandHoldingHeart size={18} />
-                                    My Wishlist
-                                </Link>
-                            </DrawerClose>
-                        </div>
+                        {/* Only show these links if user is logged in (has access token) */}
+                        {isLoggedIn && (
+                            <>
+                                <div className='border-b'>
+                                    <DrawerClose asChild onClick={closeDrawer}>
+                                        <Link
+                                            href='/account/profile'
+                                            className='flex items-center gap-2 py-3 text-lg'
+                                        >
+                                            <User size={18} />
+                                            My Account
+                                        </Link>
+                                    </DrawerClose>
+                                </div>
+                                <div className='border-b'>
+                                    <DrawerClose asChild onClick={closeDrawer}>
+                                        <Link
+                                            href='/account/orders'
+                                            className='flex items-center gap-2 py-3 text-lg'
+                                        >
+                                            <FiShoppingCart size={18} />
+                                            My Orders
+                                        </Link>
+                                    </DrawerClose>
+                                </div>
+                                <div className='border-b'>
+                                    <DrawerClose asChild onClick={closeDrawer}>
+                                        <Link
+                                            href='/account/wishlist'
+                                            className='flex items-center gap-2 py-3 text-lg'
+                                        >
+                                            <FaHandHoldingHeart size={18} />
+                                            My Wishlist
+                                        </Link>
+                                    </DrawerClose>
+                                </div>
+                            </>
+                        )}
                     </nav>
                 </div>
 

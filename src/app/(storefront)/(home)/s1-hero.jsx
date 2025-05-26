@@ -135,13 +135,13 @@ export default function S1HeroSection({ data }) {
               </div>
               {/* Bottom content */}
               <div className='xs:h-[37%] relative z-20 flex h-[35%] w-full flex-col items-center justify-center gap-1 bg-black py-4 text-center text-white sm:-top-[60%] sm:h-0 sm:translate-x-[-20%] sm:bg-transparent sm:py-0 md:-top-[50%] md:left-[12%] md:w-fit md:translate-x-[-15%] xl:left-[15%]'>
-                <p className='mb-3 text-sm tracking-widest underline underline-offset-6 sm:mb-6 md:text-[20px]'>
+                <p className='mb-3 text-xs xs2:text-sm tracking-widest underline underline-offset-6 sm:mb-6 md:text-[20px]'>
                   VALENTINE'S DAY
                 </p>
                 <h1 className='font-rozha hero-font mb-3 hidden leading-[110%] font-medium tracking-wide sm:block'>
                   GET 20% OFF ON YOUR <div>FIRST ORDER</div>
                 </h1>
-                <h1 className='font-rozha xs2:text-[22px] text-xl leading-[110%] font-medium sm:hidden'>
+                <h1 className='font-rozha xs2:text-[22px] text-lg xs2:text-xl leading-[110%] font-medium sm:hidden'>
                   GET 20% OFF ON YOUR FIRST ORDER
                 </h1>
                 <div className='xs:text-lg relative mb-3 max-w-2xl text-sm sm:text-xl lg:mb-6'>
@@ -158,7 +158,7 @@ export default function S1HeroSection({ data }) {
                 </div>
                 <Link
                   href='/products/rings'
-                  className='xs:px-6 xs:text-sm relative flex items-center rounded-full bg-white px-3.5 py-1.5 text-xs font-semibold text-black transition-all duration-300 md:py-3 md:text-base'
+                  className='xs:px-6 xs:text-sm relative flex items-center rounded-full bg-white px-2 py-1 xs2:px-3.5 xs2:py-1.5 text-xs font-semibold text-black transition-all duration-300 md:py-3 md:text-base'
                 >
                   SHOP NOW <MoveRight className='ml-2 inline' />
                 </Link>
