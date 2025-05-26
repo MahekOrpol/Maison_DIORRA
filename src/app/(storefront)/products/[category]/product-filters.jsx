@@ -91,10 +91,6 @@ export default function ProductFilters({
     'earrings'
   ].includes(category.toLowerCase());
 
-  const filtersSelectedCount = [stateMetals, stateStyles, stateShapes].filter(
-    Boolean
-  ).length;
-
   const modifiedMetals = Array.isArray(availableMetals)
     ? metalPurityOptions.filter((option) =>
       availableMetals.some(
@@ -215,12 +211,15 @@ export default function ProductFilters({
             <DrawerTitle className='sr-only'>Filter drawer</DrawerTitle>
             <div className='bg-secondary flex items-center justify-between gap-2 px-4 py-2'>
               <Button className='w-fit rounded-sm text-xs' variant='outline'>
-                Filters Selected ({filtersSelectedCount})
+                Filters Selected ({stateMetals.length + stateStyles.length + stateShapes.length})
               </Button>
               <Button
                 className='mr-auto w-fit rounded-sm text-xs'
                 variant='outline'
-                onClick={resetFilters}
+                onClick={() => {
+                  resetFilters();
+                  router.push(`/products/${category}`);
+                }}
               >
                 <RotateCcwIcon /> Reset Filters
               </Button>
@@ -235,9 +234,22 @@ export default function ProductFilters({
                 <p>
                   <strong className='font-medium'>Metal & Purity : </strong>
                   <span className='text-secondary-foreground'>
-                    {stateMetals || 'Not Selected'}
+                    {stateMetals.length > 0 ? `Selected (${stateMetals.length})` : 'Not Selected'}
                   </span>
                 </p>
+                {stateMetals.length > 0 && (
+                  <button
+                    className='text-muted-foreground hover:text-foreground mb-2 text-xs underline'
+                    onClick={() => {
+                      setStateMetals([]);
+                      const params = new URLSearchParams(searchParams.toString());
+                      params.delete('metal');
+                      router.push(`?${params.toString()}`, { scroll: false });
+                    }}
+                  >
+                    Clear all
+                  </button>
+                )}
                 <div className='xxs:grid-cols-3 mt-2 grid grid-cols-2 gap-2 sm:grid-cols-4'>
                   {modifiedMetals.map((item) => {
                     const [purity, ...metalName] = item.label.split(' ');
@@ -246,11 +258,8 @@ export default function ProductFilters({
                     return (
                       <button
                         key={item.label}
-                        // onClick={() => setMetalPurity(item.label)}
                         onClick={() => toggleParam('metal', item.label)}
-                        className={`bg-secondary flex items-center gap-2 rounded-md border px-3 py-3 text-left transition ${isSelected
-                          ? 'border-black'
-                          : 'border-transparent hover:border-black'
+                        className={`bg-secondary flex items-center gap-2 rounded-md border px-3 py-3 text-left transition ${isSelected ? 'border-black bg-gray-100' : 'border-transparent hover:border-black'
                           }`}
                       >
                         <div
@@ -268,35 +277,38 @@ export default function ProductFilters({
               </div>
 
               {/* Ring Style Section */}
-              <div>
-                <p>
-                  <strong className='font-medium'>Ring Style : </strong>
-                  <span className='text-secondary-foreground'>Halo</span>
-                </p>
-                <div className='mt-2 grid grid-cols-5 gap-2 text-xs sm:grid-cols-8'>
-                  {availableStyles &&
-                    availableStyles.length > 0 &&
-                    availableStyles.map((item, idx) => {
+              {showRingStyle && availableStyles && availableStyles.length > 0 && (
+                <div>
+                  <p>
+                    <strong className='font-medium'>Ring Style : </strong>
+                    <span className='text-secondary-foreground'>
+                      {stateStyles.length > 0 ? `Selected (${stateStyles.length})` : 'Not Selected'}
+                    </span>
+                  </p>
+                  {stateStyles.length > 0 && (
+                    <button
+                      className='text-muted-foreground hover:text-foreground mb-2 text-xs underline'
+                      onClick={() => {
+                        setStateStyles([]);
+                        const params = new URLSearchParams(searchParams.toString());
+                        params.delete('style');
+                        router.push(`?${params.toString()}`, { scroll: false });
+                      }}
+                    >
+                      Clear all
+                    </button>
+                  )}
+                  <div className='mt-2 grid grid-cols-5 gap-2 text-xs sm:grid-cols-8'>
+                    {availableStyles.map((item, idx) => {
                       const isSelected = stateStyles.includes(item.name);
                       return (
                         <button
                           key={idx}
-                          // onClick={() => setStyle(item.name)}
-                          onClick={() => toggleParam('style', style.name)}
-                          className={`bg-secondary flex h-full flex-col items-center rounded-md border px-2 pb-2 text-[10px] transition-all ${isSelected
-                            ? 'border-black'
-                            : 'border-transparent hover:border-black'
+                          onClick={() => toggleParam('style', item.name)}
+                          className={`bg-secondary flex h-full flex-col items-center rounded-md border px-2 pb-2 text-[10px] transition-all ${isSelected ? 'border-black bg-gray-100' : 'border-transparent hover:border-black'
                             }`}
                         >
-                          {/* <Image
-                            src={baseApiUrl + item.image}
-                            width={50}
-                            height={25}
-                            alt={item.name}
-                            className='my-2 h-[25px] w-[50px] object-contain'
-                          /> */}
                           <img
-                            // src={baseApiUrl + item.image}
                             src={`/api/image-proxy?url=${encodeURIComponent(baseApiUrl + item.image)}`}
                             width={50}
                             height={25}
@@ -307,43 +319,43 @@ export default function ProductFilters({
                         </button>
                       );
                     })}
+                  </div>
                 </div>
-              </div>
+              )}
+
               {/* Diamond Shape Section */}
-              {(isDiamondBased || isRing) && (
+              {showDiamondShapes && availableShapes && availableShapes.length > 0 && (
                 <div>
                   <p>
                     <strong className='font-medium'>Diamond Shape : </strong>
                     <span className='text-secondary-foreground'>
-                      {stateShapes || 'None'}
+                      {stateShapes.length > 0 ? `Selected (${stateShapes.length})` : 'None'}
                     </span>
                   </p>
+                  {stateShapes.length > 0 && (
+                    <button
+                      className='text-muted-foreground hover:text-foreground mb-2 text-xs underline'
+                      onClick={() => {
+                        setStateShapes([]);
+                        const params = new URLSearchParams(searchParams.toString());
+                        params.delete('shape');
+                        router.push(`?${params.toString()}`, { scroll: false });
+                      }}
+                    >
+                      Clear all
+                    </button>
+                  )}
                   <div className='mt-2 grid grid-cols-5 gap-2 text-xs sm:grid-cols-8'>
-                    {availableShapes?.map((item, idx) => {
-                      const isSelected = stateShapes.includes(
-                        item.diamondShape
-                      );
+                    {availableShapes.map((item, idx) => {
+                      const isSelected = stateShapes.includes(item.diamondShape);
                       return (
                         <button
                           key={idx}
-                          // onClick={() => setShape(item.diamondShape)}
-                          onClick={() =>
-                            toggleParam('shape', item.diamondShape)
-                          }
-                          className={`bg-secondary flex flex-col items-center rounded-md border px-1 pb-2 text-[10px] transition ${isSelected
-                            ? 'border-black'
-                            : 'border-transparent hover:border-black'
+                          onClick={() => toggleParam('shape', item.diamondShape)}
+                          className={`bg-secondary flex flex-col items-center rounded-md border px-1 pb-2 text-[10px] transition ${isSelected ? 'border-black bg-gray-100' : 'border-transparent hover:border-black'
                             }`}
                         >
-                          {/* <Image
-                            src={baseApiUrl + item.diamondImage}
-                            width={48}
-                            height={48}
-                            alt={item.diamondShape}
-                            className='h-12 w-12'
-                          /> */}
                           <img
-                            // src={baseApiUrl + item.diamondImage}
                             src={`/api/image-proxy?url=${encodeURIComponent(baseApiUrl + item.diamondImage)}`}
                             width={48}
                             height={48}
@@ -360,7 +372,8 @@ export default function ProductFilters({
             </div>
           </DrawerContent>
         </Drawer>
-        {/* desktop filters ---------------------------------------------------*/}
+
+        {/* desktop filters */}
         <div className='hidden gap-4 lg:flex'>
           {showCommonFilters && (
             <Select
@@ -369,28 +382,12 @@ export default function ProductFilters({
             >
               <SelectTrigger className='data-[placeholder]:text-foreground flex w-[200px] items-center justify-between rounded-md border-black px-3 py-2'>
                 {stateMetals.length > 0 ? (
-                  <div className='flex items-center gap-2 truncate'>
-                    <div className='flex items-center'>
-                      {stateMetals.slice(0, 1).map(metal => (
-                        <div
-                          key={metal}
-                          className='h-3 w-3 shrink-0 rounded-full border border-gray-300 mr-2'
-                          style={{
-                            backgroundColor: modifiedMetals.find(
-                              (m) => m.label === metal
-                            )?.swatch
-                          }}
-                        />
-                      ))}
-                    </div>
-                    <span className='text-sm'>Metals ({stateMetals.length})</span>
-                  </div>
+                  <span className='text-sm'>Metals ({stateMetals.length})</span>
                 ) : (
                   <span className='text-sm'>Select Metal & Purity</span>
                 )}
               </SelectTrigger>
               <SelectContent className='w-[270px]'>
-                {/* Add Clear All button at the top */}
                 {stateMetals.length > 0 && (
                   <div className='px-3 pt-2'>
                     <button
@@ -398,7 +395,6 @@ export default function ProductFilters({
                       onClick={(e) => {
                         e.preventDefault();
                         setStateMetals([]);
-                        // Also update URL params if needed
                         const params = new URLSearchParams(searchParams.toString());
                         params.delete('metal');
                         router.push(`?${params.toString()}`, { scroll: false });
@@ -437,68 +433,34 @@ export default function ProductFilters({
               </SelectContent>
             </Select>
           )}
-
           {showCommonFilters && (
-            <Select value={sortByPrice} onValueChange={setSortByPrice}>
-              <SelectTrigger className='data-[placeholder]:text-foreground w-[130px] border-black'>
-                <SelectValue placeholder='Sort By Price' />
+            <Select
+              value={sortByPrice}
+              onValueChange={(value) => {
+                setSortByPrice(value);
+                // Update URL when sorting changes
+                const params = new URLSearchParams(searchParams.toString());
+                if (value) {
+                  params.set('sort', value);
+                } else {
+                  params.delete('sort');
+                }
+                router.push(`?${params.toString()}`, { scroll: false });
+              }}
+            >
+              <SelectTrigger className="data-[placeholder]:text-foreground w-[130px] border-black">
+                <SelectValue placeholder="Sort By Price" />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value='low' className='py-2'>
+                <SelectItem value="low" className="py-2">
                   Low to high
                 </SelectItem>
-                <SelectItem value='high' className='py-2'>
+                <SelectItem value="high" className="py-2">
                   High to low
                 </SelectItem>
               </SelectContent>
             </Select>
           )}
-          {/* {showRingStyle && (
-            <Select value={style} onValueChange={setStyle}>
-              <SelectTrigger className='data-[placeholder]:text-foreground w-[170px] border-black'>
-                <SelectValue placeholder='Ring Style' />
-              </SelectTrigger>
-              <SelectContent className=''>
-                <SelectItem value='solitare' className='py-2'>
-                  <Image
-                    src='/img/ring-style-solitaire.svg'
-                    width={35}
-                    height={30}
-                    alt='metal'
-                  />
-                  Solitare
-                </SelectItem>
-                <SelectItem value='pave' className='py-2'>
-                  <Image
-                    src='/img/ring-style-pave.svg'
-                    width={35}
-                    height={30}
-                    alt='metal'
-                  />
-                  Pave
-                </SelectItem>
-                <SelectItem value='halo' className='py-2'>
-                  <Image
-                    src='/img/ring-style-halo.svg'
-                    width={35}
-                    height={30}
-                    alt='metal'
-                  />
-                  Halo
-                </SelectItem>
-                <SelectItem value='hidden-halo' className='py-2'>
-                  <Image
-                    src='/img/ring-style-hidden.svg'
-                    width={25}
-                    height={18}
-                    alt='metal'
-                    className='h-[18px] w-[25px] object-contain'
-                  />
-                  Hidden Halo
-                </SelectItem>
-              </SelectContent>
-            </Select>
-          )} */}
           {showDiamondShapes && (
             <Select
               value={stateShapes.join(',') || ''}
@@ -507,21 +469,6 @@ export default function ProductFilters({
               <SelectTrigger className='data-[placeholder]:text-foreground flex w-[150px] items-center justify-between rounded-md border-black px-3 py-2'>
                 {stateShapes.length > 0 ? (
                   <div className='flex items-center gap-2 truncate'>
-                    <div className='flex items-center'>
-                      {stateShapes.slice(0, 1).map(shape => (
-                        <img
-                          key={shape}
-                          src={`/api/image-proxy?url=${encodeURIComponent(
-                            baseApiUrl +
-                            availableShapes.find(s => s.diamondShape === shape)?.diamondImage
-                          )}`}
-                          width={16}
-                          height={16}
-                          alt={shape}
-                          className='h-4 w-4 object-contain mr-2'
-                        />
-                      ))}
-                    </div>
                     <span className='text-sm'>Shapes ({stateShapes.length})</span>
                   </div>
                 ) : (
