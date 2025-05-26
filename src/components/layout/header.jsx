@@ -221,7 +221,7 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
                       href={`/products/rings?style=${name}`}
                       className='flex items-center space-x-2 hover:underline'
                     >
-                      <Image
+                      <img
                         // src={baseApiUrl + image}
                         src={`/api/image-proxy?url=${encodeURIComponent(baseApiUrl + image)}`} // this adds server load,
                         alt={name}
