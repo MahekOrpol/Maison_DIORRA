@@ -156,7 +156,7 @@ export default function PreviewCardMd({ product, className }) {
     <>
       <Card
         className={cn(
-          'group relative justify-between gap-0 overflow-hidden rounded-xl border border-black pt-0 pb-2 shadow transition-transform duration-300 hover:border-black hover:shadow-xl sm:border-2 sm:border-gray-400',
+          'group relative justify-between gap-1.5 overflow-hidden rounded-xl border border-black pt-0 pb-2 shadow transition-transform duration-300 hover:border-black hover:shadow-xl sm:border-2 sm:border-gray-400',
           className
         )}
       >
@@ -268,7 +268,7 @@ export default function PreviewCardMd({ product, className }) {
               <p className='3xl:text-2xl leading-1 font-medium sm:text-base lg:text-lg xl:text-xl'>
                 ${parseFloat(product.salePrice.$numberDecimal)}
               </p>
-              <span className='text-xs leading-1 font-normal text-[#958F86] line-through sm:text-sm xl:text-lg'>
+              <span className='text-xs leading-1 font-normal text-[#958F86] line-through sm:text-sm xl:text-lg hidden xs2:block'>
                 ${parseFloat(product.regularPrice.$numberDecimal)}
               </span>
             </div>

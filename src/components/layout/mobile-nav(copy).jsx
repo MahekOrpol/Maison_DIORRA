@@ -22,11 +22,8 @@ import {
   ShoppingBag,
   User
 } from 'lucide-react';
-import { IoDiamondOutline } from 'react-icons/io5';
-import { GiGemPendant } from 'react-icons/gi';
 import { useModalStore } from '@/store/modal-stote';
 import { useUserStore } from '@/store/user-store';
-import { useWishlistStore } from '@/store/wishlist-store';
 import { baseApiUrl } from '@/lib/utils';
 import { toast } from 'sonner';
 import { logoutUser } from '@/app/actions/authAction';
@@ -46,10 +43,12 @@ export default function MobileSidebarCopy({
   const router = useRouter();
   const openModal = useModalStore((state) => state.openModal);
   const { clearUser, isLoggedIn } = useUserStore((state) => state);
+
   const handleLogout = async () => {
     try {
       await logoutUser();
       clearUser();
+      closeDrawer();
       router.push('/login');
       toast.success('Logged out successfully');
     } catch (error) {
@@ -186,39 +185,44 @@ export default function MobileSidebarCopy({
               </div>
             ))}
 
-            <div className='border-b'>
-              <DrawerClose asChild onClick={closeDrawer}>
-                <Link
-                  href='/account'
-                  className='flex items-center gap-2 py-3 text-lg'
-                >
-                  <User size={18} />
-                  My Account
-                </Link>
-              </DrawerClose>
-            </div>
-            <div className='border-b'>
-              <DrawerClose asChild onClick={closeDrawer}>
-                <Link
-                  href='/contact'
-                  className='flex items-center gap-2 py-3 text-lg'
-                >
-                  <FiShoppingCart size={18} />
-                  My Orders
-                </Link>
-              </DrawerClose>
-            </div>
-            <div className='border-b'>
-              <DrawerClose asChild onClick={closeDrawer}>
-                <Link
-                  href='/account/wishlist'
-                  className='flex items-center gap-2 py-3 text-lg'
-                >
-                  <FaHandHoldingHeart size={18} />
-                  My Wishlist
-                </Link>
-              </DrawerClose>
-            </div>
+            {/* Only show these links if user is logged in (has access token) */}
+            {isLoggedIn && (
+              <>
+                <div className='border-b'>
+                  <DrawerClose asChild onClick={closeDrawer}>
+                    <Link
+                      href='/account/profile'
+                      className='flex items-center gap-2 py-3 text-lg'
+                    >
+                      <User size={18} />
+                      My Account
+                    </Link>
+                  </DrawerClose>
+                </div>
+                <div className='border-b'>
+                  <DrawerClose asChild onClick={closeDrawer}>
+                    <Link
+                      href='/account/orders'
+                      className='flex items-center gap-2 py-3 text-lg'
+                    >
+                      <FiShoppingCart size={18} />
+                      My Orders
+                    </Link>
+                  </DrawerClose>
+                </div>
+                <div className='border-b'>
+                  <DrawerClose asChild onClick={closeDrawer}>
+                    <Link
+                      href='/account/wishlist'
+                      className='flex items-center gap-2 py-3 text-lg'
+                    >
+                      <FaHandHoldingHeart size={18} />
+                      My Wishlist
+                    </Link>
+                  </DrawerClose>
+                </div>
+              </>
+            )}
           </nav>
         </div>
 
@@ -350,7 +354,7 @@ function EngagementRingsSubmenu({ availableStyles, metalOptions }) {
                 className='flex items-center gap-2 py-1'
               >
                 <img
-                  //   src={baseApiUrl + image}
+                  // src={baseApiUrl + image}
                   src={`/api/image-proxy?url=${encodeURIComponent(baseApiUrl + image)}`} // this adds server load,
                   alt={name}
                   width={20}

@@ -183,15 +183,19 @@ function CartContainer({ cart, setCart }) {
       {cart.length > 0 && (
         <div className='hidden justify-between border-b pb-2 text-sm sm:flex xl:text-lg xl:font-bold'>
           <div className='w-[60%] pl-[118px]'>PRODUCTS</div>
-          <div className='grid w-[38%] grid-cols-3 gap-2'>
+          <div className='grid w-[39%] grid-cols-3 gap-2'>
             <p>QUANTITY</p>
             <p className='col-span-2'>SUBTOTAL</p>
           </div>
         </div>
       )}
-      <div className='mb-4 w-full text-center text-2xl font-semibold sm:hidden'>
-        Cart Products
-      </div>
+      {cart.length > 0 ? (
+        <div className='mb-4 w-full text-center text-2xl font-semibold sm:hidden'>
+          Cart Products
+        </div>
+      ) : (
+        <p></p>
+      )}
       {cart.length === 0 ? (
         <div className='mt-4 flex flex-col items-center justify-center gap-4 pt-4'>
           <div className='rounded-full bg-gray-200 p-3'>
@@ -201,13 +205,13 @@ function CartContainer({ cart, setCart }) {
           <div className='flex gap-2 sm:gap-4'>
             <Link
               href='/products'
-              className='hover:bg-primary hover:text-primary-foreground inline-block rounded-md border border-black px-6 py-3 text-xs sm:px-9 sm:py-3 sm:text-lg'
+              className='hover:bg-primary hover:text-primary-foreground inline-block rounded-md border border-black px-2 xs:px-6 py-3 text-xs sm:px-9 sm:py-3 sm:text-lg'
             >
               Continue Shopping
             </Link>
             <Link
               href='/products'
-              className='bg-primary text-primary-foreground inline-block rounded-md border border-black px-6 py-3 text-xs sm:px-9 sm:py-3 sm:text-lg'
+              className='bg-primary text-primary-foreground inline-block rounded-md border border-black px-2 xs:px-6 py-3 text-xs sm:px-9 sm:py-3 sm:text-lg'
             >
               Add products to your cart
             </Link>
@@ -226,20 +230,20 @@ function CartContainer({ cart, setCart }) {
                   alt={item.name}
                   width={100}
                   height={100}
-                  className='lgw-24 h-20 w-20 rounded-md shadow-[0px_0px_3px_1px_rgba(0,_0,_0,_0.1)] lg:h-24'
+                  className='lgw-24 h-20 w-20 rounded-md shadow-[0px_0px_3px_1px_rgba(0,_0,_0,_0.1)] xl:h-24'
                 />
                 <div className='flex flex-col justify-between'>
                   <span className='text-muted-foreground text-sm font-medium md:text-base'>
                     {item.category}
                   </span>
-                  <p className='line-clamp-1 text-base font-medium md:text-xl'>
+                  <p className='line-clamp-1 text-base font-medium md:text-lg xl:text-xl'>
                     {item.name}
                   </p>
                   <span className=''>$ {item.price}</span>
                 </div>
               </div>
 
-              <div className='grid grid-cols-3 gap-2 border-t pt-3 sm:w-[38%] sm:border-none sm:pt-0'>
+              <div className='grid grid-cols-3 gap-2 border-t pt-3 sm:w-[38%] sm:border-none sm:pt-0 pb-2 xs:pb-0'>
                 <div className='col-span-1 flex items-center'>
                   <button
                     onClick={() =>

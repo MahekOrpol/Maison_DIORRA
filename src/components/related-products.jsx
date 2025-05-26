@@ -104,7 +104,7 @@ export default function RelatedProducts({ className, cart, categoryName }) {
       <Heading
         title='Related Products'
         subtitle='You might also like to buy'
-        className='mb-3 sm:mb-4 md:mb-5'
+        className='mb-3 sm:mb-4 md:mb-5 pt-8'
       />
 
       {isLoading && (
