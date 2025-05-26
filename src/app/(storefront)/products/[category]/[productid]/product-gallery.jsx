@@ -12,6 +12,7 @@ import { Md360 } from 'react-icons/md';
 import { IoImageOutline, IoVideocamOutline } from 'react-icons/io5';
 import Jewelry360Viewer from '@/components/product360viewer';
 import { useRef, useState } from 'react';
+import Image from 'next/image';
 
 const images = [
   'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-YG_0_6ed69b33-41f1-45a6-a66a-4b959b6fb034.jpg?v=1695166772&width=1200&height=1200&crop=center',
@@ -48,6 +49,7 @@ const ZoomableImage = ({ src, alt }) => {
   const [backgroundPos, setBackgroundPos] = useState('50% 50%');
   const [isZoomed, setIsZoomed] = useState(false);
   const containerRef = useRef(null);
+  // console.log(src);
 
   const handleMouseMove = (e) => {
     if (!isZoomed) return;
@@ -83,9 +85,11 @@ const ZoomableImage = ({ src, alt }) => {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
     >
-      <img
+      <Image
         src={src}
         alt={alt}
+        width={600}
+        height={600}
         className={`zoom-image h-full w-full object-cover transition-transform duration-300 ${
           isZoomed ? 'scale-150' : 'scale-100'
         }`}
@@ -155,7 +159,8 @@ export function MobileGallery({ media = [] }) {
               {imageMedia.slice(0, 4).map((item, index) => (
                 <CarouselItem key={index} className='h-full p-0'>
                   <ZoomableImage
-                    src={baseApiUrl + item}
+                    // src={baseApiUrl + item}
+                    src={`/api/image-proxy?url=${encodeURIComponent(baseApiUrl + item)}`}
                     alt={'Product Image'}
                   />
                 </CarouselItem>
@@ -170,7 +175,8 @@ export function MobileGallery({ media = [] }) {
           {videoMedia && (
             <div className='h-full w-full'>
               <video
-                src={baseApiUrl + videoMedia}
+                // src={baseApiUrl + videoMedia}
+                src={`/api/video-proxy?url=${encodeURIComponent(baseApiUrl + videoMedia)}`}
                 className='h-full w-full object-cover'
                 autoPlay
                 muted
@@ -230,7 +236,11 @@ function DesktopGallery({ media = [] }) {
           key={index}
           className='flex aspect-square items-center justify-center overflow-hidden border border-black/20 bg-gray-100'
         >
-          <ZoomableImage src={baseApiUrl + item} alt={`Product ${index}`} />
+          <ZoomableImage
+            // src={baseApiUrl + item}
+            src={`/api/image-proxy?url=${encodeURIComponent(baseApiUrl + item)}`} // this adds server load, and it is tempoprary fix, not recommended
+            alt={`Product ${index}`}
+          />
         </div>
       ))}
 
@@ -239,7 +249,8 @@ function DesktopGallery({ media = [] }) {
         <div className='col-span-1'>
           <div className='aspect-square h-full overflow-hidden border border-black/20 bg-gray-100'>
             <video
-              src={baseApiUrl + videoMedia}
+              // src={baseApiUrl + videoMedia}
+              src={`/api/video-proxy?url=${encodeURIComponent(baseApiUrl + videoMedia)}`}
               className='h-full w-full object-cover'
               autoPlay
               muted

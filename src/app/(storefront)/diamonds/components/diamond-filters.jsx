@@ -22,7 +22,7 @@ export default function DiamondFilters() {
 
   return (
     <div className='mb-6'>
-      <h2 className='text-center text-xl font-medium md:text-3xl'>
+      <h2 className='text-center text-lg sm:text-xl font-medium md:text-3xl'>
         Select your Stone Shape and Quality
       </h2>
       {/* shape */}
@@ -30,7 +30,7 @@ export default function DiamondFilters() {
         {['Round', 'Pear', 'Emerald', 'Princess'].map((shape) => (
           <button
             key={shape}
-            className={`border-secondary w-[90px] rounded-xl border shadow-md hover:border-black/60 sm:w-[99px] ${
+            className={`border-secondary w-[90px] rounded-xl border shadow-md hover:border-black/60 sm:w-[99px] text-xs xs:text-base ${
               filters.shape === shape ? 'border-black/60 bg-gray-200' : ''
             }`}
             onClick={() => setFilters({ ...filters, shape })}
@@ -49,7 +49,7 @@ export default function DiamondFilters() {
       </div>
       {/* quality */}
       <div className='w-full space-y-6 p-0 md:p-4'>
-        <div className='3xl:gap-30 grid grid-cols-1 place-items-center justify-center sm:grid-cols-2 lg:grid-cols-3 xl:place-items-stretch xl:gap-30'>
+        <div className='3xl:gap-30 grid grid-cols-1 place-items-center justify-center sm:grid-cols-2 lg:grid-cols-3 xl:place-items-stretch xl:gap-30 mb-0 sm:mb-3'>
           {/* Color Filter */}
           <div className=''>
             <h3 className='mb-1 font-medium'>Color</h3>
@@ -57,7 +57,7 @@ export default function DiamondFilters() {
               {colors.map((color) => (
                 <button
                   key={color}
-                  className={`3xl:w-18 inline-flex h-12 w-10 items-center justify-center border-r border-l border-l-transparent text-sm hover:border-l hover:border-black lg:w-14 ${
+                  className={`3xl:w-18 inline-flex h-12 w-10 items-center justify-center border-r border-l border-l-transparent text-sm hover:border-l hover:border-black lg:w-10 xl:w-14${
                     filters.color === color ? 'bg-gray-200' : ''
                   }`}
                   onClick={() => setFilters({ ...filters, color })}
@@ -74,7 +74,7 @@ export default function DiamondFilters() {
               {clarities.map((clarity) => (
                 <button
                   key={clarity}
-                  className={`3xl:w-18 inline-flex h-12 w-10 items-center justify-center border-r border-l border-l-transparent text-sm hover:border-l hover:border-black lg:w-14 ${
+                  className={`3xl:w-18 inline-flex h-12 w-10 items-center justify-center border-r border-l border-l-transparent text-sm hover:border-l hover:border-black lg:w-10 xl:w-14 ${
                     filters.clarity === clarity ? 'bg-gray-200' : ''
                   }`}
                   onClick={() => setFilters({ ...filters, clarity })}

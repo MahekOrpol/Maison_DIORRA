@@ -111,10 +111,11 @@ export default function GiftingSlider({ cards }) {
               <Image
                 src={baseApiUrl + card.image}
                 // fill
-                width={300}
-                height={600}
+                width={400}
+                height={800}
                 className='h-full w-full rounded-2xl object-cover'
                 alt={card.name}
+                quality={100}
               />
               <Link
                 href={'#gifting-slider'}

@@ -223,7 +223,7 @@ export default function PreviewCard({
               <p className='3xl:text-2xl leading-1 font-medium sm:text-[22px] lg:text-xl'>
                 ${parseFloat(product.salePrice.$numberDecimal)}
               </p>
-              <span className='text-xs leading-1 font-normal text-[#958F86] line-through sm:text-base xl:text-lg'>
+              <span className='text-xs leading-1 font-normal text-[#958F86] line-through hidden xs2:block sm:text-base xl:text-lg'>
                 ${parseFloat(product.regularPrice.$numberDecimal)}
               </span>
             </div>

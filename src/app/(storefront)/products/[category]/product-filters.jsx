@@ -173,12 +173,21 @@ export default function ProductFilters({
                     className={`inline-flex w-[112px] flex-col items-center rounded-2xl border p-3 pt-4 text-xs transition-all ${isSelected ? 'border-secondary shadow-md' : 'border-secondary shadow-md hover:border-black/60 hover:bg-gray-100'} `}
                   >
                     <div className='mb-4 flex h-[30px] w-[70px] items-center justify-center 2xl:h-[35px]'>
-                      <Image
-                        src={baseApiUrl + item.image}
+                      {/* <Image
+                        // src={baseApiUrl + item.image}
+                        src={`/api/image-proxy?url=${encodeURIComponent(baseApiUrl + item.image)}`}
                         height={30}
                         width={70}
                         alt={item.name}
                         className='h-full w-full object-contain'
+                      /> */}
+                      <img
+                        // src={baseApiUrl + item.image}
+                        src={`/api/image-proxy?url=${encodeURIComponent(baseApiUrl + item.image)}`}
+                        height={30}
+                        width={70}
+                        className='h-full w-full object-contain'
+                        alt={item.name}
                       />
                     </div>
                     <p className='3xl:text-lg mt-auto text-[15px] leading-4 text-nowrap xl:text-base'>
@@ -281,8 +290,16 @@ export default function ProductFilters({
                               : 'border-transparent hover:border-black'
                           }`}
                         >
-                          <Image
+                          {/* <Image
                             src={baseApiUrl + item.image}
+                            width={50}
+                            height={25}
+                            alt={item.name}
+                            className='my-2 h-[25px] w-[50px] object-contain'
+                          /> */}
+                          <img
+                            // src={baseApiUrl + item.image}
+                            src={`/api/image-proxy?url=${encodeURIComponent(baseApiUrl + item.image)}`}
                             width={50}
                             height={25}
                             alt={item.name}
@@ -321,8 +338,16 @@ export default function ProductFilters({
                               : 'border-transparent hover:border-black'
                           }`}
                         >
-                          <Image
+                          {/* <Image
                             src={baseApiUrl + item.diamondImage}
+                            width={48}
+                            height={48}
+                            alt={item.diamondShape}
+                            className='h-12 w-12'
+                          /> */}
+                          <img
+                            // src={baseApiUrl + item.diamondImage}
+                            src={`/api/image-proxy?url=${encodeURIComponent(baseApiUrl + item.diamondImage)}`}
                             width={48}
                             height={48}
                             alt={item.diamondShape}
@@ -338,7 +363,7 @@ export default function ProductFilters({
             </div>
           </DrawerContent>
         </Drawer>
-        {/* desktop - unchanged */}
+        {/* desktop filters ---------------------------------------------------*/}
         <div className='hidden gap-4 lg:flex'>
           {showCommonFilters && (
             <Select
@@ -474,7 +499,8 @@ export default function ProductFilters({
                   availableShapes.map((shape) => (
                     <SelectItem value={shape.diamondShape} key={shape.id}>
                       <Image
-                        src={baseApiUrl + shape.diamondImage}
+                        // src={baseApiUrl + shape.diamondImage}
+                        src={`/api/image-proxy?url=${encodeURIComponent(baseApiUrl + shape.diamondImage)}`}
                         width={26}
                         height={26}
                         alt='metal'
