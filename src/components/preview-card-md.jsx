@@ -245,8 +245,7 @@ export default function PreviewCardMd({ product, className }) {
                   /> */}
                   <div className='xs:h-[190px] min min-[10] flex h-[160px] w-full items-center justify-center min-[500px]:!h-[260px] min-[600px]:!h-[240px]'>
                     <Image
-                      // src={baseApiUrl + image}
-                      src={`/api/image-proxy?url=${encodeURIComponent(baseApiUrl + image)}`}
+                      src={baseApiUrl + image}
                       alt={'Product image'}
                       width={300}
                       height={300}
@@ -268,7 +267,7 @@ export default function PreviewCardMd({ product, className }) {
               <p className='3xl:text-2xl leading-1 font-medium sm:text-base lg:text-lg xl:text-xl'>
                 ${parseFloat(product.salePrice.$numberDecimal)}
               </p>
-              <span className='text-xs leading-1 font-normal text-[#958F86] line-through sm:text-sm xl:text-lg hidden xs2:block'>
+              <span className='xs2:block hidden text-xs leading-1 font-normal text-[#958F86] line-through sm:text-sm xl:text-lg'>
                 ${parseFloat(product.regularPrice.$numberDecimal)}
               </span>
             </div>

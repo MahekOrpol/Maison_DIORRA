@@ -273,8 +273,7 @@ function DiamondsSubmenu({ DiamondShapes }) {
               >
                 {shape.diamondImage && (
                   <img
-                    // src={baseApiUrl + shape.diamondImage}
-                    src={`/api/image-proxy?url=${encodeURIComponent(baseApiUrl + shape.diamondImage)}`} // this adds server load,
+                    src={baseApiUrl + shape.diamondImage}
                     alt={shape.diamondShape}
                     width={20}
                     height={20}
@@ -354,8 +353,7 @@ function EngagementRingsSubmenu({ availableStyles, metalOptions }) {
                 className='flex items-center gap-2 py-1'
               >
                 <img
-                  // src={baseApiUrl + image}
-                  src={`/api/image-proxy?url=${encodeURIComponent(baseApiUrl + image)}`} // this adds server load,
+                  src={baseApiUrl + image}
                   alt={name}
                   width={20}
                   height={20}

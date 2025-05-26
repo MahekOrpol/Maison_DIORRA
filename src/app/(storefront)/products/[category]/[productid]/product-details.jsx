@@ -135,7 +135,7 @@ export default function ProductDetails({
 
     const userId = authUser.id;
     const productId = data._id; // Changed from product._id to data.
-    console.log(data._id);
+    // console.log(data._id);
     const isWishlisted = wishlist.some(
       (item) => item.product?._id === productId
     );

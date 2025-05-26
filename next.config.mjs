@@ -10,8 +10,8 @@ const nextConfig = {
         pathname: '/images/**'
       },
       {
-        protocol: 'http',
-        hostname: '153.92.222.195', // for LAN testing
+        protocol: 'https',
+        hostname: 'dev.cloudbusiness.cloud', // for LAN testing
         pathname: '/images/**'
       },
       {
