@@ -28,6 +28,7 @@ export default function ReviewModal({ isOpen, onClose, productId }) {
 
     const [hoverRating, setHoverRating] = useState(0);
     const rating = watch('rating');
+    const [selectedFiles, setSelectedFiles] = useState([]);
 
     // Get user data from localStorage
     useEffect(() => {
@@ -53,24 +54,16 @@ export default function ReviewModal({ isOpen, onClose, productId }) {
             formData.append('userId', data.userId);
             formData.append('productId', data.productId);
 
-            // Handle image uploads more robustly
-            if (data.images && data.images.length > 0) {
-                // Convert FileList to array and append each file with proper metadata
-                Array.from(data.images).forEach((file) => {
-                    formData.append('images', file, file.name); // Added filename as third parameter
-                });
-            }
-
-            // Debug: Log FormData contents before sending
-            console.log('FormData contents:');
-            for (let [key, value] of formData.entries()) {
-                console.log(key, value);
+            // Handle file uploads
+            if (selectedFiles && selectedFiles.length > 0) {
+                for (let i = 0; i < selectedFiles.length; i++) {
+                    formData.append('image', selectedFiles[i]);
+                }
             }
 
             const response = await fetch(`${baseApiUrl}/api/v1/review/create/${data.productId}`, {
                 method: 'POST',
                 body: formData,
-                // Don't set Content-Type header - FormData does this automatically with boundary
             });
 
             if (!response.ok) {
@@ -81,6 +74,7 @@ export default function ReviewModal({ isOpen, onClose, productId }) {
             const result = await response.json();
             console.log('Review submitted successfully:', result);
             reset();
+            setSelectedFiles([]);
             onClose();
         } catch (error) {
             console.error('Error submitting review:', error);
@@ -98,7 +92,13 @@ export default function ReviewModal({ isOpen, onClose, productId }) {
             alert('Maximum 10 images allowed');
             return;
         }
-        setValue('images', files);
+
+        // Convert FileList to array and store in state
+        const filesArray = Array.from(files);
+        setSelectedFiles(filesArray);
+
+        // Also set in form state if needed
+        setValue('images', filesArray);
     };
 
     return (
@@ -224,7 +224,6 @@ export default function ReviewModal({ isOpen, onClose, productId }) {
                     </div>
 
                     {/* Upload */}
-                    {/* Upload */}
                     <div className='mb-4'>
                         <label className='block text-sm font-medium mb-2'>Add media (optional)</label>
                         <label className='flex px-4 py-2 border rounded cursor-pointer'>
@@ -237,6 +236,11 @@ export default function ReviewModal({ isOpen, onClose, productId }) {
                             />
                             Choose Files
                         </label>
+                        {selectedFiles.length > 0 && (
+                            <p className='text-xs text-gray-600 mt-1'>
+                                {selectedFiles.length} file(s) selected
+                            </p>
+                        )}
                         <p className='text-xs text-gray-600 mt-1'>
                             Upload up to 10 images (max. file size 2 GB each)
                         </p>

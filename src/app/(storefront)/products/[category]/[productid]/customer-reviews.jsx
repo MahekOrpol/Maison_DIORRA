@@ -5,7 +5,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react'
 import { FaLongArrowAltLeft, FaLongArrowAltRight, FaUserCircle } from 'react-icons/fa';
+import { IoMdArrowDropleft, IoMdArrowDropright } from 'react-icons/io';
 import { MdStarRate, MdVerified } from 'react-icons/md';
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { DialogTitle } from '@radix-ui/react-dialog';
 
 export const CustomerReviews = ({ className, productId }) => {
   const [showModal, setShowModal] = useState(false);
@@ -130,64 +133,165 @@ export function TestimonialCard({
   createdAt,
   image
 }) {
-  // Format the date
+  const [isCarouselOpen, setIsCarouselOpen] = useState(false);
+  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+
   const formattedDate = new Date(createdAt).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'short',
     day: 'numeric'
   });
 
-  // Get the first image if available
-  const authorImg = image?.[0];
+  const openCarousel = (index) => {
+    setSelectedImageIndex(index);
+    setIsCarouselOpen(true);
+  };
 
   return (
-    <div className='xs:pb-3 flex items-center gap-2 border-b pb-2.5 md:gap-4 md:pb-6 max-w-4xl'>
-      <div className='flex w-fit items-center justify-center self-start rounded-full border'>
-        <div className='rounded-full bg-white'>
-          {authorImg ? (
-            <Image
-              src={authorImg}
-              alt='Testimonial Author'
-              width={56}
-              height={56}
-              className='h-14 w-14 rounded-full object-cover'
-            />
-          ) : (
+    <>
+      <div className='xs:pb-3 flex items-center gap-2 border-b pb-2.5 md:gap-4 md:pb-6 max-w-4xl'>
+        {/* User avatar section */}
+        <div className='flex w-fit items-center justify-center self-start rounded-full border'>
+          <div className='rounded-full bg-white'>
             <FaUserCircle className='h-14 w-14 rounded-full object-cover' />
+          </div>
+        </div>
+
+        {/* Review content section */}
+        <div className='flex-1'>
+          <div className='flex items-center gap-3'>
+            <span className='xs:text-xl inline-flex items-center gap-1 text-sm'>
+              {userId?.name || 'Anonymous'}
+              <MdVerified className='inline fill-green-700' size={20} />
+            </span>
+            <span className='xs:text-sm text-xs'>VERIFIED PURCHASE</span>
+          </div>
+
+          <div className='flex items-center gap-3 pt-1 text-sm font-semibold sm:text-base'>
+            <div className='flex'>
+              {[...Array(5)].map((_, i) => (
+                <MdStarRate
+                  key={i}
+                  className={`h-5 w-5 ${i < rating ? 'fill-yellow-400 text-yellow-400' : 'fill-gray-300 text-gray-300'}`}
+                />
+              ))}
+            </div>
+            <p className='text-sm'>{formattedDate}</p>
+          </div>
+          <p className='pt-3 text-xs leading-4 font-light sm:text-base lg:text-[18px]'>
+            {content}
+          </p>
+          {/* Image gallery */}
+          {Array.isArray(image) && image.length >= 1 && (
+            <div className='flex flex-wrap gap-2 my-3'>
+              {image.map((img, index) => (
+                <div
+                  key={index}
+                  className='relative h-24 w-24 rounded-md overflow-hidden border cursor-pointer hover:opacity-80 transition-opacity'
+                  onClick={() => openCarousel(index)}
+                >
+                  <Image
+                    src={baseApiUrl + img}
+                    alt={`Review image ${index + 1}`}
+                    fill
+                    className='object-cover'
+                  />
+                </div>
+              ))}
+            </div>
           )}
         </div>
       </div>
 
-      <div className='flex-1'>
-        <div className='flex items-center gap-3'>
-          <span className='xs:text-xl inline-flex items-center gap-1 text-sm'>
-            {userId?.name || 'Anonymous'}
-            <MdVerified className='inline fill-green-700' size={20} />
-          </span>
-          <span className='xs:text-sm text-xs'>VERIFIED PURCHASE</span>
-        </div>
-        <div className='flex items-center gap-3 pt-1 text-sm font-semibold sm:text-base'>
-          <div className='flex'>
-            {[...Array(5)].map((_, i) => (
-              <MdStarRate
-                key={i}
-                className={`h-5 w-5 ${i < rating ? 'fill-yellow-400 text-yellow-400' : 'fill-gray-300 text-gray-300'} transition-colors duration-300`}
-              />
-            ))}
-          </div>
-          <p>{formattedDate}</p>
-        </div>
-         <Image
-              src={image}
-              alt='Testimonial Author'
-              width={56}
-              height={56}
-              className='h-14 w-14 rounded-full object-cover'
-            />
-        <p className='pt-3 text-xs leading-4 font-light sm:text-base xl:text-[15px]'>
-          {content}
-        </p>
-      </div>
-    </div>
+      {/* Image Carousel Modal */}
+          <Dialog open={isCarouselOpen} onOpenChange={setIsCarouselOpen}>
+            <DialogTitle>Review Images</DialogTitle>
+            <DialogContent
+              className="p-0 w-[95%] md:w-full sm:max-w-2xl text-white md:text-black lg:max-w-4xl max-h-[60vh] h-full flex flex-col md:flex-row overflow-hidden border-0"
+              onInteractOutside={(e) => e.preventDefault(setIsCarouselOpen(false))} // Prevent closing when clicking outside
+            >
+
+              {/* Main image display */}
+              <div className="flex-1 h-full relative bg-black">
+                <Image
+                  src={baseApiUrl + image[selectedImageIndex]}
+                  alt={`Review image ${selectedImageIndex + 1}`}
+                  fill
+                  className="object-contain"
+                />
+
+                {/* Navigation arrows */}
+                {image.length > 1 && (
+                  <>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedImageIndex(prev => (prev - 1 + image.length) % image.length);
+                      }}
+                      className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-opacity-50 text-black bg-white/50 p-1 rounded-full hover:bg-opacity-70"
+                    >
+                      <IoMdArrowDropleft size={28} />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedImageIndex(prev => (prev + 1) % image.length);
+                      }}
+                      className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-opacity-50 text-black bg-white/50 p-1 rounded-full hover:bg-opacity-70"
+                    >
+                      <IoMdArrowDropright size={28} />
+                    </button>
+                  </>
+                )}
+              </div>
+
+              {/* Side content */}
+              <div className="w-full md:w-80 bg-white p-6 overflow-y-auto">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-full overflow-hidden">
+                    <FaUserCircle className="w-full h-full text-gray-400" />
+                  </div>
+                  <div>
+                    <h3 className="font-medium text-black text-lg sm:text-xl">{userId?.name || ''}</h3>
+                    <div className="flex items-center gap-1">
+                      {[...Array(5)].map((_, i) => (
+                        <MdStarRate
+                          key={i}
+                          className={`h-4 w-4 ${i < rating ? 'text-yellow-400' : 'text-gray-300'}`}
+                        />
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                <p className="text-gray-700 mb-3">{content}</p>
+                <p className="text-sm text-gray-500">{formattedDate}</p>
+
+                {image.length > 1 && (
+                  <div className="mt-6">
+                    <h4 className="text-sm font-medium mb-2 text-black">Images ({selectedImageIndex + 1}/{image.length})</h4>
+                    <div className="flex gap-2 overflow-x-auto py-2 px-2">
+                      {image.map((img, index) => (
+                        <div
+                          key={index}
+                          onClick={() => setSelectedImageIndex(index)}
+                          className={`flex-shrink-0 w-16 h-16 rounded border cursor-pointer overflow-hidden ${index === selectedImageIndex ? 'ring-2 ring-blue-500' : ''}`}
+                        >
+                          <Image
+                            src={baseApiUrl + img}
+                            alt={`Thumbnail ${index + 1}`}
+                            width={64}
+                            height={64}
+                            className="object-cover w-full h-full"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </DialogContent>
+          </Dialog>
+    </>
   );
 }
