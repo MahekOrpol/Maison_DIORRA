@@ -163,7 +163,7 @@ export default function Header({ categories, DiamondShapes, availableStyles }) {
           {categories &&
             categories.length > 0 &&
             categories.map((category, index) => (
-              <div key={category.id} className='col-span-1 px-4 py-8 2xl:px-6'>
+              <div key={category._id} className='col-span-1 px-4 py-8 2xl:px-6'>
                 <div
                   className={`flex h-full flex-col ${
                     index !== categories.length - 1 ? 'border-r-1' : ''

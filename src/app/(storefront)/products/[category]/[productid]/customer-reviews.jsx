@@ -1,23 +1,53 @@
 "use client"
 import ReviewModal from '@/components/modals/review-model';
-import { cn } from '@/lib/utils';
+import { baseApiUrl, cn } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FaLongArrowAltLeft, FaLongArrowAltRight, FaUserCircle } from 'react-icons/fa';
 import { MdStarRate, MdVerified } from 'react-icons/md';
 
-export const CustomerReviews = ({ className, data }) => {
+export const CustomerReviews = ({ className, productId }) => {
   const [showModal, setShowModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
   const reviewsPerPage = 3;
 
-  const reviews = data || []; // fallback to empty array
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`${baseApiUrl}/api/v1/review/get/product/${productId}`);
+        if (!response.ok) {
+          throw new Error(response.message);
+        }
+        const data = await response.json();
+        setReviews(data);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchReviews();
+  }, [productId]);
 
   // Calculate page count
   const totalPages = Math.ceil(reviews.length / reviewsPerPage);
   const startIndex = (currentPage - 1) * reviewsPerPage;
   const currentReviews = reviews.slice(startIndex, startIndex + reviewsPerPage);
+
+  if (loading) {
+    return <div className={cn('mt-8', className)}>Loading reviews...</div>;
+  }
+
+  if (error) {
+    return <div className={cn('mt-8', className)}>Error: {error}</div>;
+  }
 
   return (
     <>
@@ -79,12 +109,37 @@ export const CustomerReviews = ({ className, data }) => {
         </div>
       </div>
 
-      <ReviewModal isOpen={showModal} onClose={() => setShowModal(false)} />
+      <ReviewModal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
+        productId={productId}
+        onReviewSubmitted={() => {
+          // Refresh reviews after submission
+          setCurrentPage(1);
+          fetchReviews();
+        }}
+      />
     </>
   );
 };
 
-export function TestimonialCard({ author, authorImg, date, content, rating = 5 }) {
+export function TestimonialCard({
+  userId,
+  msg: content,
+  rating,
+  createdAt,
+  image
+}) {
+  // Format the date
+  const formattedDate = new Date(createdAt).toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'short',
+    day: 'numeric'
+  });
+
+  // Get the first image if available
+  const authorImg = image?.[0];
+
   return (
     <div className='xs:pb-3 flex items-center gap-2 border-b pb-2.5 md:gap-4 md:pb-6 max-w-4xl'>
       <div className='flex w-fit items-center justify-center self-start rounded-full border'>
@@ -106,10 +161,10 @@ export function TestimonialCard({ author, authorImg, date, content, rating = 5 }
       <div className='flex-1'>
         <div className='flex items-center gap-3'>
           <span className='xs:text-xl inline-flex items-center gap-1 text-sm'>
-            {author}
+            {userId?.name || 'Anonymous'}
             <MdVerified className='inline fill-green-700' size={20} />
           </span>
-          <span className='xs:text-sm text-xs'> VERIFIED PURCHASE</span>
+          <span className='xs:text-sm text-xs'>VERIFIED PURCHASE</span>
         </div>
         <div className='flex items-center gap-3 pt-1 text-sm font-semibold sm:text-base'>
           <div className='flex'>
@@ -120,9 +175,16 @@ export function TestimonialCard({ author, authorImg, date, content, rating = 5 }
               />
             ))}
           </div>
-          <p>{date}</p>
+          <p>{formattedDate}</p>
         </div>
-        <p className='pt-3 text-xs leading-4 font-light sm:text-sm xl:text-[15px]'>
+         <Image
+              src={image}
+              alt='Testimonial Author'
+              width={56}
+              height={56}
+              className='h-14 w-14 rounded-full object-cover'
+            />
+        <p className='pt-3 text-xs leading-4 font-light sm:text-base xl:text-[15px]'>
           {content}
         </p>
       </div>
