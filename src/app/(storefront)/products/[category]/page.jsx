@@ -1,12 +1,7 @@
 import CustomTagWrapper from '@/components/custom-tag-wrapper';
-// import { use, useMemo } from 'react';
-// import { useFilterStore } from '@/store/use-filter-store';
-// import { useFetch } from '@/hooks/useFetch';
 import ProductFilters from './product-filters';
 import ProductGrid from './product-grid';
 import { baseApiUrl } from '@/lib/utils';
-
-// export const dynamic = 'force-dynamic';
 
 const advertisements = [
   {
@@ -45,40 +40,7 @@ const advertisements = [
   }
 ];
 
-// export async function generateMetadata({ params }) {
-//   // const product = await getProductBySlug(params.slug);
-//   const product = {
-//     title: 'Product Name',
-//     description: 'Product description comming soon',
-//     image:
-//       'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-WG_0.jpg?v=1695166735&width=1200&height=1200&crop=center'
-//   };
-
-//   if (!product) return { title: 'Product Not Found' };
-
-//   return {
-//     title: `${product.title} | Maison Diorra`,
-//     description: product.description,
-//     openGraph: {
-//       title: product.title,
-//       description: product.description,
-//       images: [
-//         {
-//           url: product.image, // Should be full URL
-//           width: 100,
-//           height: 63
-//         }
-//       ],
-//       locale: 'en_US'
-//     }
-//   };
-// }
-
-// utils/api.ts or inside this component file
-
 async function fetchProducts(queryParams) {
-  // const query = buildQueryString(queryParams);
-  // console.log(queryParams);
   const res = await fetch(`${baseApiUrl}/api/v1/product/get${queryParams}`);
 
   if (res.status !== 200) throw new Error('Failed to fetch products');
@@ -101,9 +63,20 @@ async function fetchFilters() {
   return { availableMetals, availableShapes, allCategories };
 }
 
+function sortProducts(products, sortOrder) {
+  if (!products || !Array.isArray(products)) return products;
+
+  return [...products].sort((a, b) => {
+    const priceA = parseFloat(a.regularPrice?.$numberDecimal || 0);
+    const priceB = parseFloat(b.regularPrice?.$numberDecimal || 0);
+
+    return sortOrder === 'high' ? priceB - priceA : priceA - priceB;
+  });
+}
+
 export default async function ProductListingPage({ params, searchParams }) {
-  const { category } = await params;
-  const { metal, style, shape, sort } = await searchParams;
+  const { category } = params;
+  const { metal, style, shape, sort } = searchParams;
 
   const queryParams = {
     categoryName: category || '',
@@ -118,35 +91,12 @@ export default async function ProductListingPage({ params, searchParams }) {
     fetchFilters()
   ]);
 
-  // console.log('products', products);
-
   const availableStyles = (filters.allCategories || []).find(
     (item) => item.categoryName.toLowerCase() === category
   )?.style;
 
-  // console.log('availableStyles', availableStyles);
-  // console.log('allCategories', allCategories);
-  // console.log('availableShapes', availableShapes);
-  // console.log('availableMetals', availableMetals);
-  // console.log('data', data);
-  // const sortedData = useMemo(() => {
-  //   if (!data || !Array.isArray(data)) return [];
-
-  //   const extractPrice = (product) => {
-  //     // Extract price from "$numberDecimal" field and convert to float
-  //     return parseFloat(product.regularPrice?.$numberDecimal || 0);
-  //   };
-
-  //   if (sortByPrice === 'low') {
-  //     return [...data].sort((a, b) => extractPrice(a) - extractPrice(b));
-  //   }
-
-  //   if (sortByPrice === 'high') {
-  //     return [...data].sort((a, b) => extractPrice(b) - extractPrice(a));
-  //   }
-
-  //   return data;
-  // }, [data, sortByPrice]);
+  // Sort products based on the sort parameter
+  const sortedProducts = sortProducts(products, sort);
 
   return (
     <div className='wrapper'>
@@ -164,7 +114,7 @@ export default async function ProductListingPage({ params, searchParams }) {
         advertisements={advertisements}
         isLoading={false}
         error={null}
-        products={products || []}
+        products={sortedProducts || []}
       />
     </div>
   );
