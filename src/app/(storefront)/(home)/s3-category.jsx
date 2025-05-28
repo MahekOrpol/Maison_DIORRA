@@ -37,7 +37,7 @@ export default function S3CategorySection({ data }) {
       <div className='grid grid-cols-2 gap-x-4 gap-y-3.5 sm:flex-row sm:gap-x-6 sm:gap-y-4 md:grid-cols-4 md:gap-4 lg:gap-5'>
         {data.map((item) => (
           <Link
-            key={item.id}
+            key={item._id}
             href={`/products/${item.categoryName.toLowerCase()}`}
             className='flex flex-col items-center text-center text-lg font-medium transition-all duration-200'
           >

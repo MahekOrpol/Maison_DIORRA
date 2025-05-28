@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
@@ -23,40 +23,40 @@ import { useUserStore } from '@/store/user-store';
 import { useWishlistStore } from '@/store/wishlist-store';
 
 // Mock API service
-const authService = {
-  login: async (data) => {
-    // console.log('Logging in with:', data);
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({ success: true, token: 'mock-token' });
-      }, 1000);
-    });
-  },
-  register: async (data) => {
-    // console.log('Registering with:', data);
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({ success: true });
-      }, 1000);
-    });
-  },
-  forgotPassword: async (email) => {
-    // console.log('Sending reset link to:', email);
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({ success: true });
-      }, 1000);
-    });
-  },
-  resetPassword: async (data) => {
-    // console.log('Resetting password with:', data);
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        resolve({ success: true });
-      }, 1000);
-    });
-  }
-};
+// const authService = {
+//   login: async (data) => {
+//     // console.log('Logging in with:', data);
+//     return new Promise((resolve) => {
+//       setTimeout(() => {
+//         resolve({ success: true, token: 'mock-token' });
+//       }, 1000);
+//     });
+//   },
+//   register: async (data) => {
+//     // console.log('Registering with:', data);
+//     return new Promise((resolve) => {
+//       setTimeout(() => {
+//         resolve({ success: true });
+//       }, 1000);
+//     });
+//   },
+//   forgotPassword: async (email) => {
+//     // console.log('Sending reset link to:', email);
+//     return new Promise((resolve) => {
+//       setTimeout(() => {
+//         resolve({ success: true });
+//       }, 1000);
+//     });
+//   },
+//   resetPassword: async (data) => {
+//     // console.log('Resetting password with:', data);
+//     return new Promise((resolve) => {
+//       setTimeout(() => {
+//         resolve({ success: true });
+//       }, 1000);
+//     });
+//   }
+// };
 
 export default function LoginPage() {
   const [tab, setTab] = useState('login');
@@ -65,6 +65,13 @@ export default function LoginPage() {
   const { setUser } = useUserStore((state) => state);
 
   const router = useRouter();
+
+  // useEffect(() => {
+  //   console.log(isLoggedIn);
+  //   if (isLoggedIn) {
+  //     router.back();
+  //   }
+  // }, []);
 
   // Login Form
   const {
