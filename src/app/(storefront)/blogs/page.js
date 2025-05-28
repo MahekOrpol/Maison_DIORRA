@@ -2,13 +2,13 @@ import BlogCard from './blog-card';
 import Image from 'next/image';
 import Link from 'next/link';
 import { BlogsBanner } from './blogs-banner';
-import { baseApiUrl } from '@/lib/utils';
 
-const BASE_URL = baseApiUrl || 'http://153.92.222.195:5000';
+const BASE_URL =  'http://192.168.1.17:5000';
 
 async function getBlogPosts() {
+  debugger
   try {
-    const response = await fetch(`${BASE_URL}/api/v1/blog/get`);
+    const response = await fetch(`${BASE_URL}/api/v1/blogs`);
     if (!response.ok) {
       throw new Error('Failed to fetch blog posts');
     }

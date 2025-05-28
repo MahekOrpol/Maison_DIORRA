@@ -102,7 +102,7 @@ export const CustomerReviews = ({ className, productId }) => {
           >
             Add a Review
           </button>
-          <p className='mb-4'>
+          <p className='mb-4 mt-2'>
             You must be{' '}
             <Link href='/login' className='pe-2 font-semibold hover:underline'>
               logged in
@@ -204,94 +204,94 @@ export function TestimonialCard({
       </div>
 
       {/* Image Carousel Modal */}
-          <Dialog open={isCarouselOpen} onOpenChange={setIsCarouselOpen}>
-            <DialogTitle>Review Images</DialogTitle>
-            <DialogContent
-              className="p-0 w-[95%] md:w-full sm:max-w-2xl text-white md:text-black lg:max-w-4xl max-h-[60vh] h-full flex flex-col md:flex-row overflow-hidden border-0"
-              onInteractOutside={(e) => e.preventDefault(setIsCarouselOpen(false))} // Prevent closing when clicking outside
-            >
+      <Dialog open={isCarouselOpen} onOpenChange={setIsCarouselOpen}>
+        <DialogTitle className='hidden'>Review Images</DialogTitle>
+        <DialogContent
+          className="p-0 w-[95%] md:w-full sm:max-w-2xl text-white md:text-black lg:max-w-4xl max-h-[60vh] h-full flex flex-col md:flex-row overflow-hidden border-none"
+          onInteractOutside={(e) => e.preventDefault(setIsCarouselOpen(false))} // Prevent closing when clicking outside
+        >
 
-              {/* Main image display */}
-              <div className="flex-1 h-full relative bg-black">
-                <Image
-                  src={baseApiUrl + image[selectedImageIndex]}
-                  alt={`Review image ${selectedImageIndex + 1}`}
-                  fill
-                  className="object-contain"
-                />
+          {/* Main image display */}
+          <div className="flex-1 h-full relative bg-black">
+            <Image
+              src={baseApiUrl + image[selectedImageIndex]}
+              alt={`Review image ${selectedImageIndex + 1}`}
+              fill
+              className="object-contain"
+            />
 
-                {/* Navigation arrows */}
-                {image.length > 1 && (
-                  <>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedImageIndex(prev => (prev - 1 + image.length) % image.length);
-                      }}
-                      className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-opacity-50 text-black bg-white/50 p-1 rounded-full hover:bg-opacity-70"
-                    >
-                      <IoMdArrowDropleft size={28} />
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setSelectedImageIndex(prev => (prev + 1) % image.length);
-                      }}
-                      className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-opacity-50 text-black bg-white/50 p-1 rounded-full hover:bg-opacity-70"
-                    >
-                      <IoMdArrowDropright size={28} />
-                    </button>
-                  </>
-                )}
+            {/* Navigation arrows */}
+            {image.length > 1 && (
+              <>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedImageIndex(prev => (prev - 1 + image.length) % image.length);
+                  }}
+                  className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-opacity-50 text-black bg-white/50 p-1 rounded-full hover:bg-opacity-70"
+                >
+                  <IoMdArrowDropleft size={28} />
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedImageIndex(prev => (prev + 1) % image.length);
+                  }}
+                  className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-opacity-50 text-black bg-white/50 p-1 rounded-full hover:bg-opacity-70"
+                >
+                  <IoMdArrowDropright size={28} />
+                </button>
+              </>
+            )}
+          </div>
+
+          {/* Side content */}
+          <div className="w-full md:w-80 bg-white p-6 overflow-y-auto">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-12 h-12 rounded-full overflow-hidden">
+                <FaUserCircle className="w-full h-full text-gray-400" />
               </div>
-
-              {/* Side content */}
-              <div className="w-full md:w-80 bg-white p-6 overflow-y-auto">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-12 h-12 rounded-full overflow-hidden">
-                    <FaUserCircle className="w-full h-full text-gray-400" />
-                  </div>
-                  <div>
-                    <h3 className="font-medium text-black text-lg sm:text-xl">{userId?.name || ''}</h3>
-                    <div className="flex items-center gap-1">
-                      {[...Array(5)].map((_, i) => (
-                        <MdStarRate
-                          key={i}
-                          className={`h-4 w-4 ${i < rating ? 'text-yellow-400' : 'text-gray-300'}`}
-                        />
-                      ))}
-                    </div>
-                  </div>
+              <div>
+                <h3 className="font-medium text-black text-lg sm:text-xl">{userId?.name || ''}</h3>
+                <div className="flex items-center gap-1">
+                  {[...Array(5)].map((_, i) => (
+                    <MdStarRate
+                      key={i}
+                      className={`h-4 w-4 ${i < rating ? 'text-yellow-400' : 'text-gray-300'}`}
+                    />
+                  ))}
                 </div>
-
-                <p className="text-gray-700 mb-3">{content}</p>
-                <p className="text-sm text-gray-500">{formattedDate}</p>
-
-                {image.length > 1 && (
-                  <div className="mt-6">
-                    <h4 className="text-sm font-medium mb-2 text-black">Images ({selectedImageIndex + 1}/{image.length})</h4>
-                    <div className="flex gap-2 overflow-x-auto py-2 px-2">
-                      {image.map((img, index) => (
-                        <div
-                          key={index}
-                          onClick={() => setSelectedImageIndex(index)}
-                          className={`flex-shrink-0 w-16 h-16 rounded border cursor-pointer overflow-hidden ${index === selectedImageIndex ? 'ring-2 ring-blue-500' : ''}`}
-                        >
-                          <Image
-                            src={baseApiUrl + img}
-                            alt={`Thumbnail ${index + 1}`}
-                            width={64}
-                            height={64}
-                            className="object-cover w-full h-full"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
               </div>
-            </DialogContent>
-          </Dialog>
+            </div>
+
+            <p className="text-gray-700 mb-3">{content}</p>
+            <p className="text-sm text-gray-500">{formattedDate}</p>
+
+            {image.length > 1 && (
+              <div className="mt-6">
+                <h4 className="text-sm font-medium mb-2 text-black">Images ({selectedImageIndex + 1}/{image.length})</h4>
+                <div className="flex gap-2 overflow-x-auto py-2 px-2">
+                  {image.map((img, index) => (
+                    <div
+                      key={index}
+                      onClick={() => setSelectedImageIndex(index)}
+                      className={`flex-shrink-0 w-16 h-16 rounded border cursor-pointer overflow-hidden ${index === selectedImageIndex ? 'ring-2 ring-blue-500' : ''}`}
+                    >
+                      <Image
+                        src={baseApiUrl + img}
+                        alt={`Thumbnail ${index + 1}`}
+                        width={64}
+                        height={64}
+                        className="object-cover w-full h-full"
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

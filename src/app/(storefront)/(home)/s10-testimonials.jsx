@@ -139,13 +139,13 @@ export default function S10TestimonialSection({ data }) {
                 </div>
               </div>
               <div className='relative mt-2 md:mt-4'>
-                <Quote className='absolute -top-1 -left-3 h-4 w-4 rotate-180 stroke-1' />
+                {/* <Quote className='absolute -top-1 -left-3 h-4 w-4 rotate-180 stroke-1' /> */}
                 <p className='full px-3 text-xs font-light whitespace-normal md:text-sm lg:text-base 2xl:line-clamp-3 2xl:text-lg'>
                   The service exceeded all our expectations. Their attention to
                   detail and creative approach solved problems we didn't even
                   know we had!
                 </p>
-                <Quote className='absolute -right-4 bottom-3 h-4 w-4 stroke-1' />
+                {/* <Quote className='absolute -right-4 bottom-3 h-4 w-4 stroke-1' /> */}
               </div>
             </div>
           </div>

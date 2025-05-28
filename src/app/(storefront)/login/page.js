@@ -210,7 +210,7 @@ export default function LoginPage() {
                           'block w-full rounded-md border border-gray-300 px-3 py-2 focus:outline-none',
                           loginErrors.loginId ? 'border-red-500' : ''
                         )}
-                        placeholder='Email, Username, or PhoneNumber'
+                        placeholder='Email, Username, or Phonenumber'
                         {...loginRegister('loginId', {
                           required: 'This field is required',
                           validate: {
