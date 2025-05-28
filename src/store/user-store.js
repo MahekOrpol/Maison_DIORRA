@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+// import { persist } from 'zustand/middleware';
 
 export const useUserStore = create((set, get) => ({
   authUser: null,
@@ -26,3 +27,28 @@ export const useUserStore = create((set, get) => ({
     set({ authUser: null, isLoggedIn: false });
   }
 }));
+
+// implement persist later , instead of direct local storage useage...  by manually testing all working things..
+// export const useUserStore = create(
+//   persist(
+//     (set) => ({
+//       authUser: null,
+//       isLoggedIn: false,
+
+//       setUser: (user) => {
+//         set({ authUser: user, isLoggedIn: true });
+//       },
+
+//       clearUser: () => {
+//         set({ authUser: null, isLoggedIn: false });
+//       }
+//     }),
+//     {
+//       name: 'auth-user-storage', // key in localStorage
+//       partialize: (state) => ({
+//         authUser: state.authUser,
+//         isLoggedIn: state.isLoggedIn
+//       })
+//     }
+//   )
+// );

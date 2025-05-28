@@ -52,7 +52,6 @@ export default async function ProductDetailsPage({ params, searchParams }) {
     { cache: 'no-store' }
   );
   const product = await res.json();
-  // console.log('product >>', product);
   const galleryImages = getGalleryImages({
     metalVariation: product?.variations[0]?.metalVariations[0],
     filters: {
@@ -110,13 +109,13 @@ export default async function ProductDetailsPage({ params, searchParams }) {
           data={product}
           category={category}
           availableMetals={availableMetals}
-          // subcategory={subcategory}
-          // selectedMetal={selectedMetal}
-          // setSelectedMetal={setSelectedMetal}
+        // subcategory={subcategory}
+        // selectedMetal={selectedMetal}
+        // setSelectedMetal={setSelectedMetal}
         />
       </div>
       {/* <FinalDetails className='wrapper' data={product.finalProductDetails} /> */}
-      <CustomerReviews className='wrapper' data={reviews?.reviews ?? []} />
+      <CustomerReviews className='wrapper' data={reviews?.reviews ?? []} productId={productid} />
       <RelatedProducts className='wrapper' />
     </>
   );

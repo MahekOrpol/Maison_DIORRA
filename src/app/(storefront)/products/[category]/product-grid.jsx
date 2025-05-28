@@ -1,4 +1,5 @@
-import React from 'react';
+'use client'
+import React, { useEffect, useState } from 'react';
 import { ProductListingSkeleton } from '@/components/skeleton';
 import Advertisement from './ads';
 import PreviewCard from '@/components/preview-card';
@@ -7,8 +8,23 @@ export default function ProductGrid({
   products,
   isLoading,
   error,
-  advertisements
+  advertisements,
+  sortByPrice
 }) {
+  const [sortedProducts, setSortedProducts] = useState(products || []);
+
+  useEffect(() => {
+    // Client-side sorting fallback if server-side sorting fails
+    if (products && products.length > 0) {
+      const sorted = [...products].sort((a, b) => {
+        const priceA = parseFloat(a.regularPrice?.$numberDecimal || 0);
+        const priceB = parseFloat(b.regularPrice?.$numberDecimal || 0);
+
+        return sortByPrice === 'high' ? priceB - priceA : priceA - priceB;
+      });
+      setSortedProducts(sorted);
+    }
+  }, [products, sortByPrice]);
   if (isLoading) {
     return (
       <section className='mt-8 mb-10 grid grid-cols-2 gap-2 md:mb-20 md:grid-cols-3 md:gap-3 lg:grid-cols-4 lg:gap-5 xl:gap-6'>
