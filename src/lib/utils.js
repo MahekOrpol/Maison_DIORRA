@@ -88,5 +88,6 @@ export function getProductDetaisByCategory(category) {
 }
 
 export const baseApiUrl = 'https://dev.cloudbusiness.cloud';
+// export const baseApiUrl = 'http://192.168.1.5:5000';
 
 // export const baseApiUrl = 'https://massion-diorra-ywz5.onrender.com';

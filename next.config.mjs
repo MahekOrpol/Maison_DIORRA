@@ -5,13 +5,12 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'http',
-        hostname: 'localhost',
-        port: '5000',
+        hostname: '192.168.1.5', // for Local testing
         pathname: '/images/**'
       },
       {
         protocol: 'https',
-        hostname: 'dev.cloudbusiness.cloud', // for LAN testing
+        hostname: 'dev.cloudbusiness.cloud', // live backend
         pathname: '/images/**'
       },
       {
