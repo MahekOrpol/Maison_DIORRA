@@ -11,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Md360 } from 'react-icons/md';
 import { IoImageOutline, IoVideocamOutline } from 'react-icons/io5';
 // import Jewelry360Viewer from '@/components/product360viewer';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Jewelry360Viewer2 from '@/components/product360viewer2';
 import Jewelry360Viewer from '@/components/product360viewer';
@@ -48,10 +48,22 @@ const ZoomableImage = ({ src, alt }) => {
   const [backgroundPos, setBackgroundPos] = useState('50% 50%');
   const [isZoomed, setIsZoomed] = useState(false);
   const containerRef = useRef(null);
-  // console.log(src);
+  const [isDesktop, setIsDesktop] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const checkScreenSize = () => {
+        setIsDesktop(window.innerWidth >= 1024);
+      };
+
+      checkScreenSize();
+      window.addEventListener('resize', checkScreenSize);
+      return () => window.removeEventListener('resize', checkScreenSize);
+    }
+  }, []);
 
   const handleMouseMove = (e) => {
-    if (!isZoomed) return;
+    if (!isZoomed || !isDesktop) return;
 
     const { left, top, width, height } =
       containerRef.current.getBoundingClientRect();
@@ -61,13 +73,14 @@ const ZoomableImage = ({ src, alt }) => {
   };
 
   const handleMouseLeave = () => {
-    if (isZoomed) {
+    if (isZoomed && isDesktop) {
       setIsZoomed(false);
       setBackgroundPos('100% 100%');
     }
   };
 
   const handleClick = () => {
+    if (!isDesktop) return;
     setIsZoomed(!isZoomed);
     if (!isZoomed) {
       setBackgroundPos('50% 50%');
@@ -77,9 +90,8 @@ const ZoomableImage = ({ src, alt }) => {
   return (
     <div
       ref={containerRef}
-      className={`zoom-container relative h-full w-full cursor-zoom-in overflow-hidden ${
-        isZoomed ? 'cursor-grab active:cursor-grabbing' : ''
-      }`}
+      className={`zoom-container relative h-full w-full cursor-pointer lg:cursor-zoom-in overflow-hidden ${isZoomed ? 'lg:cursor-grab active:cursor-grabbing' : ''
+        }`}
       onClick={handleClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -89,9 +101,8 @@ const ZoomableImage = ({ src, alt }) => {
         alt={alt}
         width={600}
         height={600}
-        className={`zoom-image h-full w-full object-cover transition-transform duration-300 ${
-          isZoomed ? 'scale-150' : 'scale-100'
-        }`}
+        className={`zoom-image h-full w-full object-cover transition-transform duration-300 ${isZoomed ? 'scale-150' : 'scale-100'
+          }`}
         style={{
           transformOrigin: backgroundPos
         }}
@@ -230,7 +241,7 @@ function DesktopGallery({ media = [], media360 = [] }) {
       {/* <Jewelry360Viewer2 className='col-span-1' /> */}
       {/* <Jewelry360Viewer2 className='col-span-1' media360={media360} /> */}
       {/* <div className='overflow-hidden border-1 border-red-400'> */}
-      <Canvas360Viewer className='col-span-1 overflow-hidden border border-black' />
+      <Canvas360Viewer className='col-span-1 overflow-hidden border border-gray-200' />
       {/* </div> */}
       {/* )} */}
 

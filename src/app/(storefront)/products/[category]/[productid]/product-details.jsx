@@ -249,11 +249,11 @@ export default function ProductDetails({
               'xs:text-xs absolute right-0 rounded-full text-[10px] uppercase sm:relative xl:text-sm',
               selectedSize
                 ? selectedSize.quantity > 0
-                  ? 'me-2 border border-green-400 bg-green-100 px-2.5 py-0.5 text-green-800'
-                  : 'me-2 border border-red-600 bg-red-100 px-2.5 py-0.5 text-red-800'
+                  ? 'me-2 border border-green-400 bg-green-100 xs:px-2.5 py-0.5 text-green-800'
+                  : 'me-2 border border-red-600 bg-red-100 xs:px-2.5 py-0.5 text-red-800'
                 : data?.stock.includes('In Stock')
-                  ? 'me-2 border border-green-400 bg-green-100 px-2.5 py-0.5 text-green-800'
-                  : 'me-2 border border-red-600 bg-red-100 px-2.5 py-0.5 text-red-800'
+                  ? 'me-2 border border-green-400 bg-green-100 xs:px-2.5 py-0.5 text-green-800'
+                  : 'me-2 border border-red-600 bg-red-100 px-1 xs:px-2.5 py-0.5 text-red-800'
             )}
           >
             {selectedSize

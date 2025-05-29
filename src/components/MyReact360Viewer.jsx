@@ -190,17 +190,10 @@ export default function MyReact360Viewer({
           </div>
         </div>
       )}
-      <div className='pointer-events-none absolute top-3 left-3 z-10'>
-        <div className='rounded-full border border-gray-500 bg-white/70 px-3 py-1 text-xs font-medium text-gray-700'>
+
+      <div className='pointer-events-none mb-2 absolute right-0 bottom-2 left-0 z-10 flex items-center justify-center bg-gradient-to-t from-white/80 via-white/60 to-transparent py-2 text-gray-600 backdrop-blur-sm'>
+        <div className='bg-white/70 border rounded-full shadow-2xl px-3 py-1 text-xs font-medium text-gray-700'>
           <TbView360Number className='inline' size={20} /> Interactive Viewer
-        </div>
-      </div>
-      <div className='pointer-events-none absolute right-0 bottom-2 left-0 z-10 flex items-center justify-center bg-gradient-to-t from-white/80 via-white/60 to-transparent py-2 text-gray-600 backdrop-blur-sm'>
-        <div className='flex items-center gap-2'>
-          <span className='text-2xl text-gray-400'>↻</span>
-          <span className='text-sm font-medium'>
-            Touch & drag to explore in 360°
-          </span>
         </div>
       </div>
     </div>
