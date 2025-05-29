@@ -54,3 +54,7 @@ poster="https://cdn.shopify.com/s/files/1/0039/6994/1568/files/preview_images/a2
 /wishlist
 
 /user
+
+
+
+readme updated from anjali2
