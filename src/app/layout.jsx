@@ -87,6 +87,13 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang='en' suppressHydrationWarning>
+      <head>
+        <link
+          href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css'
+          rel='stylesheet'
+          type='text/css'
+        ></link>
+      </head>
       <body
         className={`${outfit.variable} ${rozha.variable} ${sandeMore.variable} font-outfit flex min-h-screen flex-col antialiased`}
       >
