@@ -48,7 +48,7 @@ export default function TrendingCollections() {
   );
 
   return (
-    <div className='xs:gap-3 3xl:max-h-[840px] flex flex-col gap-2 sm:gap-6 lg:max-h-[700px] lg:flex-row lg:items-stretch lg:justify-center lg:gap-4 xl:max-h-[760px] 2xl:gap-6'>
+    <div className='xs:gap-3 3xl:max-h-[840px] 3xl:px-28 3xl:gap-8 2xl:max-h-[990px] flex flex-col gap-2 sm:gap-6 lg:max-h-[700px] lg:flex-row lg:items-stretch lg:justify-center lg:gap-4 xl:max-h-[900px] 2xl:gap-6'>
       {/* Left cards - first 2 products */}
       {isLoading || !data?.products ? (
         <></>
@@ -70,9 +70,9 @@ export default function TrendingCollections() {
       )}
 
       {/* Center image + markers */}
-      <div className='relative aspect-[10/9] w-full overflow-hidden rounded-xl border lg:w-[54%] xl:aspect-[9/10]'>
+      <div className='relative aspect-[10/11] w-full overflow-hidden rounded-xl border lg:w-[54%] xl:aspect-[9/10]'>
         <Image
-          src='/img/model-img.svg'
+          src='/img/model-img1.png'
           height={1000}
           width={600}
           alt='model image'
@@ -82,22 +82,22 @@ export default function TrendingCollections() {
         <MarkerButton
           onClick={() => setSelectedCategory('bracelets')}
           tooltipContent={tooltipContent[0]}
-          className='3xl:bottom-[6%] absolute bottom-[12%] left-[40%] lg:bottom-[18%] lg:left-[30%] xl:bottom-[8%]'
+          className='absolute bottom-[6%] left-[67%] 3xl:bottom-[7%] lg:left-[68%] lg:bottom-[8%]'
         />
         <MarkerButton
           onClick={() => setSelectedCategory('rings')}
           tooltipContent={tooltipContent[1]}
-          className='3xl:top-[30%] absolute top-[25%] left-[20%] md:top-[26%] lg:top-[34%] lg:left-[14%] xl:top-[32%]'
+          className='top-[50%] left-[38%] xl:top-[51%] absolute md:left-[39%] lg:left-[38%] xl:left-[39%]'
         />
         <MarkerButton
           onClick={() => setSelectedCategory('pendants')}
           tooltipContent={tooltipContent[2]}
-          className='absolute right-[23%] bottom-[28%] lg:right-[22%] lg:bottom-[33%]'
+          className='absolute right-[33%] top-[47%] sm:top-[45%] sm:right-[32%] lg:top-[47%]'
         />
         <MarkerButton
           onClick={() => setSelectedCategory('earrings')}
           tooltipContent={tooltipContent[3]}
-          className='3xl:top-[16%] absolute top-[14%] right-[17%] md:top-[15%] md:right-[18%] lg:top-[24%] lg:right-[16%] xl:top-[20%] xl:right-[17%]'
+          className='absolute top-[6%] right-[30%] xs:right-[31%] xs:top-[5%] md:top-[6%] md:right-[32%] lg:top-[6%] lg:right-[29%] xl:right-[31%] 2xl:top-[6.5%] 2xl:right-[32%] 3xl:top-[3%]'
         />
       </div>
 
