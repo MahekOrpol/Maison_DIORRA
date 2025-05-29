@@ -4,7 +4,11 @@ import { create } from 'zustand';
 export const useUserStore = create((set, get) => ({
   authUser: null,
   isLoggedIn: false,
-
+  updateUser: (userData) =>
+    set({
+      authUser: userData, 
+      isLoggedIn: !!userData
+    }),
   setUser: (user) => {
     localStorage.setItem('authUser', JSON.stringify(user));
     set({ authUser: user, isLoggedIn: true });
