@@ -98,6 +98,10 @@ input[type='number']::-webkit-inner-spin-button {
 .hero-font {
   font-size: clamp(1.5rem, 0.9474rem + 2.9474vw, 5rem);
 }
+.v360-fullscreen-toggle {
+  display: none;
+}
+
 @keyframes float {
   0%,
   100% {

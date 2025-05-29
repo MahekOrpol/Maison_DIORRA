@@ -101,21 +101,25 @@ export default async function ProductDetailsPage({ params, searchParams }) {
       </div>
       <div className='mx-auto mb-8 flex w-full max-w-[2100px] flex-col gap-3 md:gap-4 lg:flex-row xl:gap-6'>
         <ProductGallery
-          className='lg:sticky lg:top-10 lg:h-fit lg:w-[45%]'
+          className='lg:sticky lg:top-10 lg:h-fit lg:w-[60%]'
           media={galleryImages}
         />
         <ProductDetails
-          className='3xl:pr-14 4xl:pr-20 px-3 sm:px-6 lg:w-[55%] lg:pr-8 2xl:pr-12'
+          className='3xl:pr-14 4xl:pr-20 px-3 sm:px-6 lg:w-[40%] lg:pr-8 2xl:pr-12'
           data={product}
           category={category}
           availableMetals={availableMetals}
-        // subcategory={subcategory}
-        // selectedMetal={selectedMetal}
-        // setSelectedMetal={setSelectedMetal}
+          // subcategory={subcategory}
+          // selectedMetal={selectedMetal}
+          // setSelectedMetal={setSelectedMetal}
         />
       </div>
       {/* <FinalDetails className='wrapper' data={product.finalProductDetails} /> */}
-      <CustomerReviews className='wrapper' data={reviews?.reviews ?? []} productId={productid} />
+      <CustomerReviews
+        className='wrapper'
+        data={reviews?.reviews ?? []}
+        productId={productid}
+      />
       <RelatedProducts className='wrapper' />
     </>
   );

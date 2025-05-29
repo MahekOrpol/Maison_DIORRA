@@ -10,9 +10,11 @@ import { baseApiUrl, cn } from '@/lib/utils';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Md360 } from 'react-icons/md';
 import { IoImageOutline, IoVideocamOutline } from 'react-icons/io5';
-import Jewelry360Viewer from '@/components/product360viewer';
+// import Jewelry360Viewer from '@/components/product360viewer';
 import { useRef, useState } from 'react';
 import Image from 'next/image';
+import Jewelry360Viewer2 from '@/components/product360viewer2';
+import Jewelry360Viewer from '@/components/product360viewer';
 
 const images = [
   'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-YG_0_6ed69b33-41f1-45a6-a66a-4b959b6fb034.jpg?v=1695166772&width=1200&height=1200&crop=center',
@@ -20,10 +22,6 @@ const images = [
   'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C1-YG-DIA-2Ks_0.jpg?v=1695166754&width=800&height=800&crop=center',
   'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-C125-YG-DIA-2ks_0.jpg?v=1695166754&width=800&height=800&crop=center'
 ];
-const images360 = Array.from(
-  { length: 75 },
-  (_, i) => `/img/360/ezgif-frame-${String(i + 1).padStart(3, '0')}.jpg`
-);
 
 // rings
 const images2 = [
@@ -141,7 +139,7 @@ export function MobileGallery({ media = [] }) {
         {/* 360 View */}
         <TabsContent
           value='360'
-          className='flex h-full w-full items-center justify-center overflow-hidden rounded-md bg-[#e2e2e2]'
+          className='flex h-full w-full items-center justify-center overflow-hidden rounded-md'
         >
           {/* <Image
             src='/img/dummy/360view.gif'
@@ -150,7 +148,8 @@ export function MobileGallery({ media = [] }) {
             height={300}
             className='max-h-full max-w-full object-contain'
           /> */}
-          <Jewelry360Viewer images={images360} />
+          {/* <Jewelry360Viewer2 /> */}
+          <Jewelry360Viewer />
         </TabsContent>
         {/* Image Carousel */}
         <TabsContent value='images' className='h-full w-full overflow-hidden'>
@@ -224,9 +223,10 @@ function DesktopGallery({ media = [] }) {
   return (
     <div className='grid grid-cols-2 gap-4 overflow-hidden'>
       {/* 360 Viewer First */}
-      {/* {viewer360 && (
-        <Jewelry360Viewer images={images360} className='col-span-1' />
-      )} */}
+      {/* {viewer360 && ( */}
+      {/* <Jewelry360Viewer images={images360} className='col-span-1' /> */}
+      <Jewelry360Viewer2 className='col-span-1' />
+      {/* )} */}
 
       {/* Render all images */}
       {imageMedia.slice(0, 6).map((item, index) => (
