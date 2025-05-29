@@ -115,7 +115,7 @@ export default function ProductDetails({
 
   const handleAddToCart = async () => {
     const { isLoggedIn, authUser } = useUserStore.getState();
-    const data = await res.json();
+    // const data = await res.json();
     if (!isLoggedIn || !authUser) {
       openModal('cartNotAllowed');
       return;
