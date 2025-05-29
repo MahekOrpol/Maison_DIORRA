@@ -14,28 +14,28 @@ import { useFetch } from '@/hooks/useFetch';
 
 const tooltipContent = [
   {
-    name: 'Braclets',
+    name: 'Bracelets',
     image: '/img/preview/bracelet-gold1.png',
-    salePrice: 500,
-    originialPrice: 800
+    description: 'Elegant gold bracelets for any occasion',
+    availability: 'Limited stock available'
   },
   {
     name: 'Rings',
     image: '/img/preview/ring1.png',
-    salePrice: 500,
-    originialPrice: 800
+    description: 'Exquisite rings with premium craftsmanship',
+    availability: 'Available in all sizes'
   },
   {
     name: 'Necklace',
     image: '/img/preview/necklace-gold1.png',
-    salePrice: 500,
-    originialPrice: 800
+    description: 'Statement necklaces for elegant looks',
+    availability: 'New collection'
   },
   {
     name: 'Earrings',
     image: '/img/preview/earring-gold1.png',
-    salePrice: 500,
-    originialPrice: 800
+    description: 'Lightweight gold earrings for daily wear',
+    availability: 'Bestseller'
   }
 ];
 
@@ -134,28 +134,22 @@ function MarkerButton({ onClick, className, tooltipContent }) {
         <Tooltip>
           <TooltipTrigger className='h-4 w-4 rounded-full bg-white hover:bg-white/90 sm:h-5 sm:w-5 xl:h-6 xl:w-6' />
           <TooltipContent className='overflow-hidden rounded-md bg-white py-0 pr-4 pl-0 text-black'>
-            <div className='relative z-60 flex items-center'>
+            <div className='relative z-60 flex'>
               <Image
                 src={tooltipContent.image}
                 height={90}
-                alt={'df'}
+                alt={tooltipContent.name || 'Product image'}
                 width={90}
                 className='h-[70px] w-[70px] sm:h-[80px] sm:w-[80px]'
               />
-              <div className='ml-2'>
-                <div className='flex items-baseline gap-2'>
-                  <p className='text-lg font-semibold sm:text-xl'>
-                    ${tooltipContent.salePrice}
-                  </p>
-                  <span className='text-muted-foreground text-base font-normal line-through sm:text-lg'>
-                    ${tooltipContent.originialPrice}
-                  </span>
-                </div>
-                <div className='flex items-center'>
-                  <p className='w-25 text-sm leading-5 sm:text-base'>
-                    {tooltipContent.name}
-                  </p>
-                  <ShoppingBag className='ml-2 h-6 w-6' />
+              <div className='ml-2 mt-1 pb-2'>
+                <p className='text-sm font-semibold sm:text-base'>
+                  {tooltipContent.name}
+                </p>
+                {/* New content added below the category name */}
+                <div className='mt-1 text-xs text-gray-600 sm:text-sm'>
+                  <p>{tooltipContent.description || 'Product description'}</p>
+                  <p className='mt-1'>{tooltipContent.availability || 'In stock'}</p>
                 </div>
               </div>
             </div>

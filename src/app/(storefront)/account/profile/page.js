@@ -1,23 +1,97 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Pencil } from 'lucide-react';
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle
-} from '@/components/ui/dialog';
 import { useUserStore } from '@/store/user-store';
+import { toast } from 'sonner'; // or your preferred toast library
+import { baseApiUrl } from '@/lib/utils';
 
 export default function Page() {
-  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-   const [formData, setFormData] = useState({});
-  const { authUser, isLoggedIn } = useUserStore((state) => state);
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    address: '',
+    city: '',
+    state: '',
+    zipCode: '',
+    birthDate: '',
+    gender: ''
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const { authUser, isLoggedIn, updateUser } = useUserStore((state) => state);
 
-  // Set form data when authUser changes
   useEffect(() => {
+    const fetchUserData = async () => {
+      if (!authUser?.id) return;
+
+      setIsLoading(true);
+      try {
+        const response = await fetch(
+          `${baseApiUrl}/api/v1/users/${authUser.id}`
+        );
+        if (!response.ok) {
+          throw new Error('Failed to fetch user data');
+        }
+        const userData = await response.json();
+        updateUser(userData); // Update store with fresh data
+
+        setFormData({
+          name: userData.name || '',
+          email: userData.email || '',
+          phone: userData.phone || '',
+          address: userData.address || '',
+          city: userData.city || '',
+          state: userData.state || '',
+          zipCode: userData.zipCode || '',
+          birthDate: userData.birthDate || '',
+          gender: userData.gender || ''
+        });
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+        toast.error('Failed to load profile data');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [authUser?.id, updateUser]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!authUser?.id) return;
+
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        `${baseApiUrl}/api/v1/users/${authUser.id}`,
+        {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error('Failed to update profile');
+      }
+
+      const updatedUser = await response.json();
+      updateUser(updatedUser); // Update store with new data
+      toast.success('Profile updated successfully');
+    } catch (error) {
+      console.error('Error updating profile:', error);
+      toast.error('Failed to update profile');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Reset form to original values
+  const handleReset = () => {
     if (authUser) {
       setFormData({
         name: authUser.name || '',
@@ -31,196 +105,160 @@ export default function Page() {
         gender: authUser.gender || ''
       });
     }
-  }, [authUser]);
+  };
 
-  if (!isLoggedIn) {
-    return null; // or a loading spinner while redirect happens
-  }
+  if (!isLoggedIn) return null;
 
   return (
-    <div className='mx-auto max-w-3xl px-4 py-10'>
-      <h1 className='mb-6 text-2xl font-bold'>My Account</h1>
-
-      {/* Profile Info */}
-      <Card className='mb-6 gap-1 pt-2 pb-4 md:gap-4 md:py-6'>
-        <CardHeader className='flex flex-row items-center justify-between'>
-          <CardTitle>Profile Details</CardTitle>
-          <Button
-            variant='ghost'
-            size='icon'
-            aria-label='Edit Profile'
-            onClick={() => setIsEditModalOpen(true)}
-          >
-            <Pencil className='h-4 w-4' />
-          </Button>
+    <div className='mx-auto max-w-3xl px-1 xs:px-4 py-10'>
+      <Card className='rounded-2xl border border-gray-200 bg-gradient-to-br gap-2 sm:gap-6 from-white to-gray-50 p-3 xs:p-6 shadow-xl transition-all duration-300 hover:shadow-2xl'>
+        <CardHeader>
+          <CardTitle className='text-2xl underline'>Edit Profile</CardTitle>
         </CardHeader>
-        <hr />
-        <CardContent className='space-y-3 pt-2 md:pt-0 xl:space-y-5'>
-          <div>
-            <p className='text-muted-foreground text-base font-medium'>Name</p>
-            <p className='text-base'>{authUser.name || 'Not provided'}</p>
-          </div>
-          <div>
-            <p className='text-muted-foreground text-base font-medium'>Email</p>
-            <p className='text-base'>{authUser.email || 'Not provided'}</p>
-          </div>
-          <div>
-            <p className='text-muted-foreground text-base font-medium'>Phone</p>
-            <p className='text-base'>{authUser.phone || 'Not provided'}</p>
-          </div>
-          <div>
-            <p className='text-muted-foreground text-base font-medium'>
-              Saved Address
-            </p>
-            <p className='text-base'>
-              {authUser.address ? (
-                <>
-                  {authUser.address}
-                  <br />
-                  {authUser.city}, {authUser.state} - {authUser.zipCode}
-                </>
-              ) : (
-                'Not provided'
-              )}
-            </p>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Edit Profile Modal */}
-      <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
-        <DialogContent className='bg-white md:h-fit md:max-w-fit'>
-          <DialogHeader>
-            <DialogTitle className='pb-3 text-left text-2xl text-black'>
-              Edit Profile
-            </DialogTitle>
-          </DialogHeader>
-          <form className='space-y-4'>
+        <CardContent>
+          <form className='space-y-4' onSubmit={handleSubmit}>
             <div className='flex gap-2'>
               <input
                 type='text'
-                id='first_name'
-                placeholder='First Name'
-                // value={authUser.name || ''}
+                placeholder='Full Name'
+                value={formData.name}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, name: e.target.value }))
+                }
                 className='block w-full rounded-lg border p-3 text-sm text-black'
-              />
-              <input
-                type='text'
-                id='last_name'
-                placeholder='Last Name'
-                className='block w-full rounded-lg border p-3 text-sm text-black'
+                disabled={isLoading}
+                required
               />
             </div>
-            <div className='space-y-2'>
+
+            <div>
               <input
-                id='email'
-                name='email'
+                type='email'
                 placeholder='Email'
-                // value={authUser.email || ''}
+                value={formData.email}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, email: e.target.value }))
+                }
                 className='block w-full rounded-lg border p-3 text-sm text-black'
+                disabled={isLoading}
+                required
               />
             </div>
 
-            <div className='space-y-2'>
+            <div>
               <input
-                id='phone'
-                name='phone'
+                type='tel'
                 placeholder='Phone Number'
-                // value={authUser.phone || ''}
+                value={formData.phone}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, phone: e.target.value }))
+                }
                 className='block w-full rounded-lg border p-3 text-sm text-black'
+                disabled={isLoading}
               />
             </div>
 
-            <div className='space-y-2'>
+            <div>
               <input
-                id='address'
-                name='address'
                 placeholder='Address'
-                // value={authUser.address || ''}
+                value={formData.address}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, address: e.target.value }))
+                }
                 className='block w-full rounded-lg border p-3 text-sm text-black'
+                disabled={isLoading}
               />
-            </div>
-            <div className='flex justify-between gap-2'>
-              <input
-                id='City'
-                name='City'
-                placeholder='City'
-                // value={authUser.city || ''}
-                className='block w-full rounded-lg border p-3 text-sm text-black'
-              />
-              <input
-                id='State'
-                name='State'
-                placeholder='State'
-                // value={authUser.state || ''}
-                className='block w-full rounded-lg border p-3 text-sm text-black'
-              />
-              <input
-                id='Zip Code'
-                name='Zip Code'
-                placeholder='Zip Code'
-                // value={authUser.zipCode || ''}
-                className='block w-full rounded-lg border p-3 text-sm text-black'
-              />
-            </div>
-            <div className='space-y-2'>
-              <input
-                id='Birth Date'
-                name='Birth Date'
-                placeholder='Birth Date'
-                // value={authUser.birthDate || ''}
-                className='block w-full rounded-lg border p-3 text-sm text-black'
-              />
-            </div>
-            <div className='mb-4 flex items-center justify-start gap-4'>
-              <div className='flex items-center'>
-                <input
-                  id='male-radio'
-                  type='radio'
-                  value='male'
-                  name='gender'
-                  className='h-4 w-4 border-gray-300 bg-gray-100 text-black'
-                />
-                <label
-                  htmlFor='male-radio'
-                  className='ms-2 text-sm font-medium text-gray-900 dark:text-gray-300'
-                >
-                  Male
-                </label>
-              </div>
-              <div className='flex items-center'>
-                <input
-                  id='female-radio'
-                  type='radio'
-                  value='female'
-                  name='gender'
-                  className='h-4 w-4 border-gray-300 bg-gray-100 text-black'
-                />
-                <label
-                  htmlFor='female-radio'
-                  className='ms-2 text-sm font-medium text-gray-900 dark:text-gray-300'
-                >
-                  Female
-                </label>
-              </div>
             </div>
 
-            <div className='flex justify-end space-x-2 pt-4'>
+            <div className='flex gap-2'>
+              <input
+                placeholder='City'
+                value={formData.city}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, city: e.target.value }))
+                }
+                className='block w-full rounded-lg border p-3 text-sm text-black'
+                disabled={isLoading}
+              />
+              <input
+                placeholder='State'
+                value={formData.state}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, state: e.target.value }))
+                }
+                className='block w-full rounded-lg border p-3 text-sm text-black'
+                disabled={isLoading}
+              />
+              <input
+                placeholder='Zip Code'
+                value={formData.zipCode}
+                onChange={(e) =>
+                  setFormData((prev) => ({ ...prev, zipCode: e.target.value }))
+                }
+                className='block w-full rounded-lg border p-3 text-sm text-black'
+                disabled={isLoading}
+              />
+            </div>
+
+            <div>
+              <input
+                type='date'
+                placeholder='Birth Date'
+                value={formData.birthDate}
+                onChange={(e) =>
+                  setFormData((prev) => ({
+                    ...prev,
+                    birthDate: e.target.value
+                  }))
+                }
+                className='block w-full rounded-lg border p-3 text-sm text-black'
+                disabled={isLoading}
+              />
+            </div>
+
+            <div className='flex items-center gap-4'>
+              <label className='flex items-center'>
+                <input
+                  type='radio'
+                  name='gender'
+                  value='male'
+                  checked={formData.gender === 'male'}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, gender: e.target.value }))
+                  }
+                  className='h-4 w-4 border-gray-300 text-black'
+                  disabled={isLoading}
+                />
+                <span className='ml-2 text-sm'>Male</span>
+              </label>
+              <label className='flex items-center'>
+                <input
+                  type='radio'
+                  name='gender'
+                  value='female'
+                  checked={formData.gender === 'female'}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, gender: e.target.value }))
+                  }
+                  className='h-4 w-4 border-gray-300 text-black'
+                  disabled={isLoading}
+                />
+                <span className='ml-2 text-sm'>Female</span>
+              </label>
+            </div>
+
+            <div className='sm:flex justify-end space-x-2 pt-4'>
               <Button
-                type='button'
-                variant='outline'
-                onClick={() => setIsEditModalOpen(false)}
-                className='border-gray-300 text-black'
+                type='submit'
+                className='bg-black text-white hover:bg-gray-800 w-full'
+                disabled={isLoading}
               >
-                Cancel
-              </Button>
-              <Button className='bg-black text-white hover:bg-gray-800'>
-                Save Changes
+                {isLoading ? 'Saving...' : 'Update Profile'}
               </Button>
             </div>
           </form>
-        </DialogContent>
-      </Dialog>
+        </CardContent>
+      </Card>
     </div>
   );
 }
