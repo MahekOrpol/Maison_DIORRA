@@ -15,6 +15,7 @@ import { useRef, useState } from 'react';
 import Image from 'next/image';
 import Jewelry360Viewer2 from '@/components/product360viewer2';
 import Jewelry360Viewer from '@/components/product360viewer';
+import Canvas360Viewer from '@/components/MyReact360Viewer';
 
 const images = [
   'https://cdn.shopify.com/s/files/1/0039/6994/1568/products/405QS-ER-R-YG_0_6ed69b33-41f1-45a6-a66a-4b959b6fb034.jpg?v=1695166772&width=1200&height=1200&crop=center',
@@ -98,8 +99,8 @@ const ZoomableImage = ({ src, alt }) => {
     </div>
   );
 };
-export default function ProductGallery({ className, media }) {
-  // console.log(media);
+export default function ProductGallery({ className, media, media360 }) {
+  console.log(media360);
   return (
     <>
       {/* Mobile View */}
@@ -113,7 +114,7 @@ export default function ProductGallery({ className, media }) {
           className
         )}
       >
-        <DesktopGallery media={media} />
+        <DesktopGallery media={media} media360={media360} />
       </div>
     </>
   );
@@ -149,7 +150,8 @@ export function MobileGallery({ media = [] }) {
             className='max-h-full max-w-full object-contain'
           /> */}
           {/* <Jewelry360Viewer2 /> */}
-          <Jewelry360Viewer />
+          {/* <Jewelry360Viewer /> */}
+          <Canvas360Viewer />
         </TabsContent>
         {/* Image Carousel */}
         <TabsContent value='images' className='h-full w-full overflow-hidden'>
@@ -211,7 +213,7 @@ export function MobileGallery({ media = [] }) {
   );
 }
 
-function DesktopGallery({ media = [] }) {
+function DesktopGallery({ media = [], media360 = [] }) {
   const isVideo = (file) =>
     file.toLowerCase().endsWith('.mp4') ||
     file.toLowerCase().endsWith('.webm') ||
@@ -224,8 +226,12 @@ function DesktopGallery({ media = [] }) {
     <div className='grid grid-cols-2 gap-4 overflow-hidden'>
       {/* 360 Viewer First */}
       {/* {viewer360 && ( */}
-      {/* <Jewelry360Viewer images={images360} className='col-span-1' /> */}
-      <Jewelry360Viewer2 className='col-span-1' />
+      {/* <Jewelry360Viewer className='col-span-1' /> */}
+      {/* <Jewelry360Viewer2 className='col-span-1' /> */}
+      {/* <Jewelry360Viewer2 className='col-span-1' media360={media360} /> */}
+      {/* <div className='overflow-hidden border-1 border-red-400'> */}
+      <Canvas360Viewer className='col-span-1 border' />
+      {/* </div> */}
       {/* )} */}
 
       {/* Render all images */}

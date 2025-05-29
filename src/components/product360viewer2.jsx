@@ -1,18 +1,28 @@
 'use client';
 
-import { cn } from '@/lib/utils';
+import { baseApiUrl, cn } from '@/lib/utils';
 import React360Viewer from 'react-360-view';
 import { useState } from 'react';
 
-export default function Jewelry360Viewer2({ className }) {
+export default function Jewelry360Viewer2({ className, media360 }) {
+  console.log(media360[0]);
   return (
     <div className={cn('relative cursor-grab border', className)}>
       <div className='h-full w-full'>
-        <React360Viewer
+        {/* <React360Viewer
           amount={100}
           imagePath='/img/360v1/'
           fileName='383Q-ER-PR-WG_{index}.jpg'
           spinReverse={true}
+          className='h-full w-full'
+          buttonClass='-translate-y-10 md:!hidden'
+        /> */}
+        <React360Viewer
+          amount={media360.length}
+          imagePath={`${baseApiUrl}/products/6837e41efedaa94ef4585533/360view/`}
+          fileName='frame_{index}.jpg'
+          // autoplay
+          spinReverse={false}
           className='h-full w-full'
           buttonClass='-translate-y-10 md:!hidden'
         />

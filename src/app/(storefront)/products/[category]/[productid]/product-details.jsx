@@ -180,6 +180,8 @@ export default function ProductDetails({
     }
   };
 
+  // console.log(data);
+
   return (
     <section className={cn(className)}>
       <div>
