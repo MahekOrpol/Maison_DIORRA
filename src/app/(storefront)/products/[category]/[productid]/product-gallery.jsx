@@ -230,7 +230,7 @@ function DesktopGallery({ media = [], media360 = [] }) {
       {/* <Jewelry360Viewer2 className='col-span-1' /> */}
       {/* <Jewelry360Viewer2 className='col-span-1' media360={media360} /> */}
       {/* <div className='overflow-hidden border-1 border-red-400'> */}
-      <Canvas360Viewer className='col-span-1 border' />
+      <Canvas360Viewer className='col-span-1 overflow-hidden border border-black' />
       {/* </div> */}
       {/* )} */}
 
