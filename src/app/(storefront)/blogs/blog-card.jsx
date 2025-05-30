@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { baseApiUrl } from '@/lib/utils';
 export default function BlogCard({ data }) {
   const router = useRouter();
+  const BASE_URL = 'http://192.168.1.6:5000';
   const handleClick = () => {
     router.push(`/blogs/${data?.id}`);
   };
@@ -18,11 +19,11 @@ export default function BlogCard({ data }) {
       <div className='aspect-[5/3.25] w-full overflow-hidden rounded-lg'>
         <img
           // src={`${baseApiUrl}${data?.imges}`}
-          src={`${data?.image}`}
+          src={`${BASE_URL}${data.coverImage}`}
           alt='Blog Image'
           className='h-full w-full object-cover transition duration-300 ease-in-out hover:scale-108 hover:rotate-2'
-          // width={380}
-          // height={210}
+        // width={380}
+        // height={210}
         />
       </div>
       {/* Content */}
@@ -36,11 +37,11 @@ export default function BlogCard({ data }) {
           <span className='text-base leading-3'>•</span> {data?.authorName}
         </p>
         <h3 className='line-clamp-1 overflow-hidden text-xl font-medium 2xl:text-2xl'>
-          {data?.headline || 'Blog Post Title'}
+          {data?.title || 'Blog Post Title'}
         </h3>
         <hr className='mb-2 border-black/50' />
         <p className='line-clamp-2 overflow-hidden text-sm font-light text-ellipsis lg:text-base 2xl:text-lg'>
-          {data?.description}
+          {data?.teaser}
         </p>
         <button
           onClick={handleClick}

@@ -107,7 +107,7 @@ export default function LoginPage() {
         setUser(user);
         resetLoginForm();
         await useWishlistStore.getState().fetchWishlist();
-        router.push('/account/profile');
+        router.push('/');
       }
     } catch (error) {
       console.error('Login failed:', error);

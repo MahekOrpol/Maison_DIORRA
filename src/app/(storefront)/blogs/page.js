@@ -2,31 +2,77 @@ import BlogCard from './blog-card';
 import Image from 'next/image';
 import Link from 'next/link';
 import { BlogsBanner } from './blogs-banner';
-import { baseApiUrl } from '@/lib/utils';
+// import { baseApiUrl } from '@/lib/utils';
 
-const BASE_URL = baseApiUrl || 'http://153.92.222.195:5000';
+const BASE_URL = 'http://192.168.1.6:5000/api/v1';
 
-async function getBlogPosts() {
+async function getBlogPosts(categoryId = null, page = 1, limit = 6) {
   try {
-    const response = await fetch(`${BASE_URL}/api/v1/blog/get`);
+    let url = `${BASE_URL}/blogs?page=${page}&limit=${limit}`;
+    if (categoryId) {
+      url += `&category=${categoryId}`;
+    }
+
+    const response = await fetch(url, {
+      cache: 'no-store'
+    });
     if (!response.ok) {
       throw new Error('Failed to fetch blog posts');
     }
     const data = await response.json();
-    return data;
+    return data; // Now returning the full response including pagination data
   } catch (error) {
     console.error('Error fetching blog posts:', error);
-    return []; // Return empty array if there's an error
+    return { results: [], totalPages: 1, currentPage: 1 };
   }
 }
 
-export default async function BlogsPage() {
-  const blogPosts = await getBlogPosts();
-  const updatedBlogPosts = blogPosts.map((post, index) => ({
-    ...post,
-    image: `/img/blogs/blog${index + 1}.png`
-  }));
-  // console.log(updatedBlogPosts);
+async function getBlogCategories() {
+  try {
+    const response = await fetch(`${BASE_URL}/blog-categories`, {
+      cache: 'no-store'
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch blog categories');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching blog categories:', error);
+    return [];
+  }
+}
+
+async function getBlogTags() {
+  try {
+    const response = await fetch(`${BASE_URL}/tags`, {
+      cache: 'no-store'
+    });
+    if (!response.ok) {
+      throw new Error('Failed to fetch blog tags');
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Error fetching blog tags:', error);
+    return [];
+  }
+}
+
+export default async function BlogsPage({ searchParams }) {
+  const categoryId = searchParams?.category || null;
+  const currentPage = Number(searchParams?.page) || 1;
+  const [blogData, categories, tags] = await Promise.all([
+    getBlogPosts(categoryId, currentPage),
+    getBlogCategories(),
+    getBlogTags()
+  ]);
+
+  const updatedBlogPosts =
+    blogData.results?.map((post, index) => ({
+      ...post,
+      image: post.coverImage || `/img/blogs/blog${index + 1}.png`
+    })) || [];
 
   return (
     <div>
@@ -36,23 +82,30 @@ export default async function BlogsPage() {
         subtitle='Home - Blogs and Articles'
       />
       <div className='wrapper flex w-full flex-col gap-4 pt-6 pb-10 sm:gap-6 md:pt-8 xl:flex-row xl:justify-between xl:gap-[4%]'>
-        {/* Blog posts container - takes full width on mobile, 2/3 on desktop */}
         <div className='grid grid-cols-1 gap-6 md:grid-cols-2 xl:w-[66%]'>
           {updatedBlogPosts.map((post, index) => (
             <BlogCard key={post.id || index} data={post} />
           ))}
         </div>
 
-        {/* Sticky filter sidebar - full width on mobile, 1/3 on desktop */}
-        <div className='xl:sticky xl:-top-1/4 xl:h-fit xl:w-[30%] xl:self-start'>
-          <BlogsFilter />
+        <div className='xl:sticky xl:top-10 xl:h-fit xl:w-[30%] xl:self-start'>
+          <BlogsFilter categories={categories} tags={tags} />
         </div>
+      </div>
+
+      {/* Pagination Component */}
+      <div className='wrapper pb-10'>
+        <Pagination
+          currentPage={currentPage}
+          totalPages={blogData.totalPages || 1}
+          categoryId={categoryId}
+        />
       </div>
     </div>
   );
 }
 
-export function BlogsFilter({ className }) {
+export function BlogsFilter({ className, categories = [], tags = [] }) {
   function TitleText({ text }) {
     return (
       <div className='mb-2 md:mb-4'>
@@ -95,73 +148,95 @@ export function BlogsFilter({ className }) {
           <TitleText text='Category' />
           <ul className='flex flex-col gap-[10px] font-light'>
             <li>
-              <Link href='#' className='inline-block hover:font-medium'>
-                News
+              <Link href='/blogs' className='inline-block hover:font-medium'>
+                All Categories
               </Link>
             </li>
-            <li>
-              <Link href='#' className='inline-block hover:font-medium'>
-                Accessories
-              </Link>
-            </li>
-            <li>
-              <Link href='#' className='inline-block hover:font-medium'>
-                Collection
-              </Link>
-            </li>
-            <li>
-              <Link href='#' className='inline-block hover:font-medium'>
-                Fashion
-              </Link>
-            </li>
-            <li>
-              <Link href='#' className='inline-block hover:font-medium'>
-                Jewellery
-              </Link>
-            </li>
-            <li>
-              <Link href='#' className='inline-block hover:font-medium'>
-                Trends
-              </Link>
-            </li>
+            {categories.map((category) => (
+              <li key={category.id}>
+                <Link
+                  href={`/blogs?category=${category.id}`}
+                  className='inline-block hover:font-medium'
+                >
+                  {category.name}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
         <div className='mt-4 rounded-md border p-4 shadow-md'>
           <TitleText text='Tags' />
           <div className='flex flex-wrap gap-2'>
-            <Link
-              href='#'
-              className='border border-black px-3 py-[2px] font-light transition-all duration-200 hover:bg-black hover:text-white'
-            >
-              Accessories
-            </Link>
-            <Link
-              href='#'
-              className='border border-black px-3 py-[2px] font-light transition-all duration-200 hover:bg-black hover:text-white'
-            >
-              Jewellery Collection
-            </Link>
-            <Link
-              href='#'
-              className='border border-black px-3 py-[2px] font-light transition-all duration-200 hover:bg-black hover:text-white'
-            >
-              Trends
-            </Link>
-            <Link
-              href='#'
-              className='border border-black px-3 py-[2px] font-light transition-all duration-200 hover:bg-black hover:text-white'
-            >
-              Fashion
-            </Link>
-            <Link
-              href='#'
-              className='border border-black px-3 py-[2px] font-light transition-all duration-200 hover:bg-black hover:text-white'
-            >
-              Collection
-            </Link>
+            {tags.map((tag) => (
+              <Link
+                key={tag.id}
+                href={`/blogs?tag=${tag.name}`}
+                className='border border-black px-3 py-[2px] font-light transition-all duration-200 hover:bg-black hover:text-white'
+              >
+                {tag.name}
+              </Link>
+            ))}
           </div>
         </div>
       </div>
+    </div>
+  );
+}
+
+export function Pagination({ currentPage, totalPages, categoryId }) {
+  const prevPage = currentPage > 1 ? currentPage - 1 : null;
+  const nextPage = currentPage < totalPages ? currentPage + 1 : null;
+
+  // Generate base URL with category if exists
+  const baseUrl = categoryId ? `/blogs?category=${categoryId}` : '/blogs';
+
+  return (
+    <div className='mt-8 flex items-center justify-center gap-4'>
+      {prevPage ? (
+        <Link
+          href={`${baseUrl}?page=${prevPage}`}
+          className='rounded border px-4 py-2 hover:bg-gray-100'
+        >
+          Previous
+        </Link>
+      ) : (
+        <button
+          className='cursor-not-allowed rounded border px-4 py-2 text-gray-400'
+          disabled
+        >
+          Previous
+        </button>
+      )}
+
+      <div className='flex gap-2'>
+        {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+          <Link
+            key={page}
+            href={`${baseUrl}?page=${page}`}
+            className={`rounded border px-3 py-1 ${
+              page === currentPage ? 'bg-black text-white' : 'hover:bg-gray-100'
+            }`}
+          >
+            {page}
+          </Link>
+        ))}
+      </div>
+
+      {nextPage ? (
+        <Link
+          href={`${baseUrl}?page=${nextPage}`}
+          className='rounded border px-4 py-2 hover:bg-gray-100'
+        >
+          Next
+        </Link>
+      ) : (
+        <button
+          className='cursor-not-allowed rounded border px-4 py-2 text-gray-400'
+          disabled
+        >
+          Next
+        </button>
+      )}
     </div>
   );
 }
