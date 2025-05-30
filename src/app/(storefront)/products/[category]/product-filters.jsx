@@ -17,7 +17,6 @@ import {
 import { baseApiUrl, cn } from '@/lib/utils';
 import { useFilterStore } from '@/store/use-filter-store';
 import { Funnel, RotateCcw, RotateCcwIcon, X } from 'lucide-react';
-import Image from 'next/image';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect } from 'react';
 

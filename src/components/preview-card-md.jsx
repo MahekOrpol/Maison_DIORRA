@@ -243,7 +243,7 @@ export default function PreviewCardMd({ product, className }) {
                     height={300}
                     className='max-h-full max-w-full object-contain'
                   /> */}
-                  <div className='xs:h-[190px] min min-[10] flex h-[160px] w-full items-center justify-center xl:min-[600px]:!h-[240px] 2xl:min-[600px]:!h-[250px]'>
+                  <div className='xs:h-[190px] min min-[10] flex h-[160px] w-full items-center justify-center sm:min-[600px]:!h-[250px] lg:min-[600px]:!h-[220px] xl:min-[600px]:!h-[290px] 2xl:min-[800px]:!h-[330px] 3xl:min-[600px]:!h-[270px]'>
                     <Image
                       src={baseApiUrl + image}
                       alt={'Product image'}

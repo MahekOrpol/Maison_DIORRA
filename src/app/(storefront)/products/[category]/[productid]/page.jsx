@@ -61,7 +61,7 @@ export default async function ProductDetailsPage({ params, searchParams }) {
       diamondShape: shape
     }
   });
-  console.log('galleryImages >>', product);
+  // console.log('galleryImages >>', product);
 
   // console.log(
   //   'combinedImages >>',
@@ -104,7 +104,7 @@ export default async function ProductDetailsPage({ params, searchParams }) {
         <ProductGallery
           className='lg:sticky lg:top-10 lg:h-fit lg:w-[60%]'
           media={galleryImages}
-          media360={product?.view360}
+          media360={product?.variations[0]?.metalVariations[0].view360}
         />
         <ProductDetails
           className='3xl:pr-14 4xl:pr-20 px-3 sm:px-6 lg:w-[40%] lg:pr-8 2xl:pr-12'
