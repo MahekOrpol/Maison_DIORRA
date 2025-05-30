@@ -75,8 +75,8 @@ function sortProducts(products, sortOrder) {
 }
 
 export default async function ProductListingPage({ params, searchParams }) {
-  const { category } = params;
-  const { metal, style, shape, sort } = searchParams;
+  const { category } = await params;
+  const { metal, style, shape, sort } = await searchParams;
 
   const queryParams = {
     categoryName: category || '',

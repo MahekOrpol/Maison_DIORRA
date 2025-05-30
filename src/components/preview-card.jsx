@@ -50,7 +50,7 @@ export default function PreviewCard({
     wishlist?.some((item) => item.product._id === product._id)
   );
   const BASE_URL = baseApiUrl || 'http://153.92.222.195:5000';
-  console.log('product', product);
+  // console.log('product', product);
   // console.log('wishlist', wishlist);
   // Fix: Reset metal when product changes
   useEffect(() => {

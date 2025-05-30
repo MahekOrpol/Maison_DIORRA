@@ -113,7 +113,7 @@ const ZoomableImage = ({ src, alt }) => {
   );
 };
 export default function ProductGallery({ className, media, media360 }) {
-  console.log(media360);
+  // console.log(media360);
   return (
     <>
       {/* Mobile View */}
