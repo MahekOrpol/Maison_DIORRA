@@ -50,7 +50,7 @@ export default function PreviewCard({
     wishlist?.some((item) => item.product._id === product._id)
   );
   const BASE_URL = baseApiUrl || 'http://153.92.222.195:5000';
-  // console.log('product', product);
+  console.log('product', product);
   // console.log('wishlist', wishlist);
   // Fix: Reset metal when product changes
   useEffect(() => {
@@ -223,7 +223,7 @@ export default function PreviewCard({
               <p className='3xl:text-2xl leading-1 font-medium sm:text-[22px] lg:text-xl'>
                 ${parseFloat(product.salePrice.$numberDecimal)}
               </p>
-              <span className='text-xs leading-1 font-normal text-[#958F86] line-through hidden xs2:block sm:text-base xl:text-lg'>
+              <span className='xs2:block hidden text-xs leading-1 font-normal text-[#958F86] line-through sm:text-base xl:text-lg'>
                 ${parseFloat(product.regularPrice.$numberDecimal)}
               </span>
             </div>
@@ -290,7 +290,10 @@ export default function PreviewCard({
                   <X size={20} />
                 </DrawerClose>
               </DrawerTitle>
-              <MobileGallery media={selectedMetal.images} />
+              <MobileGallery
+                media={selectedMetal.images}
+                media360={selectedMetal.view360}
+              />
             </DrawerHeader>
             <DrawerFooter className='pt-2'>
               <div className=''>

@@ -1,15 +1,15 @@
 'use client';
-import { cn } from '@/lib/utils';
+import { baseApiUrl, cn } from '@/lib/utils';
 import { useEffect, useRef, useState } from 'react';
-import { RotateCw } from 'lucide-react'; // optional icon
-import { TbView360Arrow, TbView360Number } from 'react-icons/tb';
-
-const imagePaths = Array.from(
-  { length: 99 },
-  (_, i) => `/img/360v1/383Q-ER-PR-WG_${String(i + 1)}.jpg`
-);
+import { TbView360Number } from 'react-icons/tb';
+//static testing
+// const imagePaths = Array.from(
+//   { length: 99 },
+//   (_, i) => `/img/360v1/383Q-ER-PR-WG_${String(i + 1)}.jpg`
+// );
 
 export default function MyReact360Viewer({
+  media360 = [],
   autoRotate = true,
   className,
   dragOnHoverOnly = true
@@ -25,6 +25,8 @@ export default function MyReact360Viewer({
   const isDragging = useRef(false);
   const startX = useRef(0);
   const resumeTimeout = useRef(null);
+
+  const imagePaths = media360.map((item) => baseApiUrl + item);
 
   useEffect(() => {
     if (!isLoading) {
@@ -59,6 +61,7 @@ export default function MyReact360Viewer({
         loadedCount++;
         if (loadedCount === imagePaths.length) {
           setLoadedImages(imgs);
+          4;
           setIsLoading(false);
         }
       };
@@ -191,8 +194,8 @@ export default function MyReact360Viewer({
         </div>
       )}
 
-      <div className='pointer-events-none mb-2 absolute right-0 bottom-2 left-0 z-10 flex items-center justify-center bg-gradient-to-t from-white/80 via-white/60 to-transparent py-2 text-gray-600 backdrop-blur-sm'>
-        <div className='bg-white/70 border rounded-full shadow-2xl px-3 py-1 text-xs font-medium text-gray-700'>
+      <div className='pointer-events-none absolute right-0 bottom-2 left-0 z-10 mb-2 flex items-center justify-center bg-gradient-to-t from-white/80 via-white/60 to-transparent py-2 text-gray-600 backdrop-blur-sm'>
+        <div className='rounded-full border bg-white/70 px-3 py-1 text-xs font-medium text-gray-700 shadow-2xl'>
           <TbView360Number className='inline' size={20} /> Interactive Viewer
         </div>
       </div>

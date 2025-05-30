@@ -90,8 +90,9 @@ const ZoomableImage = ({ src, alt }) => {
   return (
     <div
       ref={containerRef}
-      className={`zoom-container relative h-full w-full cursor-pointer lg:cursor-zoom-in overflow-hidden ${isZoomed ? 'lg:cursor-grab active:cursor-grabbing' : ''
-        }`}
+      className={`zoom-container relative h-full w-full cursor-pointer overflow-hidden lg:cursor-zoom-in ${
+        isZoomed ? 'active:cursor-grabbing lg:cursor-grab' : ''
+      }`}
       onClick={handleClick}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
@@ -101,8 +102,9 @@ const ZoomableImage = ({ src, alt }) => {
         alt={alt}
         width={600}
         height={600}
-        className={`zoom-image h-full w-full object-cover transition-transform duration-300 ${isZoomed ? 'scale-150' : 'scale-100'
-          }`}
+        className={`zoom-image h-full w-full object-cover transition-transform duration-300 ${
+          isZoomed ? 'scale-150' : 'scale-100'
+        }`}
         style={{
           transformOrigin: backgroundPos
         }}
@@ -116,7 +118,7 @@ export default function ProductGallery({ className, media, media360 }) {
     <>
       {/* Mobile View */}
       <div className={cn('block lg:hidden', className)}>
-        <MobileGallery media={media} />
+        <MobileGallery media={media} media360={media360} />
       </div>
       {/* Desktop View */}
       <div
@@ -131,16 +133,17 @@ export default function ProductGallery({ className, media, media360 }) {
   );
 }
 
-export function MobileGallery({ media = [] }) {
+export function MobileGallery({ media = [], media360 }) {
   const isVideo = (file) =>
     file.toLowerCase().endsWith('.mp4') ||
     file.toLowerCase().endsWith('.webm') ||
     file.toLowerCase().endsWith('.mov');
 
-  // Separate media into images and videos
+  const hasMedia360 = media360 && media360.length > 0;
   const imageMedia = media.filter((item) => !isVideo(item));
-  const videoMedia = media.find((item) => isVideo(item)); // Get first video if exists
-  const defaultTab = videoMedia ? '360' : '360';
+  const videoMedia = media.find((item) => isVideo(item));
+
+  const defaultTab = hasMedia360 ? '360' : 'images';
 
   return (
     <div className=''>
@@ -149,21 +152,15 @@ export function MobileGallery({ media = [] }) {
         className='aspect-[9.7/10] sm:aspect-[5/4]'
       >
         {/* 360 View */}
-        <TabsContent
-          value='360'
-          className='flex h-full w-full items-center justify-center overflow-hidden rounded-md'
-        >
-          {/* <Image
-            src='/img/dummy/360view.gif'
-            alt='360 view'
-            width={400}
-            height={300}
-            className='max-h-full max-w-full object-contain'
-          /> */}
-          {/* <Jewelry360Viewer2 /> */}
-          {/* <Jewelry360Viewer /> */}
-          <Canvas360Viewer />
-        </TabsContent>
+        {hasMedia360 && (
+          <TabsContent
+            value='360'
+            className='flex h-full w-full items-center justify-center overflow-hidden rounded-md'
+          >
+            <Canvas360Viewer media360={media360} />
+          </TabsContent>
+        )}
+
         {/* Image Carousel */}
         <TabsContent value='images' className='h-full w-full overflow-hidden'>
           <Carousel className='h-full w-full'>
@@ -181,9 +178,10 @@ export function MobileGallery({ media = [] }) {
             <CarouselNext className='-translate-x-12 border-none' />
           </Carousel>
         </TabsContent>
+
         {/* Video */}
-        <TabsContent value='video' className='h-full w-full overflow-hidden'>
-          {videoMedia && (
+        {videoMedia && (
+          <TabsContent value='video' className='h-full w-full overflow-hidden'>
             <div className='h-full w-full'>
               <video
                 src={baseApiUrl + videoMedia}
@@ -194,15 +192,19 @@ export function MobileGallery({ media = [] }) {
                 playsInline
               />
             </div>
+          </TabsContent>
+        )}
+
+        {/* Tabs Navigation */}
+        <TabsList className='flex w-full justify-start gap-2 rounded-none border-t border-b bg-transparent'>
+          {hasMedia360 && (
+            <TabsTrigger
+              value='360'
+              className='border-b-2 border-b-transparent font-medium data-[state=active]:border-b-black'
+            >
+              <Md360 /> 360°
+            </TabsTrigger>
           )}
-        </TabsContent>
-        <TabsList className='flex w-full justify-start gap-2 rounded-none border-b bg-transparent'>
-          <TabsTrigger
-            value='360'
-            className='border-b-2 border-b-transparent font-medium data-[state=active]:border-b-black'
-          >
-            <Md360 /> 360°
-          </TabsTrigger>
           <TabsTrigger
             value='images'
             className='border-b-2 border-b-transparent font-medium data-[state=active]:border-b-black'
@@ -224,7 +226,7 @@ export function MobileGallery({ media = [] }) {
   );
 }
 
-function DesktopGallery({ media = [], media360 = [] }) {
+function DesktopGallery({ media = [], media360 }) {
   const isVideo = (file) =>
     file.toLowerCase().endsWith('.mp4') ||
     file.toLowerCase().endsWith('.webm') ||
@@ -236,14 +238,12 @@ function DesktopGallery({ media = [], media360 = [] }) {
   return (
     <div className='grid grid-cols-2 gap-4 overflow-hidden'>
       {/* 360 Viewer First */}
-      {/* {viewer360 && ( */}
-      {/* <Jewelry360Viewer className='col-span-1' /> */}
-      {/* <Jewelry360Viewer2 className='col-span-1' /> */}
-      {/* <Jewelry360Viewer2 className='col-span-1' media360={media360} /> */}
-      {/* <div className='overflow-hidden border-1 border-red-400'> */}
-      <Canvas360Viewer className='col-span-1 overflow-hidden border border-gray-200' />
-      {/* </div> */}
-      {/* )} */}
+      {media360 && (
+        <Canvas360Viewer
+          className='col-span-1 overflow-hidden border border-gray-200'
+          media360={media360}
+        />
+      )}
 
       {/* Render all images */}
       {imageMedia.slice(0, 6).map((item, index) => (
