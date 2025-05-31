@@ -5,7 +5,7 @@ import React360Viewer from 'react-360-view';
 import { useState } from 'react';
 
 export default function Jewelry360Viewer2({ className, media360 }) {
-  console.log(media360[0]);
+  // console.log(media360[0]);
   return (
     <div className={cn('relative cursor-grab border', className)}>
       <div className='h-full w-full'>

@@ -1,15 +1,10 @@
 'use client';
 import { baseApiUrl, cn } from '@/lib/utils';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { TbView360Number } from 'react-icons/tb';
-//static testing
-// const imagePaths = Array.from(
-//   { length: 99 },
-//   (_, i) => `/img/360v1/383Q-ER-PR-WG_${String(i + 1)}.jpg`
-// );
 
 export default function MyReact360Viewer({
-  media360 = [],
+  media360,
   autoRotate = true,
   className,
   dragOnHoverOnly = true
@@ -26,8 +21,13 @@ export default function MyReact360Viewer({
   const startX = useRef(0);
   const resumeTimeout = useRef(null);
 
-  const imagePaths = media360.map((item) => baseApiUrl + item);
+  const imagePaths = useMemo(
+    () => media360.map((item) => baseApiUrl + item),
+    [media360]
+  );
+  // console.log(imagePaths[0]);
 
+  // Fade out hint after load
   useEffect(() => {
     if (!isLoading) {
       const timeout = setTimeout(() => setShowPrompt(false), 3000);
@@ -35,7 +35,14 @@ export default function MyReact360Viewer({
     }
   }, [isLoading]);
 
+  // Load the first image + draw initial frame on media360 change
   useEffect(() => {
+    if (!imagePaths.length) return;
+
+    setIsLoading(true);
+    setLoadedImages([]);
+    setCurrentFrame(0);
+
     const firstImage = new Image();
     firstImage.src = imagePaths[0];
     firstImage.onload = () => {
@@ -44,10 +51,11 @@ export default function MyReact360Viewer({
       arr[0] = firstImage;
       setLoadedImages(arr);
     };
-  }, []);
+  }, [imagePaths]);
 
+  // Preload remaining images
   useEffect(() => {
-    if (!loadedImages[0]) return;
+    if (!loadedImages[0] || imagePaths.length <= 1) return;
 
     const imgs = [...loadedImages];
     let loadedCount = 1;
@@ -61,12 +69,11 @@ export default function MyReact360Viewer({
         loadedCount++;
         if (loadedCount === imagePaths.length) {
           setLoadedImages(imgs);
-          4;
           setIsLoading(false);
         }
       };
     });
-  }, [loadedImages[0]]);
+  }, [loadedImages[0], imagePaths]);
 
   const drawFrame = (image) => {
     const canvas = canvasRef.current;
@@ -109,7 +116,7 @@ export default function MyReact360Viewer({
       setCurrentFrame((prev) => (prev + 1) % imagePaths.length);
     }, 100);
     return () => clearInterval(interval);
-  }, [autoRotate, loadedImages, isPaused, isLoading]);
+  }, [autoRotate, loadedImages, isPaused, isLoading, imagePaths]);
 
   const handleDragStart = (x) => {
     isDragging.current = true;
@@ -167,7 +174,7 @@ export default function MyReact360Viewer({
         }}
         onMouseMove={(e) => {
           if (dragOnHoverOnly && isHovering) {
-            handleDragStart(startX.current || e.clientX); // start if not dragging yet
+            handleDragStart(startX.current || e.clientX);
             handleDragMove(e.clientX);
           } else if (!dragOnHoverOnly) {
             handleDragMove(e.clientX);
@@ -182,6 +189,8 @@ export default function MyReact360Viewer({
         onTouchMove={(e) => handleDragMove(e.touches[0].clientX)}
         onTouchEnd={handleDragEnd}
       />
+
+      {/* Loading Overlay */}
       {isLoading && (
         <div className='absolute inset-0 z-20 flex items-center justify-center bg-white/60 backdrop-blur-sm'>
           <div className='relative flex h-30 w-30 items-center justify-center rounded-full border-3 border-gray-300'>
@@ -194,6 +203,7 @@ export default function MyReact360Viewer({
         </div>
       )}
 
+      {/* Bottom Hint */}
       <div className='pointer-events-none absolute right-0 bottom-2 left-0 z-10 mb-2 flex items-center justify-center bg-gradient-to-t from-white/80 via-white/60 to-transparent py-2 text-gray-600 backdrop-blur-sm'>
         <div className='rounded-full border bg-white/70 px-3 py-1 text-xs font-medium text-gray-700 shadow-2xl'>
           <TbView360Number className='inline' size={20} /> Interactive Viewer

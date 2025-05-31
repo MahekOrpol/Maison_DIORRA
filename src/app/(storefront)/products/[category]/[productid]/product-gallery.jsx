@@ -112,8 +112,9 @@ const ZoomableImage = ({ src, alt }) => {
     </div>
   );
 };
+
 export default function ProductGallery({ className, media, media360 }) {
-  console.log(media360);
+  // console.log(baseApiUrl + media360[0]);
   return (
     <>
       {/* Mobile View */}
@@ -235,10 +236,12 @@ function DesktopGallery({ media = [], media360 }) {
   const imageMedia = media.filter((item) => !isVideo(item));
   const videoMedia = media.find((item) => isVideo(item)); // Only one video expected
 
+  // console.log(baseApiUrl + media360[0]);
+
   return (
     <div className='grid grid-cols-2 gap-4 overflow-hidden'>
       {/* 360 Viewer First */}
-      {media360 && (
+      {media360 && media360.length > 0 && (
         <Canvas360Viewer
           className='col-span-1 overflow-hidden border border-gray-200'
           media360={media360}

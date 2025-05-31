@@ -52,7 +52,7 @@ export default async function ProductDetailsPage({ params, searchParams }) {
     { cache: 'no-store' }
   );
   const product = await res.json();
-  const galleryImages = getGalleryImages({
+  const galleryMedias = getGalleryMedias({
     metalVariation: product?.variations[0]?.metalVariations[0],
     filters: {
       // search params
@@ -61,7 +61,19 @@ export default async function ProductDetailsPage({ params, searchParams }) {
       diamondShape: shape
     }
   });
-  // console.log('galleryImages >>', product);
+  // const _360Medias = get360Medias({
+  //   metalVariation: product?.variations[0]?.metalVariations[0],
+  //   filters: {
+  //     // search params
+  //     style: style,
+  //     shank: shank,
+  //     diamondShape: shape
+  //   }
+  // });
+  // console.log('galleryMedias >>', galleryMedias.iamges);
+  // console.log('_360Medias >>', _360Medias.iamges);
+
+  // console.log('product >>', product);
 
   // console.log(
   //   'combinedImages >>',
@@ -103,8 +115,8 @@ export default async function ProductDetailsPage({ params, searchParams }) {
       <div className='mx-auto mb-8 flex w-full max-w-[2100px] flex-col gap-3 md:gap-4 lg:flex-row xl:gap-6'>
         <ProductGallery
           className='lg:sticky lg:top-10 lg:h-fit lg:w-[60%]'
-          media={galleryImages}
-          media360={product?.variations[0]?.metalVariations[0].view360}
+          media360={galleryMedias.view360}
+          media={galleryMedias.images}
         />
         <ProductDetails
           className='3xl:pr-14 4xl:pr-20 px-3 sm:px-6 lg:w-[40%] lg:pr-8 2xl:pr-12'
@@ -142,16 +154,26 @@ export const PriceDisplay = ({ price, originalPrice, className = '' }) => {
   );
 };
 
-function getGalleryImages({ metalVariation, filters }) {
+function getGalleryMedias({ metalVariation, filters }) {
   const { style, shank, diamondShape } = filters || {};
 
   const isFilterApplied = diamondShape || shank || style;
   // console.log('filters >>', filters);
 
-  if (!metalVariation) return [];
+  if (!metalVariation)
+    return {
+      images: [],
+      view360: []
+    };
 
   if (!isFilterApplied) {
-    return metalVariation.images || [];
+    // console.log('filters >>', filters);
+    // console.log('metalVariation >>', metalVariation);
+    // return metalVariation.images || [];
+    return {
+      images: metalVariation.images || [],
+      view360: metalVariation.view360 || []
+    };
   }
 
   const matchedCombination = metalVariation.combinationImages?.find((combo) => {
@@ -162,9 +184,47 @@ function getGalleryImages({ metalVariation, filters }) {
         combo.diamondShape?.toLowerCase() === diamondShape.toLowerCase())
     );
   });
+  // console.log('filters >>', filters);
+  // console.log('matchedCombination >>', matchedCombination);
+  // return matchedCombination?.images || metalVariation.images || [];
 
-  return matchedCombination?.images || metalVariation.images || [];
+  return {
+    images: matchedCombination?.images || metalVariation.images || [],
+    view360: matchedCombination?.view360 || metalVariation.view360 || []
+  };
 }
+// function get360Medias({ metalVariation, filters }) {
+//   const { style, shank, diamondShape } = filters || {};
+
+//   const isFilterApplied = diamondShape || shank || style;
+//   // console.log('filters >>', filters);
+
+//   if (!metalVariation) return [];
+
+//   if (!isFilterApplied) {
+//     console.log('filters >>', filters);
+//     console.log('metalVariation >>', metalVariation);
+//     return metalVariation.view360 || [];
+//   }
+
+//   const matchedCombination = metalVariation.combinationImages?.find((combo) => {
+//     return (
+//       (!style || combo.style?.toLowerCase() === style.toLowerCase()) &&
+//       (!shank || combo.shank?.toLowerCase() === shank.toLowerCase()) &&
+//       (!diamondShape ||
+//         combo.diamondShape?.toLowerCase() === diamondShape.toLowerCase())
+//     );
+//   });
+//   console.log('filters >>', filters);
+//   console.log(matchedCombination);
+
+//   return matchedCombination?.view360 || metalVariation.view360 || [];
+
+//   // return {
+//   //   images: matchedCombination?.images || metalVariation.images || [],
+//   //   view360: metalVariation.view360 || []
+//   // };
+// }
 
 function buildQueryString(params) {
   const query = Object.entries(params)
