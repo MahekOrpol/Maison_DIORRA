@@ -72,10 +72,8 @@ export default async function Page({ params, searchParams }) {
             <div>
               <img
                 src={`${BASE_URL}${blog.coverImage}`}
-                width={800}
-                height={100}
                 alt='Blog Image'
-                className='xs:h-96 h-60 w-full rounded-md object-cover sm:h-[600px]'
+                className='h-full w-full rounded-md'
               />
             </div>
             <p className='my-1 text-sm font-light md:my-2 lg:text-base'>
@@ -86,7 +84,7 @@ export default async function Page({ params, searchParams }) {
                 year: 'numeric'
               })}
             </p>
-            <h2 className='pt-1.5 text-xl leading-6 font-semibold md:text-3xl lg:text-3xl'>
+            <h2 className='pt-0.5 sm:pt-1.5 text-xl leading-6 font-semibold md:text-3xl lg:text-3xl'>
               {blog.title}
             </h2>
           </div>
@@ -155,7 +153,7 @@ export default async function Page({ params, searchParams }) {
               width={90}
               height={90}
               alt='article thumbnail'
-              className='w-[90px] rounded-lg opacity-50 lg:h-[100px] lg:w-30'
+              className='h-[80px] w-[100px] rounded-lg object-cover opacity-50 sm:h-[100px]'
             />
             <div className='space-y-1'>
               <p className='xs:text-xs inline-flex items-center text-[10px] font-medium tracking-widest'>
@@ -164,6 +162,9 @@ export default async function Page({ params, searchParams }) {
               </p>
               <p className='xs:text-base text-sm leading-4 font-medium lg:text-lg'>
                 No older posts
+              </p>
+              <p className='mt-1 text-sm'>
+                You've reached the beginning of our blog
               </p>
             </div>
           </div>
@@ -190,7 +191,7 @@ export default async function Page({ params, searchParams }) {
               width={90}
               height={90}
               alt='article thumbnail'
-              className='h-[100px] w-[100px] rounded-lg object-cover'
+              className='h-[80px] w-[100px] rounded-lg object-cover sm:h-[100px]'
             />
           </Link>
         ) : (
@@ -198,10 +199,13 @@ export default async function Page({ params, searchParams }) {
             <div className='space-y-1 text-right'>
               <p className='xs:text-xs inline-flex items-center text-[10px] font-medium tracking-widest'>
                 NEXT BLOG
-                <ChevronRight size={18} className='inline' />
+                <ChevronRight size={18} className='-ml-1 inline' />
               </p>
               <p className='xs:text-base text-sm leading-4 font-medium lg:text-lg'>
-                No newer posts
+                No newer posts available
+              </p>
+              <p className='mt-1 text-sm'>
+                You're viewing our most recent content
               </p>
             </div>
             <Image
@@ -209,7 +213,7 @@ export default async function Page({ params, searchParams }) {
               width={90}
               height={90}
               alt='article thumbnail'
-              className='w-[90px] rounded-lg opacity-50 lg:h-[100px] lg:w-30'
+              className='h-[80px] w-[100px] rounded-lg object-cover opacity-50 sm:h-[100px]'
             />
           </div>
         )}

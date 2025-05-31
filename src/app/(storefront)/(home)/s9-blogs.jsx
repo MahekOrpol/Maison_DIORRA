@@ -174,11 +174,15 @@ export default function S9BlogsSection({ data }) {
     };
   }, [slider]);
 
-  const tempBlogPosts = data.map((post, index) => ({
-    ...post,
-    image: `/img/blogs/blog${index + 1}.png`
-  }));
-  // console.log(tempBlogPosts);
+  const formattedBlogs = data?.results?.map(blog => ({
+    id: blog.id,
+    coverImage: blog.coverImage,
+    title: blog.title,
+    teaser: blog.teaser,
+    createdAt: blog.createdAt,
+    authorName: blog.authorName || 'Feronia',
+    slug: blog.slug || blog.id
+  })) || [];
 
   return (
     <section className='wrapper pt-6 md:pt-7 lg:pt-8 xl:pt-14'>
@@ -192,9 +196,9 @@ export default function S9BlogsSection({ data }) {
           isSliderReady ? 'opacity-100' : 'opacity-0'
         }`}
       >
-        {tempBlogPosts.map((post, index) => (
-          <div key={index} className='keen-slider__slide'>
-            <BlogCard data={post} />
+        {formattedBlogs.map((blog, index) => (
+          <div key={blog.id || index} className='keen-slider__slide'>
+            <BlogCard data={blog} />
           </div>
         ))}
       </div>

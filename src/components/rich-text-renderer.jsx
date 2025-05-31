@@ -90,11 +90,11 @@ export const RichTextRenderer = ({ html }) => {
 
         /* Images */
         .rich-text-content img {
-          max-width: 40%;
-          height: auto;
-          margin: 1.5rem 0;
-          border-radius: 4px;
-          display: block;
+         max-width: 32%;
+         height: auto;
+         margin: 1.5rem auto; /* <-- centers the image horizontally */
+         border-radius: 4px;
+         display: block;
         }
 
         /* Blockquotes */

@@ -161,10 +161,10 @@ export function BlogsFilter({
                   className='object-cover'
                 />
                 <div>
-                  <p className='mb-1 line-clamp-2 text-lg leading-5 font-medium'>
+                  <p className='mb-1 line-clamp-2 text-base xs:text-lg leading-5 font-medium'>
                     {post.title}
                   </p>
-                  <p className='text-sm font-medium'>
+                  <p className='text-xs xs:text-sm font-medium'>
                     {new Date(post.createdAt).toLocaleDateString('en-US', {
                       month: 'short',
                       day: '2-digit',

@@ -243,6 +243,28 @@ export default function ProductDetails({
           <span className='xs:text-sm md:text-base xl:text-lg'>
             SKU: {data?.sku}
           </span>
+        </div>
+
+        {/* Pricing */}
+        <div className='mb-1 md:mb-2 flex justify-between items-center'>
+          <div>
+            <span className='text-2xl font-semibold text-gray-900 lg:text-3xl'>
+              ${' '}
+              {parseFloat(
+                selectedSize
+                  ? parseFloat(selectedSize?.salePrice.$numberDecimal)
+                  : data?.salePrice.$numberDecimal
+              )}
+            </span>
+            <span className='text-muted-foreground ml-2 text-xl line-through'>
+              ${' '}
+              {parseFloat(
+                selectedSize
+                  ? parseFloat(selectedSize?.regularPrice.$numberDecimal)
+                  : data?.regularPrice.$numberDecimal
+              )}
+            </span>
+          </div>
           <Badge
             variant='outline'
             className={cn(
@@ -262,26 +284,6 @@ export default function ProductDetails({
                 : 'Out of Stock'
               : data?.stock}
           </Badge>
-        </div>
-
-        {/* Pricing */}
-        <div className='mb-1 md:mb-2'>
-          <span className='text-2xl font-semibold text-gray-900 lg:text-3xl'>
-            ${' '}
-            {parseFloat(
-              selectedSize
-                ? parseFloat(selectedSize?.salePrice.$numberDecimal)
-                : data?.salePrice.$numberDecimal
-            )}
-          </span>
-          <span className='text-muted-foreground ml-2 text-xl line-through'>
-            ${' '}
-            {parseFloat(
-              selectedSize
-                ? parseFloat(selectedSize?.regularPrice.$numberDecimal)
-                : data?.regularPrice.$numberDecimal
-            )}
-          </span>
         </div>
         {/* Product Description */}
         <p className='xs:p-0 mb-3 pt-3 text-justify text-xs text-gray-700 sm:text-sm md:mb-6 lg:text-base'>
@@ -357,11 +359,10 @@ export default function ProductDetails({
                 onClick={() => {
                   handleFilterChange('metal', item.label);
                 }}
-                className={`bg-secondary flex items-center gap-2 rounded-md border px-3 py-3 text-left transition ${
-                  isSelected
-                    ? 'border-black'
-                    : 'border-transparent hover:border-black'
-                }`}
+                className={`bg-secondary flex items-center gap-2 rounded-md border px-3 py-3 text-left transition ${isSelected
+                  ? 'border-black'
+                  : 'border-transparent hover:border-black'
+                  }`}
               >
                 <div
                   className='h-4 w-4 shrink-0 rounded-full border border-gray-300'
@@ -503,7 +504,7 @@ export default function ProductDetails({
             <Button
               variant='outline'
               className='h-10 gap-4 rounded-lg border border-black text-base lg:h-12 lg:text-lg'
-              // onClick={handleAddToCart}
+              onClick={handleAddToCart}
             >
               <AiOutlineShoppingCart className='size-6' />
               Add to Cart
@@ -519,7 +520,7 @@ export default function ProductDetails({
             <Button
               className='h-10 flex-1 gap-4 rounded-lg text-base lg:h-12 lg:text-lg'
               disabled
-              // onClick={handleAddToCart}
+            // onClick={handleAddToCart}
             >
               <FaWhatsapp className='mr- size-6' /> Order On Whatsapp
             </Button>
@@ -538,9 +539,8 @@ export default function ProductDetails({
               className='hover:bg-muted flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 bg-white transition md:h-10 md:w-10'
             >
               <Heart
-                className={`h-4 w-4 transition-colors md:h-5 md:w-5 ${
-                  liked ? 'fill-primary text-primary' : 'text-black'
-                }`}
+                className={`h-4 w-4 transition-colors md:h-5 md:w-5 ${liked ? 'fill-primary text-primary' : 'text-black'
+                  }`}
                 strokeWidth={1.6}
               />
             </button>

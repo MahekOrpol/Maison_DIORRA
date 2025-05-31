@@ -4,6 +4,12 @@ import { baseApiUrl } from '../utils';
 
 const BASE_URL = `${baseApiUrl || 'http://153.92.222.195:5000'}/api/v1`;
 
+
+
+
+
+const BASE_URL1 = "http://192.168.1.6:5000";
+
 // export async function fetchHeroSection() {
 //   const res = await fetch(`${BASE_URL}/home/hero`, {
 // const res = await fetch(`${BASE_URL}/test`, {
@@ -64,7 +70,7 @@ export async function fetchTrendingCollections(categoryName = 'rings') {
 
 export async function fetchBlogs() {
   //   const res = await fetch(`${BASE_URL}/blogs`, {
-  const res = await fetch(`${BASE_URL}/blog/get`, {
+  const res = await fetch(`${BASE_URL1}/api/v1/blogs`, {
     // next: { revalidate: 3600 }
   });
   return res.json();

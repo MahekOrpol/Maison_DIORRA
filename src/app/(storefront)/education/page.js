@@ -5,50 +5,44 @@ import { IoDiamondOutline } from 'react-icons/io5';
 import { TbCube3dSphere } from 'react-icons/tb';
 import { GiDiamondRing } from 'react-icons/gi';
 import Tab1Content from './tab1content';
-import Tab2Content from './tab2content';
-import Tab3Content from './tab3content';
+async function fetchEducationData() {
+  const res = await fetch('http://192.168.1.6:5000/api/v1/education');
+  return res.json();
+}
+export default async function Page() {
+  const data = await fetchEducationData();
 
-export default function Page() {
   return (
     <section className='xl:pt-2'>
       <EduBanner imgUrl='/img/banner4.png' className='' />
       <section>
-        <Tabs defaultValue='diamonds' className='wrapper pb-8'>
+        <Tabs defaultValue={data?.[0]?.name} className='wrapper pb-8'>
           <TabsList className='grid h-[55px] w-full grid-cols-3 gap-1 rounded-none border-b bg-transparent text-xs md:gap-[10vw]'>
-            <TabsTrigger
-              value='diamonds'
-              className='border-b-2 border-b-transparent py-1 text-xs font-medium data-[state=active]:border-b-black sm:py-2 sm:text-sm lg:text-base'
-            >
-              <IoDiamondOutline className='block' /> DIAMONDS
-            </TabsTrigger>
-            <TabsTrigger
-              value='gemstones'
-              className='border-b-2 border-b-transparent text-xs font-medium data-[state=active]:border-b-black sm:text-sm lg:text-base'
-            >
-              <TbCube3dSphere /> MOISSANITE <br className='sm:hidden' />&
-              GEMSTONES
-            </TabsTrigger>
-            <TabsTrigger
-              value='rings'
-              className='border-b-2 border-b-transparent text-xs font-medium data-[state=active]:border-b-black sm:text-sm lg:text-base'
-            >
-              <GiDiamondRing /> ETHREAL <br className='xs:hidden' /> RINGS
-            </TabsTrigger>
+            {data.map((category) => {
+              return (
+                <TabsTrigger
+                key={category.id}
+                  value={category.name}
+                  className='border-b-2 border-b-transparent py-1 text-xs font-medium data-[state=active]:border-b-black sm:py-2 sm:text-sm lg:text-base'
+                >
+                  <IoDiamondOutline className='block' /> {category.name}
+                </TabsTrigger>
+              );
+            })}
           </TabsList>
-          <TabsContent value='diamonds'>
-            <Tab1Content />
-          </TabsContent>
-          <TabsContent value='gemstones'>
-            <Tab1Content />
-          </TabsContent>
-          <TabsContent value='rings'>
-            <Tab1Content />
-          </TabsContent>
+          {data.map((category) => {
+            return (
+              <TabsContent value={category.name}  key={category.id}>
+                <Tab1Content data={category} />
+              </TabsContent>
+            );
+          })}
         </Tabs>
       </section>
     </section>
   );
 }
+
 export function EduBanner({ imgUrl, heading, className = '' }) {
   return (
     <div className={`relative ${className}`}>
