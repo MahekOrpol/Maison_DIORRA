@@ -40,15 +40,22 @@ async function getBlogTags() {
 export default async function Page({ params, searchParams }) {
   const { slug } = params;
   const categoryId = searchParams?.category || null;
+  const tagId = searchParams?.tags || null;
 
   // Fetch data in parallel
-  const [blogRes, categories, tags] = await Promise.all([
+  const [blogRes, categories, tags, popularPostsRes] = await Promise.all([
     fetch(`${BASE_URL}/api/v1/blogs/${slug}`, { cache: 'no-cache' }),
     getBlogCategories(),
-    getBlogTags()
+    getBlogTags(),
+    fetch(`${BASE_URL}/api/v1/blogs?isPopular=true&limit=4`, {
+      cache: 'no-store'
+    })
   ]);
 
   const { blog, previous, next } = await blogRes.json();
+  const popularPostsData = await popularPostsRes.json();
+  const popularPosts = popularPostsData.results || [];
+
   return (
     <div className='mb-8 md:mb-10'>
       <BlogsBanner
@@ -68,7 +75,7 @@ export default async function Page({ params, searchParams }) {
                 width={800}
                 height={100}
                 alt='Blog Image'
-                className='h-60 xs:h-96 sm:h-[600px] w-full rounded-md object-cover'
+                className='xs:h-96 h-60 w-full rounded-md object-cover sm:h-[600px]'
               />
             </div>
             <p className='my-1 text-sm font-light md:my-2 lg:text-base'>
@@ -107,6 +114,8 @@ export default async function Page({ params, searchParams }) {
               categories={categories}
               tags={tags}
               selectedCategoryId={categoryId}
+              selectedTagId={tagId}
+              popularPosts={popularPosts}
             />
           </div>
         </div>
@@ -117,14 +126,14 @@ export default async function Page({ params, searchParams }) {
         {previous ? (
           <Link
             href={`/blogs/${previous.slug}`}
-            className='inline-flex items-center gap-4 sm:border-r p-2'
+            className='inline-flex items-center gap-4 p-2 sm:border-r'
           >
             <img
               src={`${BASE_URL}${previous.coverImage}`}
               width={90}
               height={90}
               alt='article thumbnail'
-              className='rounded-lg object-cover h-[80px] sm:h-[100px] w-[100px]'
+              className='h-[80px] w-[100px] rounded-lg object-cover sm:h-[100px]'
             />
             <div className='space-y-1'>
               <p className='xs:text-xs inline-flex items-center text-[10px] font-medium tracking-widest'>
@@ -181,7 +190,7 @@ export default async function Page({ params, searchParams }) {
               width={90}
               height={90}
               alt='article thumbnail'
-              className='rounded-lg object-cover h-[100px] w-[100px]'
+              className='h-[100px] w-[100px] rounded-lg object-cover'
             />
           </Link>
         ) : (
@@ -205,7 +214,7 @@ export default async function Page({ params, searchParams }) {
           </div>
         )}
       </div>
-       {/* <ReviewForm /> */}
+      {/* <ReviewForm /> */}
     </div>
   );
 }

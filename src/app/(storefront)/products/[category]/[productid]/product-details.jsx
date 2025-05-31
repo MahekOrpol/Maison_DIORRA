@@ -503,7 +503,7 @@ export default function ProductDetails({
             <Button
               variant='outline'
               className='h-10 gap-4 rounded-lg border border-black text-base lg:h-12 lg:text-lg'
-              onClick={handleAddToCart}
+              // onClick={handleAddToCart}
             >
               <AiOutlineShoppingCart className='size-6' />
               Add to Cart

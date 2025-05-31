@@ -4,15 +4,26 @@ import Link from 'next/link';
 import { BlogsBanner } from './blogs-banner';
 // import { baseApiUrl } from '@/lib/utils';
 
-const BASE_URL = 'http://192.168.1.6:5000/api/v1';
+const BASE_URL = 'http://192.168.1.6:5000';
 
-async function getBlogPosts(categoryId = null, page = 1, limit = 6) {
+async function getBlogPosts(
+  categoryId = null,
+  page = 1,
+  limit = 6,
+  isPopular = false,
+  tagId = null
+) {
   try {
-    let url = `${BASE_URL}/blogs?page=${page}&limit=${limit}`;
+    let url = `${BASE_URL}/api/v1/blogs?page=${page}&limit=${limit}`;
     if (categoryId) {
       url += `&category=${categoryId}`;
     }
-
+    if (isPopular) {
+      url += `&isPopular=true`;
+    }
+    if (tagId) {
+      url += `&tags=${tagId}`; // Add tag filter to API request
+    }
     const response = await fetch(url, {
       cache: 'no-store'
     });
@@ -29,7 +40,7 @@ async function getBlogPosts(categoryId = null, page = 1, limit = 6) {
 
 async function getBlogCategories() {
   try {
-    const response = await fetch(`${BASE_URL}/blog-categories`, {
+    const response = await fetch(`${BASE_URL}/api/v1/blog-categories`, {
       cache: 'no-store'
     });
     if (!response.ok) {
@@ -45,7 +56,7 @@ async function getBlogCategories() {
 
 async function getBlogTags() {
   try {
-    const response = await fetch(`${BASE_URL}/tags`, {
+    const response = await fetch(`${BASE_URL}/api/v1/tags`, {
       cache: 'no-store'
     });
     if (!response.ok) {
@@ -61,15 +72,23 @@ async function getBlogTags() {
 
 export default async function BlogsPage({ searchParams }) {
   const categoryId = searchParams?.category || null;
+  const tagId = searchParams?.tags || null;
   const currentPage = Number(searchParams?.page) || 1;
-  const [blogData, categories, tags] = await Promise.all([
-    getBlogPosts(categoryId, currentPage),
+  const [blogData, categories, tags, popularPostsData] = await Promise.all([
+    getBlogPosts(categoryId, currentPage, 6, false, tagId),
     getBlogCategories(),
-    getBlogTags()
+    getBlogTags(),
+    getBlogPosts(null, 1, 4, true)
   ]);
 
   const updatedBlogPosts =
     blogData.results?.map((post, index) => ({
+      ...post,
+      image: post.coverImage || `/img/blogs/blog${index + 1}.png`
+    })) || [];
+
+  const popularPosts =
+    popularPostsData.results?.map((post, index) => ({
       ...post,
       image: post.coverImage || `/img/blogs/blog${index + 1}.png`
     })) || [];
@@ -89,7 +108,11 @@ export default async function BlogsPage({ searchParams }) {
         </div>
 
         <div className='xl:sticky xl:top-10 xl:h-fit xl:w-[30%] xl:self-start'>
-          <BlogsFilter categories={categories} tags={tags} />
+          <BlogsFilter
+            categories={categories}
+            tags={tags}
+            popularPosts={popularPosts}
+          />
         </div>
       </div>
 
@@ -99,13 +122,19 @@ export default async function BlogsPage({ searchParams }) {
           currentPage={currentPage}
           totalPages={blogData.totalPages || 1}
           categoryId={categoryId}
+          tagId={tagId}
         />
       </div>
     </div>
   );
 }
 
-export function BlogsFilter({ className, categories = [], tags = [] }) {
+export function BlogsFilter({
+  className,
+  categories = [],
+  tags = [],
+  popularPosts = []
+}) {
   function TitleText({ text }) {
     return (
       <div className='mb-2 md:mb-4'>
@@ -121,25 +150,30 @@ export function BlogsFilter({ className, categories = [], tags = [] }) {
       <div className='rounded-md border p-4 shadow-md sm:flex-1 xl:flex-0'>
         <TitleText text='Popular Posts' />
         <div className='flex flex-col'>
-          {Array.from({ length: 4 }).map((_, i) => (
-            <div
-              className='flex gap-2 border-black/40 py-3 not-last:border-b'
-              key={i}
-            >
-              <Image
-                src='/img/blogs/blog10.png'
-                width={100}
-                height={100}
-                alt='Blog image'
-                className=''
-              />
-              <div>
-                <p className='mb-1 text-lg leading-5 font-medium'>
-                  The North Earings Bronze
-                </p>
-                <p className='text-sm font-medium'>Mar 09 2024</p>
+          {popularPosts.map((post) => (
+            <Link href={`/blogs/${post.slug || post.id}`} key={post.id}>
+              <div className='flex cursor-pointer gap-2 border-black/40 py-3 not-last:border-b hover:bg-gray-50'>
+                <img
+                  src={`${BASE_URL}${post.coverImage}`}
+                  width={100}
+                  height={100}
+                  alt={post.title}
+                  className='object-cover'
+                />
+                <div>
+                  <p className='mb-1 line-clamp-2 text-lg leading-5 font-medium'>
+                    {post.title}
+                  </p>
+                  <p className='text-sm font-medium'>
+                    {new Date(post.createdAt).toLocaleDateString('en-US', {
+                      month: 'short',
+                      day: '2-digit',
+                      year: 'numeric'
+                    })}
+                  </p>
+                </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
@@ -170,7 +204,7 @@ export function BlogsFilter({ className, categories = [], tags = [] }) {
             {tags.map((tag) => (
               <Link
                 key={tag.id}
-                href={`/blogs?tag=${tag.name}`}
+                href={`/blogs?tags=${tag.id}`}
                 className='border border-black px-3 py-[2px] font-light transition-all duration-200 hover:bg-black hover:text-white'
               >
                 {tag.name}
@@ -183,12 +217,16 @@ export function BlogsFilter({ className, categories = [], tags = [] }) {
   );
 }
 
-export function Pagination({ currentPage, totalPages, categoryId }) {
+export function Pagination({ currentPage, totalPages, categoryId, tagId }) {
   const prevPage = currentPage > 1 ? currentPage - 1 : null;
   const nextPage = currentPage < totalPages ? currentPage + 1 : null;
 
   // Generate base URL with category if exists
-  const baseUrl = categoryId ? `/blogs?category=${categoryId}` : '/blogs';
+  const baseUrl = categoryId
+    ? `/blogs?category=${categoryId}`
+    : tagId
+      ? `/blogs?tag=${tagId}`
+      : '/blogs';
 
   return (
     <div className='mt-8 flex items-center justify-center gap-4'>

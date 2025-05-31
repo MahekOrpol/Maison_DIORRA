@@ -243,12 +243,7 @@ export function ScheduleCallDialog({ open, setOpen }) {
                           }}
                         >
                           <SelectTrigger className='w-full'>
-                            <SelectValue
-                              placeholder='+1'
-                              renderValue={() =>
-                                `${country.code} ${country.name}`
-                              }
-                            />
+                            <SelectValue placeholder='+1' value={`${country.code} ${country.name}`} />
                           </SelectTrigger>
                           <SelectContent>
                             {countryOptions.map((c) => (
