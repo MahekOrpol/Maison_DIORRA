@@ -68,7 +68,7 @@ export default function PreviewCard({
     if (isClientMobile) {
       setIsProductClicked(true);
     } else {
-      console.log(selectedMetal);
+      // console.log(selectedMetal);
       router.push(
         `/products/${product?.categoryName}/${product._id}?metal=${selectedMetal.metal}&mv=${selectedMetal._id}`
         // `/products/${product?.categoryName}/${product._id}`
